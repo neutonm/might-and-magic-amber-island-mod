@@ -1,0 +1,255 @@
+Name	Id	Radius	Height	Invisible	Untouchable	Temporary	LifetimeInSFT	NoPickup	NoGravity	InterceptAction	Bounce	TrailParticles	TrailFire	TrailLine	SFTGroup	LifeTime	Speed	ParticleR	ParticleG	ParticleB	ParticleA
+Null	0	16	16	-	-	-	-	-	-	-	-	-	-	-	null	0	0	0	0	0	0
+Widget	666	8	6	-	-	x	-	x	-	-	x	x	-	-	null	768	1000	64	128	64	0
+longsword	1	64	64	-	-	-	-	-	-	-	x	-	-	-	obj001	0	0	0	0	0	0
+2 handed sword	2	64	64	-	-	-	-	-	-	-	x	-	-	-	obj006	0	0	0	0	0	0
+Broadsword	3	64	64	-	-	-	-	-	-	-	x	-	-	-	obj009	0	0	0	0	0	0
+Cutlass	4	64	64	-	-	-	-	-	-	-	x	-	-	-	obj012	0	0	0	0	0	0
+Dagger	5	64	64	-	-	-	-	-	-	-	x	-	-	-	obj016	0	0	0	0	0	0
+Long Dagger	6	64	64	-	-	-	-	-	-	-	x	-	-	-	obj016	0	0	0	0	0	0
+axe	7	64	64	-	-	-	-	-	-	-	x	-	-	-	obj023	0	0	0	0	0	0
+Two handed axe	8	64	64	-	-	-	-	-	-	-	x	-	-	-	obj028	0	0	0	0	0	0
+Spear	9	64	64	-	-	-	-	-	-	-	x	-	-	-	obj031	0	0	0	0	0	0
+Halberd	10	64	64	-	-	-	-	-	-	-	x	-	-	-	obj036	0	0	0	0	0	0
+Trident	11	64	64	-	-	-	-	-	-	-	x	-	-	-	obj039	0	0	0	0	0	0
+Long bow	12	64	64	-	-	-	-	-	-	-	x	-	-	-	obj042	0	0	0	0	0	0
+Crossbow	13	64	64	-	-	-	-	-	-	-	x	-	-	-	obj047	0	0	0	0	0	0
+Mace	14	64	64	-	-	-	-	-	-	-	x	-	-	-	obj050	0	0	0	0	0	0
+Hammer	15	64	64	-	-	-	-	-	-	-	x	-	-	-	obj055	0	0	0	0	0	0
+Club	16	64	64	-	-	-	-	-	-	-	x	-	-	-	obj058	0	0	0	0	0	0
+Staff	17	64	64	-	-	-	-	-	-	-	x	-	-	-	obj061	0	0	0	0	0	0
+Blaster Pistol	18	64	64	-	-	-	-	-	-	-	x	-	-	-	obj064	0	0	0	0	0	0
+Blaster Rifle	19	64	64	-	-	-	-	-	-	-	x	-	-	-	obj065	0	0	0	0	0	0
+Leather Armor	20	64	64	-	-	-	-	-	-	-	x	-	-	-	obj066	0	0	0	0	0	0
+Chainmail 	21	64	64	-	-	-	-	-	-	-	x	-	-	-	obj071	0	0	0	0	0	0
+Plate mail 	22	64	64	-	-	-	-	-	-	-	x	-	-	-	obj076	0	0	0	0	0	0
+Large Shield	23	64	64	-	-	-	-	-	-	-	x	-	-	-	obj079	0	0	0	0	0	0
+Small Shield 	24	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ084	0	0	0	0	0	0
+Helm	25	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ090	0	0	0	0	0	0
+Hat	26	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ094	0	0	0	0	0	0
+Crown	27	64	64	-	-	-	-	-	-	-	x	-	-	-	obj097	0	0	0	0	0	0
+Belt	28	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ101	0	0	0	0	0	0
+Cloak	29	64	64	-	-	-	-	-	-	-	x	-	-	-	obj105	0	0	0	0	0	0
+Gauntlets	30	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ111	0	0	0	0	0	0
+Boots	31	64	64	-	-	-	-	-	-	-	x	-	-	-	obj115	0	0	0	0	0	0
+Ring	32	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ120	0	0	0	0	0	0
+Amulet	33	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ130	0	0	0	0	0	0
+Wand	34	64	64	-	-	-	-	-	-	-	x	-	-	-	obj135	0	0	0	0	0	0
+Phirna Root	35	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ140	0	0	0	0	0	0
+Widowsweep Berries	36	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ141	0	0	0	0	0	0
+Mushrooms	37	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ142	0	0	0	0	0	0
+Poppysnaps 	38	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ143	0	0	0	0	0	0
+Rose petals 	39	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ144	0	0	0	0	0	0
+Vial of Troll's Blood	40	64	64	-	-	-	-	-	-	-	x	-	-	-	obj145	0	0	0	0	0	0
+Ruby	41	64	64	-	-	-	-	-	-	-	x	-	-	-	obj146	0	0	0	0	0	0
+Dragon's eye	42	64	64	-	-	-	-	-	-	-	x	-	-	-	obj147	0	0	0	0	0	0
+Meteorite fragment	43	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ148	0	0	0	0	0	0
+Harpy Feather	44	64	64	-	-	-	-	-	-	-	x	-	-	-	obj149	0	0	0	0	0	0
+Moonstone	45	64	64	-	-	-	-	-	-	-	x	-	-	-	obj150	0	0	0	0	0	0
+Toadstool	46	64	64	-	-	-	-	-	-	-	x	-	-	-	obj151	0	0	0	0	0	0
+Fae dust	47	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ152	0	0	0	0	0	0
+Sulfur	48	64	64	-	-	-	-	-	-	-	x	-	-	-	obj153	0	0	0	0	0	0
+Garnet	49	64	64	-	-	-	-	-	-	-	x	-	-	-	obj154	0	0	0	0	0	0
+Vial of Devil Ichor	50	64	64	-	-	-	-	-	-	-	x	-	-	-	obj155	0	0	0	0	0	0
+Obsidian	51	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ156	0	0	0	0	0	0
+Vial of Ooze endoplasm	52	64	64	-	-	-	-	-	-	-	x	-	-	-	obj157	0	0	0	0	0	0
+Mercury	53	64	64	-	-	-	-	-	-	-	x	-	-	-	obj158	0	0	0	0	0	0
+Philosopher's Stone	54	64	64	-	-	-	-	-	-	-	x	-	-	-	obj159	0	0	0	0	0	0
+Blue Potion	55	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ160	0	0	0	0	0	0
+Red Potion	56	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ161	0	0	0	0	0	0
+Yellow Potion	57	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ162	0	0	0	0	0	0
+White Potion	58	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ163	0	0	0	0	0	0
+Gray Potion	59	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ164	0	0	0	0	0	0
+Black Potion	60	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ165	0	0	0	0	0	0
+Purple Potion	61	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ166	0	0	0	0	0	0
+Green Potion	62	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ167	0	0	0	0	0	0
+Orange Potion	63	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ168	0	0	0	0	0	0
+Red and Orange Potion	64	64	64	-	-	-	-	-	-	-	x	-	-	-	null	0	0	0	0	0	0
+Red and Purple Potion	65	64	64	-	-	-	-	-	-	-	x	-	-	-	null	0	0	0	0	0	0
+Red and Green Potion	66	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ171	0	0	0	0	0	0
+Blue and Orange Potion	67	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ172	0	0	0	0	0	0
+Blue and Purple Potion	68	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ173	0	0	0	0	0	0
+Blue and Green Potion	69	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ174	0	0	0	0	0	0
+Yellow and Orange Potion	70	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ175	0	0	0	0	0	0
+Yellow and Purple Potion	71	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ176	0	0	0	0	0	0
+Yellow and Green Potion	72	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ177	0	0	0	0	0	0
+Orange and Purple Potion	73	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ178	0	0	0	0	0	0
+Purple and Green Potion	74	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ179	0	0	0	0	0	0
+Orange and Green Potion	75	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ180	0	0	0	0	0	0
+Empty Potion Bottle	76	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ181	0	0	0	0	0	0
+Scroll	77	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ182	0	0	0	0	0	0
+Spellbook	78	64	64	-	-	-	-	-	-	-	x	-	-	-	obj190	0	0	0	0	0	0
+Gem	79	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ196	0	0	0	0	0	0
+Key	80	64	64	-	-	-	-	-	-	-	x	-	-	-	obj205	0	0	0	0	0	0
+Peacock Feather Quill	81	64	64	-	-	-	-	-	-	-	x	-	-	-	obj247	0	0	0	0	0	0
+Wetsuit	82	64	64	-	-	-	-	-	-	-	x	-	-	-	obj299	0	0	0	0	0	0
+Signet Ring	83	64	64	-	-	-	-	-	-	-	x	-	-	-	obj250	0	0	0	0	0	0
+Sealed Letter	84	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter	85	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter	86	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter	87	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter 	88	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter 	89	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter	90	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Sealed Letter	91	64	64	-	-	-	-	-	-	-	x	-	-	-	obj251	0	0	0	0	0	0
+Lich Jar	92	64	64	-	-	-	-	-	-	-	x	-	-	-	obj259	0	0	0	0	0	0
+Genie Lamp	93	64	64	-	-	-	-	-	-	-	x	-	-	-	obj260	0	0	0	0	0	0
+Statuette	94	64	64	-	-	-	-	-	-	-	x	-	-	-	obj261	0	0	0	0	0	0
+Statuette	95	64	64	-	-	-	-	-	-	-	x	-	-	-	obj262	0	0	0	0	0	0
+Statuette	96	64	64	-	-	-	-	-	-	-	x	-	-	-	obj263	0	0	0	0	0	0
+Big Tapestry	97	64	64	-	-	-	-	-	-	-	x	-	-	-	obj365	0	0	0	0	0	0
+Painting 1	98	64	64	-	-	-	-	-	-	-	x	-	-	-	obj265	0	0	0	0	0	0
+Painting 2	99	64	64	-	-	-	-	-	-	-	x	-	-	-	obj265	0	0	0	0	0	0
+Painting 3	100	64	64	-	-	-	-	-	-	-	x	-	-	-	obj265	0	0	0	0	0	0
+Vase	101	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ268	0	0	0	0	0	0
+Flower	102	64	64	-	-	-	-	-	-	-	x	-	-	-	obj269	0	0	0	0	0	0
+Skull	103	64	64	-	-	-	-	-	-	-	x	-	-	-	obj270	0	0	0	0	0	0
+Thigh Bone	104	64	64	-	-	-	-	-	-	-	x	-	-	-	obj271	0	0	0	0	0	0
+Jar with Magic Dust	105	64	64	-	-	-	-	-	-	-	x	-	-	-	obj272	0	0	0	0	0	0
+Bottle of Poison	106	64	64	-	-	-	-	-	-	-	x	-	-	-	obj273	0	0	0	0	0	0
+Red Apple	107	64	64	-	-	-	-	-	-	-	x	-	-	-	obj274	0	0	0	0	0	0
+Wealthy Hat	108	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ275	0	0	0	0	0	0
+Musical Instrument 1	109	64	64	-	-	-	-	-	-	-	x	-	-	-	Obj276	0	0	0	0	0	0
+Musical Instrument 2	110	64	64	-	-	-	-	-	-	-	x	-	-	-	Obj277	0	0	0	0	0	0
+Musical Instrument 3	111	64	64	-	-	-	-	-	-	-	x	-	-	-	Obj278	0	0	0	0	0	0
+Seashell	112	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ279	0	0	0	0	0	0
+Floor Tile	113	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ280	0	0	0	0	0	0
+Winged Sandals	114	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ281	0	0	0	0	0	0
+Scarf	115	64	64	-	-	-	-	-	-	-	x	-	-	-	obj282	0	0	0	0	0	0
+Golem parts 	116	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283a	0	0	0	0	0	0
+Golem parts	117	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283b	0	0	0	0	0	0
+Golem parts	118	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283c	0	0	0	0	0	0
+Golem parts	119	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283d	0	0	0	0	0	0
+Golem parts	120	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283e	0	0	0	0	0	0
+Golem parts	121	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283f	0	0	0	0	0	0
+Golem parts	122	64	64	-	-	-	-	-	-	-	x	-	-	-	obj283g	0	0	0	0	0	0
+Horseshoe	123	64	64	-	-	-	-	-	-	-	x	-	-	-	obj284	0	0	0	0	0	0
+Reptilian Egg	124	64	64	-	-	-	-	-	-	-	x	-	-	-	obj285	0	0	0	0	0	0
+Lantern	125	64	64	-	-	-	-	-	-	-	x	-	-	-	obj286	0	0	0	0	0	0
+Rope	126	64	64	-	-	-	-	-	-	-	x	-	-	-	obj287	0	0	0	0	0	0
+Castle in a Bottle	127	64	64	-	-	-	-	-	-	-	x	-	-	-	obj288	0	0	0	0	0	0
+Deck of Cards (Arcomage)	128	64	64	-	-	-	-	-	-	-	x	-	-	-	obj289	0	0	0	0	0	0
+horned helm	129	64	64	-	-	-	-	-	-	-	x	-	-	-	null	0	0	0	0	0	0
+Gold	130	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ187	0	0	0	0	0	0
+Gold	131	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ188	0	0	0	0	0	0
+Gold	132	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ189	0	0	0	0	0	0
+Wet Suit	133	64	64	-	-	-	-	-	-	-	x	-	-	-	obj299	0	0	0	0	0	0
+Lich Jar Case	134	64	64	-	-	-	-	-	-	-	x	-	-	-	obj351	0	0	0	0	0	0
+Good half of amulet	135	64	64	-	-	-	-	-	-	-	x	-	-	-	obj363	0	0	0	0	0	0
+evil half of amulet	136	64	64	-	-	-	-	-	-	-	x	-	-	-	obj364	0	0	0	0	0	0
+ore	137	64	64	-	-	-	-	-	-	-	x	-	-	-	obj353	0	0	0	0	0	0
+ore	138	64	64	-	-	-	-	-	-	-	x	-	-	-	obj354	0	0	0	0	0	0
+ore	139	64	64	-	-	-	-	-	-	-	x	-	-	-	obj355	0	0	0	0	0	0
+ore	140	64	64	-	-	-	-	-	-	-	x	-	-	-	obj356	0	0	0	0	0	0
+ore	141	64	64	-	-	-	-	-	-	-	x	-	-	-	obj357	0	0	0	0	0	0
+ore	142	64	64	-	-	-	-	-	-	-	x	-	-	-	obj358	0	0	0	0	0	0
+control cube	143	64	64	-	-	-	-	-	-	-	x	-	-	-	obj361	0	0	0	0	0	0
+crate 	144	64	64	-	-	-	-	-	-	-	x	-	-	-	OBJ183	0	0	0	0	0	0
+Heart of the Wood	145	64	64	-	-	-	-	-	-	-	x	-	-	-	obj297	0	0	0	0	0	0
+Tapestry	146	64	32	-	-	-	-	-	-	-	x	-	-	-	obj365	0	0	0	0	0	0
+oscillation overthruster	147	64	64	-	-	-	-	-	-	-	x	-	-	-	obj362	0	0	0	0	0	0
+empty lich jar	148	64	64	-	-	-	-	-	-	-	x	-	-	-	obj294	0	0	0	0	0	0
+splash	800	16	16	-	-	x	x	x	x	-	-	-	-	-	splash	48	0	0	0	0	0
+Fire Bolt	1010	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	1011	16	16	-	-	x	-	x	x	-	-	-	-	-	null	64	0	0	0	0	0
+Fireball	1050	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	1051	16	16	-	-	x	x	x	x	-	-	-	-	-	spell01	96	0	0	0	0	0
+Fire Spike	1060	16	16	-	-	x	-	x	-	x	x	-	-	-	spell07	7680	1000	0	0	0	0
+explosion	1061	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Immolation	1070	16	16	-	-	x	-	x	x	-	-	-	-	-	null	64	0	0	0	0	0
+Meteor Shower	1080	16	16	-	-	x	-	x	-	x	-	-	-	-	spell09	768	1000	0	0	0	0
+explosion	1081	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Inferno	1090	16	16	-	-	x	-	x	x	-	-	-	-	-	null	64	1000	0	0	0	0
+explosion	1091	16	16	-	-	x	-	x	x	-	-	-	-	-	null	64	0	0	0	0	0
+Incinerate	1100	16	16	-	-	x	-	x	x	x	-	-	-	-	spell11	768	4000	0	0	0	0
+explosion	1101	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Sparks	2030	16	16	-	-	x	-	x	-	x	-	-	-	-	spell02	768	1000	0	0	0	0
+explosion	2031	16	16	-	-	x	-	x	x	-	-	-	-	-	null	64	0	0	0	0	0
+Lightning Bolt	2060	16	16	-	-	x	-	x	x	x	-	-	-	-	spell18	128	8000	0	0	0	0
+explosion	2061	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Implosion	2080	16	16	-	-	x	-	x	x	-	-	-	-	-	spell57c	64	0	0	0	0	0
+explosion	2081	16	16	-	-	x	x	x	x	-	-	-	-	-	spell57c	8	0	0	0	0	0
+Starburst	2100	16	16	-	-	x	-	x	x	x	-	-	-	-	spell22	768	4000	0	0	0	0
+explosion	2101	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Poison Spray	3010	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	1500	0	0	0	0
+explosion	3011	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Ice Bolt	3030	16	16	-	-	x	-	x	x	x	-	-	-	-	spell26	768	4000	0	0	0	0
+explosion	3031	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Acid Burst	3060	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	3061	16	16	-	-	x	x	x	x	-	-	-	-	-	spell29	64	0	0	0	0	0
+Ice Blast	3090	16	16	-	-	x	-	x	x	x	-	-	-	-	spell26	768	4000	0	0	0	0
+explosion	3091	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+shard	3092	16	16	-	-	x	-	x	x	x	-	-	-	-	spell26	768	4000	0	0	0	0
+Stun	4000	16	16	-	-	x	-	x	x	x	-	-	-	-	spell03	768	4000	0	0	0	0
+Slow	4010	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	4011	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Deadly Swarm	4030	16	16	-	-	x	-	x	x	x	-	-	-	-	spell37	768	4000	0	0	0	0
+explosion	4031	16	16	-	-	x	x	x	x	-	-	-	-	-	spell37c	128	0	0	0	0	0
+Blades	4050	16	16	-	-	x	-	x	x	x	-	-	-	-	spell39	768	4000	0	0	0	0
+explosion	4051	16	16	-	-	x	x	x	x	-	-	-	-	-	spell39c	8	0	0	0	0	0
+Rock Blast	4070	16	16	-	-	x	-	x	x	x	-	-	-	-	spell41	768	4000	0	0	0	0
+explosion	4071	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Death Blossom	4090	16	16	-	-	x	-	x	-	x	-	-	-	-	spell41	320	1500	0	0	0	0
+explosion	4091	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+shard	4092	16	16	-	-	x	-	x	-	x	-	-	-	-	spell41	1000	500	0	0	0	0
+Mass Distortion	4100	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	4101	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Spirit Lash	5070	16	16	-	-	x	-	x	x	-	-	-	-	-	null	0	0	0	0	0	0
+explosion	5071	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Mind Blast	6010	16	16	-	-	x	-	x	x	x	-	-	-	-	spell57	768	4000	0	0	0	0
+explosion	6011	16	16	-	-	x	x	x	x	-	-	-	-	-	spell57c	8	0	0	0	0	0
+Telepathy	6030	16	16	-	-	x	x	x	x	-	-	-	-	-	spell59	64	0	0	0	0	0
+Charm	6040	16	16	-	-	x	x	x	x	-	-	-	-	-	spell60	64	4000	0	0	0	0
+explosion	6041	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Berzerk	6060	16	16	-	-	x	x	x	x	-	-	-	-	-	spell62	64	0	0	0	0	0
+explosion	6061	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Mass Fear	6070	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	6071	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Psychic Shock	6090	16	16	-	-	x	-	x	x	x	-	-	-	-	spell65	768	4000	0	0	0	0
+explosion	6091	16	16	-	-	x	x	x	x	-	-	-	-	-	spell57c	8	0	0	0	0	0
+Enslave	6100	16	16	-	-	x	x	x	x	-	-	-	-	-	spell66	64	0	0	0	0	0
+explosion	6101	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Harm	7030	16	16	-	-	x	-	x	x	x	-	-	-	-	spell70	768	4000	0	0	0	0
+explosion	7031	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Flying Fist	7090	16	16	-	-	x	-	x	x	x	-	-	-	-	spell76	768	4000	0	0	0	0
+explosion	7091	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Light Bolt	8000	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	8001	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Destroy Undead	8010	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	8011	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Paralyze	8030	16	16	-	-	x	-	x	x	x	-	-	-	-	null	768	4000	0	0	0	0
+explosion	8031	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Prismatic Light	8060	16	16	-	-	x	-	x	x	x	-	-	-	-	spell84	768	4000	0	0	0	0
+explosion	8061	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Sunray	8090	16	16	-	-	x	-	x	x	x	-	-	-	-	spell87	128	8000	0	0	0	0
+explosion	8091	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Toxic Cloud	9010	16	16	-	-	x	-	x	x	x	-	-	-	-	spell90	768	2000	0	0	0	0
+explosion	9011	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Shrinking Ray	9030	16	16	-	-	x	-	x	x	x	-	-	-	-	spell92	768	4000	0	0	0	0
+explosion	9031	16	16	-	-	x	-	x	x	-	-	-	-	-	null	0	0	0	0	0	0
+Shrap Metal	9040	16	16	-	-	x	-	x	x	x	-	-	-	-	spell93	768	4000	0	0	0	0
+explosion	9041	16	16	-	-	x	x	x	x	-	-	-	-	-	spell57c	8	0	0	0	0	0
+Control Undead	9050	16	16	-	-	x	x	x	x	-	-	-	-	-	spell94	72	0	0	0	0	0
+Dragon Breath	9080	16	16	-	-	x	-	x	x	x	-	-	-	-	spell97	768	4000	0	0	0	0
+explosion	9081	16	16	-	-	x	x	x	x	-	-	-	-	-	spell97c	64	0	0	0	0	0
+Souldrinker	9100	16	16	-	-	x	-	x	x	-	-	-	-	-	null	0	0	0	0	0	0
+explosion	9110	16	16	-	-	x	x	x	x	-	-	-	-	-	null	16	0	0	0	0	0
+Air	500	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	6000	0	0	0	0
+Earth	505	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Fire	510	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Water	515	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Body	520	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Mind	525	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Spirit	530	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Light	535	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Dark	540	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Arrow	545	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+FireArrow	550	16	16	-	-	x	-	x	x	x	-	-	-	-	arrowA	768	4000	0	0	0	0
+Laser	555	16	16	-	-	x	-	x	x	x	-	-	-	-	lzrbolt	768	6000	0	0	0	0
+explosion	556	16	16	-	-	x	x	x	x	-	-	-	-	-	lzrboltx	8	0	0	0	0	0
+explosive death	600	16	16	-	-	x	-	x	x	x	-	-	-	-	null	0	0	0	0	0	0
+explosion	601	16	16	-	-	x	x	x	x	-	-	-	-	-	spell01	96	0	0	0	0	0
+FireTrap	811	16	16	-	-	x	x	x	x	-	-	-	-	-	spell01	96	0	0	0	0	0
+ElecTrap	812	16	16	-	-	x	x	x	x	-	-	-	-	-	spell02	96	0	0	0	0	0
+ColdTrap	813	16	16	-	-	x	x	x	x	-	-	-	-	-	spell97c	64	0	0	0	0	0
+PoisonTrap	814	16	16	-	-	x	x	x	x	-	-	-	-	-	spell29	64	0	0	0	0	0

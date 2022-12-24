@@ -1,0 +1,15 @@
+	Human	Elf	Goblin	Dwarf
+Might	11/25	7/15	14/30	14/30
++ add	1	1/2	2	2
+Intellect	11/25	14/30	7/15	11/25
++ add	1	2	1/2	1
+Personality	11/25	11/25	7/15	11/25
++ add	1	1	1/2	1
+Endurance	9/25	7/15	11/25	14/30
++ add	1	1/2	1	2
+Accuracy	11/25	14/30	11/25	7/15
++ add	1	2	1	1/2
+Speed	11/25	11/25	14/30	7/15
++ add	1	1	2	1/2
+Luck	9/25	9/20	9/20	9/20
++ add	1	1	1	1

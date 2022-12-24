@@ -1,0 +1,2651 @@
+Name	Id	Type	Is3D
+	0	system	-
+campfire	4	0	-
+enter	6	system	-
+wooddrclose	7	system	-
+fireBall	8	system	-
+fountain	10	0	x
+boat	18	0	x
+ClickIn	19	system	-
+ClickMinus	20	system	-
+ClickMovingSelector	21	system	-
+ClickOut	22	system	-
+ClickPlus	23	system	-
+ClickSkill	24	system	-
+ClickStart	25	system	-
+pending	26	system	-
+Error	27	system	-
+hit with arrow01l	28	system	-
+metal vs leather03h	44	system	-
+metal vs metal01l	45	system	-
+metal vs metal03h	47	system	-
+	48	system	-
+RunBadlands	49	0	x
+RunCarpet	50	0	x
+RunCooledLava	51	0	x
+RunDesert	52	0	x
+RunDirt	53	0	x
+RunGrass	54	0	x
+RunIce	55	0	x
+RunMud	56	0	x
+RunRoad	57	0	x
+RunSnow	58	0	x
+RunStone	59	0	x
+RunStoneHall	60	0	x
+RunSwamp	61	0	x
+RunWater	62	0	x
+RunWaterIndoor	63	0	x
+RunWood	64	0	x
+RunWoodPlanking	65	0	-
+SelectingANewCharacter	66	system	-
+shoot blaster01	67	system	-
+shoot bow01	71	system	x
+StartMainChoice01	74	system	-
+StartMainChoice02	75	system	-
+StartMainChoice03	76	system	-
+StartMainChoice04	77	system	-
+swing with axe01	78	system	-
+swing with axe03	80	system	-
+swing with blunt weapon01	81	system	-
+swing with blunt weapon03	83	system	-
+swing with sword01	84	system	-
+swing with sword02	85	system	-
+ViewingANewCharacter	87	system	-
+WalkBadlands	88	0	x
+WalkCarpet	89	0	x
+WalkCooledLava	90	0	x
+WalkDesert	91	0	x
+WalkDirt	92	0	x
+WalkGrass	93	0	x
+WalkIce	94	0	x
+WalkMud	95	0	x
+WalkRoad	96	0	x
+WalkSnow	97	0	x
+WalkStone	98	0	x
+WalkStoneHall	99	0	x
+WalkSwamp	100	0	x
+WalkWater	101	0	x
+WalkWaterIndoor	102	0	x
+WalkWood	103	0	x
+WalkWoodPlanking	104	0	x
+wood vs metal01l	105	system	-
+wood vs metal02m	106	system	-
+wood vs metal03h	107	system	-
+wood weapon vs leather01l	108	system	-
+wood weapon vs leather02m	109	system	-
+wood weapon vs leather03h	110	system	-
+bricks down	120	0	-
+bricks up	121	0	-
+damage	122	0	-
+deal	123	0	-
+defeat	124	0	-
+quarry up	125	0	-
+quarry down	126	0	-
+shuffle	127	0	-
+title	128	0	-
+tower up	129	0	-
+typing	130	0	-
+victory	131	0	-
+wall up	132	0	-
+luteguitar	133	system	-
+panflute	134	system	-
+trumpet	135	system	-
+gold01	200	system	-
+tip	201	swap	-
+heal	202	swap	-
+fizzle	203	swap	-
+TurnPageU	204	system	-
+TurnPageD	205	system	-
+batlleen	206	system	-
+batllest	207	system	-
+openchest0101	208	swap	-
+spellfail0201	209	system	-
+drink	210	swap	-
+eat	211	swap	-
+pickup	212	swap	-
+fixit	213	swap	-
+mixpotion	214	swap	-
+gong	215	swap	-
+flute	216	swap	-
+harp	217	swap	-
+church	218	swap	-
+chimes	219	swap	-
+splash	220	swap	-
+star1	221	system	-
+star2	222	system	-
+star4	224	system	-
+eradicate	225	system	-
+eleccircle	226	system	-
+encounter	227	swap	-
+bubbling cauldron01	228	0	-
+memorycrystal	229	0	-
+openbook	230	system	-
+closebook	231	system	-
+teleport	232	swap	-
+wolfhowl	233	0	x
+wood door0101	300	0	x
+dr_lock401	301	0	x
+wood door0201	302	0	x
+dr_lock101	303	0	x
+wood door0301	304	0	x
+dr_lock101	305	0	x
+wood door0401	306	0	x
+dr_lock101	307	0	x
+wood door0501	308	0	x
+dr_lock401	309	0	x
+stone door0101	400	0	x
+stone doorclse0101	401	0	x
+stone door0201	402	0	x
+stone doorclse0101	403	0	x
+stone door0301	404	0	x
+stone doorclse0101	405	0	x
+stone door0401	406	0	x
+stone doorclse0101	407	0	x
+stone door0501	408	0	x
+stone doorclse0101	409	0	x
+Alarm Bell 1	500	swap	-
+Alarm Bell 2	501	swap	-
+Cargo Elevator	502	swap	-
+Cargo Elevatorb	503	swap	-
+Church Bell	504	swap	-
+Going Down	505	swap	-
+Going Downb	506	swap	-
+Going Up	507	swap	-
+Going Upb	508	swap	-
+Tone1	509	swap	-
+Tone2	510	swap	-
+Tone3	511	swap	-
+Tone4	512	swap	-
+Alarm Bell 1b	513	swap	-
+Alarm Bell 2b	514	swap	-
+humming	515	swap	-
+hesgone	997	swap	-
+death	998	swap	-
+TorchLight	10000	swap	-
+04firebolt01	10010	swap	x
+04firebolt03	10011	swap	x
+TorchLight2	10020	swap	-
+Fireaura01	10030	swap	x
+Haste	10040	swap	-
+06fireball01	10050	swap	x
+Fireball2	10051	swap	x
+08fireblast03	10060	swap	x
+06fireball03	10061	swap	x
+Immolation	10070	swap	x
+Meteor Shower 1	10080	swap	x
+09metoershower03	10081	swap	x
+Inferno	10090	swap	x
+Incinerate	10100	swap	x
+11Incinerate03	10101	swap	x
+12WizardEye03	11000	swap	-
+FeatherFall	11010	swap	-
+14p	11020	swap	-
+15Sparks01	11030	swap	x
+15sparks03	11031	swap	-
+29unlock03	11040	swap	-
+shield02_character-portrait	11050	swap	-
+18LightningBolt03	11060	swap	x
+wizard_eye_interface-image	11070	swap	-
+20implosion03	11080	swap	-
+21fly03	11090	swap	-
+Starburst	11100	swap	-
+22Starburst03	11101	swap	-
+23Awaken03	12000	swap	-
+Poison Spray	12010	swap	x
+24coldbeam03	12011	swap	-
+Water Resistance	12020	swap	-
+Ice Bolt	12030	swap	-
+28icebolt03	12031	swap	-
+Waterwalk	12040	swap	-
+Dispell Magic	12050	swap	x
+39blades03	12060	swap	-
+20implosion03	12071	swap	-
+Enchant Item	12070	swap	x
+Town Portal	12080	swap	-
+IceBlast	12090	swap	-
+IceBlast2	12091	swap	-
+Lloyds beacon	12100	swap	-
+Stun1	13000	swap	-
+34Stun03	13001	swap	-
+44MassDistortion03	13010	swap	-
+Earth Resistance	13020	swap	-
+37DeadlySwarm03	13030	swap	-
+Deadly Swarm Explosion	13031	swap	-
+Stoneskin	13040	swap	-
+92shapmetal01	13050	swap	-
+40stonetoflesh03	13060	swap	-
+rockblast_projectile	13070	swap	-
+41rockblast03	13071	swap	-
+Day of Protection	13080	swap	-
+43deathblossom01	13090	swap	-
+43deathblossom03	13091	swap	-
+44MassDistortion01	13100	swap	-
+Detect Life	14000	swap	-
+Bless	14010	swap	-
+Fate	14020	swap	-
+54sharedlife03	14030	swap	-
+49RemoveCurse03	14040	swap	-
+Preservation	14050	swap	-
+51heroism03	14060	swap	-
+28icebolt01	14070	swap	-
+53raisedead03	14080	swap	-
+54Sharedlife03	14090	swap	-
+55resurection03	14100	swap	-
+57removefear03	15000	swap	-
+MindBlast_Frnt_projectile	15010	swap	-
+58mindblast03	15011	swap	-
+Mind resistance	15020	swap	-
+Telepathy	15030	swap	-
+Heroism	15040	swap	-
+60cureparalasis03	15050	swap	-
+63feeblemind02	15060	swap	-
+65psychicshock03	15070	swap	-
+64cureinsanity03	15080	swap	-
+Psychic Shock	15090	swap	-
+58mindblast03	15091	swap	-
+Enslave	15100	swap	-
+Cure Weakness	16000	swap	-
+Heal	16010	swap	-
+69protectionfrompoison03	16020	swap	-
+harm_rear_projectile	16030	swap	-
+Harm	16031	swap	-
+Regeneration	16040	swap	-
+72curepoison03	16050	swap	-
+hammerhands_character-portrait	16060	swap	-
+74curedisease03	16070	swap	-
+awaken2	16080	swap	-
+Flying Fist	16090	swap	-
+76flyingfist03	16091	swap	-
+Power Cure	16100	swap	-
+02Flame01	17000	swap	-
+02Flame03	17001	swap	-
+55resurection03	17010	swap	-
+Recharge Item	17020	swap	-
+Paralyze	17030	swap	-
+Sparks	17040	swap	-
+Day of the Gods	17050	swap	-
+Prismatic Light	17060	swap	-
+94dayofprotection03	17070	swap	-
+9armageddon01	17080	swap	-
+sunray	17090	swap	-
+86sunray03	17091	swap	-
+Devine Intervention	17100	swap	-
+Reanimate	18000	swap	-
+Toxic Cloud	18010	swap	-
+90toxiccloud03	18011	swap	-
+Vampric Weapon	18020	swap	-
+Shrink ray	18030	swap	-
+Shrapmetal_projectile_bb	18040	swap	-
+92shapmetal03	18041	swap	-
+Control Undead	18050	swap	-
+Sacrifice2	18060	swap	-
+Soul Drinker	18070	swap	-
+Dragon Breath	18080	swap	-
+dragonbreath_explosion	18081	swap	-
+9armageddon02	18090	swap	-
+95fingerofdeath01	18100	swap	-
+Arch-angel_attk	1000	0	x
+Arch-angel_die	1001	0	x
+Arch-angel_wince	1002	0	x
+Arch-angel_fly	1003	0	x
+Archer-male_attk	1010	0	x
+Archer-male_die	1011	0	x
+Archer-male_wince	1012	0	x
+	1013	0	x
+Bat_attk	1020	0	x
+Bat_die	1021	0	x
+Bat_wince	1022	0	x
+Bat_aware	1023	0	x
+Behemoth_attk	1030	0	x
+Behemoth_die	1031	0	x
+Behemoth_wince	1032	0	x
+Behemoth_aware	1033	0	x
+Beholder_attk	1040	0	x
+Beholder_die	1041	0	x
+Beholder_wince	1042	0	x
+Beholder_aware	1043	0	x
+Cleric-moon_attk	1050	0	x
+Cleric-moon_die	1051	0	x
+Cleric-moon_wince	1052	0	x
+	1053	0	x
+Cleric-sun_attk	1060	0	x
+Cleric-sun_die	1061	0	x
+Cleric-sun_wince	1062	0	x
+	1063	0	x
+Devil_attk	1070	0	x
+Devil_die	1071	0	x
+Devil_wince	1072	0	x
+Devil_aware	1073	0	x
+Dragon _attk	1080	0	x
+Dragon _die	1081	0	x
+Dragon _wince	1082	0	x
+Dragon_aware	1083	0	x
+Dragonfly_attk	1090	0	x
+Dragonfly_die	1091	0	x
+Dragonfly_wince	1092	0	x
+Dragonfly_aware	1093	0	x
+Dwarf_attk	1100	0	x
+Dwarf_die	1101	0	x
+Dwarf_wince	1102	0	x
+	1103	0	x
+Air elem_attk	1110	0	x
+Air elem_die	1111	0	x
+Air elem_wince	1112	0	x
+Air elem_fly	1113	0	x
+Earth elem_attk	1120	0	x
+Earth elem_die	1121	0	x
+Earth elem_wince	1122	0	x
+Earth elem_walk	1123	0	x
+Fire elem_attk	1130	0	x
+Fire elem_death	1131	0	x
+Fire elem_wince	1132	0	x
+Fire elem_fly	1133	0	x
+Light_action	1140	0	x
+Light_die01	1141	0	x
+Light_diewav	1142	0	x
+	1143	0	x
+Water elem_attk	1150	0	x
+Water elem_die	1151	0	x
+Water elem_wince	1152	0	x
+Water elem_walk	1153	0	x
+Elf archer_attk	1160	0	x
+Elf archer_die	1161	0	x
+Elf archer_wince	1162	0	x
+	1163	0	x
+Elf spear man_attk	1170	0	x
+ELf spear man_die	1171	0	x
+Elf spear man_wince	1172	0	x
+	1173	0	x
+Fighter-chain_attk	1180	0	x
+Fighter-chain_die	1181	0	x
+Fighter-chain_wince	1182	0	x
+	1183	0	x
+Fighter_leather_attk	1190	0	x
+Fighter_leather_die	1191	0	x
+Fighter_leather_wince	1192	0	x
+	1193	0	x
+Fighter-plate_attk	1200	0	x
+Fighter-plate_die	1201	0	x
+Fighter-plate_wince	1202	0	x
+	1203	0	x
+Gargoyle_attk	1210	0	x
+Gargoyle_die	1211	0	x
+Gargoyle_wince	1212	0	x
+Gargoyle_aware	1213	0	x
+Genie_attk	1220	0	x
+Genie_die	1221	0	x
+Genie_wince	1222	0	x
+	1223	0	x
+Ghost_attk	1230	0	x
+Ghost_die	1231	0	x
+Ghost_wince	1232	0	x
+Ghost_aware	1233	0	x
+Goblin_attk	1240	0	x
+Goblin_die	1241	0	x
+Goblin_wince	1242	0	x
+	1243	0	x
+Golem_attk	1250	0	x
+Golem_die	1251	0	x
+Golem_wince	1252	0	x
+	1253	0	x
+Gog_attk	1260	0	x
+Gog_die	1261	0	x
+Gog_wince	1262	0	x
+	1263	0	x
+Griffin_attk	1270	0	x
+Griffin_die	1271	0	x
+Griffin_wince	1272	0	x
+Griffen_aware	1273	0	x
+Harpy_attk	1280	0	x
+Harpy_die	1281	0	x
+Harpy_wince	1282	0	x
+Harpy_aware	1283	0	x
+Hydra_attk	1290	0	x
+Hydra_die	1291	0	x
+Hydra_wince	1292	0	x
+Hydra_aware	1293	0	x
+Lich_attk	1300	0	x
+Lich_die	1301	0	x
+Lich_wince	1302	0	x
+Lich_aware	1303	0	x
+Mage_attk	1310	0	x
+Mage_die	1311	0	x
+Mage_wince	1312	0	x
+	1313	0	x
+Manticore_attk	1320	0	x
+Manticore_die	1321	0	x
+Manticore_wince	1322	0	x
+Manticore_aware	1323	0	x
+Medusa_attk	1330	0	x
+Medusa_Die	1331	0	x
+Medusa_wince	1332	0	x
+Medusa_aware	1333	0	x
+Minotaur_attk	1340	0	x
+Minotaur_Die	1341	0	x
+Minotaur_wince	1342	0	x
+Minotaur_aware	1343	0	x
+Monk_attk	1350	0	x
+Monk_die	1351	0	x
+Monk_wince	1352	0	x
+	1353	0	x
+Necromancer_Attk	1360	0	x
+Necromancer_die	1361	0	x
+Necromancer_wince	1362	0	x
+	1363	0	x
+Ooze_attk	1370	0	x
+Ooze_die	1371	0	x
+Ooze_wince	1372	0	x
+	1373	0	x
+121PeasentF1A_Attack	1380	0	x
+121PeasentF1A_Die	1381	0	x
+121PeasentF1A_Charge	1382	0	x
+	1383	0	x
+121PeasentF1A_Attack	1390	0	x
+121PeasentF1A_Die	1391	0	x
+121PeasentF1A_Charge	1392	0	x
+	1393	0	x
+121PeasentF1A_Attack	1400	0	x
+121PeasentF1A_Die	1401	0	x
+121PeasentF1A_Charge	1402	0	x
+	1403	0	x
+Dwarf male peasant_attk	1410	0	x
+Dwarf male peasant_die	1411	0	x
+Dwarf male peasant_wince	1412	0	x
+	1413	0	x
+Dwarf male peasant_attk	1420	0	x
+Dwarf male peasant_die	1421	0	x
+Dwarf male peasant_wince	1422	0	x
+	1423	0	x
+Dwarf male peasant_attk	1430	0	x
+Dwarf male peasant_die	1431	0	x
+Dwarf male peasant_wince	1432	0	x
+	1433	0	x
+Elf-female peasant_attk	1440	0	x
+Elf-female peasant_die	1441	0	x
+Elf-female peasant_wince	1442	0	x
+	1443	0	x
+Elf-female peasant_attk	1450	0	x
+Elf-female peasant_die	1451	0	x
+Elf-female peasant_wince	1452	0	x
+	1453	0	x
+Elf-female peasant_attk	1460	0	x
+Elf-female peasant_die	1461	0	x
+Elf-female peasant_wince	1462	0	x
+	1463	0	x
+Elf-male peasant_Attk	1470	0	x
+Elf-male peasant_die	1471	0	x
+Elf-male peasant_wince	1472	0	x
+	1473	0	x
+Elf-male peasant_Attk	1480	0	x
+Elf-male peasant_die	1481	0	x
+Elf-male peasant_wince	1482	0	x
+	1483	0	x
+Elf-male peasant_Attk	1490	0	x
+Elf-male peasant_die	1491	0	x
+Elf-male peasant_wince	1492	0	x
+	1493	0	x
+127PeasentF3A_Attack	1500	0	x
+127PeasentF3A_Die	1501	0	x
+127PeasentF3A_Charge	1502	0	x
+	1503	0	x
+127PeasentF3A_Attack	1510	0	x
+127PeasentF3A_Die	1511	0	x
+127PeasentF3A_Charge	1512	0	x
+	1513	0	x
+127PeasentF3A_Attack	1520	0	x
+127PeasentF3A_Die	1521	0	x
+127PeasentF3A_Charge	1522	0	x
+	1523	0	x
+Human-male peasant2_attk	1530	0	x
+Human-male peasant2_die	1531	0	x
+Human-male peasant2_wince	1532	0	x
+	1533	0	x
+Human-male peasant2_attk	1540	0	x
+Human-male peasant2_die	1541	0	x
+Human-male peasant2_wince	1542	0	x
+	1543	0	x
+Human-male peasant2_attk	1550	0	x
+Human-male peasant2_die	1551	0	x
+Human-male peasant2_wince	1552	0	x
+	1553	0	x
+Human-male peasant2_attk	1560	0	x
+Human-male peasant2_die	1561	0	x
+Human-male peasant2_wince	1562	0	x
+	1563	0	x
+Human-male peasant2_attk	1570	0	x
+Human-male peasant2_die	1571	0	x
+Human-male peasant2_wince	1572	0	x
+	1573	0	x
+Human-male peasant2_attk	1580	0	x
+Human-male peasant2_die	1581	0	x
+Human-male peasant2_wince	1582	0	x
+	1583	0	x
+136PeasentM2A_Attack	1590	0	x
+136PeasentM2A_Die	1591	0	x
+136PeasentM2A_Charge	1592	0	x
+	1593	0	x
+136PeasentM2A_Attack	1600	0	x
+136PeasentM2A_Die	1601	0	x
+136PeasentM2A_Charge	1602	0	x
+	1603	0	x
+136PeasentM2A_Attack	1610	0	x
+136PeasentM2A_Die	1611	0	x
+136PeasentM2A_Charge	1612	0	x
+	1613	0	x
+Freakin' rat_attk	1620	0	x
+Freakin' rat_die	1621	0	x
+Freakin' rat_wince	1622	0	x
+Freakin rats_aware	1623	0	x
+RobotAttack	1630	0	x
+RobotDeath	1631	0	x
+RobotWince	1632	0	x
+RobotAware	1633	0	x
+Roc_attk	1640	0	x
+Roc_die	1641	0	x
+Roc_wince	1642	0	x
+Roc_aware	1643	0	x
+Sea Monster_attk	1650	0	x
+Sea Monster_die	1651	0	x
+Sea Monster_wince	1652	0	x
+Sea Monster_aware	1653	0	x
+154SkeletonA_Attack	1660	0	x
+154SkeletonA_Die	1661	0	x
+154SkeletonA_Charge	1662	0	x
+154SkeletonA_Move	1663	0	x
+Spider_attk	1670	0	x
+Spider_die	1671	0	x
+Spider_wince	1672	0	x
+Spider_aware	1673	0	x
+Swordsman_attk	1680	0	x
+Swordsman_die	1681	0	x
+Swordsman_wince	1682	0	x
+	1683	0	x
+Thief_attk	1690	0	x
+Thief_Die	1691	0	x
+Thief_wince	1692	0	x
+	1693	0	x
+Titan_attk	1700	0	x
+Titan_die	1701	0	x
+Titan_Wince	1702	0	x
+	1703	0	x
+Troglodyte_attk	1710	0	x
+Troglodyte_die	1711	0	x
+Troglodyte_wince	1712	0	x
+	1713	0	x
+Vampire_attk	1720	0	x
+Vampire_die	1721	0	x
+Vampire_wince	1722	0	x
+Vampire_aware	1723	0	x
+Warlock_attk	1730	0	x
+Warlock_die	1731	0	x
+Warlock_wince	1732	0	x
+	1733	0	x
+Wight_attk	1740	0	x
+Wight_die	1741	0	x
+Wight_wince	1742	0	x
+Wight_aware	1743	0	x
+Wyvern_attk	1750	0	x
+Wyvern_die	1751	0	x
+Wyvern_wince	1752	0	x
+Wyvern_aware	1753	0	x
+Zomdie_Attk	1760	0	x
+Zomdie_die	1761	0	x
+Zomdie_wince	1762	0	x
+Zombie_aware	1763	0	x
+Goblin female peasant_attk	1770	0	x
+Goblin female peasant_Die	1771	0	x
+Goblin female peasant_wince	1772	0	x
+	1773	0	x
+Goblin female peasant_attk	1780	0	x
+Goblin female peasant_Die	1781	0	x
+Goblin female peasant_wince	1782	0	x
+	1783	0	x
+Goblin female peasant_attk	1790	0	x
+Goblin female peasant_Die	1791	0	x
+Goblin female peasant_wince	1792	0	x
+	1793	0	x
+Goblin male peasant_attk	1800	0	x
+Goblin male peasant_die	1801	0	x
+Goblin male peasant_wince	1802	0	x
+	1803	0	x
+Goblin male peasant_attk	1810	0	x
+Goblin male peasant_die	1811	0	x
+Goblin male peasant_wince	1812	0	x
+	1813	0	x
+Goblin male peasant_attk	1820	0	x
+Goblin male peasant_die	1821	0	x
+Goblin male peasant_wince	1822	0	x
+	1823	0	x
+Troll_attk	1830	0	x
+Troll_die	1831	0	x
+Troll_wince	1832	0	x
+Troll_aware	1833	0	x
+TreatAttack	1840	0	x
+TreatDeath	1841	0	x
+TreatWince	1842	0	x
+TreatAware	1843	0	x
+GoulAttack	1850	0	x
+GoulDeath	1851	0	x
+GoulWince	1852	0	x
+GoulAware	1853	0	x
+BlasterGuyAttack	1860	0	x
+BlasterGuyDeath	1861	0	x
+BlasterGuyWince	1862	0	x
+BlasterGuyAware	1863	0	x
+01Female_Wince	2000	system	-
+01Male_Wince	2001	system	-
+02Female_Wince	2002	system	-
+02Male_Wince	2003	system	-
+03Female_Wince	2004	system	-
+03Male_Wince	2005	system	-
+04Female_Wince	2006	system	-
+04Male_Wince	2007	system	-
+05Female_Wince	2008	system	-
+05Male_Wince	2009	system	-
+hm101a	5000	swap	-
+hm101c	5001	swap	-
+hm102d	5002	swap	-
+hm102e	5003	swap	-
+hm103b	5004	swap	-
+hm103e	5005	swap	-
+hm104c	5006	swap	-
+hm104d	5007	swap	-
+hm105c	5008	swap	-
+hm105d	5009	swap	-
+hm106e	5010	swap	-
+hm106f	5011	swap	-
+hm107b	5012	swap	-
+hm107e	5013	swap	-
+hm108a	5014	swap	-
+hm108c	5015	swap	-
+hm109a	5016	swap	-
+hm109e	5017	swap	-
+hm110a	5018	swap	-
+hm110e	5019	swap	-
+hm111e	5020	swap	-
+hm111f	5021	swap	-
+hm112g	5022	swap	-
+hm113a	5024	swap	-
+hm113f	5025	swap	-
+hm114e	5026	swap	-
+hm115b	5028	lock	-
+hm115f	5029	lock	-
+hm116d	5030	swap	-
+hm117a	5032	swap	-
+hm118f	5034	swap	-
+hm119e	5036	swap	-
+hm120a	5038	swap	-
+hm121d	5040	swap	-
+hm122a	5042	swap	-
+hm123a	5044	swap	-
+hm123f	5045	swap	-
+hm124b	5046	swap	-
+hm124e	5047	swap	-
+hm125a	5048	swap	-
+hm126b	5050	swap	-
+hm126d	5051	swap	-
+hm127a	5052	swap	-
+hm127c	5053	swap	-
+hm128c	5054	swap	-
+hm129a	5056	swap	-
+hm129f	5057	swap	-
+hm130a	5058	swap	-
+hm131e	5060	swap	-
+hm132d	5062	swap	-
+hm133d	5064	swap	-
+hm134d	5066	swap	-
+hm135e	5068	swap	-
+hm136d	5070	swap	-
+hm137b	5072	swap	-
+hm137d	5073	swap	-
+hm138a	5074	swap	-
+hm138b	5075	swap	-
+hm139e	5076	swap	-
+hm140d	5078	swap	-
+hm141a	5080	swap	-
+hm141d	5081	swap	-
+hm142a	5082	swap	-
+hm143a	5084	swap	-
+hm144b	5086	swap	-
+hm145b	5088	swap	-
+hm145e	5089	swap	-
+hm146d	5090	swap	-
+hm147e	5092	swap	-
+hm201a	5100	swap	-
+hm202c	5102	swap	-
+hm203d	5104	swap	-
+hm204b	5106	swap	-
+hm204d	5107	swap	-
+hm205a	5108	swap	-
+hm206a	5110	swap	-
+hm206b	5111	swap	-
+hm207a	5112	swap	-
+hm207b	5113	swap	-
+hm208a	5114	swap	-
+hm208b	5115	swap	-
+hm209c	5116	swap	-
+hm210b	5118	swap	-
+hm211b	5120	swap	-
+hm211c	5121	swap	-
+hm212a	5122	swap	-
+hm213b	5124	swap	-
+hm214b	5126	swap	-
+hm215c	5128	lock	-
+hm216b	5130	swap	-
+hm217b	5132	swap	-
+hm218b	5134	swap	-
+hm219b	5136	swap	-
+hm220c	5138	swap	-
+hm221d	5140	swap	-
+hm222b	5142	swap	-
+hm223b	5144	swap	-
+hm223e	5145	swap	-
+hm224b	5146	swap	-
+hm224c	5147	swap	-
+hm225a	5148	swap	-
+hm225b	5149	swap	-
+hm226a	5150	swap	-
+hm226c	5151	swap	-
+hm227a	5152	swap	-
+hm227c	5153	swap	-
+hm228a	5154	swap	-
+hm228c	5155	swap	-
+hm229a	5156	swap	-
+hm229b	5157	swap	-
+hm230b	5158	swap	-
+hm230c	5159	swap	-
+hm231c	5160	swap	-
+hm232c	5162	swap	-
+hm233b	5164	swap	-
+hm234b	5166	swap	-
+hm235b	5168	swap	-
+hm236a	5170	swap	-
+hm237c	5172	swap	-
+hm237e	5173	swap	-
+hm238b	5174	swap	-
+hm239c	5176	swap	-
+hm240b	5178	swap	-
+hm240e	5179	swap	-
+hm241d	5180	swap	-
+hm242b	5182	swap	-
+hm242c	5183	swap	-
+hm243a	5184	swap	-
+hm243c	5185	swap	-
+hm244a	5186	swap	-
+hm244d	5187	swap	-
+hm245b	5188	swap	-
+hm246c	5190	swap	-
+hm247c	5192	swap	-
+hm301a	5200	swap	-
+hm301c	5201	swap	-
+hm302b	5202	swap	-
+hm302d	5203	swap	-
+hm303c	5204	swap	-
+hm303d	5205	swap	-
+hm304b	5206	swap	-
+hm304c	5207	swap	-
+hm305c	5208	swap	-
+hm305e	5209	swap	-
+hm306b	5210	swap	-
+hm306d	5211	swap	-
+hm307b	5212	swap	-
+hm307d	5213	swap	-
+hm308b	5214	swap	-
+hm308d	5215	swap	-
+hm309a	5216	swap	-
+hm309d	5217	swap	-
+hm310b	5218	swap	-
+hm310c	5219	swap	-
+hm311a	5220	swap	-
+hm311c	5221	swap	-
+hm312a	5222	swap	-
+hm312d	5223	swap	-
+hm313c	5224	swap	-
+hm313d	5225	swap	-
+hm314c	5226	swap	-
+hm314e	5227	swap	-
+hm315b	5228	lock	-
+hm316b	5230	swap	-
+hm317c	5232	swap	-
+hm318d	5234	swap	-
+hm319c	5236	swap	-
+hm320a	5238	swap	-
+hm321b	5240	swap	-
+hm322c	5242	swap	-
+hm323b	5244	swap	-
+hm323c	5245	swap	-
+hm324a	5246	swap	-
+hm324b	5247	swap	-
+hm325b	5248	swap	-
+hm325d	5249	swap	-
+hm326b	5250	swap	-
+hm326e	5251	swap	-
+hm327a	5252	swap	-
+hm327b	5253	swap	-
+hm328a	5254	swap	-
+hm328b	5255	swap	-
+hm329b	5256	swap	-
+hm329c	5257	swap	-
+hm330b	5258	swap	-
+hm330c	5259	swap	-
+hm331b	5260	swap	-
+hm331c	5261	swap	-
+hm332a	5262	swap	-
+hm332d	5263	swap	-
+hm333d	5264	swap	-
+hm333e	5265	swap	-
+hm334a	5266	swap	-
+hm335a	5268	swap	-
+hm336c	5270	swap	-
+hm337a	5272	swap	-
+hm337b	5273	swap	-
+hm338a	5274	swap	-
+hm338c	5275	swap	-
+hm339d	5276	swap	-
+hm340b	5278	swap	-
+hm340e	5279	swap	-
+hm341a	5280	swap	-
+hm341e	5281	swap	-
+hm342d	5282	swap	-
+hm343a	5284	swap	-
+hm344b	5286	swap	-
+hm345a	5288	swap	-
+hm346b	5290	swap	-
+hm347b	5292	swap	-
+hm401e	5300	swap	-
+hm402c	5302	swap	-
+hm403a	5304	swap	-
+hm403c	5305	swap	-
+hm404b	5306	swap	-
+hm404c	5307	swap	-
+hm405a	5308	swap	-
+hm405c	5309	swap	-
+hm406a	5310	swap	-
+hm406c	5311	swap	-
+hm407a	5312	swap	-
+hm408a	5314	swap	-
+hm408d	5315	swap	-
+hm409a	5316	swap	-
+hm409b	5317	swap	-
+hm410c	5318	swap	-
+hm411a	5320	swap	-
+hm411c	5321	swap	-
+hm412b	5322	swap	-
+hm413d	5324	swap	-
+hm414d	5326	swap	-
+hm415c	5328	lock	-
+hm415e	5329	lock	-
+hm416a	5330	swap	-
+hm416b	5331	swap	-
+hm417c	5332	swap	-
+hm418a	5334	swap	-
+hm419a	5336	swap	-
+hm420b	5338	swap	-
+hm421e	5340	swap	-
+hm422d	5342	swap	-
+hm423a	5344	swap	-
+hm424c	5346	swap	-
+hm425a	5348	swap	-
+hm425e	5349	swap	-
+hm426b	5350	swap	-
+hm426c	5351	swap	-
+hm427a	5352	swap	-
+hm427b	5353	swap	-
+hm428a	5354	swap	-
+hm429c	5356	swap	-
+hm429d	5357	swap	-
+hm430a	5358	swap	-
+hm431c	5360	swap	-
+hm432ca	5362	swap	-
+hm433b	5364	swap	-
+hm434a	5366	swap	-
+hm435a	5368	swap	-
+hm435b	5369	swap	-
+hm436c	5370	swap	-
+hm437b	5372	swap	-
+hm437e	5373	swap	-
+hm438b	5374	swap	-
+hm438e	5375	swap	-
+hm439d	5376	swap	-
+hm440b	5378	swap	-
+hm441e	5380	swap	-
+hm442c	5382	swap	-
+hm443a	5384	swap	-
+hm443b	5385	swap	-
+hm444b	5386	swap	-
+hm444c	5387	swap	-
+hm445b	5388	swap	-
+hm446a	5390	swap	-
+hm446d	5391	swap	-
+hm447b	5392	swap	-
+hf101a	5400	swap	-
+hf101b	5401	swap	-
+hf102b	5402	swap	-
+hf102c	5403	swap	-
+hf103a	5404	swap	-
+hf103e	5405	swap	-
+hf104a	5406	swap	-
+hf104c	5407	swap	-
+hf105a	5408	swap	-
+hf105d	5409	swap	-
+hf106a	5410	swap	-
+hf106c	5411	swap	-
+hf107a	5412	swap	-
+hf107c	5413	swap	-
+hf108a	5414	swap	-
+hf108b	5415	swap	-
+hf109a	5416	swap	-
+hf109d	5417	swap	-
+hf110a	5418	swap	-
+hf111b	5420	swap	-
+hf111d	5421	swap	-
+hf112a	5422	swap	-
+hf112c	5423	swap	-
+hf113a	5424	swap	-
+hf113d	5425	swap	-
+hf114a	5426	swap	-
+hf114b	5427	swap	-
+hf115a	5428	lock	-
+hf116a	5430	swap	-
+hf116c	5431	swap	-
+hf117c	5432	swap	-
+hf118d	5434	swap	-
+hf119a	5436	swap	-
+hf119e	5437	swap	-
+hf120d	5438	swap	-
+hf121c	5440	swap	-
+hf122a	5442	swap	-
+hf123b	5444	swap	-
+hf123d	5445	swap	-
+hf124a	5446	swap	-
+hf124e	5447	swap	-
+hf125d	5448	swap	-
+hf125f	5449	swap	-
+hf126c	5450	swap	-
+hf126e	5451	swap	-
+hf127b	5452	swap	-
+hf127e	5453	swap	-
+hf128c	5454	swap	-
+hf128d	5455	swap	-
+hf129a	5456	swap	-
+hf129c	5457	swap	-
+hf130a	5458	swap	-
+hf130d	5459	swap	-
+hf131d	5460	swap	-
+hf131e	5461	swap	-
+hf132b	5462	swap	-
+hf133b	5464	swap	-
+hf134c	5466	swap	-
+hf135b	5468	swap	-
+hf136a	5470	swap	-
+hf137c	5472	swap	-
+hf137d	5473	swap	-
+hf138a	5474	swap	-
+hf138e	5475	swap	-
+hf139d	5476	swap	-
+hf139e	5477	swap	-
+hf140a	5478	swap	-
+hf140b	5479	swap	-
+hf141b	5480	swap	-
+hf141c	5481	swap	-
+hf142b	5482	swap	-
+hf142c	5483	swap	-
+hf143a	5484	swap	-
+hf143e	5485	swap	-
+hf144c	5486	swap	-
+hf144e	5487	swap	-
+hf145b	5488	swap	-
+hf145e	5489	swap	-
+hf146b	5490	swap	-
+hf146d	5491	swap	-
+hf147c	5492	swap	-
+hf201a	5500	swap	-
+hf201c	5501	swap	-
+hf202c	5502	swap	-
+hf202e	5503	swap	-
+hf203a	5504	swap	-
+hf203d	5505	swap	-
+hf204b	5506	swap	-
+hf204c	5507	swap	-
+hf205c	5508	swap	-
+hf205d	5509	swap	-
+hf206a	5510	swap	-
+hf206g	5511	swap	-
+hf207b	5512	swap	-
+hf207c	5513	swap	-
+hf208b	5514	swap	-
+hf208e	5515	swap	-
+hf209a	5516	swap	-
+hf209d	5517	swap	-
+hf210e	5518	swap	-
+hf210f	5519	swap	-
+hf211d	5520	swap	-
+hf212c	5522	swap	-
+hf213d	5524	swap	-
+hf213g	5525	swap	-
+hf214c	5526	swap	-
+hf214d	5527	swap	-
+hf215f	5528	lock	-
+hf216a	5530	swap	-
+hf216d	5531	swap	-
+hf217b	5532	swap	-
+hf218b	5534	swap	-
+hf219b	5536	swap	-
+hf220a	5538	swap	-
+hf221b	5540	swap	-
+hf222b	5542	swap	-
+hf223e	5544	swap	-
+hf223f	5545	swap	-
+hf224b	5546	swap	-
+hf224c	5547	swap	-
+hf225e	5548	swap	-
+hf225f	5549	swap	-
+hf226e	5550	swap	-
+hf226f	5551	swap	-
+hf227b	5552	swap	-
+hf227f	5553	swap	-
+hf228b	5554	swap	-
+hf228f	5555	swap	-
+hf229b	5556	swap	-
+hf229d	5557	swap	-
+hf230a	5558	swap	-
+hf231c	5560	swap	-
+hf232a	5562	swap	-
+hf232b	5563	swap	-
+hf233d	5564	swap	-
+hf234d	5566	swap	-
+hf235c	5568	swap	-
+hf235e	5569	swap	-
+hf236d	5570	swap	-
+hf237a	5572	swap	-
+hf237c	5573	swap	-
+hf238e	5574	swap	-
+hf238f	5575	swap	-
+hf239b	5576	swap	-
+hf239c	5577	swap	-
+hf240d	5578	swap	-
+hf240e	5579	swap	-
+hf241e	5580	swap	-
+hf242d	5582	swap	-
+hf243a	5584	swap	-
+hf244b	5586	swap	-
+hf244d	5587	swap	-
+hf245b	5588	swap	-
+hf245c	5589	swap	-
+hf246c	5590	swap	-
+hf246f	5591	swap	-
+hf247b	5592	swap	-
+hf301d	5600	swap	-
+hf301e	5601	swap	-
+hf302b	5602	swap	-
+hf302d	5603	swap	-
+hf303c	5604	swap	-
+hf303d	5605	swap	-
+hf304b	5606	swap	-
+hf304d	5607	swap	-
+hf305a	5608	swap	-
+hf305b	5609	swap	-
+hf306a	5610	swap	-
+hf307b	5612	swap	-
+hf307d	5613	swap	-
+hf308b	5614	swap	-
+hf308d	5615	swap	-
+hf309a	5616	swap	-
+hf310b	5618	swap	-
+hf310f	5619	swap	-
+hf311b	5620	swap	-
+hf312b	5622	swap	-
+hf313b	5624	swap	-
+hf313e	5625	swap	-
+hf314b	5626	swap	-
+hf314d	5627	swap	-
+hf315b	5628	lock	-
+hf315d	5629	lock	-
+hf316a	5630	swap	-
+hf316d	5631	swap	-
+hf317d	5632	swap	-
+hf318a	5634	swap	-
+hf319b	5636	swap	-
+hf320a	5638	swap	-
+hf321b	5640	swap	-
+hf322a	5642	swap	-
+hf323a	5644	swap	-
+hf323e	5645	swap	-
+hf324b	5646	swap	-
+hf324d	5647	swap	-
+hf325c	5648	swap	-
+hf325d	5649	swap	-
+hf326a	5650	swap	-
+hf326c	5651	swap	-
+hf327b	5652	swap	-
+hf327c	5653	swap	-
+hf328a	5654	swap	-
+hf328c	5655	swap	-
+hf329b	5656	swap	-
+hf329d	5657	swap	-
+hf330a	5658	swap	-
+hf330c	5659	swap	-
+hf331c	5660	swap	-
+hf331e	5661	swap	-
+hf332b	5662	swap	-
+hf332c	5663	swap	-
+hf333c	5664	swap	-
+hf334b	5666	swap	-
+hf335a	5668	swap	-
+hf335c	5669	swap	-
+hf336b	5670	swap	-
+hf337e	5672	swap	-
+hf337f	5673	swap	-
+hf338b	5674	swap	-
+hf338d	5675	swap	-
+hf339c	5676	swap	-
+hf340b	5678	swap	-
+hf340c	5679	swap	-
+hf341b	5680	swap	-
+hf341d	5681	swap	-
+hf342a	5682	swap	-
+hf343c	5684	swap	-
+hf344a	5686	swap	-
+hf344b	5687	swap	-
+hf345b	5688	swap	-
+hf346a	5690	swap	-
+hf347b	5692	swap	-
+hf347d	5693	swap	-
+hf401b	5700	swap	-
+hf401c	5701	swap	-
+hf402c	5702	swap	-
+hf402e	5703	swap	-
+hf403c	5704	swap	-
+hf403d	5705	swap	-
+hf404b	5706	swap	-
+hf404d	5707	swap	-
+hf405a	5708	swap	-
+hf405f	5709	swap	-
+hf406b	5710	swap	-
+hf406d	5711	swap	-
+hf407c	5712	swap	-
+hf407f	5713	swap	-
+hf408a	5714	swap	-
+hf408f	5715	swap	-
+hf409c	5716	swap	-
+hf409d	5717	swap	-
+hf410a	5718	swap	-
+hf410d	5719	swap	-
+hf411a	5720	swap	-
+hf411d	5721	swap	-
+hf412c	5722	swap	-
+hf412d	5723	swap	-
+hf413a	5724	swap	-
+hf413d	5725	swap	-
+hf414c	5726	swap	-
+hf414d	5727	swap	-
+hf415d	5728	lock	-
+hf416g	5730	swap	-
+hf416h	5731	swap	-
+hf417b	5732	swap	-
+hf418b	5734	swap	-
+hf419a	5736	swap	-
+hf420a	5738	swap	-
+hf421d	5740	swap	-
+hf422c	5742	swap	-
+hf423c	5744	swap	-
+hf423e	5745	swap	-
+hf424b	5746	swap	-
+hf424c	5747	swap	-
+hf425c	5748	swap	-
+hf425e	5749	swap	-
+hf426c	5750	swap	-
+hf426e	5751	swap	-
+hf427e	5752	swap	-
+hf427f	5753	swap	-
+hf428e	5754	swap	-
+hf428f	5755	swap	-
+hf429d	5756	swap	-
+hf429e	5757	swap	-
+hf430c	5758	swap	-
+hf430d	5759	swap	-
+hf431c	5760	swap	-
+hf431e	5761	swap	-
+hf432b	5762	swap	-
+hf432c	5763	swap	-
+hf433c	5764	swap	-
+hf434c	5766	swap	-
+hf435b	5768	swap	-
+hf436d	5770	swap	-
+hf437c	5772	swap	-
+hf437f	5773	swap	-
+hf438a	5774	swap	-
+hf438f	5775	swap	-
+hf439d	5776	swap	-
+hf439e	5777	swap	-
+hf440d	5778	swap	-
+hf440h	5779	swap	-
+hf441a	5780	swap	-
+hf441e	5781	swap	-
+hf442b	5782	swap	-
+hf443a	5784	swap	-
+hf444b	5786	swap	-
+hf444e	5787	swap	-
+hf445a	5788	swap	-
+hf446a	5790	swap	-
+hf447b	5792	swap	-
+em101a	5800	swap	-
+em101d	5801	swap	-
+em102a	5802	swap	-
+em102b	5803	swap	-
+em103d	5804	swap	-
+em103e	5805	swap	-
+em104a	5806	swap	-
+em104e	5807	swap	-
+em105d	5808	swap	-
+em106a	5810	swap	-
+em106c	5811	swap	-
+em107a	5812	swap	-
+em107c	5813	swap	-
+em108e	5814	swap	-
+em109a	5816	swap	-
+em110a	5818	swap	-
+em110e	5819	swap	-
+em111a	5820	swap	-
+em111c	5821	swap	-
+em112a	5822	swap	-
+em112c	5823	swap	-
+em113c	5824	swap	-
+em113e	5825	swap	-
+em114a	5826	swap	-
+em114b	5827	swap	-
+em115b	5828	lock	-
+em115e	5829	lock	-
+em116a	5830	swap	-
+em116b	5831	swap	-
+em117a	5832	swap	-
+em118a	5834	swap	-
+em119a	5836	swap	-
+em120c	5838	swap	-
+em121c	5840	swap	-
+em122e	5842	swap	-
+em123d	5844	swap	-
+em124d	5846	swap	-
+em125d	5848	swap	-
+em125e	5849	swap	-
+em126d	5850	swap	-
+em126e	5851	swap	-
+em127b	5852	swap	-
+em127e	5853	swap	-
+em128a	5854	swap	-
+em129b	5856	swap	-
+em129d	5857	swap	-
+em130a	5858	swap	-
+em131d	5860	swap	-
+em131e	5861	swap	-
+em132d	5862	swap	-
+em132e	5863	swap	-
+em133c	5864	swap	-
+em134e	5866	swap	-
+em135a	5868	swap	-
+em136b	5870	swap	-
+em136d	5871	swap	-
+em137b	5872	swap	-
+em137e	5873	swap	-
+em138a	5874	swap	-
+em138b	5875	swap	-
+em139b	5876	swap	-
+em140c	5878	swap	-
+em140e	5879	swap	-
+em141b	5880	swap	-
+em141e	5881	swap	-
+em142a	5882	swap	-
+em143a	5884	swap	-
+em144a	5886	swap	-
+em145b	5888	swap	-
+em145e	5889	swap	-
+em146c	5890	swap	-
+em146e	5891	swap	-
+em147b	5892	swap	-
+em147c	5893	swap	-
+EM201b	5900	swap	-
+EM201c	5901	swap	-
+EM202a	5902	swap	-
+EM202d	5903	swap	-
+EM203a	5904	swap	-
+EM203b	5905	swap	-
+EM204b	5906	swap	-
+EM204c	5907	swap	-
+EM205c	5908	swap	-
+EM205d	5909	swap	-
+EM206a	5910	swap	-
+EM206e	5911	swap	-
+EM207b	5912	swap	-
+EM207d	5913	swap	-
+EM208c	5914	swap	-
+EM208d	5915	swap	-
+EM209c	5916	swap	-
+EM209d	5917	swap	-
+EM210a	5918	swap	-
+EM210c	5919	swap	-
+EM211a	5920	swap	-
+EM211f	5921	swap	-
+EM212a	5922	swap	-
+EM212c	5923	swap	-
+EM213b	5924	swap	-
+EM213e	5925	swap	-
+EM214b	5926	swap	-
+EM214c	5927	swap	-
+EM215d	5928	lock	-
+EM215e	5929	lock	-
+EM216b	5930	swap	-
+EM216c	5931	swap	-
+EM217a	5932	swap	-
+EM217c	5933	swap	-
+EM218a	5934	swap	-
+EM218b	5935	swap	-
+EM219a	5936	swap	-
+EM219c	5937	swap	-
+EM220a	5938	swap	-
+EM220b	5939	swap	-
+EM221a	5940	swap	-
+EM221d	5941	swap	-
+EM222a	5942	swap	-
+EM222b	5943	swap	-
+EM223a	5944	swap	-
+EM223d	5945	swap	-
+EM224a	5946	swap	-
+EM225c	5948	swap	-
+EM225d	5949	swap	-
+EM226a	5950	swap	-
+EM226d	5951	swap	-
+EM227c	5952	swap	-
+EM227d	5953	swap	-
+EM228a	5954	swap	-
+EM228b	5955	swap	-
+EM229a	5956	swap	-
+EM229c	5957	swap	-
+EM230b	5958	swap	-
+EM230d	5959	swap	-
+EM231a	5960	swap	-
+EM231c	5961	swap	-
+EM232b	5962	swap	-
+EM233d	5964	swap	-
+EM234b	5966	swap	-
+EM235a	5968	swap	-
+EM235d	5969	swap	-
+EM236a	5970	swap	-
+EM237c	5972	swap	-
+EM237d	5973	swap	-
+EM238c	5974	swap	-
+EM238d	5975	swap	-
+EM239a	5976	swap	-
+EM240c	5978	swap	-
+EM241d	5980	swap	-
+EM242b	5982	swap	-
+EM243a	5984	swap	-
+EM244b	5986	swap	-
+EM245c	5988	swap	-
+EM246e	5990	swap	-
+EM247d	5992	swap	-
+Elf F101a	6000	swap	-
+Elf F102a	6002	swap	-
+Elf F102b	6003	swap	-
+Elf F103c	6004	swap	-
+Elf F103d	6005	swap	-
+Elf F104b	6006	swap	-
+Elf F104d	6007	swap	-
+Elf F105b	6008	swap	-
+Elf F105d	6009	swap	-
+Elf F106c	6010	swap	-
+Elf F106d	6011	swap	-
+Elf F107b	6012	swap	-
+Elf F107c	6013	swap	-
+Elf F108c	6014	swap	-
+Elf F108d	6015	swap	-
+Elf F109c	6016	swap	-
+Elf F109e	6017	swap	-
+Elf F110a	6018	swap	-
+Elf F110b	6019	swap	-
+Elf F111a	6020	swap	-
+Elf F111d	6021	swap	-
+Elf F112c	6022	swap	-
+Elf F112d	6023	swap	-
+Elf F113a	6024	swap	-
+Elf F114c	6026	swap	-
+Elf F114e	6027	swap	-
+Elf F115a	6028	lock	-
+Elf F115e	6029	lock	-
+Elf F116b	6030	swap	-
+Elf F116c	6031	swap	-
+Elf F117d	6032	swap	-
+Elf F118d	6034	swap	-
+Elf F119b	6036	swap	-
+Elf F120c	6038	swap	-
+Elf F121a	6040	swap	-
+Elf F122b	6042	swap	-
+Elf F123c	6044	swap	-
+Elf F124b	6046	swap	-
+Elf F125a	6048	swap	-
+Elf F125e	6049	swap	-
+Elf F126b	6050	swap	-
+Elf F126d	6051	swap	-
+Elf F127c	6052	swap	-
+Elf F127d	6053	swap	-
+Elf F128a	6054	swap	-
+Elf F129a	6056	swap	-
+Elf F130a	6058	swap	-
+Elf F130d	6059	swap	-
+Elf F131a	6060	swap	-
+Elf F131c	6061	swap	-
+Elf F132a	6062	swap	-
+Elf F132b	6063	swap	-
+Elf F133a	6064	swap	-
+Elf F134a	6066	swap	-
+Elf F134b	6067	swap	-
+Elf F135b	6068	swap	-
+Elf F135d	6069	swap	-
+Elf F136c	6070	swap	-
+Elf F137a	6072	swap	-
+Elf F137c	6073	swap	-
+Elf F138a	6074	swap	-
+Elf F139c	6076	swap	-
+Elf F140c	6078	swap	-
+Elf F141a	6080	swap	-
+Elf F142c	6082	swap	-
+Elf F143a	6084	swap	-
+Elf F144a	6086	swap	-
+Elf F145a	6088	swap	-
+Elf F145b	6089	swap	-
+Elf F146c	6090	swap	-
+Elf F146e	6091	swap	-
+Elf F147b	6092	swap	-
+ef201a	6100	swap	-
+ef201d	6101	swap	-
+ef202e	6102	swap	-
+ef203c	6104	swap	-
+ef203d	6105	swap	-
+ef204a	6106	swap	-
+ef204e	6107	swap	-
+ef205a	6108	swap	-
+ef206a	6110	swap	-
+ef206f	6111	swap	-
+ef207a	6112	swap	-
+ef207e	6113	swap	-
+ef208a	6114	swap	-
+ef208b	6115	swap	-
+ef209b	6116	swap	-
+ef209d	6117	swap	-
+ef210d	6118	swap	-
+ef210e	6119	swap	-
+ef211a	6120	swap	-
+ef212c	6122	swap	-
+ef212e	6123	swap	-
+ef213a	6124	swap	-
+ef213e	6125	swap	-
+ef214d	6126	swap	-
+ef215a	6128	lock	-
+ef216b	6130	swap	-
+ef216d	6131	swap	-
+ef217a	6132	swap	-
+ef218b	6134	swap	-
+ef219c	6136	swap	-
+ef220a	6138	swap	-
+ef221d	6140	swap	-
+ef222a	6142	swap	-
+ef223e	6144	swap	-
+ef224e	6146	swap	-
+ef225d	6148	swap	-
+ef226b	6150	swap	-
+ef226c	6151	swap	-
+ef227f	6152	swap	-
+ef228b	6154	swap	-
+ef229c	6156	swap	-
+ef230e	6158	swap	-
+ef231c	6160	swap	-
+ef232a	6162	swap	-
+ef232c	6163	swap	-
+ef233d	6164	swap	-
+ef234c	6166	swap	-
+ef235a	6168	swap	-
+ef236c	6170	swap	-
+ef236d	6171	swap	-
+ef237b	6172	swap	-
+ef237f	6173	swap	-
+ef238a	6174	swap	-
+ef238b	6175	swap	-
+ef239b	6176	swap	-
+ef240d	6178	swap	-
+ef241a	6180	swap	-
+ef241b	6181	swap	-
+ef242b	6182	swap	-
+ef243a	6184	swap	-
+ef244f	6186	swap	-
+ef245a	6188	swap	-
+ef246b	6190	swap	-
+ef247a	6192	swap	-
+ef247c	6193	swap	-
+dm101b	6200	swap	-
+dm101f	6201	swap	-
+dm102a	6202	swap	-
+dm103b	6204	swap	-
+dm104a	6206	swap	-
+dm104b	6207	swap	-
+dm105a	6208	swap	-
+dm105e	6209	swap	-
+dm106a	6210	swap	-
+dm106d	6211	swap	-
+dm107c	6212	swap	-
+dm107f	6213	swap	-
+dm108b	6214	swap	-
+dm108e	6215	swap	-
+dm109a	6216	swap	-
+dm110e	6218	swap	-
+dm110f	6219	swap	-
+dm111b	6220	swap	-
+dm112d	6222	swap	-
+dm112e	6223	swap	-
+dm113a	6224	swap	-
+dm113c	6225	swap	-
+dm114a	6226	swap	-
+dm114c	6227	swap	-
+dm115c	6228	lock	-
+dm115f	6229	lock	-
+dm116a	6230	swap	-
+dm116b	6231	swap	-
+dm117b	6232	swap	-
+dm118d	6234	swap	-
+dm119c	6236	swap	-
+dm120c	6238	swap	-
+dm121a	6240	swap	-
+dm122c	6242	swap	-
+dm123f	6244	swap	-
+dm124a	6246	swap	-
+dm125c	6248	swap	-
+dm126e	6250	swap	-
+dm126f	6251	swap	-
+dm127c	6252	swap	-
+dm127d	6253	swap	-
+dm128c	6254	swap	-
+dm129a	6256	swap	-
+dm130d	6258	swap	-
+dm131a	6260	swap	-
+dm131f	6261	swap	-
+dm132a	6262	swap	-
+dm133b	6264	swap	-
+dm133d	6265	swap	-
+dm134d	6266	swap	-
+dm135d	6268	swap	-
+dm135f	6269	swap	-
+dm136a	6270	swap	-
+dm136e	6271	swap	-
+dm137a	6272	swap	-
+dm137c	6273	swap	-
+dm138a	6274	swap	-
+dm138c	6275	swap	-
+dm139e	6276	swap	-
+dm140d	6278	swap	-
+dm141c	6280	swap	-
+dm142a	6282	swap	-
+dm143a	6284	swap	-
+dm144a	6286	swap	-
+dm145a	6288	swap	-
+dm145b	6289	swap	-
+dm146a	6290	swap	-
+dm146b	6291	swap	-
+dm147a	6292	swap	-
+dm147b	6293	swap	-
+dm201a	6300	swap	-
+dm201b	6301	swap	-
+dm202a	6302	swap	-
+dm203a	6304	swap	-
+dm203b	6305	swap	-
+dm204b	6306	swap	-
+dm204c	6307	swap	-
+dm205c	6308	swap	-
+dm205e	6309	swap	-
+dm206d	6310	swap	-
+dm206e	6311	swap	-
+dm207a	6312	swap	-
+dm207f	6313	swap	-
+dm208a	6314	swap	-
+dm208c	6315	swap	-
+dm209b	6316	swap	-
+dm209d	6317	swap	-
+dm210a	6318	swap	-
+dm210e	6319	swap	-
+dm211d	6320	swap	-
+dm211e	6321	swap	-
+dm212f	6322	swap	-
+dm213d	6324	swap	-
+dm214b	6326	swap	-
+dm214c	6327	swap	-
+dm215a	6328	lock	-
+dm215f	6329	lock	-
+dm216a	6330	swap	-
+dm216d	6331	swap	-
+dm217b	6332	swap	-
+dm218b	6334	swap	-
+dm218f	6335	swap	-
+dm219a	6336	swap	-
+dm220b	6338	swap	-
+dm221c	6340	swap	-
+dm222b	6342	swap	-
+dm223e	6344	swap	-
+dm224c	6346	swap	-
+dm224d	6347	swap	-
+dm225c	6348	swap	-
+dm225d	6349	swap	-
+dm226b	6350	swap	-
+dm226d	6351	swap	-
+dm227a	6352	swap	-
+dm227b	6353	swap	-
+dm228a	6354	swap	-
+dm229b	6356	swap	-
+dm229c	6357	swap	-
+dm230a	6358	swap	-
+dm231e	6360	swap	-
+dm232d	6362	swap	-
+dm233d	6364	swap	-
+dm234e	6366	swap	-
+dm235a	6368	swap	-
+dm235b	6369	swap	-
+dm236b	6370	swap	-
+dm236e	6371	swap	-
+dm237b	6372	swap	-
+dm237d	6373	swap	-
+dm238e	6374	swap	-
+dm238f	6375	swap	-
+dm239a	6376	swap	-
+dm239c	6377	swap	-
+dm240b	6378	swap	-
+dm240c	6379	swap	-
+dm241a	6380	swap	-
+dm241d	6381	swap	-
+dm242a	6382	swap	-
+dm243b	6384	swap	-
+dm244b	6386	swap	-
+dm244d	6387	swap	-
+dm245a	6388	swap	-
+dm246a	6390	swap	-
+dm246b	6391	swap	-
+dm247d	6392	swap	-
+dm247e	6393	swap	-
+DF101a	6400	swap	-
+DF101b	6401	swap	-
+DF102a	6402	swap	-
+DF102c	6403	swap	-
+DF103c	6404	swap	-
+DF103e	6405	swap	-
+DF104a	6406	swap	-
+DF104b	6407	swap	-
+DF105a	6408	swap	-
+DF105e	6409	swap	-
+DF106c	6410	swap	-
+DF106e	6411	swap	-
+DF107d	6412	swap	-
+DF107g	6413	swap	-
+DF108a	6414	swap	-
+DF108d	6415	swap	-
+DF109a	6416	swap	-
+DF109f	6417	swap	-
+DF110a	6418	swap	-
+DF110c	6419	swap	-
+DF111a	6420	swap	-
+DF112a	6422	swap	-
+DF112f	6423	swap	-
+DF113d	6424	swap	-
+DF114d	6426	swap	-
+DF114g	6427	swap	-
+DF115c	6428	lock	-
+DF115f	6429	lock	-
+DF116b	6430	swap	-
+DF116e	6431	swap	-
+DF117e	6432	swap	-
+DF118b	6434	swap	-
+DF118e	6435	swap	-
+DF119d	6436	swap	-
+DF120c	6438	swap	-
+DF121b	6440	swap	-
+DF122a	6442	swap	-
+DF123a	6444	swap	-
+DF124c	6446	swap	-
+DF124d	6447	swap	-
+DF125d	6448	swap	-
+DF126a	6450	swap	-
+DF126d	6451	swap	-
+DF127c	6452	swap	-
+DF127f	6453	swap	-
+DF128f	6454	swap	-
+DF129c	6456	swap	-
+DF129d	6457	swap	-
+DF130b	6458	swap	-
+DF130d	6459	swap	-
+DF131d	6460	swap	-
+DF131e	6461	swap	-
+DF132a	6462	swap	-
+DF132e	6463	swap	-
+DF133a	6464	swap	-
+DF133c	6465	swap	-
+DF134a	6466	swap	-
+DF134d	6467	swap	-
+DF135b	6468	swap	-
+DF136c	6470	swap	-
+DF136e	6471	swap	-
+DF137a	6472	swap	-
+DF137e	6473	swap	-
+DF138a	6474	swap	-
+DF138b	6475	swap	-
+DF139a	6476	swap	-
+DF140e	6478	swap	-
+DF141e	6480	swap	-
+DF142a	6482	swap	-
+DF143b	6484	swap	-
+DF144a	6486	swap	-
+DF145a	6488	swap	-
+DF146c	6490	swap	-
+DF146e	6491	swap	-
+DF147a	6492	swap	-
+DF201c	6500	swap	-
+DF201d	6501	swap	-
+DF202c	6502	swap	-
+DF203b	6504	swap	-
+DF203c	6505	swap	-
+DF204a	6506	swap	-
+DF204d	6507	swap	-
+DF205a	6508	swap	-
+DF205b	6509	swap	-
+DF206a	6510	swap	-
+DF206e	6511	swap	-
+DF207a	6512	swap	-
+DF207c	6513	swap	-
+DF208a	6514	swap	-
+DF208c	6515	swap	-
+DF209c	6516	swap	-
+DF210a	6518	swap	-
+DF210c	6519	swap	-
+DF211d	6520	swap	-
+DF212a	6522	swap	-
+DF213a	6524	swap	-
+DF213b	6525	swap	-
+DF214a	6526	swap	-
+DF215b	6528	lock	-
+DF215d	6529	lock	-
+DF216a	6530	swap	-
+DF216d	6531	swap	-
+DF217a	6532	swap	-
+DF218a	6534	swap	-
+DF219b	6536	swap	-
+DF220a	6538	swap	-
+DF221d	6540	swap	-
+DF222a	6542	swap	-
+DF223a	6544	swap	-
+DF224a	6546	swap	-
+DF224b	6547	swap	-
+DF225e	6548	swap	-
+DF226a	6550	swap	-
+DF226c	6551	swap	-
+DF227a	6552	swap	-
+DF228d	6554	swap	-
+DF229a	6556	swap	-
+DF229b	6557	swap	-
+DF230d	6558	swap	-
+DF231a	6560	swap	-
+DF232a	6562	swap	-
+DF233b	6564	swap	-
+DF234a	6566	swap	-
+DF235a	6568	swap	-
+DF235b	6569	swap	-
+DF236a	6570	swap	-
+DF236b	6571	swap	-
+DF237a	6572	swap	-
+DF237d	6573	swap	-
+DF238e	6574	swap	-
+DF238f	6575	swap	-
+DF239a	6576	swap	-
+DF240d	6578	swap	-
+DF241d	6580	swap	-
+DF242a	6582	swap	-
+DF243a	6584	swap	-
+DF244b	6586	swap	-
+DF245a	6588	swap	-
+DF245d	6589	swap	-
+DF246a	6590	swap	-
+DF246b	6591	swap	-
+DF247b	6592	swap	-
+GM101c	6600	swap	-
+GM101d	6601	swap	-
+GM102a	6602	swap	-
+GM102b	6603	swap	-
+GM103a	6604	swap	-
+GM103f	6605	swap	-
+GM104b	6606	swap	-
+GM104e	6607	swap	-
+GM105a	6608	swap	-
+GM105d	6609	swap	-
+GM106c	6610	swap	-
+GM106d	6611	swap	-
+GM107a	6612	swap	-
+GM107c	6613	swap	-
+GM108a	6614	swap	-
+GM108f	6615	swap	-
+GM109e	6616	swap	-
+GM109f	6617	swap	-
+GM110a	6618	swap	-
+GM110b	6619	swap	-
+GM111b	6620	swap	-
+GM111d	6621	swap	-
+GM112b	6622	swap	-
+GM112c	6623	swap	-
+GM113b	6624	swap	-
+GM113c	6625	swap	-
+GM114c	6626	swap	-
+GM115a	6628	lock	-
+GM116a	6630	swap	-
+GM116e	6631	swap	-
+GM117c	6632	swap	-
+GM118b	6634	swap	-
+GM118d	6635	swap	-
+GM119a	6636	swap	-
+GM120b	6638	swap	-
+GM121b	6640	swap	-
+GM122d	6642	swap	-
+GM123a	6644	swap	-
+GM124a	6646	swap	-
+GM124b	6647	swap	-
+GM125e	6648	swap	-
+GM126b	6650	swap	-
+GM126c	6651	swap	-
+GM127f	6652	swap	-
+GM127g	6653	swap	-
+GM128a	6654	swap	-
+GM129c	6656	swap	-
+GM129d	6657	swap	-
+GM130d	6658	swap	-
+GM131b	6660	swap	-
+GM131c	6661	swap	-
+GM132c	6662	swap	-
+GM132d	6663	swap	-
+GM133a	6664	swap	-
+GM134b	6666	swap	-
+GM134d	6667	swap	-
+GM135b	6668	swap	-
+GM135d	6669	swap	-
+GM136a	6670	swap	-
+GM136b	6671	swap	-
+GM137a	6672	swap	-
+GM137c	6673	swap	-
+GM138b	6674	swap	-
+GM138d	6675	swap	-
+GM139a	6676	swap	-
+GM139c	6677	swap	-
+GM140a	6678	swap	-
+GM141a	6680	swap	-
+GM142a	6682	swap	-
+GM143c	6684	swap	-
+GM144a	6686	swap	-
+GM144e	6687	swap	-
+GM145c	6688	swap	-
+GM146a	6690	swap	-
+GM146e	6691	swap	-
+GM147b	6692	swap	-
+GM147e	6693	swap	-
+GM201a	6700	swap	-
+GM201e	6701	swap	-
+GM202c	6702	swap	-
+GM202e	6703	swap	-
+GM203b	6704	swap	-
+GM203e	6705	swap	-
+GM204a	6706	swap	-
+GM204b	6707	swap	-
+GM205b	6708	swap	-
+GM205f	6709	swap	-
+GM206a	6710	swap	-
+GM206b	6711	swap	-
+GM207a	6712	swap	-
+GM207d	6713	swap	-
+GM208d	6714	swap	-
+GM208e	6715	swap	-
+GM209a	6716	swap	-
+GM209b	6717	swap	-
+GM210a	6718	swap	-
+GM210e	6719	swap	-
+GM211d	6720	swap	-
+GM211e	6721	swap	-
+GM212a	6722	swap	-
+GM213c	6724	swap	-
+GM213e	6725	swap	-
+GM214b	6726	swap	-
+GM214c	6727	swap	-
+GM215a	6728	lock	-
+GM216b	6730	swap	-
+GM216e	6731	swap	-
+GM217e	6732	swap	-
+GM218d	6734	swap	-
+GM219d	6736	swap	-
+GM220a	6738	swap	-
+GM221e	6740	swap	-
+GM222a	6742	swap	-
+GM223b	6744	swap	-
+GM223c	6745	swap	-
+GM224a	6746	swap	-
+GM224f	6747	swap	-
+GM225a	6748	swap	-
+GM226b	6750	swap	-
+GM226e	6751	swap	-
+GM227d	6752	swap	-
+GM228d	6754	swap	-
+GM229e	6756	swap	-
+GM229f	6757	swap	-
+GM230a	6758	swap	-
+GM230c	6759	swap	-
+GM231c	6760	swap	-
+GM231f	6761	swap	-
+GM232a	6762	swap	-
+GM232b	6763	swap	-
+GM233a	6764	swap	-
+GM233d	6765	swap	-
+GM234d	6766	swap	-
+GM235b	6768	swap	-
+GM235e	6769	swap	-
+GM236a	6770	swap	-
+GM236d	6771	swap	-
+GM237d	6772	swap	-
+GM237f	6773	swap	-
+GM238c	6774	swap	-
+GM238d	6775	swap	-
+GM239a	6776	swap	-
+GM240e	6778	swap	-
+GM241a	6780	swap	-
+GM241c	6781	swap	-
+GM242d	6782	swap	-
+GM243a	6784	swap	-
+GM244a	6786	swap	-
+GM245c	6788	swap	-
+GM245d	6789	swap	-
+GM246f	6790	swap	-
+GM247b	6792	swap	-
+GF101a	6800	swap	-
+GF101d	6801	swap	-
+GF102d	6802	swap	-
+GF102e	6803	swap	-
+GF103a	6804	swap	-
+GF103b	6805	swap	-
+GF104a	6806	swap	-
+GF104e	6807	swap	-
+GF105a	6808	swap	-
+GF105d	6809	swap	-
+GF106a	6810	swap	-
+GF106c	6811	swap	-
+GF107d	6812	swap	-
+GF107e	6813	swap	-
+GF108a	6814	swap	-
+GF108b	6815	swap	-
+GF109b	6816	swap	-
+GF110a	6818	swap	-
+GF110c	6819	swap	-
+GF111c	6820	swap	-
+GF111d	6821	swap	-
+GF112d	6822	swap	-
+GF113a	6824	swap	-
+GF113b	6825	swap	-
+GF114a	6826	swap	-
+GF114c	6827	swap	-
+GF115a	6828	lock	-
+GF115e	6829	lock	-
+GF116a	6830	swap	-
+GF116b	6831	swap	-
+GF117c	6832	swap	-
+GF118c	6834	swap	-
+GF119d	6836	swap	-
+GF120d	6838	swap	-
+GF121d	6840	swap	-
+GF122e	6842	swap	-
+GF123a	6844	swap	-
+GF124a	6846	swap	-
+GF124e	6847	swap	-
+GF125a	6848	swap	-
+GF125b	6849	swap	-
+GF126a	6850	swap	-
+GF126b	6851	swap	-
+GF127a	6852	swap	-
+GF127c	6853	swap	-
+GF128b	6854	swap	-
+GF129d	6856	swap	-
+GF130c	6858	swap	-
+GF131c	6860	swap	-
+GF131d	6861	swap	-
+GF132a	6862	swap	-
+GF132d	6863	swap	-
+GF133b	6864	swap	-
+GF133c	6865	swap	-
+GF134a	6866	swap	-
+GF134c	6867	swap	-
+GF135b	6868	swap	-
+GF135b	6869	swap	-
+GF136a	6870	swap	-
+GF136b	6871	swap	-
+GF137d	6872	swap	-
+GF137e	6873	swap	-
+GF138b	6874	swap	-
+GF139e	6876	swap	-
+GF140c	6878	swap	-
+GF141a	6880	swap	-
+GF141b	6881	swap	-
+GF142a	6882	swap	-
+GF142b	6883	swap	-
+GF143b	6884	swap	-
+GF144a	6886	swap	-
+GF144e	6887	swap	-
+GF145a	6888	swap	-
+GF145d	6889	swap	-
+GF146d	6890	swap	-
+GF147d	6892	swap	-
+gf201a	6900	swap	-
+gf201e	6901	swap	-
+gf202b	6902	swap	-
+gf202c	6903	swap	-
+gf203a	6904	swap	-
+gf203c	6905	swap	-
+gf204a	6906	swap	-
+gf204d	6907	swap	-
+gf205a	6908	swap	-
+gf205b	6909	swap	-
+gf206a	6910	swap	-
+gf206c	6911	swap	-
+gf207a	6912	swap	-
+gf207d	6913	swap	-
+gf208a	6914	swap	-
+gf208b	6915	swap	-
+gf209c	6916	swap	-
+gf209d	6917	swap	-
+gf210b	6918	swap	-
+gf210c	6919	swap	-
+gf211a	6920	swap	-
+gf211e	6921	swap	-
+gf212a	6922	swap	-
+gf212b	6923	swap	-
+gf213a	6924	swap	-
+gf213c	6925	swap	-
+gf214a	6926	swap	-
+gf214c	6927	swap	-
+gf215a	6928	lock	-
+gf215c	6929	lock	-
+gf216b	6930	swap	-
+gf216d	6931	swap	-
+gf217b	6932	swap	-
+gf218a	6934	swap	-
+gf219c	6936	swap	-
+gf220a	6938	swap	-
+gf221a	6940	swap	-
+gf222b	6942	swap	-
+gf223b	6944	swap	-
+gf224a	6946	swap	-
+gf225a	6948	swap	-
+gf225b	6949	swap	-
+gf226a	6950	swap	-
+gf226b	6951	swap	-
+gf227b	6952	swap	-
+gf227c	6953	swap	-
+gf228a	6954	swap	-
+gf229c	6956	swap	-
+gf229d	6957	swap	-
+gf230b	6958	swap	-
+gf230d	6959	swap	-
+gf231a	6960	swap	-
+gf231e	6961	swap	-
+gf232a	6962	swap	-
+gf232b	6963	swap	-
+gf233a	6964	swap	-
+gf233d	6965	swap	-
+gf234b	6966	swap	-
+gf235b	6968	swap	-
+gf236b	6970	swap	-
+gf237c	6972	swap	-
+gf238a	6974	swap	-
+gf238c	6975	swap	-
+gf239c	6976	swap	-
+gf240a	6978	swap	-
+gf241c	6980	swap	-
+gf242a	6982	swap	-
+gf243d	6984	swap	-
+gf244a	6986	swap	-
+gf245c	6988	swap	-
+gf245d	6989	swap	-
+gf246b	6990	swap	-
+gf246c	6991	swap	-
+gf247e	6992	swap	-
+LM101b	7000	swap	-
+LM101c	7001	swap	-
+LM102c	7002	swap	-
+LM102d	7003	swap	-
+LM103c	7004	swap	-
+LM103d	7005	swap	-
+LM104a	7006	swap	-
+LM104b	7007	swap	-
+LM105a	7008	swap	-
+LM105b	7009	swap	-
+LM106b	7010	swap	-
+LM106c	7011	swap	-
+LM107b	7012	swap	-
+LM107f	7013	swap	-
+LM108b	7014	swap	-
+LM108c	7015	swap	-
+LM109c	7016	swap	-
+LM109e	7017	swap	-
+LM110c	7018	swap	-
+LM110f	7019	swap	-
+LM111c	7020	swap	-
+LM111d	7021	swap	-
+LM112e	7022	swap	-
+LM113a	7024	swap	-
+LM113c	7025	swap	-
+LM114b	7026	swap	-
+LM115c	7028	lock	-
+LM115e	7029	lock	-
+LM116c	7030	swap	-
+LM116e	7031	swap	-
+LM117e	7032	swap	-
+LM118a	7034	swap	-
+LM118d	7035	swap	-
+LM119d	7036	swap	-
+LM120c	7038	swap	-
+LM121d	7040	swap	-
+LM122a	7042	swap	-
+LM123d	7044	swap	-
+LM124a	7046	swap	-
+LM124d	7047	swap	-
+LM125a	7048	swap	-
+LM125b	7049	swap	-
+LM126a	7050	swap	-
+LM126c	7051	swap	-
+LM127a	7052	swap	-
+LM127e	7053	swap	-
+LM128b	7054	swap	-
+LM129c	7056	swap	-
+LM129e	7057	swap	-
+LM130a	7058	swap	-
+LM131a	7060	swap	-
+LM131e	7061	swap	-
+LM132a	7062	swap	-
+LM132b	7063	swap	-
+LM133a	7064	swap	-
+LM134c	7066	swap	-
+LM135c	7068	swap	-
+LM135d	7069	swap	-
+LM136c	7070	swap	-
+LM136d	7071	swap	-
+LM137b	7072	swap	-
+LM137e	7073	swap	-
+LM138a	7074	swap	-
+LM138e	7075	swap	-
+LM139d	7076	swap	-
+LM140c	7078	swap	-
+LM141a	7080	swap	-
+LM142a	7082	swap	-
+LM142e	7083	swap	-
+LM143a	7084	swap	-
+LM144b	7086	swap	-
+LM145b	7088	swap	-
+LM146d	7090	swap	-
+LM147a	7092	swap	-
+LF101a	7100	swap	-
+LF102b	7102	swap	-
+LF102d	7103	swap	-
+LF103a	7104	swap	-
+LF103c	7105	swap	-
+LF104b	7106	swap	-
+LF104d	7107	swap	-
+LF105b	7108	swap	-
+LF105d	7109	swap	-
+LF106c	7110	swap	-
+LF106e	7111	swap	-
+LF107a	7112	swap	-
+LF107b	7113	swap	-
+LF108a	7114	swap	-
+LF109b	7116	swap	-
+LF109d	7117	swap	-
+LF110b	7118	swap	-
+LF110c	7119	swap	-
+LF111b	7120	swap	-
+LF111e	7121	swap	-
+LF112e	7122	swap	-
+LF112f	7123	swap	-
+LF113a	7124	swap	-
+LF113f	7125	swap	-
+LF114d	7126	swap	-
+LF114e	7127	swap	-
+LF115e	7128	lock	-
+LF115f	7129	lock	-
+LF116b	7130	swap	-
+LF117e	7132	swap	-
+LF118b	7134	swap	-
+LF119a	7136	swap	-
+LF120b	7138	swap	-
+LF121e	7140	swap	-
+LF122a	7142	swap	-
+LF123e	7144	swap	-
+LF124a	7146	swap	-
+LF124b	7147	swap	-
+LF125d	7148	swap	-
+LF126d	7150	swap	-
+LF126e	7151	swap	-
+LF127d	7152	swap	-
+LF127e	7153	swap	-
+LF128d	7154	swap	-
+LF129d	7156	swap	-
+LF130d	7158	swap	-
+LF131c	7160	swap	-
+LF132a	7162	swap	-
+LF132b	7163	swap	-
+LF133a	7164	swap	-
+LF134c	7166	swap	-
+LF135b	7168	swap	-
+LF135d	7169	swap	-
+LF136b	7170	swap	-
+LF136c	7171	swap	-
+LF137a	7172	swap	-
+LF137b	7173	swap	-
+LF138g	7174	swap	-
+LF139c	7176	swap	-
+LF140b	7178	swap	-
+LF141c	7180	swap	-
+LF142a	7182	swap	-
+LF143b	7184	swap	-
+LF144a	7186	swap	-
+LF144e	7187	swap	-
+LF145a	7188	swap	-
+LF145d	7189	swap	-
+LF146c	7190	swap	-
+LF146e	7191	swap	-
+LF147b	7192	swap	-
+zm101b	7300	swap	-
+zm101c	7301	swap	-
+zm102c	7302	swap	-
+zm102d	7303	swap	-
+zm103c	7304	swap	-
+zm103d	7305	swap	-
+zm104a	7306	swap	-
+zm104b	7307	swap	-
+zm105a	7308	swap	-
+zm105b	7309	swap	-
+zm106b	7310	swap	-
+zm106c	7311	swap	-
+zm107b	7312	swap	-
+zm107f	7313	swap	-
+zm108b	7314	swap	-
+zm108c	7315	swap	-
+zm109c	7316	swap	-
+zm109e	7317	swap	-
+zm110c	7318	swap	-
+zm110f	7319	swap	-
+zm111c	7320	swap	-
+zm111d	7321	swap	-
+zm112e	7322	swap	-
+zm113a	7324	swap	-
+zm113c	7325	swap	-
+zm114b	7326	swap	-
+zm115c	7328	lock	-
+zm115e	7329	lock	-
+zm116c	7330	swap	-
+zm116e	7331	swap	-
+zm117e	7332	swap	-
+zm118a	7334	swap	-
+zm118d	7335	swap	-
+zm119d	7336	swap	-
+zm120c	7338	swap	-
+zm121d	7340	swap	-
+zm122a	7342	swap	-
+zm123d	7344	swap	-
+zm124a	7346	swap	-
+zm124d	7347	swap	-
+zm125a	7348	swap	-
+zm125b	7349	swap	-
+zm126a	7350	swap	-
+zm126c	7351	swap	-
+zm127a	7352	swap	-
+zm127e	7353	swap	-
+zm128b	7354	swap	-
+zm129c	7356	swap	-
+zm129e	7357	swap	-
+zm130a	7358	swap	-
+zm131a	7360	swap	-
+zm131e	7361	swap	-
+zm132a	7362	swap	-
+zm132b	7363	swap	-
+zm133a	7364	swap	-
+zm134c	7366	swap	-
+zm135c	7368	swap	-
+zm135d	7369	swap	-
+zm136c	7370	swap	-
+zm136d	7371	swap	-
+zm137b	7372	swap	-
+zm137e	7373	swap	-
+zm138a	7374	swap	-
+zm138e	7375	swap	-
+zm139d	7376	swap	-
+zm140c	7378	swap	-
+zm141a	7380	swap	-
+zm142a	7382	swap	-
+zm142e	7383	swap	-
+zm143a	7384	swap	-
+zm144b	7386	swap	-
+zm145b	7388	swap	-
+zm146d	7390	swap	-
+zm147a	7392	swap	-
+zf101a	7400	swap	-
+zf102b	7402	swap	-
+zf102d	7403	swap	-
+zf103a	7404	swap	-
+zf103c	7405	swap	-
+zf104b	7406	swap	-
+zf104d	7407	swap	-
+zf105b	7408	swap	-
+zf105d	7409	swap	-
+zf106c	7410	swap	-
+zf106e	7411	swap	-
+zf107a	7412	swap	-
+zf107b	7413	swap	-
+zf108a	7414	swap	-
+zf109b	7416	swap	-
+zf109d	7417	swap	-
+zf110b	7418	swap	-
+zf110c	7419	swap	-
+zf111b	7420	swap	-
+zf111e	7421	swap	-
+zf112e	7422	swap	-
+zf112f	7423	swap	-
+zf113a	7424	swap	-
+zf113f	7425	swap	-
+zf114d	7426	swap	-
+zf114e	7427	swap	-
+zf115e	7428	lock	-
+zf115f	7429	lock	-
+zf116b	7430	swap	-
+zf117e	7432	swap	-
+zf118b	7434	swap	-
+zf119a	7436	swap	-
+zf120b	7438	swap	-
+zf121e	7440	swap	-
+zf122a	7442	swap	-
+zf123e	7444	swap	-
+zf124a	7446	swap	-
+zf124b	7447	swap	-
+zf125d	7448	swap	-
+zf126d	7450	swap	-
+zf126e	7451	swap	-
+zf127d	7452	swap	-
+zf127e	7453	swap	-
+zf128d	7454	swap	-
+zf129d	7456	swap	-
+zf130d	7458	swap	-
+zf131c	7460	swap	-
+zf132a	7462	swap	-
+zf132b	7463	swap	-
+zf133a	7464	swap	-
+zf134c	7466	swap	-
+zf135b	7468	swap	-
+zf135d	7469	swap	-
+zf136b	7470	swap	-
+zf136c	7471	swap	-
+zf137a	7472	swap	-
+zf137b	7473	swap	-
+zf138g	7474	swap	-
+zf139c	7476	swap	-
+zf140b	7478	swap	-
+zf141c	7480	swap	-
+zf142a	7482	swap	-
+zf143b	7484	swap	-
+zf144a	7486	swap	-
+zf144e	7487	swap	-
+zf145a	7488	swap	-
+zf145d	7489	swap	-
+zf146c	7490	swap	-
+zf146e	7491	swap	-
+zf147b	7492	swap	-
+quest	20001	swap	-
+Air guild 01	30101	swap	-
+Air guild 02	30102	swap	-
+Air guild 03	30103	swap	-
+Body Guild 01	30201	swap	-
+Body Guild 02	30202	swap	-
+Body Guild 03	30203	swap	-
+Dark guild 01	30301	swap	-
+Dark guild 02	30302	swap	-
+Dark guild 03	30303	swap	-
+Dwarf Alchemy Shop 01	30401	swap	-
+Dwarf Alchemy Shop 02	30402	swap	-
+Dwarf Alchemy Shop 03	30403	swap	-
+Dwarf Alchemy Shop 04	30404	swap	-
+Dwarf Armor Shop01	30501	swap	-
+Dwarf Armor Shop02	30502	swap	-
+Dwarf Armor Shop03	30503	swap	-
+Dwarf Armor Shop04	30504	swap	-
+Dwarf Bank 01	30601	swap	-
+Dwarf Bank 02	30602	swap	-
+Dwarf Bank 03	30603	swap	-
+Dwarf Boat 01	30701	swap	-
+Wizard Temple 01	31001	swap	-
+Wizard Temple 02	31002	swap	-
+Wizard Temple 03	31003	swap	-
+Wizard town hall	31101	swap	-
+Wizard Training Center 01	31201	swap	-
+Wizard Training Center 02	31202	swap	-
+Wizard Training Center 03	31203	swap	-
+Wizard Training Center 04	31204	swap	-
+Wizard weapon Shop 01	31301	swap	-
+Wizard weapon Shop 02	31302	swap	-
+Wizard weapon Shop 03	31303	swap	-
+Wizard weapon Shop 04	31304	swap	-
+Wizard magic Shop 01	31501	swap	-
+Wizard magic Shop 02	31502	swap	-
+Wizard magic Shop 03	31503	swap	-
+Wizard magic Shop 04	31504	swap	-
+Wizard Stable 01	31601	swap	-
+Wizard Stable 02	31602	swap	-
+Wizard Stable 03	31603	swap	-
+Wizard tavern 01	31701	swap	-
+Wizard tavern 02	31702	swap	-
+Wizard tavern 03	31703	swap	-
+Wizard tavern 04	31704	swap	-
+Wizard Armor Shop 01	31901	swap	-
+Wizard Armor Shop 02	31902	swap	-
+Wizard Armor Shop 03	31903	swap	-
+Wizard Armor Shop 04	31904	swap	-
+Wizard Bank 01	32001	swap	-
+Wizard Bank 02	32002	swap	-
+Wizard Bank 03	32003	swap	-
+Wizard Boat 01	32101	swap	-
+Wizard Boat 02	32102	swap	-
+Wizard Boat 03	32103	swap	-
+Warlock Weapon Shop 01	32301	swap	-
+Warlock Weapon Shop 02	32302	swap	-
+Warlock Weapon Shop 03	32303	swap	-
+Warlock Weapon Shop 04	32304	swap	-
+Water Guild 01	32401	swap	-
+Water Guild 02	32402	swap	-
+Water Guild 03	32403	swap	-
+Wizard Alchemy Shop 01	32501	swap	-
+Wizard Alchemy Shop 02	32502	swap	-
+Wizard Alchemy Shop 03	32503	swap	-
+Wizard Alchemy Shop 04	32504	swap	-
+Warlock Temple 01	32701	swap	-
+Warlock Temple 02	32702	swap	-
+Warlock Temple 03	32703	swap	-
+Warlock Town Hall	32801	swap	-
+Warlock Training Center 01	32901	swap	-
+Warlock Training Center 02c	32902	swap	-
+Warlock Training Center 03	32903	swap	-
+Warlock Training Center 04	32904	swap	-
+Warlock Magic Shop 01	33101	swap	-
+Warlock Magic Shop 02	33102	swap	-
+Warlock Magic Shop 03	33103	swap	-
+Warlock Magic Shop 04	33104	swap	-
+Warlock Stable 01	33201	swap	-
+Warlock Stable 02	33202	swap	-
+Warlock Stable 03	33203	swap	-
+Warlock tavern 01	33301	swap	-
+Warlock tavern 02	33302	swap	-
+Warlock tavern 03	33303	swap	-
+Warlock tavern 04	33304	swap	-
+Warlock Armor Shop 01	33501	swap	-
+Warlock Armor Shop 02	33502	swap	-
+Warlock Armor Shop 03	33503	swap	-
+Warlock Armor Shop 04	33504	swap	-
+Warlock Bank 01	33601	swap	-
+Warlock Bank 02	33602	swap	-
+Warlock Bank 03	33603	swap	-
+Warlock Boat 01	33701	swap	-
+Warlock Boat 02	33702	swap	-
+Warlock Boat 03	33703	swap	-
+Lord Markham & judge	33901	swap	-
+Mind Guild 01	34001	swap	-
+Mind Guild 02	34002	swap	-
+Mind Guild 03	34003	swap	-
+Spirit guild 01	34101	swap	-
+Spirit guild 02	34102	swap	-
+Spirit guild 03	34103	swap	-
+Warlock Alchemy Shop 01	34201	swap	-
+Warlock Alchemy Shop 02	34202	swap	-
+Warlock Alchemy Shop 03	34203	swap	-
+Warlock Alchemy Shop 04	34204	swap	-
+Human Town Hall	34302	swap	-
+Human Training Center 01	34401	swap	-
+Human Training Center 02	34402	swap	-
+Human Training Center 03	34403	swap	-
+Human Training Center 04	34404	swap	-
+Human Weapon shop 01	34501	swap	-
+Human Weapon shop 02	34502	swap	-
+Human Weapon shop 03	34503	swap	-
+Human Weapon shop 04	34504	swap	-
+Light Guild 01	34601	swap	-
+Light Guild 02	34602	swap	-
+Light Guild 03	34603	swap	-
+Human Stable 01	34801	swap	-
+Human Stable 02	34802	swap	-
+Human Stable 03	34803	swap	-
+Human Tavern 01	34901	swap	-
+Human Tavern 02	34902	swap	-
+Human Tavern 03	34903	swap	-
+Human Tavern 04	34904	swap	-
+Human Temple 01	35001	swap	-
+Human Temple 02	35002	swap	-
+Human Temple 03	35003	swap	-
+Human Bank 01	35201	swap	-
+Human Bank 02	35202	swap	-
+Human Bank 03	35203	swap	-
+Human Boat 01	35301	swap	-
+Human Boat 02	35302	swap	-
+Human Boat 03	35303	swap	-
+Human Magic Shop 01	35401	swap	-
+Human Magic Shop 02	35402	swap	-
+Human Magic Shop 03	35403	swap	-
+Human Magic Shop 04	35404	swap	-
+Fire Guild 01	35601	swap	-
+Fire Guild 02	35602	swap	-
+Fire Guild 03	35603	swap	-
+Goblin Tavern 01	35701	swap	-
+Goblin Tavern 02	35702	swap	-
+Goblin Tavern 03	35703	swap	-
+Goblin Tavern 04	35704	swap	-
+Human Armor Shop 01	35801	swap	-
+Human Armor Shop 02	35802	swap	-
+Human Armor Shop 03	35803	swap	-
+Human Armor Shop 04	35804	swap	-
+Evil Temple 01	36001	swap	-
+Evil Temple 02	36002	swap	-
+Evil Temple 03	36003	swap	-
+Evil town Hall	36101	swap	-
+Evil Training Center 01	36201	swap	-
+Evil Training Center 02	36202	swap	-
+Evil Training Center 03	36203	swap	-
+Evil Training Center 04	36204	swap	-
+Evil Weapon shop 01	36301	swap	-
+Evil Weapon shop 02	36302	swap	-
+Evil Weapon shop 03	36303	swap	-
+Evil Weapon shop 04	36304	swap	-
+Evil boat 01	36501	swap	-
+Evil boat 02	36502	swap	-
+Evil boat 03	36503	swap	-
+Evil Magic Shop01	36601	swap	-
+Evil Magic Shop02	36602	swap	-
+Evil Magic Shop03	36603	swap	-
+Evil Magic Shop04	36604	swap	-
+Evil Stable 01	36701	swap	-
+Evil Stable 02	36702	swap	-
+Evil Stable 03	36703	swap	-
+Evil Alchemy Shop 01	36901	swap	-
+Evil Alchemy Shop 02	36902	swap	-
+Evil Alchemy Shop 03	36903	swap	-
+Evil Alchemy Shop 04	36904	swap	-
+Evil Armor Shop 01	37001	swap	-
+Evil Armor Shop 02	37002	swap	-
+Evil Armor Shop 03	37003	swap	-
+Evil Armor Shop 04	37004	swap	-
+Evil Bank 01	37101	swap	-
+Evil Bank 02	37102	swap	-
+Evil Bank 03	37103	swap	-
+Elf Temple 01	37201	swap	-
+Elf Temple 02	37202	swap	-
+Elf Temple 03	37203	swap	-
+Elf Town Hall	37301	swap	-
+Elf Training Center 01	37401	swap	-
+Elf Training Center 02	37402	swap	-
+Elf Training Center 03	37403	swap	-
+Elf Training Center 04	37404	swap	-
+Elf Weapon Shop 01	37501	swap	-
+Elf Weapon Shop 02	37502	swap	-
+Elf Weapon Shop 03	37503	swap	-
+Elf Weapon Shop 04	37504	swap	-
+Elf Stable 01	37701	swap	-
+Elf Stable 02	37702	swap	-
+Elf Stable 03	37703	swap	-
+Elf Tavern 01	37801	swap	-
+Elf Tavern 02	37802	swap	-
+Elf Tavern 03	37803	swap	-
+Elf Tavern 04	37804	swap	-
+Elf Armorshop 01	37901	swap	-
+Elf Armorshop 02	37902	swap	-
+Elf Armorshop 03	37903	swap	-
+Elf Armorshop 04	37904	swap	-
+Elf Bank 01	38001	swap	-
+Elf Bank 02	38002	swap	-
+Elf Bank 03	38003	swap	-
+Elf Boat 01	38101	swap	-
+Elf Boat 02	38102	swap	-
+Elf Boat 03	38103	swap	-
+Elf Magic Shop 01	38201	swap	-
+Elf Magic Shop 02	38202	swap	-
+Elf Magic Shop 03	38203	swap	-
+Elf Magic Shop 04	38204	swap	-
+Dwarf Weapon Shop 01	38201	swap	-
+Dwarf Weapon Shop 02	38202	swap	-
+Dwarf Weapon Shop 03	38203	swap	-
+Dwarf Weapon Shop 04	38204	swap	-
+Earth Guild 01	38301	swap	-
+Earth Guild 02	38302	swap	-
+Earth Guild 03	38303	swap	-
+Elf Alchemy Shop 01	38401	swap	-
+Elf Alchemy Shop 02	38402	swap	-
+Elf Alchemy Shop 03	38403	swap	-
+Elf Alchemy Shop 04	38404	swap	-
+Dwarf Temple 01	38601	swap	-
+Dwarf Temple 02	38602	swap	-
+Dwarf Temple 03	38603	swap	-
+Dwarf town Hall	38801	swap	-
+Dwarf Training Center 01	38901	swap	-
+Dwarf Training Center 02	38902	swap	-
+Dwarf Training Center 03	38903	swap	-
+Dwarf Training Center 04	38904	swap	-
+Dwarf Boat 02	39001	swap	-
+Dwarf Boat 03	39002	swap	-
+Dwarf Magic Shop 01	39101	swap	-
+Dwarf Magic Shop 02	39102	swap	-
+Dwarf Magic Shop 03	39103	swap	-
+Dwarf Magic Shop 04	39104	swap	-
+Dwarf Stable 01	39201	swap	-
+Dwarf Stable 02	39202	swap	-
+Dwarf Stable 03	39303	swap	-
+Dwarf Tavern01	39401	swap	-
+Dwarf Tavern02	39402	swap	-
+Dwarf Tavern03	39403	swap	-
+Dwarf Tavern04	39404	swap	-
+Human Alchemy Shop 01	39501	swap	-
+Human Alchemy Shop 02	39502	swap	-
+Human Alchemy Shop 03	39503	swap	-
+Human Alchemy Shop 04	39504	swap	-

@@ -1,0 +1,209 @@
+House	Shop	Level	1	2	3	4	Comments
+1	Weapon	1	Sword	Bow	Weapon_	Weapon_	'Weapon' defines items for Buy dialog.
+	SWeapon	2	Axe	Staff	Weapon_	Weapon_	'SWeapon' defines items for Buy Special dialog.
+2	Weapon	1	Sword	Dagger	Mace	Weapon_	Each item is chosen at random from any of these types.
+	SWeapon	2	Sword	Dagger	Mace	Weapon_	Look up const.ItemType for a list of item types.
+3	Weapon	2	Sword	Dagger	Axe	Weapon_	
+	SWeapon	3	Sword	Dagger	Axe	Weapon_	
+4	Weapon	2	Bow	Bow	Spear	Spear	
+	SWeapon	3	Bow	Bow	Spear	Spear	
+5	Weapon	4	Dagger	Staff	Axe	Bow	
+	SWeapon	5	Sword	Spear	Mace	Bow	
+6	Weapon	4	Dagger	Staff	Axe	Bow	
+	SWeapon	5	Sword	Spear	Mace	Bow	
+7	Weapon	3	Staff	Dagger	Weapon_	Weapon_	
+	SWeapon	4	Staff	Dagger	Weapon_	Weapon_	
+8	Weapon	2	Weapon_	Weapon_	Weapon_	Weapon_	
+	SWeapon	3	Weapon_	Weapon_	Weapon_	Weapon_	
+9	Weapon	3	Bow	Bow	Spear	Spear	
+	SWeapon	4	Bow	Bow	Spear	Spear	
+10	Weapon	3	Mace	Mace	Axe	Axe	
+	SWeapon	4	Mace	Mace	Axe	Axe	
+11	Weapon	2	Sword	Sword	Dagger	Dagger	
+	SWeapon	4	Sword	Sword	Dagger	Dagger	
+12	Weapon	3	Sword	Sword	Spear	Spear	
+	SWeapon	4	Dagger	Dagger	Bow	Weapon_	
+13	Weapon	2	Staff	Spear	Spear	Spear	
+	SWeapon	4	Staff	Spear	Spear	Spear	
+14	Weapon	2	Mace	Axe	Mace	Club	
+	SWeapon	4	Mace	Axe	Mace	Club	
+15	Armor1	1	Helm_	Helm_	Gountlets_	Gountlets_	'Armor1' defines items on the upper shelf of Buy dialog.
+	Armor2	1	Leather	Leather	Leather	Shield_	'Armor2' defines items on the lower shelf of Buy dialog.
+	SArmor1	2	Helm_	Helm_	Gountlets_	Gountlets_	'SArmor1' and 'SArmor2' define items for Buy Special dialog.
+	SArmor2	2	Leather	Leather	Leather	Shield_	
+16	Armor1	1	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	1	Leather	Leather	Chain	Shield_	
+	SArmor1	2	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	2	Leather	Leather	Chain	Shield_	
+17	Armor1	2	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	2	Leather	Chain	Chain	Plate	
+	SArmor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	3	Leather	Chain	Chain	Plate	
+18	Armor1	2	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	2	Leather	Leather	Chain	Chain	
+	SArmor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	3	Leather	Leather	Chain	Chain	
+19	Armor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	4	Leather	Chain	Plate	Shield_	
+	SArmor1	5	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	5	Leather	Chain	Plate	Shield_	
+20	Armor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	4	Leather	Chain	Plate	Shield_	
+	SArmor1	5	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	5	Leather	Chain	Plate	Shield_	
+21	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Leather	Leather	Leather	Leather	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Leather	Leather	Leather	Leather	
+22	Armor1	2	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	2	Leather	Chain	Shield_	Shield_	
+	SArmor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	3	Leather	Chain	Shield_	Shield_	
+23	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Leather	Leather	Chain	Chain	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Leather	Leather	Chain	Plate	
+24	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Chain	Chain	Chain	Plate	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Chain	Chain	Plate	Shield_	
+25	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Leather	Leather	Leather	Chain	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Leather	Leather	Leather	Chain	
+26	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Plate	Leather	Chain	Shield_	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Chain	Chain	Chain	Chain	
+27	Armor1	3	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	3	Plate	Leather	Chain	Shield_	
+	SArmor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	4	Shield_	Shield_	Shield_	Shield_	
+28	Armor1	4	Helm_	Helm_	Gountlets_	Gountlets_	
+	Armor2	4	Plate	Leather	Chain	Shield_	
+	SArmor1	5	Helm_	Helm_	Gountlets_	Gountlets_	
+	SArmor2	5	Plate	Plate	Plate	Plate	
+29	Magic	1					'Magic' defines items for Buy dialog.
+	SMagic	2					'SMagic' defines items for Buy Special dialog.
+30	Magic	1					
+	SMagic	2					
+31	Magic	2					
+	SMagic	3					
+32	Magic	2					
+	SMagic	3					
+33	Magic	4					
+	SMagic	5					
+34	Magic	4					
+	SMagic	5					
+35	Magic	3					
+	SMagic	4					
+36	Magic	2					
+	SMagic	3					
+37	Magic	2					
+	SMagic	3					
+38	Magic	2					
+	SMagic	3					
+39	Magic	2					
+	SMagic	3					
+40	Magic	2					
+	SMagic	3					
+41	Magic	2					
+	SMagic	3					
+42	Alchemist	1					'Alchemist' defines reagents for Buy dialog.
+	SAlchemist	2					'SAlchemist' defines potions for Buy Special dialog.
+43	Alchemist	1					
+	SAlchemist	2					
+44	Alchemist	2					
+	SAlchemist	3					
+45	Alchemist	2					
+	SAlchemist	3					
+46	Alchemist	3					
+	SAlchemist	4					
+47	Alchemist	3					
+	SAlchemist	4					
+48	Alchemist	4					
+	SAlchemist	5					
+49	Alchemist	4					
+	SAlchemist	5					
+50	Alchemist	2					
+	SAlchemist	3					
+51	Alchemist	2					
+	SAlchemist	2					
+52	Alchemist	2					
+	SAlchemist	2					
+53	Alchemist	2					
+	SAlchemist	2					
+89	Training	5					Training cap. '-1' means no cap.
+90	Training	15					
+91	Training	25					
+92	Training	25					
+93	Training	200					
+94	Training	200					
+95	Training	-1					
+96	Training	50					
+97	Training	50					
+98	Training	100					
+139	Guild	4					Maximum spell number withing the magic school.
+140	Guild	7					
+141	Guild	10					
+142	Guild	11					
+143	Guild	4					
+144	Guild	7					
+145	Guild	10					
+146	Guild	11					
+147	Guild	4					
+148	Guild	7					
+149	Guild	10					
+150	Guild	11					
+151	Guild	4					
+152	Guild	7					
+153	Guild	10					
+154	Guild	11					
+155	Guild	4					
+156	Guild	7					
+157	Guild	10					
+158	Guild	11					
+159	Guild	4					
+160	Guild	7					
+161	Guild	10					
+162	Guild	11					
+163	Guild	4					
+164	Guild	7					
+165	Guild	10					
+166	Guild	11					
+167	Guild	7					
+168	Guild	11					
+169	Guild	7					
+170	Guild	11					
+139	GuildAward	54					Award number required to access the guild.
+140	GuildAward	54					
+141	GuildAward	54					
+142	GuildAward	54					
+143	GuildAward	52					
+144	GuildAward	52					
+145	GuildAward	52					
+146	GuildAward	52					
+147	GuildAward	55					
+148	GuildAward	55					
+149	GuildAward	55					
+150	GuildAward	55					
+151	GuildAward	53					
+152	GuildAward	53					
+153	GuildAward	53					
+154	GuildAward	53					
+155	GuildAward	58					
+156	GuildAward	58					
+157	GuildAward	58					
+158	GuildAward	58					
+159	GuildAward	57					
+160	GuildAward	57					
+161	GuildAward	57					
+162	GuildAward	57					
+163	GuildAward	56					
+164	GuildAward	56					
+165	GuildAward	56					
+166	GuildAward	56					
+167	GuildAward	59					
+168	GuildAward	59					
+169	GuildAward	60					
+170	GuildAward	60					

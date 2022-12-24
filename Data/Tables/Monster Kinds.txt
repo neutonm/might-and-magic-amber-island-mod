@@ -1,0 +1,284 @@
+Monster	Undead	Demon	Dragon	Elf	Swimmer	Immobile	Titan	NoArena
+0	-	-	-	-	-	-	-	-
+1  Angel A	-	-	-	-	-	-	-	-
+2  Angel B	-	-	-	-	-	-	-	-
+3  Angel C	-	-	-	-	-	-	-	-
+4  Archer A	-	-	-	-	-	-	-	-
+5  Archer B	-	-	-	-	-	-	-	-
+6  Archer C	-	-	-	-	-	-	-	-
+7  Bat A	-	-	-	-	-	-	-	-
+8  Bat B	-	-	-	-	-	-	-	-
+9  Bat C	-	-	-	-	-	-	-	-
+10  Behemoth A	-	-	-	-	-	-	-	-
+11  Behemoth B	-	-	-	-	-	-	-	-
+12  Behemoth C	-	-	-	-	-	-	-	-
+13  Beholder A	-	-	-	-	-	-	-	-
+14  Beholder B	-	-	-	-	-	-	-	-
+15  Beholder C	-	-	-	-	-	-	-	-
+16  Cleric Moon A	-	-	-	-	-	-	-	-
+17  Cleric Moon B	-	-	-	-	-	-	-	-
+18  Cleric Moon C	-	-	-	-	-	-	-	-
+19  Cleric Sun A	-	-	-	-	-	-	-	-
+20  Cleric Sun B	-	-	-	-	-	-	-	-
+21  Cleric Sun C	-	-	-	-	-	-	-	-
+22  Devil A	-	x	-	-	-	-	-	-
+23  Devil B	-	x	-	-	-	-	-	-
+24  Devil C	-	x	-	-	-	-	-	-
+25  Dragon A	-	-	x	-	-	-	-	-
+26  Dragon B	-	-	x	-	-	-	-	-
+27  Dragon C	-	-	x	-	-	-	-	-
+28  Dragonfly A	-	-	-	-	-	-	-	-
+29  Dragonfly B	-	-	-	-	-	-	-	-
+30  Dragonfly C	-	-	-	-	-	-	-	-
+31  Dwarf A	-	-	-	-	-	-	-	-
+32  Dwarf B	-	-	-	-	-	-	-	-
+33  Dwarf C	-	-	-	-	-	-	-	-
+34  Elemental Air A	-	-	-	-	-	-	-	-
+35  Elemental Air B	-	-	-	-	-	-	-	-
+36  Elemental Air C	-	-	-	-	-	-	-	-
+37  Elemental Earth A	-	-	-	-	-	-	-	-
+38  Elemental Earth B	-	-	-	-	-	-	-	-
+39  Elemental Earth C	-	-	-	-	-	-	-	-
+40  Elemental Fire A	-	-	-	-	-	-	-	-
+41  Elemental Fire B	-	-	-	-	-	-	-	-
+42  Elemental Fire C	-	-	-	-	-	-	-	-
+43  Elemental Light A	-	-	-	-	-	-	-	-
+44  Elemental Light B	-	-	-	-	-	-	-	-
+45  Elemental Light C	-	-	-	-	-	-	-	-
+46  Elemental Water A	-	-	-	-	x	-	-	-
+47  Elemental Water B	-	-	-	-	x	-	-	-
+48  Elemental Water C	-	-	-	-	x	-	-	-
+49  Elf Archer A	-	-	-	x	-	-	-	-
+50  Elf Archer B	-	-	-	x	-	-	-	-
+51  Elf Archer C	-	-	-	x	-	-	-	-
+52  Elf Spearman A	-	-	-	x	-	-	-	-
+53  Elf Spearman B	-	-	-	x	-	-	-	-
+54  Elf Spearman C	-	-	-	x	-	-	-	-
+55  Fighter Chain A	-	-	-	-	-	-	-	-
+56  Fighter Chain B	-	-	-	-	-	-	-	-
+57  Fighter Chain C	-	-	-	-	-	-	-	-
+58  Fighter Leather A	-	-	-	-	-	-	-	-
+59  Fighter Leather B	-	-	-	-	-	-	-	-
+60  Fighter Leather C	-	-	-	-	-	-	-	-
+61  Fighter Plate A	-	-	-	-	-	-	-	-
+62  Fighter Plate B	-	-	-	-	-	-	-	-
+63  Fighter Plate C	-	-	-	-	-	-	-	-
+64  Gargoyle A	-	-	-	-	-	-	-	-
+65  Gargoyle B	-	-	-	-	-	-	-	-
+66  Gargoyle C	-	-	-	-	-	-	-	-
+67  Genie A	-	-	-	-	-	-	-	-
+68  Genie B	-	-	-	-	-	-	-	-
+69  Genie C	-	-	-	-	-	-	-	-
+70  Ghost A	x	-	-	-	-	-	-	-
+71  Ghost B	x	-	-	-	-	-	-	-
+72  Ghost C	x	-	-	-	-	-	-	-
+73  Goblin A	-	-	-	-	-	-	-	-
+74  Goblin B	-	-	-	-	-	-	-	-
+75  Goblin C	-	-	-	-	-	-	-	-
+76  Gog A	-	-	-	-	-	-	-	-
+77  Gog B	-	-	-	-	-	-	-	-
+78  Gog C	-	-	-	-	-	-	-	-
+79  Golem A	-	-	-	-	-	-	-	-
+80  Golem B	-	-	-	-	-	-	-	-
+81  Golem C	-	-	-	-	-	-	-	-
+82  Griffin A	-	-	-	-	-	-	-	-
+83  Griffin B	-	-	-	-	-	-	-	-
+84  Griffin C	-	-	-	-	-	-	-	-
+85  Harpy A	-	-	-	-	-	-	-	-
+86  Harpy B	-	-	-	-	-	-	-	-
+87  Harpy C	-	-	-	-	-	-	-	-
+88  Hydra A	-	-	-	-	-	-	-	-
+89  Hydra B	-	-	-	-	-	-	-	-
+90  Hydra C	-	-	-	-	-	-	-	-
+91  Lich A	x	-	-	-	-	-	-	-
+92  Lich B	x	-	-	-	-	-	-	-
+93  Lich C	x	-	-	-	-	-	-	-
+94  Mage A	-	-	-	-	-	-	-	-
+95  Mage B	-	-	-	-	-	-	-	-
+96  Mage C	-	-	-	-	-	-	-	-
+97  Manticore A	-	-	-	-	-	-	-	-
+98  Manticore B	-	-	-	-	-	-	-	-
+99  Manticore C	-	-	-	-	-	-	-	-
+100  Medusa A	-	-	-	-	-	-	-	-
+101  Medusa B	-	-	-	-	-	-	-	-
+102  Medusa C	-	-	-	-	-	-	-	-
+103  Minotaur A	-	-	-	-	-	-	-	-
+104  Minotaur B	-	-	-	-	-	-	-	-
+105  Minotaur C	-	-	-	-	-	-	-	-
+106  Monk A	-	-	-	-	-	-	-	-
+107  Monk B	-	-	-	-	-	-	-	-
+108  Monk C	-	-	-	-	-	-	-	-
+109  Necromancer A	-	-	-	-	-	-	-	-
+110  Necromancer B	-	-	-	-	-	-	-	-
+111  Necromancer C	-	-	-	-	-	-	-	-
+112  Ooze A	-	-	-	-	-	-	-	-
+113  Ooze B	-	-	-	-	-	-	-	-
+114  Ooze C	-	-	-	-	-	-	-	-
+115  Peasant Dwarf FemaleA A	-	-	-	-	-	-	-	-
+116  Peasant Dwarf FemaleA B	-	-	-	-	-	-	-	-
+117  Peasant Dwarf FemaleA C	-	-	-	-	-	-	-	-
+118  Peasant Dwarf FemaleB A	-	-	-	-	-	-	-	-
+119  Peasant Dwarf FemaleB B	-	-	-	-	-	-	-	-
+120  Peasant Dwarf FemaleB C	-	-	-	-	-	-	-	-
+121  Peasant Dwarf FemaleC A	-	-	-	-	-	-	-	-
+122  Peasant Dwarf FemaleC B	-	-	-	-	-	-	-	-
+123  Peasant Dwarf FemaleC C	-	-	-	-	-	-	-	-
+124  Peasant Dwarf MaleA A	-	-	-	-	-	-	-	-
+125  Peasant Dwarf MaleA B	-	-	-	-	-	-	-	-
+126  Peasant Dwarf MaleA C	-	-	-	-	-	-	-	-
+127  Peasant Dwarf MaleB A	-	-	-	-	-	-	-	-
+128  Peasant Dwarf MaleB B	-	-	-	-	-	-	-	-
+129  Peasant Dwarf MaleB C	-	-	-	-	-	-	-	-
+130  Peasant Dwarf MaleC A	-	-	-	-	-	-	-	-
+131  Peasant Dwarf MaleC B	-	-	-	-	-	-	-	-
+132  Peasant Dwarf MaleC C	-	-	-	-	-	-	-	-
+133  Peasant Elf FemaleA A	-	-	-	x	-	-	-	-
+134  Peasant Elf FemaleA B	-	-	-	x	-	-	-	-
+135  Peasant Elf FemaleA C	-	-	-	x	-	-	-	-
+136  Peasant Elf FemaleB A	-	-	-	x	-	-	-	-
+137  Peasant Elf FemaleB B	-	-	-	x	-	-	-	-
+138  Peasant Elf FemaleB C	-	-	-	x	-	-	-	-
+139  Peasant Elf FemaleC A	-	-	-	x	-	-	-	-
+140  Peasant Elf FemaleC B	-	-	-	x	-	-	-	-
+141  Peasant Elf FemaleC C	-	-	-	x	-	-	-	-
+142  Peasant Elf MaleA A	-	-	-	x	-	-	-	-
+143  Peasant Elf MaleA B	-	-	-	x	-	-	-	-
+144  Peasant Elf MaleA C	-	-	-	x	-	-	-	-
+145  Peasant Elf MaleB A	-	-	-	x	-	-	-	-
+146  Peasant Elf MaleB B	-	-	-	x	-	-	-	-
+147  Peasant Elf MaleB C	-	-	-	x	-	-	-	-
+148  Peasant Elf MaleC A	-	-	-	x	-	-	-	-
+149  Peasant Elf MaleC B	-	-	-	x	-	-	-	-
+150  Peasant Elf MaleC C	-	-	-	x	-	-	-	-
+151  Peasant Human1 FemaleA A	-	-	-	-	-	-	-	-
+152  Peasant Human1 FemaleA B	-	-	-	-	-	-	-	-
+153  Peasant Human1 FemaleA C	-	-	-	-	-	-	-	-
+154  Peasant Human1 FemaleB A	-	-	-	-	-	-	-	-
+155  Peasant Human1 FemaleB B	-	-	-	-	-	-	-	-
+156  Peasant Human1 FemaleB C	-	-	-	-	-	-	-	-
+157  Peasant Human1 FemaleC A	-	-	-	-	-	-	-	-
+158  Peasant Human1 FemaleC B	-	-	-	-	-	-	-	-
+159  Peasant Human1 FemaleC C	-	-	-	-	-	-	-	-
+160  Peasant Human1 MaleA A	-	-	-	-	-	-	-	-
+161  Peasant Human1 MaleA B	-	-	-	-	-	-	-	-
+162  Peasant Human1 MaleA C	-	-	-	-	-	-	-	-
+163  Peasant Human1 MaleB A	-	-	-	-	-	-	-	-
+164  Peasant Human1 MaleB B	-	-	-	-	-	-	-	-
+165  Peasant Human1 MaleB C	-	-	-	-	-	-	-	-
+166  Peasant Human1 MaleC A	-	-	-	-	-	-	-	-
+167  Peasant Human1 MaleC B	-	-	-	-	-	-	-	-
+168  Peasant Human1 MaleC C	-	-	-	-	-	-	-	-
+169  Peasant Human2 MaleA A	-	-	-	-	-	-	-	-
+170  Peasant Human2 MaleA B	-	-	-	-	-	-	-	-
+171  Peasant Human2 MaleA C	-	-	-	-	-	-	-	-
+172  Peasant Human2 MaleB A	-	-	-	-	-	-	-	-
+173  Peasant Human2 MaleB B	-	-	-	-	-	-	-	-
+174  Peasant Human2 MaleB C	-	-	-	-	-	-	-	-
+175  Peasant Human2 MaleC A	-	-	-	-	-	-	-	-
+176  Peasant Human2 MaleC B	-	-	-	-	-	-	-	-
+177  Peasant Human2 MaleC C	-	-	-	-	-	-	-	-
+178  Peasant Human2 FemaleA A	-	-	-	-	-	-	-	-
+179  Peasant Human2 FemaleA B	-	-	-	-	-	-	-	-
+180  Peasant Human2 FemaleA C	-	-	-	-	-	-	-	-
+181  Peasant Human2 FemaleB A	-	-	-	-	-	-	-	-
+182  Peasant Human2 FemaleB B	-	-	-	-	-	-	-	-
+183  Peasant Human2 FemaleB C	-	-	-	-	-	-	-	-
+184  Peasant Human2 FemaleC A	-	-	-	-	-	-	-	-
+185  Peasant Human2 FemaleC B	-	-	-	-	-	-	-	-
+186  Peasant Human2 FemaleC C	-	-	-	-	-	-	-	-
+187  Rat A	-	-	-	-	-	-	-	-
+188  Rat B	-	-	-	-	-	-	-	-
+189  Rat C	-	-	-	-	-	-	-	-
+190  Robot A	-	-	-	-	-	-	-	-
+191  Robot B	-	-	-	-	-	-	-	-
+192  Robot C	-	-	-	-	-	-	-	-
+193  Roc A	-	-	-	-	-	-	-	-
+194  Roc B	-	-	-	-	-	-	-	-
+195  Roc C	-	-	-	-	-	-	-	-
+196  Sea Monster A	-	-	-	-	-	-	-	-
+197  Sea Monster B	-	-	-	-	-	-	-	-
+198  Sea Monster C	-	-	-	-	-	-	-	-
+199  Skeleton Warrior A	x	-	-	-	-	-	-	-
+200  Skeleton Warrior B	x	-	-	-	-	-	-	-
+201  Skeleton Warrior C	x	-	-	-	-	-	-	-
+202  Spider A	-	-	-	-	-	-	-	-
+203  Spider B	-	-	-	-	-	-	-	-
+204  Spider C	-	-	-	-	-	-	-	-
+205  Swordsman A	-	-	-	-	-	-	-	-
+206  Swordsman B	-	-	-	-	-	-	-	-
+207  Swordsman C	-	-	-	-	-	-	-	-
+208  Thief A	-	-	-	-	-	-	-	-
+209  Thief B	-	-	-	-	-	-	-	-
+210  Thief C	-	-	-	-	-	-	-	-
+211  Titan A	-	-	-	-	-	-	x	-
+212  Titan B	-	-	-	-	-	-	x	-
+213  Titan C	-	-	-	-	-	-	x	-
+214  Troglodyte A	-	-	-	-	-	-	-	-
+215  Troglodyte B	-	-	-	-	-	-	-	-
+216  Troglodyte C	-	-	-	-	-	-	-	-
+217  Vampire A	x	-	-	-	-	-	-	-
+218  Vampire B	x	-	-	-	-	-	-	-
+219  Vampire C	x	-	-	-	-	-	-	-
+220  Warlock A	-	-	-	-	-	-	-	-
+221  Warlock B	-	-	-	-	-	-	-	-
+222  Warlock C	-	-	-	-	-	-	-	-
+223  Wight A	x	-	-	-	-	-	-	-
+224  Wight B	x	-	-	-	-	-	-	-
+225  Wight C	x	-	-	-	-	-	-	-
+226  Wyvern A	-	-	-	-	-	-	-	-
+227  Wyvern B	-	-	-	-	-	-	-	-
+228  Wyvern C	-	-	-	-	-	-	-	-
+229  Zombie A	x	-	-	-	-	-	-	-
+230  Zombie B	x	-	-	-	-	-	-	-
+231  Zombie C	x	-	-	-	-	-	-	-
+232  Peasant Goblin female A A	-	-	-	-	-	-	-	-
+233  Peasant Goblin female A B	-	-	-	-	-	-	-	-
+234  Peasant Goblin female A C	-	-	-	-	-	-	-	-
+235  Peasant Goblin female B A	-	-	-	-	-	-	-	-
+236  Peasant Goblin female B B	-	-	-	-	-	-	-	-
+237  Peasant Goblin female B C	-	-	-	-	-	-	-	-
+238  Peasant Goblin female C A	-	-	-	-	-	-	-	-
+239  Peasant Goblin female C B	-	-	-	-	-	-	-	-
+240  Peasant Goblin female C C	-	-	-	-	-	-	-	-
+241  Peasant Goblin Male A A	-	-	-	-	-	-	-	-
+242  Peasant Goblin Male A B	-	-	-	-	-	-	-	-
+243  Peasant Goblin Male A C	-	-	-	-	-	-	-	-
+244  Peasant Goblin Male B A	-	-	-	-	-	-	-	-
+245  Peasant Goblin Male B B	-	-	-	-	-	-	-	-
+246  Peasant Goblin Male B C	-	-	-	-	-	-	-	-
+247  Peasant Goblin Male C A	-	-	-	-	-	-	-	-
+248  Peasant Goblin Male C B	-	-	-	-	-	-	-	-
+249  Peasant Goblin Male C C	-	-	-	-	-	-	-	-
+250  Troll A	-	-	-	-	-	-	-	-
+251  Troll B	-	-	-	-	-	-	-	-
+252  Troll C	-	-	-	-	-	-	-	-
+253  Treant A	-	-	-	-	-	x	-	-
+254  Treant B	-	-	-	-	-	x	-	-
+255  Treant C	-	-	-	-	-	x	-	-
+256  Ghoul A	x	-	-	-	-	-	-	-
+257  Ghoul B	x	-	-	-	-	-	-	-
+258  Ghoul C	x	-	-	-	-	-	-	-
+259  zBlasterGuy A	-	-	-	-	-	-	-	-
+260  zBlasterGuy B	-	-	-	-	-	-	-	-
+261  zBlasterGuy C	-	-	-	-	-	-	-	-
+262  zUltra Dragon A	-	-	-	-	-	-	-	-
+263  zUltra Dragon B	-	-	-	-	-	-	-	-
+264  zUltra Dragon C	-	-	-	-	-	-	-	-
+265  zcat a	-	-	-	-	-	-	-	-
+266  zcat b	-	-	-	-	-	-	-	-
+267  zcat c	-	-	-	-	-	-	-	-
+268  zchicken a	-	-	-	-	-	-	-	-
+269  zchicken b	-	-	-	-	-	-	-	-
+270  zchicken c	-	-	-	-	-	-	-	-
+271  zdog a	-	-	-	-	-	-	-	-
+272  zdog b	-	-	-	-	-	-	-	-
+273  zdog c	-	-	-	-	-	-	-	-
+274  zrat a	-	-	-	-	-	-	-	-
+275  zrat b	-	-	-	-	-	-	-	-
+276  zrat c	-	-	-	-	-	-	-	-
+277  Wererat Ratman Form Male A	-	-	-	-	-	-	-	-
+278  Wererat Ratman Form Male B	-	-	-	-	-	-	-	-
+279  Wererat Ratman Form Male C	-	-	-	-	-	-	-	-
+
+
+
