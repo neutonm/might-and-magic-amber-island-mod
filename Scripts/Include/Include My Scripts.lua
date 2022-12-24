@@ -1,1 +1,0 @@
-AddScriptsPath(DevPath..'Scripts/my/')
