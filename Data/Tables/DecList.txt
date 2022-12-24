@@ -1,0 +1,229 @@
+#	Name	GameName	Type	Height	Radius	LightRadius	SFTGroup	NoBlockMovement	NoDraw	FlickerSlow	FlickerMedium	FlickerFast	Marker	SlowLoop	EmitFire	SoundOnDawn	SoundOnDusk	EmitSmoke	SoundId	Red	Green	Blue
+0	Key	Test	0	40	29	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+1	Pending!	test	0	16	16	16	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+2	Party Start	test	0	16	16	0	null	-	x	-	-	-	-	-	-	-	-	-	0	0	0	0
+3	fount1	fountain	0	74	38	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+4	dec01	trash heap	0	52	52	0	dec01	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+5	dec02	campfire	0	52	52	0	dec02	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+6	dec03	cauldron	0	52	52	0	dec03	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+7	dec04	chandelier	0	52	52	0	dec04	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+8	dec05	cage	0	52	52	0	dec05	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+9	dec06	cage	0	52	52	0	dec06	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+10	dec07	cage	0	52	52	0	dec07	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+11	dec08	fruit bowl	0	52	52	0	dec08	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+12	dec09	rock	0	52	52	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+13	dec10	trash heap	0	52	52	0	dec10	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+14	dec11	dirt	0	52	52	0	dec11	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+15	dec12	wood	0	52	52	0	dec12	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+16	dec13	wood	0	52	52	0	dec13	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+17	dec14	wood	0	52	52	0	dec14	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+18	dec15	wood	0	52	52	0	dec15	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+19	dec16	wood	0	52	52	0	dec16	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+20	dec17	wood	0	52	52	0	dec17	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+21	dec18	bones	0	52	52	0	dec18	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+22	dec19	bones	0	52	52	0	dec19	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+23	dec20	skull	0	52	52	0	dec20	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+24	dec21	cask	0	40	29	0	dec21	-	-	-	-	-	-	-	-	-	-	-	10	0	0	0
+25	dec22	ship	0	64	64	0	null	-	-	-	-	-	-	-	-	-	-	-	18	0	0	0
+26	dec23	bag	0	40	30	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+27	dec24	barrel	0	40	30	0	dec24	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+28	dec25	keg	0	40	30	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+29	dec26	fire	0	40	30	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+30	dec27	fire	0	40	30	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+31	torch01	torch	0	52	8	512	torch01	-	-	-	-	-	-	-	-	-	-	-	0	255	128	0
+32	torch02	torch	0	52	7	512	torch02	-	-	-	-	-	-	-	-	-	-	-	0	255	128	0
+33	torch03	torch	0	52	8	512	torch03	-	-	-	-	-	-	-	-	-	-	-	0	255	128	0
+34	dec32	barrel	0	52	52	0	dec32	-	-	-	-	-	-	-	-	-	-	-	228	0	0	0
+35	dec33	buoy	0	52	52	0	dec33	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+36	dec34	rock	0	52	52	0	dec34	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+37	dec35	fountain	0	128	128	0	dec35	-	-	-	-	-	-	-	-	-	-	-	10	0	0	0
+38	fire01	large fire	0	16	16	256	null	-	-	-	-	-	-	-	x	-	-	-	0	255	0	0
+39	north start	null	0	16	16	0	null	-	x	-	-	-	-	-	-	-	-	-	0	0	0	0
+40	south start	null	0	16	16	0	null	-	x	-	-	-	-	-	-	-	-	-	0	0	0	0
+41	east start	null	0	16	16	0	null	-	x	-	-	-	-	-	-	-	-	-	0	0	0	0
+42	west start	null	0	16	16	0	null	-	x	-	-	-	-	-	-	-	-	-	0	0	0	0
+43	dec41	bottle	0	16	16	0	dec41	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+44	dec42	bowl	0	16	16	0	dec42	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+45	dec43	stack of bowls	0	16	16	0	dec43	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+46	dec44	bowl	0	16	16	0	dec44	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+47	dec45	stack of bowls	0	16	16	0	dec45	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+48	dec46	goblet	0	16	16	0	dec46	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+49	dec47	goblet	0	16	16	0	dec47	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+50	dec48	goblet	0	16	16	0	dec48	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+51	dec49	mile market	0	16	16	0	dec49	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+52	dec50	plate	0	16	16	0	dec50	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+53	dec51	stack of plates	0	16	16	0	dec51	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+54	dec52	plate	0	16	16	0	dec52	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+55	dec53	stack of plates	0	16	16	0	dec53	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+56	tree01	tree	0	96	96	0	tree01	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+57	tree02	tree	0	96	96	0	tree02	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+58	tree03	tree	0	96	96	0	tree03	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+59	tree04	tree	0	96	96	0	tree04	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+60	tree05	tree	0	96	96	0	tree05	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+61	tree06	tree	0	96	96	0	tree06	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+62	tree07	tree	0	96	96	0	tree07	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+63	tree08	tree	0	96	96	0	tree08	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+64	tree09	tree	0	96	96	0	tree09	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+65	tree10	tree	0	96	96	0	tree10	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+66	tree11	tree	0	96	96	0	tree11	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+67	tree12	tree	0	96	96	0	tree12	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+68	tree13	tree	0	96	96	0	tree13	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+69	tree14	tree	0	96	96	0	tree14	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+70	tree15	tree	0	96	96	0	tree15	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+71	tree16	tree	0	96	96	0	tree16	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+72	tree17	tree	0	96	96	0	tree17	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+73	tree18	tree	0	96	96	0	tree18	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+74	tree19	tree	0	96	96	0	tree19	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+75	tree20	tree	0	96	96	0	tree20	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+76	tree21	tree	0	96	96	0	tree21	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+77	tree22	tree	0	96	96	0	tree22	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+78	tree23	tree	0	96	96	0	tree23	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+79	tree24	tree	0	96	96	0	tree24	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+80	tree25	tree	0	96	96	0	tree25	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+81	tree26	tree	0	96	96	0	tree26	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+82	tree27	tree	0	96	96	0	tree27	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+83	tree28	tree	0	96	96	0	tree28	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+84	tree29	tree	0	96	96	0	tree29	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+85	tree30	tree	0	96	96	0	tree30	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+86	tree31	tree	0	96	96	0	tree31	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+87	tree32	tree	0	96	96	0	tree32	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+88	tree33	tree	0	96	96	0	tree33	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+89	tree34	tree	0	96	96	0	tree34	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+90	tree35	tree	0	96	96	0	tree35	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+91	tree36	tree	0	96	96	0	tree36	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+92	tree37	tree	0	96	96	0	tree37	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+93	tree38	tree	0	96	96	0	tree38	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+94	tree39	tree	0	96	96	0	tree39	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+95	tree40	tree	0	94	96	0	tree40	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+96	tree41	tree	0	400	96	0	tree41	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+97	tree42	tree	0	400	96	0	tree42	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+98	Snd_Brook	test	0	0	0	0	null	-	x	-	-	-	-	-	-	-	-	-	10	0	0	0
+99	Snd_Boat	test	0	0	0	0	null	-	x	-	-	-	-	-	-	-	-	-	18	0	0	0
+100	Snd_Howl	test	0	0	0	0	null	-	x	-	-	-	-	-	-	x	x	-	233	0	0	0
+101	Snd_Dragon	test	0	0	0	0	null	-	x	-	-	-	-	-	-	x	x	-	1103	0	0	0
+102	bush01	bush	0	0	0	0	bush01	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+103	bush02	bush	0	0	0	0	bush02	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+104	bush03	bush	0	0	0	0	bush03	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+105	bush04	bush	0	0	0	0	bush04	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+106	bush05	bush	0	0	0	0	bush05	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+107	bush06	bush	0	0	0	0	bush06	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+108	bush07	bush	0	96	64	0	bush07	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+109	bush08	bush	0	96	64	0	bush08	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+110	rock01	rock	0	0	0	0	rock01	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+111	rock02	rock	0	0	0	0	rock02	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+112	rock03	rock	0	0	0	0	rock03	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+113	rock04	rock	0	0	0	0	rock04	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+114	rock05	rock	0	0	0	0	rock05	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+115	rock06	rock	0	0	0	0	rock06	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+116	rock07	rock	0	0	0	0	rock07	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+117	rock08	rock	0	0	0	0	rock08	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+118	rock09	rock	0	0	0	0	rock09	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+119	rock10	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+120	rock11	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+121	rock12	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+122	rock13	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+123	rock14	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+124	rock15	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+125	rock16	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+126	rock17	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+127	rock18	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+128	rock19	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+129	rock20	rock	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+130	TORCH05	torch	0	64	100	512	torch05	-	-	-	-	-	-	-	-	-	-	-	0	28	0	255
+131	torch06	torch	0	64	100	512	torch06	-	-	-	-	-	-	-	-	-	-	-	0	0	255	0
+132	torch07	torch	0	64	100	512	torch07	-	-	-	-	-	-	-	-	-	-	-	0	255	0	0
+133	bush09	cactus	0	96	40	0	bush09	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+134	bush10	cactus	0	96	40	0	bush10	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+135	bush11	cactus	0	96	40	0	bush11	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+136	bush12	cactus	0	96	40	0	bush12	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+137	bush13	cactus	0	96	40	0	bush13	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+138	bush14	cactus	0	96	40	0	bush14	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+139	bush15	cactus	0	96	40	0	bush15	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+140	bush16	cactus	0	96	40	0	bush16	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+141	flower01	flower	0	0	0	0	flower01	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+142	flower02	flower	0	0	0	0	flower02	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+143	flower03	flower	0	0	0	0	flower03	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+144	flower04	flower	0	0	0	0	flower04	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+145	flower05	flower	0	0	0	0	flower05	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+146	flower06	flower	0	0	0	0	flower06	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+147	flower07	flower	0	0	0	0	flower07	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+148	flower08	flower	0	0	0	0	flower08	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+149	flower09	flower	0	0	0	0	flower09	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+150	flower10	flower	0	0	0	0	flower10	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+151	flower11	flower	0	0	0	0	flower11	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+152	flower12	flower	0	0	0	0	flower12	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+153	flower13	flower	0	0	0	0	flower13	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+154	flower14	flower	0	0	0	0	flower14	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+155	flower15	flower	0	0	0	0	flower15	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+156	flower16	flower	0	0	0	0	flower16	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+157	plant01a	plant	0	0	0	0	plant01a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+158	plant01b	plant	0	0	0	0	plant01b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+159	plant02a	plant	0	0	0	0	plant02a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+160	plant02b	plant	0	0	0	0	plant02b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+161	plant03a	plant	0	0	0	0	plant03a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+162	plant03b	plant	0	0	0	0	plant03b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+163	plant04a	plant	0	0	0	0	plant04a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+164	plant04b	plant	0	0	0	0	plant04b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+165	plant05a	plant	0	0	0	0	plant05a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+166	plant05b	plant	0	0	0	0	plant05b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+167	plant06a	plant	0	0	0	0	plant06a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+168	plant06b	plant	0	0	0	0	plant06b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+169	plant07a	plant	0	0	0	0	plant07a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+170	plant07b	plant	0	0	0	0	plant07b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+171	plant08a	plant	0	0	0	0	plant08a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+172	plant08b	plant	0	0	0	0	plant08b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+173	plant09a	plant	0	0	0	0	plant09a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+174	plant09b	plant	0	0	0	0	plant09b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+175	plant10a	plant	0	0	0	0	plant10a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+176	plant10b	plant	0	0	0	0	plant10b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+177	plant11a	plant	0	0	0	0	plant11a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+178	plant11b	plant	0	0	0	0	plant11b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+179	plant12a	plant	0	0	0	0	plant12a	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+180	plant12b	plant	0	0	0	0	plant12b	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+181	dec54	statue	0	64	100	0	dec54	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+182	dec55	statue	0	64	100	0	dec55	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+183	dec97	vase	0	64	100	0	dec97	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+184	dec24	fire	0	32	32	0	dec24	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+185	dec86	mushroom	0	0	0	0	dec86	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+186	dec87	log	0	0	0	0	dec87	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+187	dec88	mushroom	0	0	0	0	dec88	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+188	dec89	fossil	0	0	0	0	dec89	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+189	dec90	fossil	0	0	0	0	dec90	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+190	dec91	mushroom	0	0	0	0	dec91	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+191	dec92	stalagmite	0	0	0	0	dec92	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+192	dec93	mushroom	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+193	dec98	mushroom	0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+194	dec99	mushroom	0	0	0	0	dec99	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+195	tree60	tree	0	96	96	0	tree60	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+196	tree61	tree	0	96	96	0	tree61	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+197	tree62	tree	0	96	96	0	tree62	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+198	tree63	tree	0	96	96	0	tree63	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+199	tree64	tree	0	96	96	0	tree64	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+200	tree65	tree	0	96	96	0	tree65	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+201	tree66	tree	0	96	96	0	tree66	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+202	dec94	statue	0	16	16	0	dec94	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+203	dec95	statue	0	16	16	0	dec95	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+204	dec96	statue	0	16	16	0	dec96	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+205	tree69	tree69	0	400	96	0	tree69	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+206	dec60	beacon fire	0	160	64	128	dec60	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+207	dec61	beacon fire	0	160	64	128	dec61	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+208	dec62	beacon fire	0	160	64	128	dec62	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+209	dec63	beacon fire	0	160	64	128	dec63	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+210	dec64	magic pedastal	0	190	64	64	dec64	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+211	dec65	magic pedastal	0	190	64	64	dec65	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+212	dec66	magic pedastal	0	190	64	64	dec66	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+213	dec67	magic pedastal	0	190	64	64	dec67	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+214	dec68	magic pedastal	0	190	64	64	dec68	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+215	dec69	magic pedastal	0	190	64	64	dec69	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+216	dec70	magic pedastal	0	190	64	64	dec70	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+217	dec71	magic pedastal	0	190	64	64	dec71	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+218	dec72	magic pedastal	0	190	64	64	dec72	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+219	dec73	magic pedastal	0	190	64	64	dec73	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+220	dec74	magic pedastal	0	190	64	64	dec74	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+221	dec75	magic pedastal	0	190	64	64	dec75	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+222	dec24x	burned out fire	0	16	16	0	dec24x	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+223			0	0	0	0	null	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+224	tree43	tree	0	256	165	0	tree43	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+225	tree44	tree	0	256	165	0	tree44	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+226	tree45	tree	0	256	165	0	tree45	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
+227	tree46	tree	0	256	165	0	tree46	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
