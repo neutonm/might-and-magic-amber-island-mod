@@ -1,0 +1,165 @@
+# Model MTL from "d18.dat" map from MM7.
+	
+newmtl t2bedsht
+	map_Ka d18.textures/T2BEDSHT.bmp
+	map_Kd d18.textures/T2BEDSHT.bmp
+	
+newmtl t1books1
+	map_Ka d18.textures/T1books1.bmp
+	map_Kd d18.textures/T1books1.bmp
+	
+newmtl t1butts
+	map_Ka d18.textures/T1butts.bmp
+	map_Kd d18.textures/T1butts.bmp
+	
+newmtl t2bedside
+	map_Ka d18.textures/T2BEDSIDE.bmp
+	map_Kd d18.textures/T2BEDSIDE.bmp
+	
+newmtl t5s1c2
+	map_Ka d18.textures/T5s1C2.bmp
+	map_Kd d18.textures/T5s1C2.bmp
+	
+newmtl t5s1fl
+	map_Ka d18.textures/T5s1FL.bmp
+	map_Kd d18.textures/T5s1FL.bmp
+	
+newmtl t1beds2:i
+	Tr 0.3
+	d 0.3
+	map_Ka d18.textures/T1beds2.bmp
+	map_Kd d18.textures/T1beds2.bmp
+	
+newmtl t5bs
+	map_Ka d18.textures/T5bs.bmp
+	map_Kd d18.textures/T5bs.bmp
+	
+newmtl trim1_32
+	map_Ka d18.textures/TRIM1_32.bmp
+	map_Kd d18.textures/TRIM1_32.bmp
+	
+newmtl trim6_16
+	map_Ka d18.textures/Trim6_16.bmp
+	map_Kd d18.textures/Trim6_16.bmp
+	
+newmtl trim11_32
+	map_Ka d18.textures/Trim11_32.bmp
+	map_Kd d18.textures/Trim11_32.bmp
+	
+newmtl t5s1c3
+	map_Ka d18.textures/T5s1C3.bmp
+	map_Kd d18.textures/T5s1C3.bmp
+	
+newmtl trim12_32
+	map_Ka d18.textures/Trim12_32.bmp
+	map_Kd d18.textures/Trim12_32.bmp
+	
+newmtl t5s1b
+	map_Ka d18.textures/T5s1b.bmp
+	map_Kd d18.textures/T5s1b.bmp
+	
+newmtl t5s1er
+	map_Ka d18.textures/T5s1ER.bmp
+	map_Kd d18.textures/T5s1ER.bmp
+	
+newmtl t1beds2
+	map_Ka d18.textures/T1beds2.bmp
+	map_Kd d18.textures/T1beds2.bmp
+	
+newmtl trim6_32
+	map_Ka d18.textures/Trim6_32.bmp
+	map_Kd d18.textures/Trim6_32.bmp
+	
+newmtl t5d1
+	map_Ka d18.textures/T5d1.bmp
+	map_Kd d18.textures/T5d1.bmp
+	
+newmtl t5s1el
+	map_Ka d18.textures/T5s1EL.bmp
+	map_Kd d18.textures/T5s1EL.bmp
+	
+newmtl t1beds
+	map_Ka d18.textures/T1beds.bmp
+	map_Kd d18.textures/T1beds.bmp
+
+newmtl _portal_
+	map_Tr d18.textures/_Portal_.png
+	map_d d18.textures/_Portal_.png
+	map_Ka d18.textures/_Portal_.png
+	map_Kd d18.textures/_Portal_.png
+	
+newmtl t1cab
+	map_Ka d18.textures/T1cab.bmp
+	map_Kd d18.textures/T1cab.bmp
+	
+newmtl gt002b
+	map_Ka d18.textures/gt002b.bmp
+	map_Kd d18.textures/gt002b.bmp
+	
+newmtl trim8_32
+	map_Ka d18.textures/Trim8_32.bmp
+	map_Kd d18.textures/Trim8_32.bmp
+	
+newmtl gt002a
+	map_Ka d18.textures/gt002a.bmp
+	map_Kd d18.textures/gt002a.bmp
+	
+newmtl gt002c
+	map_Ka d18.textures/gt002c.bmp
+	map_Kd d18.textures/gt002c.bmp
+	
+newmtl gt002g
+	map_Ka d18.textures/gt002g.bmp
+	map_Kd d18.textures/gt002g.bmp
+	
+newmtl wtrtyl
+	map_Ka d18.textures/WtrTyl.bmp
+	map_Kd d18.textures/WtrTyl.bmp
+	
+newmtl gt001a
+	map_Ka d18.textures/gt001a.bmp
+	map_Kd d18.textures/gt001a.bmp
+	
+newmtl gt003b
+	map_Ka d18.textures/gt003b.bmp
+	map_Kd d18.textures/gt003b.bmp
+	
+newmtl gt003a
+	map_Ka d18.textures/gt003a.bmp
+	map_Kd d18.textures/gt003a.bmp
+	
+newmtl gt002d
+	map_Ka d18.textures/gt002d.bmp
+	map_Kd d18.textures/gt002d.bmp
+	
+newmtl t5s1c
+	map_Ka d18.textures/T5s1C.bmp
+	map_Kd d18.textures/T5s1C.bmp
+	
+newmtl trim9_32a
+	map_Ka d18.textures/Trim9_32a.bmp
+	map_Kd d18.textures/Trim9_32a.bmp
+	
+newmtl hhp2b2
+	map_Ka d18.textures/Hhp2b2.bmp
+	map_Kd d18.textures/Hhp2b2.bmp
+	
+newmtl trim11_32:i
+	Tr 0.3
+	d 0.3
+	map_Ka d18.textures/Trim11_32.bmp
+	map_Kd d18.textures/Trim11_32.bmp
+	
+newmtl hhm3ch
+	map_Ka d18.textures/Hhm3ch.bmp
+	map_Kd d18.textures/Hhm3ch.bmp
+	
+newmtl t1beds1
+	map_Ka d18.textures/T1beds1.bmp
+	map_Kd d18.textures/T1beds1.bmp
+	
+newmtl t5bs:i
+	Tr 0.3
+	d 0.3
+	map_Ka d18.textures/T5bs.bmp
+	map_Kd d18.textures/T5bs.bmp

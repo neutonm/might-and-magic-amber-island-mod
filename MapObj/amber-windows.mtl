@@ -1,0 +1,1525 @@
+# Model MTL from "amber-windows.odt" map from MM7.
+	
+newmtl wtrtyl:g
+	map_Ka amber-windows.textures/ground/wtrtyl.bmp
+	map_Kd amber-windows.textures/ground/wtrtyl.bmp
+	
+newmtl wtrdrxse:g
+	map_Ka amber-windows.textures/ground/wtrdrXSE.bmp
+	map_Kd amber-windows.textures/ground/wtrdrXSE.bmp
+	
+newmtl wtrdrs:g
+	map_Ka amber-windows.textures/ground/wtrdrS.bmp
+	map_Kd amber-windows.textures/ground/wtrdrS.bmp
+	
+newmtl wtrdrxsw:g
+	map_Ka amber-windows.textures/ground/wtrdrXSW.bmp
+	map_Kd amber-windows.textures/ground/wtrdrXSW.bmp
+	
+newmtl wtrdre:g
+	map_Ka amber-windows.textures/ground/wtrdrE.bmp
+	map_Kd amber-windows.textures/ground/wtrdrE.bmp
+	
+newmtl grdrtnw:g
+	map_Ka amber-windows.textures/ground/grdrtNW.bmp
+	map_Kd amber-windows.textures/ground/grdrtNW.bmp
+	
+newmtl grdrtn:g
+	map_Ka amber-windows.textures/ground/grdrtN.bmp
+	map_Kd amber-windows.textures/ground/grdrtN.bmp
+	
+newmtl grdrtne:g
+	map_Ka amber-windows.textures/ground/grdrtNE.bmp
+	map_Kd amber-windows.textures/ground/grdrtNE.bmp
+	
+newmtl wtrdrw:g
+	map_Ka amber-windows.textures/ground/wtrdrW.bmp
+	map_Kd amber-windows.textures/ground/wtrdrW.bmp
+	
+newmtl wtrdrsw:g
+	map_Ka amber-windows.textures/ground/wtrdrSW.bmp
+	map_Kd amber-windows.textures/ground/wtrdrSW.bmp
+	
+newmtl grdrtsw:g
+	map_Ka amber-windows.textures/ground/grdrtSW.bmp
+	map_Kd amber-windows.textures/ground/grdrtSW.bmp
+	
+newmtl grdrtxsw:g
+	map_Ka amber-windows.textures/ground/grdrtXSW.bmp
+	map_Kd amber-windows.textures/ground/grdrtXSW.bmp
+	
+newmtl grastyl:g
+	map_Ka amber-windows.textures/ground/grastyl.bmp
+	map_Kd amber-windows.textures/ground/grastyl.bmp
+	
+newmtl grdrte:g
+	map_Ka amber-windows.textures/ground/grdrtE.bmp
+	map_Kd amber-windows.textures/ground/grdrtE.bmp
+	
+newmtl wtrdrse:g
+	map_Ka amber-windows.textures/ground/wtrdrSE.bmp
+	map_Kd amber-windows.textures/ground/wtrdrSE.bmp
+	
+newmtl grdrts:g
+	map_Ka amber-windows.textures/ground/grdrtS.bmp
+	map_Kd amber-windows.textures/ground/grdrtS.bmp
+	
+newmtl wtrdrxne:g
+	map_Ka amber-windows.textures/ground/wtrdrXNE.bmp
+	map_Kd amber-windows.textures/ground/wtrdrXNE.bmp
+	
+newmtl wtrdrne:g
+	map_Ka amber-windows.textures/ground/wtrdrNE.bmp
+	map_Kd amber-windows.textures/ground/wtrdrNE.bmp
+	
+newmtl grdrtxnw:g
+	map_Ka amber-windows.textures/ground/grdrtXNW.bmp
+	map_Kd amber-windows.textures/ground/grdrtXNW.bmp
+	
+newmtl grdrtxse:g
+	map_Ka amber-windows.textures/ground/grdrtXSE.bmp
+	map_Kd amber-windows.textures/ground/grdrtXSE.bmp
+	
+newmtl grdrtse:g
+	map_Ka amber-windows.textures/ground/grdrtSE.bmp
+	map_Kd amber-windows.textures/ground/grdrtSE.bmp
+	
+newmtl wtrdrn:g
+	map_Ka amber-windows.textures/ground/wtrdrN.bmp
+	map_Kd amber-windows.textures/ground/wtrdrN.bmp
+	
+newmtl grdrtw:g
+	map_Ka amber-windows.textures/ground/grdrtW.bmp
+	map_Kd amber-windows.textures/ground/grdrtW.bmp
+	
+newmtl grdrtxne:g
+	map_Ka amber-windows.textures/ground/grdrtXNE.bmp
+	map_Kd amber-windows.textures/ground/grdrtXNE.bmp
+	
+newmtl wtrdrnw:g
+	map_Ka amber-windows.textures/ground/wtrdrNW.bmp
+	map_Kd amber-windows.textures/ground/wtrdrNW.bmp
+	
+newmtl wtrdrxnw:g
+	map_Ka amber-windows.textures/ground/wtrdrXNW.bmp
+	map_Kd amber-windows.textures/ground/wtrdrXNW.bmp
+	
+newmtl dirttyl:g
+	map_Ka amber-windows.textures/ground/dirttyl.bmp
+	map_Kd amber-windows.textures/ground/dirttyl.bmp
+	
+newmtl dirt2:g
+	map_Ka amber-windows.textures/ground/dirt2.bmp
+	map_Kd amber-windows.textures/ground/dirt2.bmp
+	
+newmtl dirt1:g
+	map_Ka amber-windows.textures/ground/dirt1.bmp
+	map_Kd amber-windows.textures/ground/dirt1.bmp
+	
+newmtl drsrs_e:g
+	map_Ka amber-windows.textures/ground/drsrs_e.bmp
+	map_Kd amber-windows.textures/ground/drsrs_e.bmp
+	
+newmtl drsrew:g
+	map_Ka amber-windows.textures/ground/drsrew.bmp
+	map_Kd amber-windows.textures/ground/drsrew.bmp
+	
+newmtl drsrecap:g
+	map_Ka amber-windows.textures/ground/drsrEcap.bmp
+	map_Kd amber-windows.textures/ground/drsrEcap.bmp
+	
+newmtl drsrns:g
+	map_Ka amber-windows.textures/ground/drsrns.bmp
+	map_Kd amber-windows.textures/ground/drsrns.bmp
+	
+newmtl swdrtnw:g
+	map_Ka amber-windows.textures/ground/swdrtnw.bmp
+	map_Kd amber-windows.textures/ground/swdrtnw.bmp
+	
+newmtl swdrtne:g
+	map_Ka amber-windows.textures/ground/swdrtne.bmp
+	map_Kd amber-windows.textures/ground/swdrtne.bmp
+	
+newmtl swdrtn:g
+	map_Ka amber-windows.textures/ground/swdrtn.bmp
+	map_Kd amber-windows.textures/ground/swdrtn.bmp
+	
+newmtl swtyl:g
+	map_Ka amber-windows.textures/ground/swtyl.bmp
+	map_Kd amber-windows.textures/ground/swtyl.bmp
+	
+newmtl swdrtse:g
+	map_Ka amber-windows.textures/ground/swdrtse.bmp
+	map_Kd amber-windows.textures/ground/swdrtse.bmp
+	
+newmtl drsrs_w:g
+	map_Ka amber-windows.textures/ground/drsrS_W.bmp
+	map_Kd amber-windows.textures/ground/drsrS_W.bmp
+	
+newmtl swdrtw:g
+	map_Ka amber-windows.textures/ground/swdrtw.bmp
+	map_Kd amber-windows.textures/ground/swdrtw.bmp
+	
+newmtl swdrte:g
+	map_Ka amber-windows.textures/ground/swdrte.bmp
+	map_Kd amber-windows.textures/ground/swdrte.bmp
+	
+newmtl drsrncap:g
+	map_Ka amber-windows.textures/ground/drsrNcap.bmp
+	map_Kd amber-windows.textures/ground/drsrNcap.bmp
+	
+newmtl drsrns_w:g
+	map_Ka amber-windows.textures/ground/drsrNS_W.bmp
+	map_Kd amber-windows.textures/ground/drsrNS_W.bmp
+	
+newmtl drsrns_e:g
+	map_Ka amber-windows.textures/ground/drsrNS_E.bmp
+	map_Kd amber-windows.textures/ground/drsrNS_E.bmp
+	
+newmtl swdrtxse:g
+	map_Ka amber-windows.textures/ground/swdrtxse.bmp
+	map_Kd amber-windows.textures/ground/swdrtxse.bmp
+	
+newmtl drsrn_e:g
+	map_Ka amber-windows.textures/ground/drsrn_e.bmp
+	map_Kd amber-windows.textures/ground/drsrn_e.bmp
+	
+newmtl drsrn_w:g
+	map_Ka amber-windows.textures/ground/drsrn_w.bmp
+	map_Kd amber-windows.textures/ground/drsrn_w.bmp
+	
+newmtl swdrtsw:g
+	map_Ka amber-windows.textures/ground/swdrtsw.bmp
+	map_Kd amber-windows.textures/ground/swdrtsw.bmp
+	
+newmtl drsrnw1:g
+	map_Ka amber-windows.textures/ground/drsrnw1.bmp
+	map_Kd amber-windows.textures/ground/drsrnw1.bmp
+	
+newmtl drsrew_n:g
+	map_Ka amber-windows.textures/ground/drsrEW_N.bmp
+	map_Kd amber-windows.textures/ground/drsrEW_N.bmp
+	
+newmtl drsrew_s:g
+	map_Ka amber-windows.textures/ground/drsrEW_s.bmp
+	map_Kd amber-windows.textures/ground/drsrEW_s.bmp
+	
+newmtl swdrtxnw:g
+	map_Ka amber-windows.textures/ground/swdrtxnw.bmp
+	map_Kd amber-windows.textures/ground/swdrtxnw.bmp
+	
+newmtl swdrtxne:g
+	map_Ka amber-windows.textures/ground/swdrtxne.bmp
+	map_Kd amber-windows.textures/ground/swdrtxne.bmp
+	
+newmtl drsrnw2:g
+	map_Ka amber-windows.textures/ground/drsrnw2.bmp
+	map_Kd amber-windows.textures/ground/drsrnw2.bmp
+	
+newmtl swdrtxsw:g
+	map_Ka amber-windows.textures/ground/swdrtxsw.bmp
+	map_Kd amber-windows.textures/ground/swdrtxsw.bmp
+	
+newmtl swtylv2:g
+	map_Ka amber-windows.textures/ground/swtylv2.bmp
+	map_Kd amber-windows.textures/ground/swtylv2.bmp
+	
+newmtl drsrne2:g
+	map_Ka amber-windows.textures/ground/drsrne2.bmp
+	map_Kd amber-windows.textures/ground/drsrne2.bmp
+	
+newmtl drsrne1:g
+	map_Ka amber-windows.textures/ground/drsrne1.bmp
+	map_Kd amber-windows.textures/ground/drsrne1.bmp
+	
+newmtl swdrts:g
+	map_Ka amber-windows.textures/ground/swdrts.bmp
+	map_Kd amber-windows.textures/ground/swdrts.bmp
+	
+newmtl drsrcros:g
+	map_Ka amber-windows.textures/ground/drsrcros.bmp
+	map_Kd amber-windows.textures/ground/drsrcros.bmp
+	
+newmtl drsrwcap:g
+	map_Ka amber-windows.textures/ground/drsrwcap.bmp
+	map_Kd amber-windows.textures/ground/drsrwcap.bmp
+	
+newmtl drsrscap:g
+	map_Ka amber-windows.textures/ground/drsrscap.bmp
+	map_Kd amber-windows.textures/ground/drsrscap.bmp
+	
+newmtl swtylv1:g
+	map_Ka amber-windows.textures/ground/swtylv1.bmp
+	map_Kd amber-windows.textures/ground/swtylv1.bmp
+	
+newmtl t1beds1
+	map_Ka amber-windows.textures/T1beds1.bmp
+	map_Kd amber-windows.textures/T1beds1.bmp
+	
+newmtl hkp1rf
+	map_Ka amber-windows.textures/Hkp1rf.bmp
+	map_Kd amber-windows.textures/Hkp1rf.bmp
+	
+newmtl t1books1
+	map_Ka amber-windows.textures/T1books1.bmp
+	map_Kd amber-windows.textures/T1books1.bmp
+	
+newmtl hwm1bs1
+	map_Ka amber-windows.textures/Hwm1bs1.bmp
+	map_Kd amber-windows.textures/Hwm1bs1.bmp
+	
+newmtl hwm1el2
+	map_Ka amber-windows.textures/Hwm1el2.bmp
+	map_Kd amber-windows.textures/Hwm1el2.bmp
+	
+newmtl t4s1fl
+	map_Ka amber-windows.textures/T4s1FL.bmp
+	map_Kd amber-windows.textures/T4s1FL.bmp
+	
+newmtl hkp1lw
+	map_Ka amber-windows.textures/Hkp1lw.bmp
+	map_Kd amber-windows.textures/Hkp1lw.bmp
+	
+newmtl hkp1bws
+	map_Ka amber-windows.textures/Hkp1bws.bmp
+	map_Kd amber-windows.textures/Hkp1bws.bmp
+	
+newmtl hwm2wall
+	map_Ka amber-windows.textures/Hwm2WALL.bmp
+	map_Kd amber-windows.textures/Hwm2WALL.bmp
+	
+newmtl trim4_16a
+	map_Ka amber-windows.textures/Trim4_16a.bmp
+	map_Kd amber-windows.textures/Trim4_16a.bmp
+	
+newmtl hkp1el
+	map_Ka amber-windows.textures/Hkp1el.bmp
+	map_Kd amber-windows.textures/Hkp1el.bmp
+	
+newmtl hwr1dl
+	map_Ka amber-windows.textures/HWR1Dl.bmp
+	map_Kd amber-windows.textures/HWR1Dl.bmp
+	
+newmtl hwm1bsw
+	map_Ka amber-windows.textures/Hwm1bsw.bmp
+	map_Kd amber-windows.textures/Hwm1bsw.bmp
+	
+newmtl wordwal2
+	map_Ka amber-windows.textures/Wordwal2.bmp
+	map_Kd amber-windows.textures/Wordwal2.bmp
+	
+newmtl hkp1b
+	map_Ka amber-windows.textures/Hkp1b.bmp
+	map_Kd amber-windows.textures/Hkp1b.bmp
+	
+newmtl hwm1er2
+	map_Ka amber-windows.textures/Hwm1er2.bmp
+	map_Kd amber-windows.textures/Hwm1er2.bmp
+	
+newmtl hkp1bw
+	map_Ka amber-windows.textures/Hkp1bw.bmp
+	map_Kd amber-windows.textures/Hkp1bw.bmp
+	
+newmtl hwm1b
+	map_Ka amber-windows.textures/Hwm1b.bmp
+	map_Kd amber-windows.textures/Hwm1b.bmp
+	
+newmtl hwm1bw
+	map_Ka amber-windows.textures/Hwm1bw.bmp
+	map_Kd amber-windows.textures/Hwm1bw.bmp
+	
+newmtl hwr1dr
+	map_Ka amber-windows.textures/Hwr1dr.bmp
+	map_Kd amber-windows.textures/Hwr1dr.bmp
+	
+newmtl dirt1
+	map_Ka amber-windows.textures/dirt1.bmp
+	map_Kd amber-windows.textures/dirt1.bmp
+	
+newmtl solid01
+	map_Ka amber-windows.textures/solid01.bmp
+	map_Kd amber-windows.textures/solid01.bmp
+	
+newmtl trim7_32
+	map_Ka amber-windows.textures/Trim7_32.bmp
+	map_Kd amber-windows.textures/Trim7_32.bmp
+	
+newmtl trim11_32
+	map_Ka amber-windows.textures/Trim11_32.bmp
+	map_Kd amber-windows.textures/Trim11_32.bmp
+	
+newmtl t1butts
+	map_Ka amber-windows.textures/T1butts.bmp
+	map_Kd amber-windows.textures/T1butts.bmp
+	
+newmtl trimd:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/trimD.bmp
+	map_Kd amber-windows.textures/trimD.bmp
+	
+newmtl ch002a
+	map_Ka amber-windows.textures/ch002a.bmp
+	map_Kd amber-windows.textures/ch002a.bmp
+	
+newmtl cdb
+	map_Ka amber-windows.textures/CDB.bmp
+	map_Kd amber-windows.textures/CDB.bmp
+	
+newmtl t1beds
+	map_Ka amber-windows.textures/T1beds.bmp
+	map_Kd amber-windows.textures/T1beds.bmp
+	
+newmtl hhr1bs2
+	map_Ka amber-windows.textures/HHR1BS2.bmp
+	map_Kd amber-windows.textures/HHR1BS2.bmp
+	
+newmtl hhr1e4
+	map_Ka amber-windows.textures/Hhr1e4.bmp
+	map_Kd amber-windows.textures/Hhr1e4.bmp
+	
+newmtl hhr1bwall
+	map_Ka amber-windows.textures/Hhr1bWALL.bmp
+	map_Kd amber-windows.textures/Hhr1bWALL.bmp
+	
+newmtl t1s2bs7
+	map_Ka amber-windows.textures/T1S2BS7.bmp
+	map_Kd amber-windows.textures/T1S2BS7.bmp
+	
+newmtl hhr1el3
+	map_Ka amber-windows.textures/HHR1EL3.bmp
+	map_Kd amber-windows.textures/HHR1EL3.bmp
+	
+newmtl hhr1b
+	map_Ka amber-windows.textures/Hhr1b.bmp
+	map_Kd amber-windows.textures/Hhr1b.bmp
+	
+newmtl hem1rf
+	map_Ka amber-windows.textures/HEM1RF.bmp
+	map_Kd amber-windows.textures/HEM1RF.bmp
+	
+newmtl hhr1bw2
+	map_Ka amber-windows.textures/Hhr1bw2.bmp
+	map_Kd amber-windows.textures/Hhr1bw2.bmp
+	
+newmtl trimda
+	map_Ka amber-windows.textures/trimDa.bmp
+	map_Kd amber-windows.textures/trimDa.bmp
+	
+newmtl hhr1erb
+	map_Ka amber-windows.textures/HHR1ERB.bmp
+	map_Kd amber-windows.textures/HHR1ERB.bmp
+	
+newmtl hhr1el2
+	map_Ka amber-windows.textures/HHR1EL2.bmp
+	map_Kd amber-windows.textures/HHR1EL2.bmp
+	
+newmtl hhr1d
+	map_Ka amber-windows.textures/HHR1D.bmp
+	map_Kd amber-windows.textures/HHR1D.bmp
+	
+newmtl hhr1er
+	map_Ka amber-windows.textures/Hhr1er.bmp
+	map_Kd amber-windows.textures/Hhr1er.bmp
+	
+newmtl hhm3ch
+	map_Ka amber-windows.textures/Hhm3ch.bmp
+	map_Kd amber-windows.textures/Hhm3ch.bmp
+	
+newmtl hhm3b
+	map_Ka amber-windows.textures/Hhm3b.bmp
+	map_Kd amber-windows.textures/Hhm3b.bmp
+	
+newmtl trim2_16a
+	map_Ka amber-windows.textures/TRIM2_16a.bmp
+	map_Kd amber-windows.textures/TRIM2_16a.bmp
+	
+newmtl hhm1rf
+	map_Ka amber-windows.textures/Hhm1rf.bmp
+	map_Kd amber-windows.textures/Hhm1rf.bmp
+	
+newmtl hhm3d
+	map_Ka amber-windows.textures/Hhm3d.bmp
+	map_Kd amber-windows.textures/Hhm3d.bmp
+	
+newmtl hhm3el2a
+	map_Ka amber-windows.textures/Hhm3el2a.bmp
+	map_Kd amber-windows.textures/Hhm3el2a.bmp
+	
+newmtl hhm3bw2
+	map_Ka amber-windows.textures/Hhm3bw2.bmp
+	map_Kd amber-windows.textures/Hhm3bw2.bmp
+	
+newmtl hhm3el2 
+	map_Ka amber-windows.textures/Hhm3el2 .bmp
+	map_Kd amber-windows.textures/Hhm3el2 .bmp
+	
+newmtl hhm1b3
+	map_Ka amber-windows.textures/Hhm1b3.bmp
+	map_Kd amber-windows.textures/Hhm1b3.bmp
+	
+newmtl hhp2rf
+	map_Ka amber-windows.textures/Hhp2rf.bmp
+	map_Kd amber-windows.textures/Hhp2rf.bmp
+	
+newmtl hhm1b2re
+	map_Ka amber-windows.textures/Hhm1b2re.bmp
+	map_Kd amber-windows.textures/Hhm1b2re.bmp
+	
+newmtl hhm1bw
+	map_Ka amber-windows.textures/Hhm1bw.bmp
+	map_Kd amber-windows.textures/Hhm1bw.bmp
+	
+newmtl pending
+	map_Ka amber-windows.textures/pending.bmp
+	map_Kd amber-windows.textures/pending.bmp
+	
+newmtl hhm1b2le
+	map_Ka amber-windows.textures/Hhm1b2le.bmp
+	map_Kd amber-windows.textures/Hhm1b2le.bmp
+	
+newmtl hhm1d
+	map_Ka amber-windows.textures/Hhm1d.bmp
+	map_Kd amber-windows.textures/Hhm1d.bmp
+	
+newmtl trim2_32
+	map_Ka amber-windows.textures/TRIM2_32.bmp
+	map_Kd amber-windows.textures/TRIM2_32.bmp
+	
+newmtl t1books2
+	map_Ka amber-windows.textures/T1books2.bmp
+	map_Kd amber-windows.textures/T1books2.bmp
+	
+newmtl t1bed
+	map_Ka amber-windows.textures/T1bed.bmp
+	map_Kd amber-windows.textures/T1bed.bmp
+	
+newmtl hkm3er
+	map_Ka amber-windows.textures/Hkm3er.bmp
+	map_Kd amber-windows.textures/Hkm3er.bmp
+	
+newmtl hkm3b
+	map_Ka amber-windows.textures/Hkm3b.bmp
+	map_Kd amber-windows.textures/Hkm3b.bmp
+	
+newmtl hkm3el
+	map_Ka amber-windows.textures/Hkm3el.bmp
+	map_Kd amber-windows.textures/Hkm3el.bmp
+	
+newmtl hkm3erw
+	map_Ka amber-windows.textures/Hkm3erw.bmp
+	map_Kd amber-windows.textures/Hkm3erw.bmp
+	
+newmtl pending:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/pending.bmp
+	map_Kd amber-windows.textures/pending.bmp
+	
+newmtl hkm3elw
+	map_Ka amber-windows.textures/Hkm3elw.bmp
+	map_Kd amber-windows.textures/Hkm3elw.bmp
+	
+newmtl hkm3dr
+	map_Ka amber-windows.textures/Hkm3dr.bmp
+	map_Kd amber-windows.textures/Hkm3dr.bmp
+	
+newmtl hdm2b
+	map_Ka amber-windows.textures/HdM2B.bmp
+	map_Kd amber-windows.textures/HdM2B.bmp
+	
+newmtl hdm2bw
+	map_Ka amber-windows.textures/HdM2BW.bmp
+	map_Kd amber-windows.textures/HdM2BW.bmp
+	
+newmtl hdm2el
+	map_Ka amber-windows.textures/HdM2EL.bmp
+	map_Kd amber-windows.textures/HdM2EL.bmp
+	
+newmtl hdm2er
+	map_Ka amber-windows.textures/HdM2ER.bmp
+	map_Kd amber-windows.textures/HdM2ER.bmp
+	
+newmtl hdm2elw
+	map_Ka amber-windows.textures/HdM2ELW.bmp
+	map_Kd amber-windows.textures/HdM2ELW.bmp
+	
+newmtl hdm2d
+	map_Ka amber-windows.textures/HdM2D.bmp
+	map_Kd amber-windows.textures/HdM2D.bmp
+	
+newmtl hdm2erw
+	map_Ka amber-windows.textures/HdM2ERW.bmp
+	map_Kd amber-windows.textures/HdM2ERW.bmp
+	
+newmtl trim9_32
+	map_Ka amber-windows.textures/Trim9_32.bmp
+	map_Kd amber-windows.textures/Trim9_32.bmp
+	
+newmtl hhm2b1
+	map_Ka amber-windows.textures/Hhm2b1.bmp
+	map_Kd amber-windows.textures/Hhm2b1.bmp
+	
+newmtl trim9_32a
+	map_Ka amber-windows.textures/Trim9_32a.bmp
+	map_Kd amber-windows.textures/Trim9_32a.bmp
+	
+newmtl hhm2elw2
+	map_Ka amber-windows.textures/Hhm2elw2.bmp
+	map_Kd amber-windows.textures/Hhm2elw2.bmp
+	
+newmtl ckb
+	map_Ka amber-windows.textures/Ckb.bmp
+	map_Kd amber-windows.textures/Ckb.bmp
+	
+newmtl hhm2rf
+	map_Ka amber-windows.textures/Hhm2rf.bmp
+	map_Kd amber-windows.textures/Hhm2rf.bmp
+	
+newmtl hhm2d
+	map_Ka amber-windows.textures/Hhm2d.bmp
+	map_Kd amber-windows.textures/Hhm2d.bmp
+	
+newmtl hhm2bs
+	map_Ka amber-windows.textures/Hhm2bs.bmp
+	map_Kd amber-windows.textures/Hhm2bs.bmp
+	
+newmtl hhm2erw
+	map_Ka amber-windows.textures/Hhm2erw.bmp
+	map_Kd amber-windows.textures/Hhm2erw.bmp
+	
+newmtl hhm2elw
+	map_Ka amber-windows.textures/Hhm2elw.bmp
+	map_Kd amber-windows.textures/Hhm2elw.bmp
+	
+newmtl hhm2bw
+	map_Ka amber-windows.textures/Hhm2bw.bmp
+	map_Kd amber-windows.textures/Hhm2bw.bmp
+	
+newmtl t1cabs
+	map_Ka amber-windows.textures/T1cabs.bmp
+	map_Kd amber-windows.textures/T1cabs.bmp
+	
+newmtl sgearth
+	map_Ka amber-windows.textures/sgEARTH.bmp
+	map_Kd amber-windows.textures/sgEARTH.bmp
+	
+newmtl hnrb
+	map_Ka amber-windows.textures/HNRB.bmp
+	map_Kd amber-windows.textures/HNRB.bmp
+	
+newmtl trim1_32a
+	map_Ka amber-windows.textures/TRIM1_32a.bmp
+	map_Kd amber-windows.textures/TRIM1_32a.bmp
+	
+newmtl hnrdr
+	map_Ka amber-windows.textures/HNRDR.bmp
+	map_Kd amber-windows.textures/HNRDR.bmp
+	
+newmtl hnrbw
+	map_Ka amber-windows.textures/HNRBW.bmp
+	map_Kd amber-windows.textures/HNRBW.bmp
+	
+newmtl hnrbs
+	map_Ka amber-windows.textures/HNRBS.bmp
+	map_Kd amber-windows.textures/HNRBS.bmp
+	
+newmtl chb4
+	map_Ka amber-windows.textures/chb4.bmp
+	map_Kd amber-windows.textures/chb4.bmp
+	
+newmtl hnrdl
+	map_Ka amber-windows.textures/HNRDL.bmp
+	map_Kd amber-windows.textures/HNRDL.bmp
+	
+newmtl hnrer
+	map_Ka amber-windows.textures/HNRER.bmp
+	map_Kd amber-windows.textures/HNRER.bmp
+	
+newmtl hnrelw
+	map_Ka amber-windows.textures/HNRELW.bmp
+	map_Kd amber-windows.textures/HNRELW.bmp
+	
+newmtl hnrel
+	map_Ka amber-windows.textures/HNREL.bmp
+	map_Kd amber-windows.textures/HNREL.bmp
+	
+newmtl chb2-g1
+	map_Ka amber-windows.textures/chb2-g1.bmp
+	map_Kd amber-windows.textures/chb2-g1.bmp
+	
+newmtl trim1_32
+	map_Ka amber-windows.textures/TRIM1_32.bmp
+	map_Kd amber-windows.textures/TRIM1_32.bmp
+	
+newmtl chb3
+	map_Ka amber-windows.textures/chb3.bmp
+	map_Kd amber-windows.textures/chb3.bmp
+	
+newmtl dirt
+	map_Ka amber-windows.textures/DIRT.bmp
+	map_Kd amber-windows.textures/DIRT.bmp
+	
+newmtl hnrerw
+	map_Ka amber-windows.textures/HNRERW.bmp
+	map_Kd amber-windows.textures/HNRERW.bmp
+	
+newmtl sgalch
+	map_Ka amber-windows.textures/sgALCH.bmp
+	map_Kd amber-windows.textures/sgALCH.bmp
+	
+newmtl hnm2el
+	map_Ka amber-windows.textures/Hnm2el.bmp
+	map_Kd amber-windows.textures/Hnm2el.bmp
+	
+newmtl hkm1er
+	map_Ka amber-windows.textures/Hkm1er.bmp
+	map_Kd amber-windows.textures/Hkm1er.bmp
+	
+newmtl hkm1elw
+	map_Ka amber-windows.textures/Hkm1elw.bmp
+	map_Kd amber-windows.textures/Hkm1elw.bmp
+	
+newmtl hwm2b
+	map_Ka amber-windows.textures/Hwm2b.bmp
+	map_Kd amber-windows.textures/Hwm2b.bmp
+	
+newmtl hnm2bw
+	map_Ka amber-windows.textures/Hnm2bw.bmp
+	map_Kd amber-windows.textures/Hnm2bw.bmp
+	
+newmtl hkm1bw
+	map_Ka amber-windows.textures/Hkm1bW.bmp
+	map_Kd amber-windows.textures/Hkm1bW.bmp
+	
+newmtl hkm1el
+	map_Ka amber-windows.textures/Hkm1el.bmp
+	map_Kd amber-windows.textures/Hkm1el.bmp
+	
+newmtl hkm1b1s
+	map_Ka amber-windows.textures/Hkm1b1S.bmp
+	map_Kd amber-windows.textures/Hkm1b1S.bmp
+	
+newmtl hkm1b1
+	map_Ka amber-windows.textures/Hkm1b1.bmp
+	map_Kd amber-windows.textures/Hkm1b1.bmp
+	
+newmtl hnm2erw
+	map_Ka amber-windows.textures/Hnm2erw.bmp
+	map_Kd amber-windows.textures/Hnm2erw.bmp
+	
+newmtl hkm1erw
+	map_Ka amber-windows.textures/Hkm1ERW.bmp
+	map_Kd amber-windows.textures/Hkm1ERW.bmp
+	
+newmtl hnm2er
+	map_Ka amber-windows.textures/Hnm2er.bmp
+	map_Kd amber-windows.textures/Hnm2er.bmp
+	
+newmtl hnm2elw
+	map_Ka amber-windows.textures/Hnm2elw.bmp
+	map_Kd amber-windows.textures/Hnm2elw.bmp
+	
+newmtl hkm1dr
+	map_Ka amber-windows.textures/Hkm1dR.bmp
+	map_Kd amber-windows.textures/Hkm1dR.bmp
+	
+newmtl hkm1dl
+	map_Ka amber-windows.textures/Hkm1dL.bmp
+	map_Kd amber-windows.textures/Hkm1dL.bmp
+	
+newmtl gt002a
+	map_Ka amber-windows.textures/gt002a.bmp
+	map_Kd amber-windows.textures/gt002a.bmp
+	
+newmtl gt002b
+	map_Ka amber-windows.textures/gt002b.bmp
+	map_Kd amber-windows.textures/gt002b.bmp
+	
+newmtl gt002g
+	map_Ka amber-windows.textures/gt002g.bmp
+	map_Kd amber-windows.textures/gt002g.bmp
+	
+newmtl gt002c
+	map_Ka amber-windows.textures/gt002c.bmp
+	map_Kd amber-windows.textures/gt002c.bmp
+	
+newmtl gt002e
+	map_Ka amber-windows.textures/gt002e.bmp
+	map_Kd amber-windows.textures/gt002e.bmp
+	
+newmtl sgfire
+	map_Ka amber-windows.textures/sgFIRE.bmp
+	map_Kd amber-windows.textures/sgFIRE.bmp
+	
+newmtl sgspirit
+	map_Ka amber-windows.textures/sgSPIRIT.bmp
+	map_Kd amber-windows.textures/sgSPIRIT.bmp
+	
+newmtl cnb
+	map_Ka amber-windows.textures/CNB.bmp
+	map_Kd amber-windows.textures/CNB.bmp
+	
+newmtl wtrtyl
+	map_Ka amber-windows.textures/WtrTyl.bmp
+	map_Kd amber-windows.textures/WtrTyl.bmp
+	
+newmtl hhr1p
+	map_Ka amber-windows.textures/HHR1P.bmp
+	map_Kd amber-windows.textures/HHR1P.bmp
+	
+newmtl cndl
+	map_Ka amber-windows.textures/CNDL.bmp
+	map_Kd amber-windows.textures/CNDL.bmp
+	
+newmtl cnb1er
+	map_Ka amber-windows.textures/CNB1ER.bmp
+	map_Kd amber-windows.textures/CNB1ER.bmp
+	
+newmtl trim2_32a
+	map_Ka amber-windows.textures/TRIM2_32a.bmp
+	map_Kd amber-windows.textures/TRIM2_32a.bmp
+	
+newmtl cnb1sel
+	map_Ka amber-windows.textures/CNB1SEL.bmp
+	map_Kd amber-windows.textures/CNB1SEL.bmp
+	
+newmtl cnbw
+	map_Ka amber-windows.textures/CNBW.bmp
+	map_Kd amber-windows.textures/CNBW.bmp
+	
+newmtl cnb1el
+	map_Ka amber-windows.textures/CNB1EL.bmp
+	map_Kd amber-windows.textures/CNB1EL.bmp
+	
+newmtl cndr
+	map_Ka amber-windows.textures/CNDR.bmp
+	map_Kd amber-windows.textures/CNDR.bmp
+	
+newmtl cnb1s
+	map_Ka amber-windows.textures/CNB1S.bmp
+	map_Kd amber-windows.textures/CNB1S.bmp
+	
+newmtl cnb1ser
+	map_Ka amber-windows.textures/CNB1SER.bmp
+	map_Kd amber-windows.textures/CNB1SER.bmp
+	
+newmtl trimd
+	map_Ka amber-windows.textures/trimD.bmp
+	map_Kd amber-windows.textures/trimD.bmp
+	
+newmtl trim12_32
+	map_Ka amber-windows.textures/Trim12_32.bmp
+	map_Kd amber-windows.textures/Trim12_32.bmp
+	
+newmtl trim8_32
+	map_Ka amber-windows.textures/Trim8_32.bmp
+	map_Kd amber-windows.textures/Trim8_32.bmp
+	
+newmtl sgmind
+	map_Ka amber-windows.textures/sgMIND.bmp
+	map_Kd amber-windows.textures/sgMIND.bmp
+	
+newmtl sgarm
+	map_Ka amber-windows.textures/sgARM.bmp
+	map_Kd amber-windows.textures/sgARM.bmp
+	
+newmtl t1beds2
+	map_Ka amber-windows.textures/T1beds2.bmp
+	map_Kd amber-windows.textures/T1beds2.bmp
+	
+newmtl hhp2b2
+	map_Ka amber-windows.textures/Hhp2b2.bmp
+	map_Kd amber-windows.textures/Hhp2b2.bmp
+	
+newmtl hhp1el
+	map_Ka amber-windows.textures/Hhp1el.bmp
+	map_Kd amber-windows.textures/Hhp1el.bmp
+	
+newmtl hhp1erw
+	map_Ka amber-windows.textures/Hhp1erw.bmp
+	map_Kd amber-windows.textures/Hhp1erw.bmp
+	
+newmtl hhp1er
+	map_Ka amber-windows.textures/Hhp1er.bmp
+	map_Kd amber-windows.textures/Hhp1er.bmp
+	
+newmtl hhp1elw
+	map_Ka amber-windows.textures/Hhp1elw.bmp
+	map_Kd amber-windows.textures/Hhp1elw.bmp
+	
+newmtl hhp1d
+	map_Ka amber-windows.textures/Hhp1d.bmp
+	map_Kd amber-windows.textures/Hhp1d.bmp
+	
+newmtl hhp1bw
+	map_Ka amber-windows.textures/Hhp1bw.bmp
+	map_Kd amber-windows.textures/Hhp1bw.bmp
+	
+newmtl hhp1bs
+	map_Ka amber-windows.textures/Hhp1bs.bmp
+	map_Kd amber-windows.textures/Hhp1bs.bmp
+	
+newmtl hnp2rf
+	map_Ka amber-windows.textures/Hnp2rf.bmp
+	map_Kd amber-windows.textures/Hnp2rf.bmp
+	
+newmtl tfb09
+	map_Ka amber-windows.textures/TFB09.bmp
+	map_Kd amber-windows.textures/TFB09.bmp
+	
+newmtl t1s1st
+	map_Ka amber-windows.textures/T1S1ST.bmp
+	map_Kd amber-windows.textures/T1S1ST.bmp
+	
+newmtl hwm1d
+	map_Ka amber-windows.textures/Hwm1d.bmp
+	map_Kd amber-windows.textures/Hwm1d.bmp
+	
+newmtl hdr1b
+	map_Ka amber-windows.textures/Hdr1b.bmp
+	map_Kd amber-windows.textures/Hdr1b.bmp
+	
+newmtl cwb
+	map_Ka amber-windows.textures/CWB.bmp
+	map_Kd amber-windows.textures/CWB.bmp
+	
+newmtl cfb1
+	map_Ka amber-windows.textures/Cfb1.bmp
+	map_Kd amber-windows.textures/Cfb1.bmp
+	
+newmtl cwb1
+	map_Ka amber-windows.textures/Cwb1.bmp
+	map_Kd amber-windows.textures/Cwb1.bmp
+	
+newmtl cwb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/Cwb1.bmp
+	map_Kd amber-windows.textures/Cwb1.bmp
+	
+newmtl hhm1b2
+	map_Ka amber-windows.textures/Hhm1b2.bmp
+	map_Kd amber-windows.textures/Hhm1b2.bmp
+	
+newmtl hhm3bw
+	map_Ka amber-windows.textures/Hhm3bw.bmp
+	map_Kd amber-windows.textures/Hhm3bw.bmp
+	
+newmtl hhm3er2a
+	map_Ka amber-windows.textures/Hhm3er2a.bmp
+	map_Kd amber-windows.textures/Hhm3er2a.bmp
+	
+newmtl hhm3er2
+	map_Ka amber-windows.textures/Hhm3er2.bmp
+	map_Kd amber-windows.textures/Hhm3er2.bmp
+	
+newmtl hhm3bwr2
+	map_Ka amber-windows.textures/Hhm3bwr2.bmp
+	map_Kd amber-windows.textures/Hhm3bwr2.bmp
+	
+newmtl hhm3er2b
+	map_Ka amber-windows.textures/Hhm3er2b.bmp
+	map_Kd amber-windows.textures/Hhm3er2b.bmp
+	
+newmtl hhm3el2b
+	map_Ka amber-windows.textures/Hhm3el2b.bmp
+	map_Kd amber-windows.textures/Hhm3el2b.bmp
+	
+newmtl hhm1els
+	map_Ka amber-windows.textures/HHM1ELS.bmp
+	map_Kd amber-windows.textures/HHM1ELS.bmp
+	
+newmtl hhm1b1
+	map_Ka amber-windows.textures/Hhm1b1.bmp
+	map_Kd amber-windows.textures/Hhm1b1.bmp
+	
+newmtl hhm3bs
+	map_Ka amber-windows.textures/Hhm3bs.bmp
+	map_Kd amber-windows.textures/Hhm3bs.bmp
+	
+newmtl hhm3bwl2
+	map_Ka amber-windows.textures/Hhm3bwl2.bmp
+	map_Kd amber-windows.textures/Hhm3bwl2.bmp
+	
+newmtl hhm3er
+	map_Ka amber-windows.textures/Hhm3er.bmp
+	map_Kd amber-windows.textures/Hhm3er.bmp
+	
+newmtl hhm3el
+	map_Ka amber-windows.textures/Hhm3el.bmp
+	map_Kd amber-windows.textures/Hhm3el.bmp
+	
+newmtl her1le
+	map_Ka amber-windows.textures/Her1le.bmp
+	map_Kd amber-windows.textures/Her1le.bmp
+	
+newmtl her1erw
+	map_Ka amber-windows.textures/Her1erw.bmp
+	map_Kd amber-windows.textures/Her1erw.bmp
+	
+newmtl her1rf
+	map_Ka amber-windows.textures/Her1rf.bmp
+	map_Kd amber-windows.textures/Her1rf.bmp
+	
+newmtl her1erb
+	map_Ka amber-windows.textures/Her1erb.bmp
+	map_Kd amber-windows.textures/Her1erb.bmp
+	
+newmtl her1bw
+	map_Ka amber-windows.textures/Her1bw.bmp
+	map_Kd amber-windows.textures/Her1bw.bmp
+	
+newmtl her1b
+	map_Ka amber-windows.textures/Her1b.bmp
+	map_Kd amber-windows.textures/Her1b.bmp
+	
+newmtl her1elw
+	map_Ka amber-windows.textures/Her1elw.bmp
+	map_Kd amber-windows.textures/Her1elw.bmp
+	
+newmtl her1d
+	map_Ka amber-windows.textures/Her1d.bmp
+	map_Kd amber-windows.textures/Her1d.bmp
+	
+newmtl sgbody
+	map_Ka amber-windows.textures/sgBODY.bmp
+	map_Kd amber-windows.textures/sgBODY.bmp
+	
+newmtl hkm1d
+	map_Ka amber-windows.textures/Hkm1d.bmp
+	map_Kd amber-windows.textures/Hkm1d.bmp
+	
+newmtl hdm1b
+	map_Ka amber-windows.textures/Hdm1b.bmp
+	map_Kd amber-windows.textures/Hdm1b.bmp
+	
+newmtl hwm1el
+	map_Ka amber-windows.textures/Hwm1el.bmp
+	map_Kd amber-windows.textures/Hwm1el.bmp
+	
+newmtl hwm1er
+	map_Ka amber-windows.textures/Hwm1er.bmp
+	map_Kd amber-windows.textures/Hwm1er.bmp
+	
+newmtl t1beds2:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/T1beds2.bmp
+	map_Kd amber-windows.textures/T1beds2.bmp
+	
+newmtl hhp1b
+	map_Ka amber-windows.textures/Hhp1b.bmp
+	map_Kd amber-windows.textures/Hhp1b.bmp
+	
+newmtl hhm1d2
+	map_Ka amber-windows.textures/HHM1D2.bmp
+	map_Kd amber-windows.textures/HHM1D2.bmp
+	
+newmtl hhp2b1
+	map_Ka amber-windows.textures/Hhp2b1.bmp
+	map_Kd amber-windows.textures/Hhp2b1.bmp
+	
+newmtl hhp2ers
+	map_Ka amber-windows.textures/Hhp2ers.bmp
+	map_Kd amber-windows.textures/Hhp2ers.bmp
+	
+newmtl hhp2els
+	map_Ka amber-windows.textures/Hhp2els.bmp
+	map_Kd amber-windows.textures/Hhp2els.bmp
+	
+newmtl trim3_32a
+	map_Ka amber-windows.textures/TRIM3_32a.bmp
+	map_Kd amber-windows.textures/TRIM3_32a.bmp
+	
+newmtl trim3_32
+	map_Ka amber-windows.textures/TRIM3_32.bmp
+	map_Kd amber-windows.textures/TRIM3_32.bmp
+	
+newmtl t5s1c
+	map_Ka amber-windows.textures/T5s1C.bmp
+	map_Kd amber-windows.textures/T5s1C.bmp
+	
+newmtl t1s1cp1
+	map_Ka amber-windows.textures/T1S1CP1.bmp
+	map_Kd amber-windows.textures/T1S1CP1.bmp
+	
+newmtl t2bs
+	map_Ka amber-windows.textures/T2BS.bmp
+	map_Kd amber-windows.textures/T2BS.bmp
+	
+newmtl t2bs:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/T2BS.bmp
+	map_Kd amber-windows.textures/T2BS.bmp
+	
+newmtl tfb08
+	map_Ka amber-windows.textures/TFB08.bmp
+	map_Kd amber-windows.textures/TFB08.bmp
+	
+newmtl tfb07
+	map_Ka amber-windows.textures/TFB07.bmp
+	map_Kd amber-windows.textures/TFB07.bmp
+	
+newmtl gt003a
+	map_Ka amber-windows.textures/gt003a.bmp
+	map_Kd amber-windows.textures/gt003a.bmp
+	
+newmtl gt003b
+	map_Ka amber-windows.textures/gt003b.bmp
+	map_Kd amber-windows.textures/gt003b.bmp
+	
+newmtl t4bs
+	map_Ka amber-windows.textures/T4bs.bmp
+	map_Kd amber-windows.textures/T4bs.bmp
+	
+newmtl trim5_32
+	map_Ka amber-windows.textures/Trim5_32.bmp
+	map_Kd amber-windows.textures/Trim5_32.bmp
+	
+newmtl hwm2bw
+	map_Ka amber-windows.textures/Hwm2bw.bmp
+	map_Kd amber-windows.textures/Hwm2bw.bmp
+	
+newmtl hwm2bs1
+	map_Ka amber-windows.textures/HWM2BS1.bmp
+	map_Kd amber-windows.textures/HWM2BS1.bmp
+	
+newmtl tws1fa
+	map_Ka amber-windows.textures/Tws1fa.bmp
+	map_Kd amber-windows.textures/Tws1fa.bmp
+	
+newmtl hwm2bs
+	map_Ka amber-windows.textures/Hwm2bs.bmp
+	map_Kd amber-windows.textures/Hwm2bs.bmp
+	
+newmtl tfb11
+	map_Ka amber-windows.textures/TFB11.bmp
+	map_Kd amber-windows.textures/TFB11.bmp
+	
+newmtl hwm2d
+	map_Ka amber-windows.textures/Hwm2d.bmp
+	map_Kd amber-windows.textures/Hwm2d.bmp
+	
+newmtl t5d1
+	map_Ka amber-windows.textures/T5d1.bmp
+	map_Kd amber-windows.textures/T5d1.bmp
+	
+newmtl ckbw
+	map_Ka amber-windows.textures/Ckbw.bmp
+	map_Kd amber-windows.textures/Ckbw.bmp
+	
+newmtl staingls
+	map_Ka amber-windows.textures/STAINgls.bmp
+	map_Kd amber-windows.textures/STAINgls.bmp
+	
+newmtl ckdr
+	map_Ka amber-windows.textures/Ckdr.bmp
+	map_Kd amber-windows.textures/Ckdr.bmp
+	
+newmtl ckdl
+	map_Ka amber-windows.textures/Ckdl.bmp
+	map_Kd amber-windows.textures/Ckdl.bmp
+	
+newmtl ckber
+	map_Ka amber-windows.textures/Ckber.bmp
+	map_Kd amber-windows.textures/Ckber.bmp
+	
+newmtl ckbel
+	map_Ka amber-windows.textures/Ckbel.bmp
+	map_Kd amber-windows.textures/Ckbel.bmp
+	
+newmtl a2j
+	map_Ka amber-windows.textures/A2j.bmp
+	map_Kd amber-windows.textures/A2j.bmp
+	
+newmtl hemflor
+	map_Ka amber-windows.textures/Hemflor.bmp
+	map_Kd amber-windows.textures/Hemflor.bmp
+	
+newmtl hem2b
+	map_Ka amber-windows.textures/Hem2b.bmp
+	map_Kd amber-windows.textures/Hem2b.bmp
+	
+newmtl hem1rfa
+	map_Ka amber-windows.textures/HEM1RFA.bmp
+	map_Kd amber-windows.textures/HEM1RFA.bmp
+	
+newmtl hem2elw
+	map_Ka amber-windows.textures/Hem2elw.bmp
+	map_Kd amber-windows.textures/Hem2elw.bmp
+	
+newmtl hem2bw
+	map_Ka amber-windows.textures/Hem2bw.bmp
+	map_Kd amber-windows.textures/Hem2bw.bmp
+	
+newmtl hem2el
+	map_Ka amber-windows.textures/Hem2el.bmp
+	map_Kd amber-windows.textures/Hem2el.bmp
+	
+newmtl hem2d
+	map_Ka amber-windows.textures/Hem2d.bmp
+	map_Kd amber-windows.textures/Hem2d.bmp
+	
+newmtl hem2erw
+	map_Ka amber-windows.textures/Hem2erw.bmp
+	map_Kd amber-windows.textures/Hem2erw.bmp
+	
+newmtl hem2er
+	map_Ka amber-windows.textures/Hem2er.bmp
+	map_Kd amber-windows.textures/Hem2er.bmp
+	
+newmtl twb1a
+	map_Ka amber-windows.textures/Twb1a.bmp
+	map_Kd amber-windows.textures/Twb1a.bmp
+	
+newmtl hdm1elw
+	map_Ka amber-windows.textures/Hdm1elw.bmp
+	map_Kd amber-windows.textures/Hdm1elw.bmp
+	
+newmtl twb1b
+	map_Ka amber-windows.textures/Twb1b.bmp
+	map_Kd amber-windows.textures/Twb1b.bmp
+	
+newmtl hdm1bw
+	map_Ka amber-windows.textures/Hdm1bw.bmp
+	map_Kd amber-windows.textures/Hdm1bw.bmp
+	
+newmtl hhr1rf
+	map_Ka amber-windows.textures/Hhr1rf.bmp
+	map_Kd amber-windows.textures/Hhr1rf.bmp
+	
+newmtl solid02
+	map_Ka amber-windows.textures/solid02.bmp
+	map_Kd amber-windows.textures/solid02.bmp
+	
+newmtl hdm1el
+	map_Ka amber-windows.textures/Hdm1el.bmp
+	map_Kd amber-windows.textures/Hdm1el.bmp
+	
+newmtl hdm1erw
+	map_Ka amber-windows.textures/Hdm1erw.bmp
+	map_Kd amber-windows.textures/Hdm1erw.bmp
+	
+newmtl hdm1er
+	map_Ka amber-windows.textures/Hdm1er.bmp
+	map_Kd amber-windows.textures/Hdm1er.bmp
+	
+newmtl hdm1d
+	map_Ka amber-windows.textures/Hdm1d.bmp
+	map_Kd amber-windows.textures/Hdm1d.bmp
+	
+newmtl hhr1bw
+	map_Ka amber-windows.textures/Hhr1bw.bmp
+	map_Kd amber-windows.textures/Hhr1bw.bmp
+	
+newmtl t5bs
+	map_Ka amber-windows.textures/T5bs.bmp
+	map_Kd amber-windows.textures/T5bs.bmp
+	
+newmtl hhr1erw
+	map_Ka amber-windows.textures/Hhr1erw.bmp
+	map_Kd amber-windows.textures/Hhr1erw.bmp
+	
+newmtl hhr1d1
+	map_Ka amber-windows.textures/Hhr1d1.bmp
+	map_Kd amber-windows.textures/Hhr1d1.bmp
+	
+newmtl hhr1elw
+	map_Ka amber-windows.textures/Hhr1elw.bmp
+	map_Kd amber-windows.textures/Hhr1elw.bmp
+	
+newmtl hhr1bw1
+	map_Ka amber-windows.textures/Hhr1bw1.bmp
+	map_Kd amber-windows.textures/Hhr1bw1.bmp
+	
+newmtl hhr1d2
+	map_Ka amber-windows.textures/Hhr1d2.bmp
+	map_Kd amber-windows.textures/Hhr1d2.bmp
+	
+newmtl sgair
+	map_Ka amber-windows.textures/sgAIR.bmp
+	map_Kd amber-windows.textures/sgAIR.bmp
+	
+newmtl t2s1fl
+	map_Ka amber-windows.textures/T2S1FL.bmp
+	map_Kd amber-windows.textures/T2S1FL.bmp
+	
+newmtl t3s2b
+	map_Ka amber-windows.textures/T3S2B.bmp
+	map_Kd amber-windows.textures/T3S2B.bmp
+	
+newmtl t3s2fl
+	map_Ka amber-windows.textures/T3S2FL.bmp
+	map_Kd amber-windows.textures/T3S2FL.bmp
+	
+newmtl t3s2fl1
+	map_Ka amber-windows.textures/T3S2FL1.bmp
+	map_Kd amber-windows.textures/T3S2FL1.bmp
+	
+newmtl t6s1c
+	map_Ka amber-windows.textures/T6s1c.bmp
+	map_Kd amber-windows.textures/T6s1c.bmp
+	
+newmtl t3s2b1
+	map_Ka amber-windows.textures/T3S2B1.bmp
+	map_Kd amber-windows.textures/T3S2B1.bmp
+	
+newmtl t3s2c
+	map_Ka amber-windows.textures/T3S2C.bmp
+	map_Kd amber-windows.textures/T3S2C.bmp
+	
+newmtl t2d2
+	map_Ka amber-windows.textures/T2d2.bmp
+	map_Kd amber-windows.textures/T2d2.bmp
+	
+newmtl t3ber
+	map_Ka amber-windows.textures/T3ber.bmp
+	map_Kd amber-windows.textures/T3ber.bmp
+	
+newmtl t3bel
+	map_Ka amber-windows.textures/T3bel.bmp
+	map_Kd amber-windows.textures/T3bel.bmp
+	
+newmtl t2d1
+	map_Ka amber-windows.textures/T2d1.bmp
+	map_Kd amber-windows.textures/T2d1.bmp
+	
+newmtl trim7_32a
+	map_Ka amber-windows.textures/Trim7_32a.bmp
+	map_Kd amber-windows.textures/Trim7_32a.bmp
+	
+newmtl tfb2
+	map_Ka amber-windows.textures/Tfb2.bmp
+	map_Kd amber-windows.textures/Tfb2.bmp
+	
+newmtl hhm2er
+	map_Ka amber-windows.textures/Hhm2er.bmp
+	map_Kd amber-windows.textures/Hhm2er.bmp
+	
+newmtl hhm2el
+	map_Ka amber-windows.textures/Hhm2el.bmp
+	map_Kd amber-windows.textures/Hhm2el.bmp
+	
+newmtl hnm1abw
+	map_Ka amber-windows.textures/HNM1ABW.bmp
+	map_Kd amber-windows.textures/HNM1ABW.bmp
+	
+newmtl hnm1aer
+	map_Ka amber-windows.textures/HNM1AER.bmp
+	map_Kd amber-windows.textures/HNM1AER.bmp
+	
+newmtl hnm1ab
+	map_Ka amber-windows.textures/HNM1AB.bmp
+	map_Kd amber-windows.textures/HNM1AB.bmp
+	
+newmtl hnm1ael
+	map_Ka amber-windows.textures/HNM1AEL.bmp
+	map_Kd amber-windows.textures/HNM1AEL.bmp
+	
+newmtl hnm1aerw
+	map_Ka amber-windows.textures/HNM1AERW.bmp
+	map_Kd amber-windows.textures/HNM1AERW.bmp
+	
+newmtl t6s1dl
+	map_Ka amber-windows.textures/T6s1dl.bmp
+	map_Kd amber-windows.textures/T6s1dl.bmp
+	
+newmtl t6s1dr
+	map_Ka amber-windows.textures/T6s1dr.bmp
+	map_Kd amber-windows.textures/T6s1dr.bmp
+	
+newmtl hnm1aelw
+	map_Ka amber-windows.textures/HNM1AELW.bmp
+	map_Kd amber-windows.textures/HNM1AELW.bmp
+	
+newmtl trim6_32a
+	map_Ka amber-windows.textures/Trim6_32a.bmp
+	map_Kd amber-windows.textures/Trim6_32a.bmp
+	
+newmtl hwm2el
+	map_Ka amber-windows.textures/Hwm2el.bmp
+	map_Kd amber-windows.textures/Hwm2el.bmp
+	
+newmtl hwm2er
+	map_Ka amber-windows.textures/Hwm2er.bmp
+	map_Kd amber-windows.textures/Hwm2er.bmp
+	
+newmtl sgtvrn
+	map_Ka amber-windows.textures/sgTVRN.bmp
+	map_Kd amber-windows.textures/sgTVRN.bmp
+	
+newmtl sgbank
+	map_Ka amber-windows.textures/sgBANK.bmp
+	map_Kd amber-windows.textures/sgBANK.bmp
+	
+newmtl t5s1fl
+	map_Ka amber-windows.textures/T5s1FL.bmp
+	map_Kd amber-windows.textures/T5s1FL.bmp
+	
+newmtl cfb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/Cfb1.bmp
+	map_Kd amber-windows.textures/Cfb1.bmp
+	
+newmtl sgtempl
+	map_Ka amber-windows.textures/sgTEMPL.bmp
+	map_Kd amber-windows.textures/sgTEMPL.bmp
+	
+newmtl hhm2b2
+	map_Ka amber-windows.textures/Hhm2b2.bmp
+	map_Kd amber-windows.textures/Hhm2b2.bmp
+	
+newmtl hkp1d
+	map_Ka amber-windows.textures/Hkp1d.bmp
+	map_Kd amber-windows.textures/Hkp1d.bmp
+	
+newmtl sgwater
+	map_Ka amber-windows.textures/sgWATER.bmp
+	map_Kd amber-windows.textures/sgWATER.bmp
+	
+newmtl necro-b
+	map_Ka amber-windows.textures/necro-b.bmp
+	map_Kd amber-windows.textures/necro-b.bmp
+	
+newmtl necro-a
+	map_Ka amber-windows.textures/necro-a.bmp
+	map_Kd amber-windows.textures/necro-a.bmp
+	
+newmtl sgmagi
+	map_Ka amber-windows.textures/sgMAGI.bmp
+	map_Kd amber-windows.textures/sgMAGI.bmp
+	
+newmtl hhr1bs1
+	map_Ka amber-windows.textures/Hhr1bs1.bmp
+	map_Kd amber-windows.textures/Hhr1bs1.bmp
+	
+newmtl trim2_16
+	map_Ka amber-windows.textures/TRIM2_16.bmp
+	map_Kd amber-windows.textures/TRIM2_16.bmp
+	
+newmtl hkr1bs
+	map_Ka amber-windows.textures/Hkr1bs.bmp
+	map_Kd amber-windows.textures/Hkr1bs.bmp
+	
+newmtl hkr1bw
+	map_Ka amber-windows.textures/Hkr1bw.bmp
+	map_Kd amber-windows.textures/Hkr1bw.bmp
+	
+newmtl hkr1re
+	map_Ka amber-windows.textures/Hkr1re.bmp
+	map_Kd amber-windows.textures/Hkr1re.bmp
+	
+newmtl hkr1le
+	map_Ka amber-windows.textures/Hkr1le.bmp
+	map_Kd amber-windows.textures/Hkr1le.bmp
+	
+newmtl hkr1rew
+	map_Ka amber-windows.textures/Hkr1reW.bmp
+	map_Kd amber-windows.textures/Hkr1reW.bmp
+	
+newmtl hkr1lew
+	map_Ka amber-windows.textures/Hkr1leW.bmp
+	map_Kd amber-windows.textures/Hkr1leW.bmp
+	
+newmtl hkr1b
+	map_Ka amber-windows.textures/Hkr1b.bmp
+	map_Kd amber-windows.textures/Hkr1b.bmp
+	
+newmtl sgweapon
+	map_Ka amber-windows.textures/sgWEAPON.bmp
+	map_Kd amber-windows.textures/sgWEAPON.bmp
+	
+newmtl t1beds:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/T1beds.bmp
+	map_Kd amber-windows.textures/T1beds.bmp
+	
+newmtl trim2_32:i
+	d 0.3
+	Tr 0.7
+	map_Ka amber-windows.textures/TRIM2_32.bmp
+	map_Kd amber-windows.textures/TRIM2_32.bmp
+	
+newmtl sgtrain
+	map_Ka amber-windows.textures/sgTRAIN.bmp
+	map_Kd amber-windows.textures/sgTRAIN.bmp
+	
+newmtl hdm2bsw
+	map_Ka amber-windows.textures/HdM2BSW.bmp
+	map_Kd amber-windows.textures/HdM2BSW.bmp
+	
+newmtl hdm2bs
+	map_Ka amber-windows.textures/HdM2BS.bmp
+	map_Kd amber-windows.textures/HdM2BS.bmp
+	
+newmtl chbw
+	map_Ka amber-windows.textures/CHBW.bmp
+	map_Kd amber-windows.textures/CHBW.bmp
+	
+newmtl hep2b
+	map_Ka amber-windows.textures/HEP2B.bmp
+	map_Kd amber-windows.textures/HEP2B.bmp
+	
+newmtl chb1s
+	map_Ka amber-windows.textures/CHB1S.bmp
+	map_Kd amber-windows.textures/CHB1S.bmp
+	
+newmtl t1s1cp2
+	map_Ka amber-windows.textures/T1S1CP2.bmp
+	map_Kd amber-windows.textures/T1S1CP2.bmp
+	
+newmtl chb2
+	map_Ka amber-windows.textures/chb2.bmp
+	map_Kd amber-windows.textures/chb2.bmp
+	
+newmtl hep2rf
+	map_Ka amber-windows.textures/HEP2RF.bmp
+	map_Kd amber-windows.textures/HEP2RF.bmp
+	
+newmtl hhm3el2 a
+	map_Ka amber-windows.textures/Hhm3el2 a.bmp
+	map_Kd amber-windows.textures/Hhm3el2 a.bmp
+	
+newmtl chb1s-g1
+	map_Ka amber-windows.textures/chb1s-g1.bmp
+	map_Kd amber-windows.textures/chb1s-g1.bmp
+	
+newmtl ch1b1
+	map_Ka amber-windows.textures/Ch1b1.bmp
+	map_Kd amber-windows.textures/Ch1b1.bmp
+	
+newmtl chb2-g2
+	map_Ka amber-windows.textures/chb2-g2.bmp
+	map_Kd amber-windows.textures/chb2-g2.bmp
+	
+newmtl chbw-g1
+	map_Ka amber-windows.textures/chbw-g1.bmp
+	map_Kd amber-windows.textures/chbw-g1.bmp
+	
+newmtl chb2d
+	map_Ka amber-windows.textures/chb2d.bmp
+	map_Kd amber-windows.textures/chb2d.bmp
+	
+newmtl chb1p7
+	map_Ka amber-windows.textures/chb1p7.bmp
+	map_Kd amber-windows.textures/chb1p7.bmp
+	
+newmtl solid05
+	map_Ka amber-windows.textures/solid05.bmp
+	map_Kd amber-windows.textures/solid05.bmp
+	
+newmtl t1butt
+	map_Ka amber-windows.textures/T1butt.bmp
+	map_Kd amber-windows.textures/T1butt.bmp
+	
+newmtl twb2
+	map_Ka amber-windows.textures/Twb2.bmp
+	map_Kd amber-windows.textures/Twb2.bmp
+	
+newmtl t6s1bs
+	map_Ka amber-windows.textures/T6s1bs.bmp
+	map_Kd amber-windows.textures/T6s1bs.bmp

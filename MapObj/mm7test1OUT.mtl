@@ -1,0 +1,9 @@
+# Model MTL from "mm7test1.odt" map from MM7.
+	
+newmtl dirttyl:g
+	map_Ka mm7test1OUT.textures/ground/dirttyl.bmp
+	map_Kd mm7test1OUT.textures/ground/dirttyl.bmp
+	
+newmtl hdm2d
+	map_Ka mm7test1OUT.textures/HdM2D.bmp
+	map_Kd mm7test1OUT.textures/HdM2D.bmp

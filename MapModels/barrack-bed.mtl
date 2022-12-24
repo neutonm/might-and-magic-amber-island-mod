@@ -1,0 +1,68 @@
+# Blender MTL File: 'None'
+# Material Count: 6
+
+newmtl cwb1:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/Cwb1.bmp
+
+newmtl dirt
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/DIRT.bmp
+
+newmtl t1beds2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/T1beds2.bmp
+
+newmtl t1cabs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/T1cabs.bmp
+
+newmtl trim1_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/TRIM1_32.bmp
+
+newmtl trim1_32:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d24.textures/TRIM1_32.bmp

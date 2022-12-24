@@ -1,0 +1,361 @@
+# Model MTL from "d24.dat" map from MM7.
+	
+newmtl cwb1
+	map_Ka d24.textures/Cwb1.bmp
+	map_Kd d24.textures/Cwb1.bmp
+	
+newmtl cfb1
+	map_Ka d24.textures/CFB1.bmp
+	map_Kd d24.textures/CFB1.bmp
+	
+newmtl trim9_32a
+	map_Ka d24.textures/Trim9_32a.bmp
+	map_Kd d24.textures/Trim9_32a.bmp
+
+newmtl _portal_
+	map_Tr d24.textures/_Portal_.png
+	map_d d24.textures/_Portal_.png
+	map_Ka d24.textures/_Portal_.png
+	map_Kd d24.textures/_Portal_.png
+	
+newmtl trim9_32
+	map_Ka d24.textures/Trim9_32.bmp
+	map_Kd d24.textures/Trim9_32.bmp
+	
+newmtl gt002b
+	map_Ka d24.textures/gt002b.bmp
+	map_Kd d24.textures/gt002b.bmp
+	
+newmtl cwb
+	map_Ka d24.textures/CWB.bmp
+	map_Kd d24.textures/CWB.bmp
+	
+newmtl tfb1
+	map_Ka d24.textures/Tfb1.bmp
+	map_Kd d24.textures/Tfb1.bmp
+	
+newmtl gt002c
+	map_Ka d24.textures/gt002c.bmp
+	map_Kd d24.textures/gt002c.bmp
+	
+newmtl gt002a
+	map_Ka d24.textures/gt002a.bmp
+	map_Kd d24.textures/gt002a.bmp
+	
+newmtl gt002e
+	map_Ka d24.textures/gt002e.bmp
+	map_Kd d24.textures/gt002e.bmp
+	
+newmtl gt002g
+	map_Ka d24.textures/gt002g.bmp
+	map_Kd d24.textures/gt002g.bmp
+	
+newmtl gt003a
+	map_Ka d24.textures/gt003a.bmp
+	map_Kd d24.textures/gt003a.bmp
+	
+newmtl gt003b
+	map_Ka d24.textures/gt003b.bmp
+	map_Kd d24.textures/gt003b.bmp
+	
+newmtl tfb2
+	map_Ka d24.textures/Tfb2.bmp
+	map_Kd d24.textures/Tfb2.bmp
+	
+newmtl trim1_32
+	map_Ka d24.textures/TRIM1_32.bmp
+	map_Kd d24.textures/TRIM1_32.bmp
+	
+newmtl hdr1dr
+	map_Ka d24.textures/Hdr1dr.bmp
+	map_Kd d24.textures/Hdr1dr.bmp
+	
+newmtl dirt
+	map_Ka d24.textures/DIRT.bmp
+	map_Kd d24.textures/DIRT.bmp
+	
+newmtl hdr1b
+	map_Ka d24.textures/Hdr1b.bmp
+	map_Kd d24.textures/Hdr1b.bmp
+	
+newmtl wtrtyl
+	map_Ka d24.textures/WtrTyl.bmp
+	map_Kd d24.textures/WtrTyl.bmp
+	
+newmtl hdr1dl
+	map_Ka d24.textures/Hdr1dl.bmp
+	map_Kd d24.textures/Hdr1dl.bmp
+	
+newmtl hdr1erw
+	map_Ka d24.textures/Hdr1erw.bmp
+	map_Kd d24.textures/Hdr1erw.bmp
+	
+newmtl sgtrain
+	map_Ka d24.textures/sgTRAIN.bmp
+	map_Kd d24.textures/sgTRAIN.bmp
+	
+newmtl hdr1elw
+	map_Ka d24.textures/Hdr1elw.bmp
+	map_Kd d24.textures/Hdr1elw.bmp
+	
+newmtl hdp2d
+	map_Ka d24.textures/Hdp2d.bmp
+	map_Kd d24.textures/Hdp2d.bmp
+	
+newmtl hdp2el
+	map_Ka d24.textures/Hdp2el.bmp
+	map_Kd d24.textures/Hdp2el.bmp
+	
+newmtl hdp2bs
+	map_Ka d24.textures/Hdp2bs.bmp
+	map_Kd d24.textures/Hdp2bs.bmp
+	
+newmtl sgearth
+	map_Ka d24.textures/sgEARTH.bmp
+	map_Kd d24.textures/sgEARTH.bmp
+	
+newmtl hdp2bw
+	map_Ka d24.textures/Hdp2bw.bmp
+	map_Kd d24.textures/Hdp2bw.bmp
+	
+newmtl hdp2er
+	map_Ka d24.textures/Hdp2er.bmp
+	map_Kd d24.textures/Hdp2er.bmp
+	
+newmtl cwb1gold
+	map_Ka d24.textures/CWB1gold.bmp
+	map_Kd d24.textures/CWB1gold.bmp
+	
+newmtl hdp1er
+	map_Ka d24.textures/Hdp1er.bmp
+	map_Kd d24.textures/Hdp1er.bmp
+	
+newmtl hdp1d
+	map_Ka d24.textures/Hdp1d.bmp
+	map_Kd d24.textures/Hdp1d.bmp
+	
+newmtl hdp1el
+	map_Ka d24.textures/Hdp1el.bmp
+	map_Kd d24.textures/Hdp1el.bmp
+	
+newmtl hdm2er
+	map_Ka d24.textures/HdM2ER.bmp
+	map_Kd d24.textures/HdM2ER.bmp
+	
+newmtl hdp1erw
+	map_Ka d24.textures/Hdp1erw.bmp
+	map_Kd d24.textures/Hdp1erw.bmp
+	
+newmtl hdm2d
+	map_Ka d24.textures/HdM2D.bmp
+	map_Kd d24.textures/HdM2D.bmp
+	
+newmtl hdm2elw
+	map_Ka d24.textures/HdM2ELW.bmp
+	map_Kd d24.textures/HdM2ELW.bmp
+	
+newmtl hdm2el
+	map_Ka d24.textures/HdM2EL.bmp
+	map_Kd d24.textures/HdM2EL.bmp
+	
+newmtl hdm2bs
+	map_Ka d24.textures/HdM2BS.bmp
+	map_Kd d24.textures/HdM2BS.bmp
+	
+newmtl hdm2erw
+	map_Ka d24.textures/HdM2ERW.bmp
+	map_Kd d24.textures/HdM2ERW.bmp
+	
+newmtl sgmagi
+	map_Ka d24.textures/sgMAGI.bmp
+	map_Kd d24.textures/sgMAGI.bmp
+	
+newmtl sgalch
+	map_Ka d24.textures/sgALCH.bmp
+	map_Kd d24.textures/sgALCH.bmp
+	
+newmtl hdp1elw
+	map_Ka d24.textures/Hdp1elw.bmp
+	map_Kd d24.textures/Hdp1elw.bmp
+	
+newmtl hdp2erw
+	map_Ka d24.textures/Hdp2erw.bmp
+	map_Kd d24.textures/Hdp2erw.bmp
+	
+newmtl hdp2elw
+	map_Ka d24.textures/Hdp2elw.bmp
+	map_Kd d24.textures/Hdp2elw.bmp
+	
+newmtl t5d1
+	map_Ka d24.textures/T5d1.bmp
+	map_Kd d24.textures/T5d1.bmp
+	
+newmtl cddr
+	map_Ka d24.textures/CDDR.bmp
+	map_Kd d24.textures/CDDR.bmp
+	
+newmtl cdb1er
+	map_Ka d24.textures/CDB1ER.bmp
+	map_Kd d24.textures/CDB1ER.bmp
+	
+newmtl cdbw
+	map_Ka d24.textures/CDBW.bmp
+	map_Kd d24.textures/CDBW.bmp
+	
+newmtl cdb
+	map_Ka d24.textures/CDB.bmp
+	map_Kd d24.textures/CDB.bmp
+	
+newmtl cdb1el
+	map_Ka d24.textures/CDB1EL.bmp
+	map_Kd d24.textures/CDB1EL.bmp
+	
+newmtl sgtempl
+	map_Ka d24.textures/sgTEMPL.bmp
+	map_Kd d24.textures/sgTEMPL.bmp
+	
+newmtl cddl
+	map_Ka d24.textures/CDDL.bmp
+	map_Kd d24.textures/CDDL.bmp
+	
+newmtl trimd
+	map_Ka d24.textures/trimD.bmp
+	map_Kd d24.textures/trimD.bmp
+	
+newmtl trim11_32
+	map_Ka d24.textures/Trim11_32.bmp
+	map_Kd d24.textures/Trim11_32.bmp
+	
+newmtl t1beds2
+	map_Ka d24.textures/T1beds2.bmp
+	map_Kd d24.textures/T1beds2.bmp
+	
+newmtl trimda
+	map_Ka d24.textures/trimDa.bmp
+	map_Kd d24.textures/trimDa.bmp
+	
+newmtl t1beds
+	map_Ka d24.textures/T1beds.bmp
+	map_Kd d24.textures/T1beds.bmp
+	
+newmtl t1beds1
+	map_Ka d24.textures/T1beds1.bmp
+	map_Kd d24.textures/T1beds1.bmp
+	
+newmtl t1cabs
+	map_Ka d24.textures/T1cabs.bmp
+	map_Kd d24.textures/T1cabs.bmp
+	
+newmtl t1cab
+	map_Ka d24.textures/T1cab.bmp
+	map_Kd d24.textures/T1cab.bmp
+	
+newmtl hdp1b:i
+	d 0.3
+	Tr 0.7
+	map_Ka d24.textures/Hdp1b.bmp
+	map_Kd d24.textures/Hdp1b.bmp
+	
+newmtl hdp1b
+	map_Ka d24.textures/Hdp1b.bmp
+	map_Kd d24.textures/Hdp1b.bmp
+	
+newmtl trim1_32a
+	map_Ka d24.textures/TRIM1_32a.bmp
+	map_Kd d24.textures/TRIM1_32a.bmp
+	
+newmtl tfb11
+	map_Ka d24.textures/TFB11.bmp
+	map_Kd d24.textures/TFB11.bmp
+	
+newmtl trim1_32:i
+	d 0.3
+	Tr 0.7
+	map_Ka d24.textures/TRIM1_32.bmp
+	map_Kd d24.textures/TRIM1_32.bmp
+	
+newmtl cwb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka d24.textures/Cwb1.bmp
+	map_Kd d24.textures/Cwb1.bmp
+	
+newmtl cfb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka d24.textures/CFB1.bmp
+	map_Kd d24.textures/CFB1.bmp
+	
+newmtl t1butts:i
+	d 0.3
+	Tr 0.7
+	map_Ka d24.textures/T1butts.bmp
+	map_Kd d24.textures/T1butts.bmp
+	
+newmtl hdr1el
+	map_Ka d24.textures/Hdr1el.bmp
+	map_Kd d24.textures/Hdr1el.bmp
+	
+newmtl hdr1bs2
+	map_Ka d24.textures/Hdr1bs2.bmp
+	map_Kd d24.textures/Hdr1bs2.bmp
+	
+newmtl hdr1er
+	map_Ka d24.textures/Hdr1er.bmp
+	map_Kd d24.textures/Hdr1er.bmp
+	
+newmtl t1books
+	map_Ka d24.textures/T1books.bmp
+	map_Kd d24.textures/T1books.bmp
+	
+newmtl hdm1erw
+	map_Ka d24.textures/Hdm1erw.bmp
+	map_Kd d24.textures/Hdm1erw.bmp
+	
+newmtl hdm1el
+	map_Ka d24.textures/Hdm1el.bmp
+	map_Kd d24.textures/Hdm1el.bmp
+	
+newmtl hdm1er
+	map_Ka d24.textures/Hdm1er.bmp
+	map_Kd d24.textures/Hdm1er.bmp
+	
+newmtl hdm1d
+	map_Ka d24.textures/Hdm1d.bmp
+	map_Kd d24.textures/Hdm1d.bmp
+	
+newmtl hdm1elw
+	map_Ka d24.textures/Hdm1elw.bmp
+	map_Kd d24.textures/Hdm1elw.bmp
+	
+newmtl hdp1bw
+	map_Ka d24.textures/Hdp1bw.bmp
+	map_Kd d24.textures/Hdp1bw.bmp
+	
+newmtl t1butts
+	map_Ka d24.textures/T1butts.bmp
+	map_Kd d24.textures/T1butts.bmp
+	
+newmtl hdm2b
+	map_Ka d24.textures/HdM2B.bmp
+	map_Kd d24.textures/HdM2B.bmp
+	
+newmtl hhm1rf
+	map_Ka d24.textures/Hhm1rf.bmp
+	map_Kd d24.textures/Hhm1rf.bmp
+	
+newmtl sgweapon
+	map_Ka d24.textures/sgWEAPON.bmp
+	map_Kd d24.textures/sgWEAPON.bmp
+	
+newmtl sgbank
+	map_Ka d24.textures/sgBANK.bmp
+	map_Kd d24.textures/sgBANK.bmp
+	
+newmtl sgarm
+	map_Ka d24.textures/sgARM.bmp
+	map_Kd d24.textures/sgARM.bmp
+	
+newmtl sgtvrn
+	map_Ka d24.textures/sgTVRN.bmp
+	map_Kd d24.textures/sgTVRN.bmp

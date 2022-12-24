@@ -1,0 +1,57 @@
+# Blender MTL File: 'None'
+# Material Count: 5
+
+newmtl hdr1b
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d20.textures/Hdr1b.bmp
+
+newmtl t1beds2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d20.textures/T1beds2.bmp
+
+newmtl t1books1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d20.textures/T1books1.bmp
+
+newmtl t1books1:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d20.textures/T1books1.bmp
+
+newmtl t5s1fl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/d20.textures/T5s1FL.bmp

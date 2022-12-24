@@ -1,0 +1,1751 @@
+# Blender MTL File: 'None'
+# Material Count: 159
+
+newmtl cwb1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Cwb1.bmp
+
+newmtl cwb1:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Cwb1.bmp
+
+newmtl dirt1:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/dirt1.bmp
+
+newmtl dirt2:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/dirt2.bmp
+
+newmtl dirttyl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/DirtTyl.bmp
+
+newmtl dirttyl:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/dirttyl.bmp
+
+newmtl dirttyl:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/DirtTyl.bmp
+
+newmtl drsrew:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrew.bmp
+
+newmtl drsrew_s:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrEW_s.bmp
+
+newmtl drsrn_e:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrn_e.bmp
+
+newmtl drsrn_w:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrn_w.bmp
+
+newmtl drsrncap:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrNcap.bmp
+
+newmtl drsrne1:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrne1.bmp
+
+newmtl drsrne2:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrne2.bmp
+
+newmtl drsrns:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrns.bmp
+
+newmtl drsrns:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/drsrns.bmp
+
+newmtl drsrns_w:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrNS_W.bmp
+
+newmtl drsrs_w:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrS_W.bmp
+
+newmtl drsrscap:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrscap.bmp
+
+newmtl drsrwcap:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/drsrwcap.bmp
+
+newmtl grass:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Grass.bmp
+
+newmtl grastyl:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grastyl.bmp
+
+newmtl grastyl:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/grastyl.bmp
+
+newmtl grdrte:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtE.bmp
+
+newmtl grdrtn:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtN.bmp
+
+newmtl grdrtne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtNE.bmp
+
+newmtl grdrtnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtNW.bmp
+
+newmtl grdrts:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtS.bmp
+
+newmtl grdrtse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtSE.bmp
+
+newmtl grdrtsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtSW.bmp
+
+newmtl grdrtw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtW.bmp
+
+newmtl grdrtxne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtXNE.bmp
+
+newmtl grdrtxnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtXNW.bmp
+
+newmtl grdrtxse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtXSE.bmp
+
+newmtl grdrtxsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/grdrtXSW.bmp
+
+newmtl gt001a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt001a.bmp
+
+newmtl gt002a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt002a.bmp
+
+newmtl gt002b
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt002b.bmp
+
+newmtl gt002c
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt002c.bmp
+
+newmtl gt002e
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt002e.bmp
+
+newmtl gt002g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt002g.bmp
+
+newmtl gt003a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/gt003a.bmp
+
+newmtl hhm1b1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1b1.bmp
+
+newmtl hhm1b2le
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1b2le.bmp
+
+newmtl hhm1b3
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1b3.bmp
+
+newmtl hhm1bw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1bw.bmp
+
+newmtl hhm1d
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1d.bmp
+
+newmtl hhm1rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm1rf.bmp
+
+newmtl hhm2b1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2b1.bmp
+
+newmtl hhm2b2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2b2.bmp
+
+newmtl hhm2bs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2bs.bmp
+
+newmtl hhm2bw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2bw.bmp
+
+newmtl hhm2d
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2d.bmp
+
+newmtl hhm2el
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2el.bmp
+
+newmtl hhm2elw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2elw.bmp
+
+newmtl hhm2elw2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2elw2.bmp
+
+newmtl hhm2er
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2er.bmp
+
+newmtl hhm2erw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2erw.bmp
+
+newmtl hhm2rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm2rf.bmp
+
+newmtl hhm3b
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3b.bmp
+
+newmtl hhm3bs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3bs.bmp
+
+newmtl hhm3bw2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3bw2.bmp
+
+newmtl hhm3bwl2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3bwl2.bmp
+
+newmtl hhm3bwr2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3bwr2.bmp
+
+newmtl hhm3ch
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3ch.bmp
+
+newmtl hhm3d
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3d.bmp
+
+newmtl hhm3el2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3el2.bmp
+
+newmtl hhm3el2a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3el2a.bmp
+
+newmtl hhm3er2a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3er2a.bmp
+
+newmtl hhm3er2b
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3er2b.bmp
+
+newmtl hhm3rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhm3rf.bmp
+
+newmtl hhp1b
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1b.bmp
+
+newmtl hhp1b:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1b.bmp
+
+newmtl hhp1bs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1bs.bmp
+
+newmtl hhp1bw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1bw.bmp
+
+newmtl hhp1d
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1d.bmp
+
+newmtl hhp1el
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1el.bmp
+
+newmtl hhp1elw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1elw.bmp
+
+newmtl hhp1er
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1er.bmp
+
+newmtl hhp1erw
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp1erw.bmp
+
+newmtl hhp2b2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp2b2.bmp
+
+newmtl hhp2rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhp2rf.bmp
+
+newmtl hhr1rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hhr1rf.bmp
+
+newmtl hwm2rf
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Hwm2rf.bmp
+
+newmtl pending:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/pending.bmp
+
+newmtl sgair
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgAIR.bmp
+
+newmtl sgalch
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgALCH.bmp
+
+newmtl sgarm
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgARM.bmp
+
+newmtl sgbody
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgBODY.bmp
+
+newmtl sgfire
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgFIRE.bmp
+
+newmtl sgmagi
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgMAGI.bmp
+
+newmtl sgspirit
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgSPIRIT.bmp
+
+newmtl sgtempl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgTEMPL.bmp
+
+newmtl sgtrain
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgTRAIN.bmp
+
+newmtl sgtvrn
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgTVRN.bmp
+
+newmtl sgweapon
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/sgWEAPON.bmp
+
+newmtl sign01-1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Sign01-1.bmp
+
+newmtl sign01-2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Sign01-2.bmp
+
+newmtl sign01-3
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Sign01-3.bmp
+
+newmtl sign01-4
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Sign01-4.bmp
+
+newmtl solid01
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/solid01.bmp
+
+newmtl solid01:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/solid01.bmp
+
+newmtl swdrte:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrte.bmp
+
+newmtl swdrtn:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtn.bmp
+
+newmtl swdrtne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtne.bmp
+
+newmtl swdrtnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtnw.bmp
+
+newmtl swdrts:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrts.bmp
+
+newmtl swdrtse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtse.bmp
+
+newmtl swdrtsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtsw.bmp
+
+newmtl swdrtw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtw.bmp
+
+newmtl swdrtxne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtxne.bmp
+
+newmtl swdrtxnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtxnw.bmp
+
+newmtl swdrtxse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtxse.bmp
+
+newmtl swdrtxsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swdrtxsw.bmp
+
+newmtl swtyl:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swtyl.bmp
+
+newmtl swtylv2:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/swtylv2.bmp
+
+newmtl t1beds
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1beds.bmp
+
+newmtl t1beds1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1beds1.bmp
+
+newmtl t1beds2
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1beds2.bmp
+
+newmtl t1beds2:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1beds2.bmp
+
+newmtl t1beds:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1beds.bmp
+
+newmtl t1books1
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1books1.bmp
+
+newmtl t1books1:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1books1.bmp
+
+newmtl t1butt
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1butt.bmp
+
+newmtl t1butts
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1butts.bmp
+
+newmtl t1cabs
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/T1cabs.bmp
+
+newmtl trim11_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim11_32.bmp
+
+newmtl trim11_32:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim11_32.bmp
+
+newmtl trim12_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim12_32.bmp
+
+newmtl trim1_16
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM1_16.bmp
+
+newmtl trim2_16a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM2_16a.bmp
+
+newmtl trim2_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM2_32.bmp
+
+newmtl trim2_32:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM2_32.bmp
+
+newmtl trim2_32a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM2_32a.bmp
+
+newmtl trim3_16a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM3_16a.bmp
+
+newmtl trim3_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM3_32.bmp
+
+newmtl trim3_32a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/TRIM3_32a.bmp
+
+newmtl trim7_32
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim7_32.bmp
+
+newmtl trim7_32a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim7_32a.bmp
+
+newmtl trim9_32a
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Trim9_32a.bmp
+
+newmtl trimd
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/trimD.bmp
+
+newmtl trimd:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/trimD.bmp
+
+newmtl trimda
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/trimDa.bmp
+
+newmtl tws1f
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/Tws1f.bmp
+
+newmtl wtrdre:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrE.bmp
+
+newmtl wtrdrn:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrN.bmp
+
+newmtl wtrdrne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrNE.bmp
+
+newmtl wtrdrnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrNW.bmp
+
+newmtl wtrdrs:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrS.bmp
+
+newmtl wtrdrse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrSE.bmp
+
+newmtl wtrdrsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrSW.bmp
+
+newmtl wtrdrw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrW.bmp
+
+newmtl wtrdrxne:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrXNE.bmp
+
+newmtl wtrdrxnw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrXNW.bmp
+
+newmtl wtrdrxse:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrXSE.bmp
+
+newmtl wtrdrxsw:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrdrXSW.bmp
+
+newmtl wtrtyl
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/WtrTyl.bmp
+
+newmtl wtrtyl:g
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/ground/wtrtyl.bmp
+
+newmtl wtrtyl:i
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 0.300000
+illum 1
+map_Kd /home/nm/Games/Windows/Might and Magic 7 Mod/MapObj/out01.textures/WtrTyl.bmp

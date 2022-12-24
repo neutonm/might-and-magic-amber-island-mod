@@ -1,0 +1,23 @@
+# MTL for "out13.odt" map from MM7.
+	
+newmtl cwb1
+	map_Ka Stone_.textures/Cwb1.bmp
+	map_Kd Stone_.textures/Cwb1.bmp
+	
+newmtl cwb
+	map_Ka Stone_.textures/CWB.bmp
+	map_Kd Stone_.textures/CWB.bmp
+	
+newmtl cwb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka Stone_.textures/Cwb1.bmp
+	map_Kd Stone_.textures/Cwb1.bmp
+	
+newmtl cfb1
+	map_Ka Stone_.textures/Cfb1.bmp
+	map_Kd Stone_.textures/Cfb1.bmp
+	
+newmtl wtrtyl
+	map_Ka Stone_.textures/WtrTyl.bmp
+	map_Kd Stone_.textures/WtrTyl.bmp

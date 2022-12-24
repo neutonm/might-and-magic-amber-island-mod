@@ -1,0 +1,547 @@
+# Model MTL from "testlevel.dat" map from MM7.
+	
+newmtl tws1h
+	map_Ka testlevel.textures/Tws1h.bmp
+	map_Kd testlevel.textures/Tws1h.bmp
+	
+newmtl pending:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/pending.bmp
+	map_Kd testlevel.textures/pending.bmp
+	
+newmtl twb1a
+	map_Ka testlevel.textures/Twb1a.bmp
+	map_Kd testlevel.textures/Twb1a.bmp
+	
+newmtl tfb09
+	map_Ka testlevel.textures/TFB09.bmp
+	map_Kd testlevel.textures/TFB09.bmp
+	
+newmtl chb1-g2
+	map_Ka testlevel.textures/chb1-g2.bmp
+	map_Kd testlevel.textures/chb1-g2.bmp
+	
+newmtl chb1elg2
+	map_Ka testlevel.textures/chb1elg2.bmp
+	map_Kd testlevel.textures/chb1elg2.bmp
+	
+newmtl chb1erg2
+	map_Ka testlevel.textures/chb1erg2.bmp
+	map_Kd testlevel.textures/chb1erg2.bmp
+	
+newmtl chb1er
+	map_Ka testlevel.textures/CHB1ER.bmp
+	map_Kd testlevel.textures/CHB1ER.bmp
+	
+newmtl chb1el
+	map_Ka testlevel.textures/CHB1EL.bmp
+	map_Kd testlevel.textures/CHB1EL.bmp
+	
+newmtl chb1
+	map_Ka testlevel.textures/CHB1.bmp
+	map_Kd testlevel.textures/CHB1.bmp
+	
+newmtl t1s2fl1
+	map_Ka testlevel.textures/T1S2FL1.bmp
+	map_Kd testlevel.textures/T1S2FL1.bmp
+	
+newmtl t4bs
+	map_Ka testlevel.textures/T4bs.bmp
+	map_Kd testlevel.textures/T4bs.bmp
+	
+newmtl cnb
+	map_Ka testlevel.textures/CNB.bmp
+	map_Kd testlevel.textures/CNB.bmp
+	
+newmtl trim1_32
+	map_Ka testlevel.textures/TRIM1_32.bmp
+	map_Kd testlevel.textures/TRIM1_32.bmp
+	
+newmtl t1butts
+	map_Ka testlevel.textures/T1butts.bmp
+	map_Kd testlevel.textures/T1butts.bmp
+	
+newmtl t1beds2
+	map_Ka testlevel.textures/T1beds2.bmp
+	map_Kd testlevel.textures/T1beds2.bmp
+	
+newmtl t1cabs
+	map_Ka testlevel.textures/T1cabs.bmp
+	map_Kd testlevel.textures/T1cabs.bmp
+	
+newmtl trim7_32a
+	map_Ka testlevel.textures/Trim7_32a.bmp
+	map_Kd testlevel.textures/Trim7_32a.bmp
+	
+newmtl gt002a
+	map_Ka testlevel.textures/gt002a.bmp
+	map_Kd testlevel.textures/gt002a.bmp
+	
+newmtl gt002b
+	map_Ka testlevel.textures/gt002b.bmp
+	map_Kd testlevel.textures/gt002b.bmp
+	
+newmtl gt002g
+	map_Ka testlevel.textures/gt002g.bmp
+	map_Kd testlevel.textures/gt002g.bmp
+	
+newmtl chb1-g1
+	map_Ka testlevel.textures/chb1-g1.bmp
+	map_Kd testlevel.textures/chb1-g1.bmp
+	
+newmtl cwb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/Cwb1.bmp
+	map_Kd testlevel.textures/Cwb1.bmp
+	
+newmtl chb3-g1
+	map_Ka testlevel.textures/chb3-g1.bmp
+	map_Kd testlevel.textures/chb3-g1.bmp
+	
+newmtl wtrtyl
+	map_Ka testlevel.textures/WtrTyl.bmp
+	map_Kd testlevel.textures/WtrTyl.bmp
+	
+newmtl gt002c
+	map_Ka testlevel.textures/gt002c.bmp
+	map_Kd testlevel.textures/gt002c.bmp
+	
+newmtl solid01
+	map_Ka testlevel.textures/solid01.bmp
+	map_Kd testlevel.textures/solid01.bmp
+	
+newmtl gt002e
+	map_Ka testlevel.textures/gt002e.bmp
+	map_Kd testlevel.textures/gt002e.bmp
+	
+newmtl cfb1
+	map_Ka testlevel.textures/Cfb1.bmp
+	map_Kd testlevel.textures/Cfb1.bmp
+	
+newmtl cwb1
+	map_Ka testlevel.textures/Cwb1.bmp
+	map_Kd testlevel.textures/Cwb1.bmp
+
+newmtl _portal_
+	map_Tr testlevel.textures/_Portal_.png
+	map_d testlevel.textures/_Portal_.png
+	map_Ka testlevel.textures/_Portal_.png
+	map_Kd testlevel.textures/_Portal_.png
+	
+newmtl chb3
+	map_Ka testlevel.textures/chb3.bmp
+	map_Kd testlevel.textures/chb3.bmp
+	
+newmtl chb1p7
+	map_Ka testlevel.textures/chb1p7.bmp
+	map_Kd testlevel.textures/chb1p7.bmp
+	
+newmtl t1books1
+	map_Ka testlevel.textures/T1books1.bmp
+	map_Kd testlevel.textures/T1books1.bmp
+	
+newmtl trimda
+	map_Ka testlevel.textures/trimDa.bmp
+	map_Kd testlevel.textures/trimDa.bmp
+	
+newmtl t1books2
+	map_Ka testlevel.textures/T1books2.bmp
+	map_Kd testlevel.textures/T1books2.bmp
+	
+newmtl chb1p1
+	map_Ka testlevel.textures/chb1p1.bmp
+	map_Kd testlevel.textures/chb1p1.bmp
+	
+newmtl t1books
+	map_Ka testlevel.textures/T1books.bmp
+	map_Kd testlevel.textures/T1books.bmp
+	
+newmtl hwm2wall
+	map_Ka testlevel.textures/Hwm2WALL.bmp
+	map_Kd testlevel.textures/Hwm2WALL.bmp
+	
+newmtl lava:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/Lava.bmp
+	map_Kd testlevel.textures/Lava.bmp
+	
+newmtl chb2-g1
+	map_Ka testlevel.textures/chb2-g1.bmp
+	map_Kd testlevel.textures/chb2-g1.bmp
+	
+newmtl tfb09r1j
+	map_Ka testlevel.textures/tfb09R1j.bmp
+	map_Kd testlevel.textures/tfb09R1j.bmp
+	
+newmtl tfb09r1d
+	map_Ka testlevel.textures/tfb09R1d.bmp
+	map_Kd testlevel.textures/tfb09R1d.bmp
+	
+newmtl twb1b
+	map_Ka testlevel.textures/Twb1b.bmp
+	map_Kd testlevel.textures/Twb1b.bmp
+	
+newmtl tfb09r1f
+	map_Ka testlevel.textures/tfb09R1f.bmp
+	map_Kd testlevel.textures/tfb09R1f.bmp
+	
+newmtl tfb09r1h
+	map_Ka testlevel.textures/tfb09R1h.bmp
+	map_Kd testlevel.textures/tfb09R1h.bmp
+	
+newmtl tfb09r1g
+	map_Ka testlevel.textures/tfb09R1g.bmp
+	map_Kd testlevel.textures/tfb09R1g.bmp
+	
+newmtl tfb09r1b
+	map_Ka testlevel.textures/tfb09R1b.bmp
+	map_Kd testlevel.textures/tfb09R1b.bmp
+	
+newmtl tfb09r1l
+	map_Ka testlevel.textures/tfb09R1L.bmp
+	map_Kd testlevel.textures/tfb09R1L.bmp
+	
+newmtl t5s1el
+	map_Ka testlevel.textures/T5s1EL.bmp
+	map_Kd testlevel.textures/T5s1EL.bmp
+	
+newmtl tfb1r3j
+	map_Ka testlevel.textures/Tfb1r3j.bmp
+	map_Kd testlevel.textures/Tfb1r3j.bmp
+	
+newmtl t5s1b
+	map_Ka testlevel.textures/T5s1b.bmp
+	map_Kd testlevel.textures/T5s1b.bmp
+	
+newmtl t5s1c
+	map_Ka testlevel.textures/T5s1C.bmp
+	map_Kd testlevel.textures/T5s1C.bmp
+	
+newmtl t5bs
+	map_Ka testlevel.textures/T5bs.bmp
+	map_Kd testlevel.textures/T5bs.bmp
+	
+newmtl t1beds1
+	map_Ka testlevel.textures/T1beds1.bmp
+	map_Kd testlevel.textures/T1beds1.bmp
+	
+newmtl tfb1r3b
+	map_Ka testlevel.textures/Tfb1r3b.bmp
+	map_Kd testlevel.textures/Tfb1r3b.bmp
+	
+newmtl tfb1r3h
+	map_Ka testlevel.textures/Tfb1r3h.bmp
+	map_Kd testlevel.textures/Tfb1r3h.bmp
+	
+newmtl tfb1r3d
+	map_Ka testlevel.textures/Tfb1r3d.bmp
+	map_Kd testlevel.textures/Tfb1r3d.bmp
+	
+newmtl tfb1r3f
+	map_Ka testlevel.textures/Tfb1r3f.bmp
+	map_Kd testlevel.textures/Tfb1r3f.bmp
+	
+newmtl t5s1er
+	map_Ka testlevel.textures/T5s1ER.bmp
+	map_Kd testlevel.textures/T5s1ER.bmp
+	
+newmtl tfb1r3g
+	map_Ka testlevel.textures/Tfb1r3g.bmp
+	map_Kd testlevel.textures/Tfb1r3g.bmp
+	
+newmtl tfb1r3a
+	map_Ka testlevel.textures/Tfb1r3a.bmp
+	map_Kd testlevel.textures/Tfb1r3a.bmp
+	
+newmtl tfb1r3c
+	map_Ka testlevel.textures/Tfb1r3c.bmp
+	map_Kd testlevel.textures/Tfb1r3c.bmp
+	
+newmtl tfb1r3e
+	map_Ka testlevel.textures/Tfb1r3e.bmp
+	map_Kd testlevel.textures/Tfb1r3e.bmp
+	
+newmtl cws1
+	map_Ka testlevel.textures/Cws1.bmp
+	map_Kd testlevel.textures/Cws1.bmp
+	
+newmtl cws1d
+	map_Ka testlevel.textures/Cws1d.bmp
+	map_Kd testlevel.textures/Cws1d.bmp
+	
+newmtl cws1a
+	map_Ka testlevel.textures/Cws1a.bmp
+	map_Kd testlevel.textures/Cws1a.bmp
+	
+newmtl hhr1p
+	map_Ka testlevel.textures/HHR1P.bmp
+	map_Kd testlevel.textures/HHR1P.bmp
+	
+newmtl twb1
+	map_Ka testlevel.textures/Twb1.bmp
+	map_Kd testlevel.textures/Twb1.bmp
+	
+newmtl wordwal2
+	map_Ka testlevel.textures/Wordwal2.bmp
+	map_Kd testlevel.textures/Wordwal2.bmp
+	
+newmtl tws1c
+	map_Ka testlevel.textures/Tws1c.bmp
+	map_Kd testlevel.textures/Tws1c.bmp
+	
+newmtl tws1d
+	map_Ka testlevel.textures/Tws1d.bmp
+	map_Kd testlevel.textures/Tws1d.bmp
+	
+newmtl gt003b
+	map_Ka testlevel.textures/gt003b.bmp
+	map_Kd testlevel.textures/gt003b.bmp
+	
+newmtl gt003a
+	map_Ka testlevel.textures/gt003a.bmp
+	map_Kd testlevel.textures/gt003a.bmp
+	
+newmtl trim8_32
+	map_Ka testlevel.textures/Trim8_32.bmp
+	map_Kd testlevel.textures/Trim8_32.bmp
+	
+newmtl trim5_32
+	map_Ka testlevel.textures/Trim5_32.bmp
+	map_Kd testlevel.textures/Trim5_32.bmp
+	
+newmtl trim12_32
+	map_Ka testlevel.textures/Trim12_32.bmp
+	map_Kd testlevel.textures/Trim12_32.bmp
+	
+newmtl trim5_32a
+	map_Ka testlevel.textures/Trim5_32a.bmp
+	map_Kd testlevel.textures/Trim5_32a.bmp
+	
+newmtl trim6_32a
+	map_Ka testlevel.textures/Trim6_32a.bmp
+	map_Kd testlevel.textures/Trim6_32a.bmp
+	
+newmtl winerack
+	map_Ka testlevel.textures/WINERACK.bmp
+	map_Kd testlevel.textures/WINERACK.bmp
+	
+newmtl gt001a
+	map_Ka testlevel.textures/gt001a.bmp
+	map_Kd testlevel.textures/gt001a.bmp
+	
+newmtl hhm3ch
+	map_Ka testlevel.textures/Hhm3ch.bmp
+	map_Kd testlevel.textures/Hhm3ch.bmp
+	
+newmtl trim11_32
+	map_Ka testlevel.textures/Trim11_32.bmp
+	map_Kd testlevel.textures/Trim11_32.bmp
+	
+newmtl t5d1
+	map_Ka testlevel.textures/T5d1.bmp
+	map_Kd testlevel.textures/T5d1.bmp
+	
+newmtl t1cab
+	map_Ka testlevel.textures/T1cab.bmp
+	map_Kd testlevel.textures/T1cab.bmp
+	
+newmtl hhp2b2
+	map_Ka testlevel.textures/Hhp2b2.bmp
+	map_Kd testlevel.textures/Hhp2b2.bmp
+	
+newmtl cws1c
+	map_Ka testlevel.textures/Cws1c.bmp
+	map_Kd testlevel.textures/Cws1c.bmp
+	
+newmtl trimd
+	map_Ka testlevel.textures/trimD.bmp
+	map_Kd testlevel.textures/trimD.bmp
+	
+newmtl t1beds
+	map_Ka testlevel.textures/T1beds.bmp
+	map_Kd testlevel.textures/T1beds.bmp
+	
+newmtl tfb09r1e
+	map_Ka testlevel.textures/tfb09R1e.bmp
+	map_Kd testlevel.textures/tfb09R1e.bmp
+	
+newmtl tfb09r1n
+	map_Ka testlevel.textures/tfb09R1N.bmp
+	map_Kd testlevel.textures/tfb09R1N.bmp
+	
+newmtl tfb09r1c
+	map_Ka testlevel.textures/tfb09R1c.bmp
+	map_Kd testlevel.textures/tfb09R1c.bmp
+	
+newmtl tfb09r1a
+	map_Ka testlevel.textures/tfb09R1a.bmp
+	map_Kd testlevel.textures/tfb09R1a.bmp
+	
+newmtl ch1b1
+	map_Ka testlevel.textures/Ch1b1.bmp
+	map_Kd testlevel.textures/Ch1b1.bmp
+	
+newmtl t1books1:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/T1books1.bmp
+	map_Kd testlevel.textures/T1books1.bmp
+	
+newmtl chb1dr
+	map_Ka testlevel.textures/CHB1DR.bmp
+	map_Kd testlevel.textures/CHB1DR.bmp
+	
+newmtl chb1dl
+	map_Ka testlevel.textures/CHB1DL.bmp
+	map_Kd testlevel.textures/CHB1DL.bmp
+	
+newmtl cwb1gold
+	map_Ka testlevel.textures/CWB1gold.bmp
+	map_Kd testlevel.textures/CWB1gold.bmp
+	
+newmtl t5bs:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/T5bs.bmp
+	map_Kd testlevel.textures/T5bs.bmp
+	
+newmtl plansky1
+	map_Ka testlevel.textures/PLANSKY1.bmp
+	map_Kd testlevel.textures/PLANSKY1.bmp
+	
+newmtl dirt
+	map_Ka testlevel.textures/DIRT.bmp
+	map_Kd testlevel.textures/DIRT.bmp
+	
+newmtl t1beds2:i
+	d 0.3
+	Tr 0.7
+	map_Ka testlevel.textures/T1beds2.bmp
+	map_Kd testlevel.textures/T1beds2.bmp
+	
+newmtl t5s1c2
+	map_Ka testlevel.textures/T5s1C2.bmp
+	map_Kd testlevel.textures/T5s1C2.bmp
+	
+newmtl tfb1
+	map_Ka testlevel.textures/Tfb1.bmp
+	map_Kd testlevel.textures/Tfb1.bmp
+	
+newmtl hdwtr000
+	map_Ka testlevel.textures/HDWTR000.bmp
+	map_Kd testlevel.textures/HDWTR000.bmp
+	
+newmtl t1butt
+	map_Ka testlevel.textures/T1butt.bmp
+	map_Kd testlevel.textures/T1butt.bmp
+	
+newmtl sky13
+	map_Ka testlevel.textures/SKY13.bmp
+	map_Kd testlevel.textures/SKY13.bmp
+	
+newmtl t2bedside
+	map_Ka testlevel.textures/T2BEDSIDE.bmp
+	map_Kd testlevel.textures/T2BEDSIDE.bmp
+	
+newmtl t2bedsht
+	map_Ka testlevel.textures/T2BEDSHT.bmp
+	map_Kd testlevel.textures/T2BEDSHT.bmp
+	
+newmtl t5s1bb
+	map_Ka testlevel.textures/T5S1BB.bmp
+	map_Kd testlevel.textures/T5S1BB.bmp
+	
+newmtl t5s1bh
+	map_Ka testlevel.textures/T5S1BH.bmp
+	map_Kd testlevel.textures/T5S1BH.bmp
+	
+newmtl t5s1c3
+	map_Ka testlevel.textures/T5s1C3.bmp
+	map_Kd testlevel.textures/T5s1C3.bmp
+	
+newmtl ch002a
+	map_Ka testlevel.textures/ch002a.bmp
+	map_Kd testlevel.textures/ch002a.bmp
+	
+newmtl t1s2b
+	map_Ka testlevel.textures/T1S2B.bmp
+	map_Kd testlevel.textures/T1S2B.bmp
+	
+newmtl nec-hum-a
+	map_Ka testlevel.textures/nec-hum-a.bmp
+	map_Kd testlevel.textures/nec-hum-a.bmp
+	
+newmtl nec-hum-b
+	map_Ka testlevel.textures/nec-hum-b.bmp
+	map_Kd testlevel.textures/nec-hum-b.bmp
+	
+newmtl tfb09r1i
+	map_Ka testlevel.textures/tfb09R1i.bmp
+	map_Kd testlevel.textures/tfb09R1i.bmp
+	
+newmtl tfb09r1k
+	map_Ka testlevel.textures/tfb09R1K.bmp
+	map_Kd testlevel.textures/tfb09R1K.bmp
+	
+newmtl tfb09r1m
+	map_Ka testlevel.textures/tfb09R1M.bmp
+	map_Kd testlevel.textures/tfb09R1M.bmp
+	
+newmtl t5elr
+	map_Ka testlevel.textures/t5elr.bmp
+	map_Kd testlevel.textures/t5elr.bmp
+	
+newmtl cwb
+	map_Ka testlevel.textures/CWB.bmp
+	map_Kd testlevel.textures/CWB.bmp
+	
+newmtl dchb1
+	map_Ka testlevel.textures/DCHB1.bmp
+	map_Kd testlevel.textures/DCHB1.bmp
+	
+newmtl trim6_32
+	map_Ka testlevel.textures/Trim6_32.bmp
+	map_Kd testlevel.textures/Trim6_32.bmp
+	
+newmtl chbw
+	map_Ka testlevel.textures/CHBW.bmp
+	map_Kd testlevel.textures/CHBW.bmp
+	
+newmtl chb2d-g2
+	map_Ka testlevel.textures/chb2d-g2.bmp
+	map_Kd testlevel.textures/chb2d-g2.bmp
+	
+newmtl trim6_16
+	map_Ka testlevel.textures/Trim6_16.bmp
+	map_Kd testlevel.textures/Trim6_16.bmp
+	
+newmtl chb1p4
+	map_Ka testlevel.textures/chb1p4.bmp
+	map_Kd testlevel.textures/chb1p4.bmp
+	
+newmtl t5s1fl
+	map_Ka testlevel.textures/T5s1FL.bmp
+	map_Kd testlevel.textures/T5s1FL.bmp
+	
+newmtl chb1p2
+	map_Ka testlevel.textures/chb1p2.bmp
+	map_Kd testlevel.textures/chb1p2.bmp
+	
+newmtl chb1p6
+	map_Ka testlevel.textures/chb1p6.bmp
+	map_Kd testlevel.textures/chb1p6.bmp
+	
+newmtl twb2
+	map_Ka testlevel.textures/Twb2.bmp
+	map_Kd testlevel.textures/Twb2.bmp
+	
+newmtl chb4p5
+	map_Ka testlevel.textures/chb4p5.bmp
+	map_Kd testlevel.textures/chb4p5.bmp
+	
+newmtl chb3p3
+	map_Ka testlevel.textures/CHB3p3.bmp
+	map_Kd testlevel.textures/CHB3p3.bmp

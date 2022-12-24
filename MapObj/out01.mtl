@@ -1,0 +1,667 @@
+# Model MTL from "out01.odt" map from MM7.
+	
+newmtl wtrtyl:g
+	map_Ka out01.textures/ground/wtrtyl.bmp
+	map_Kd out01.textures/ground/wtrtyl.bmp
+	
+newmtl wtrdrxse:g
+	map_Ka out01.textures/ground/wtrdrXSE.bmp
+	map_Kd out01.textures/ground/wtrdrXSE.bmp
+	
+newmtl wtrdrs:g
+	map_Ka out01.textures/ground/wtrdrS.bmp
+	map_Kd out01.textures/ground/wtrdrS.bmp
+	
+newmtl wtrdrxsw:g
+	map_Ka out01.textures/ground/wtrdrXSW.bmp
+	map_Kd out01.textures/ground/wtrdrXSW.bmp
+	
+newmtl wtrdrse:g
+	map_Ka out01.textures/ground/wtrdrSE.bmp
+	map_Kd out01.textures/ground/wtrdrSE.bmp
+	
+newmtl grdrtnw:g
+	map_Ka out01.textures/ground/grdrtNW.bmp
+	map_Kd out01.textures/ground/grdrtNW.bmp
+	
+newmtl grdrtn:g
+	map_Ka out01.textures/ground/grdrtN.bmp
+	map_Kd out01.textures/ground/grdrtN.bmp
+	
+newmtl grdrtne:g
+	map_Ka out01.textures/ground/grdrtNE.bmp
+	map_Kd out01.textures/ground/grdrtNE.bmp
+	
+newmtl wtrdrsw:g
+	map_Ka out01.textures/ground/wtrdrSW.bmp
+	map_Kd out01.textures/ground/wtrdrSW.bmp
+	
+newmtl dirttyl:g
+	map_Ka out01.textures/ground/dirttyl.bmp
+	map_Kd out01.textures/ground/dirttyl.bmp
+	
+newmtl grdrtxnw:g
+	map_Ka out01.textures/ground/grdrtXNW.bmp
+	map_Kd out01.textures/ground/grdrtXNW.bmp
+	
+newmtl grastyl:g
+	map_Ka out01.textures/ground/grastyl.bmp
+	map_Kd out01.textures/ground/grastyl.bmp
+	
+newmtl grdrtxne:g
+	map_Ka out01.textures/ground/grdrtXNE.bmp
+	map_Kd out01.textures/ground/grdrtXNE.bmp
+	
+newmtl wtrdrw:g
+	map_Ka out01.textures/ground/wtrdrW.bmp
+	map_Kd out01.textures/ground/wtrdrW.bmp
+	
+newmtl grdrte:g
+	map_Ka out01.textures/ground/grdrtE.bmp
+	map_Kd out01.textures/ground/grdrtE.bmp
+	
+newmtl swdrtnw:g
+	map_Ka out01.textures/ground/swdrtnw.bmp
+	map_Kd out01.textures/ground/swdrtnw.bmp
+	
+newmtl swdrtn:g
+	map_Ka out01.textures/ground/swdrtn.bmp
+	map_Kd out01.textures/ground/swdrtn.bmp
+	
+newmtl swdrtne:g
+	map_Ka out01.textures/ground/swdrtne.bmp
+	map_Kd out01.textures/ground/swdrtne.bmp
+	
+newmtl wtrdre:g
+	map_Ka out01.textures/ground/wtrdrE.bmp
+	map_Kd out01.textures/ground/wtrdrE.bmp
+	
+newmtl dirt2:g
+	map_Ka out01.textures/ground/dirt2.bmp
+	map_Kd out01.textures/ground/dirt2.bmp
+	
+newmtl swdrtw:g
+	map_Ka out01.textures/ground/swdrtw.bmp
+	map_Kd out01.textures/ground/swdrtw.bmp
+	
+newmtl swtyl:g
+	map_Ka out01.textures/ground/swtyl.bmp
+	map_Kd out01.textures/ground/swtyl.bmp
+	
+newmtl swdrtxne:g
+	map_Ka out01.textures/ground/swdrtxne.bmp
+	map_Kd out01.textures/ground/swdrtxne.bmp
+	
+newmtl dirt1:g
+	map_Ka out01.textures/ground/dirt1.bmp
+	map_Kd out01.textures/ground/dirt1.bmp
+	
+newmtl swdrtxse:g
+	map_Ka out01.textures/ground/swdrtxse.bmp
+	map_Kd out01.textures/ground/swdrtxse.bmp
+	
+newmtl swdrtse:g
+	map_Ka out01.textures/ground/swdrtse.bmp
+	map_Kd out01.textures/ground/swdrtse.bmp
+	
+newmtl grdrtsw:g
+	map_Ka out01.textures/ground/grdrtSW.bmp
+	map_Kd out01.textures/ground/grdrtSW.bmp
+	
+newmtl grdrts:g
+	map_Ka out01.textures/ground/grdrtS.bmp
+	map_Kd out01.textures/ground/grdrtS.bmp
+	
+newmtl grdrtxsw:g
+	map_Ka out01.textures/ground/grdrtXSW.bmp
+	map_Kd out01.textures/ground/grdrtXSW.bmp
+	
+newmtl swdrte:g
+	map_Ka out01.textures/ground/swdrte.bmp
+	map_Kd out01.textures/ground/swdrte.bmp
+	
+newmtl drsrwcap:g
+	map_Ka out01.textures/ground/drsrwcap.bmp
+	map_Kd out01.textures/ground/drsrwcap.bmp
+	
+newmtl drsrs_w:g
+	map_Ka out01.textures/ground/drsrS_W.bmp
+	map_Kd out01.textures/ground/drsrS_W.bmp
+	
+newmtl grdrtw:g
+	map_Ka out01.textures/ground/grdrtW.bmp
+	map_Kd out01.textures/ground/grdrtW.bmp
+	
+newmtl drsrns:g
+	map_Ka out01.textures/ground/drsrns.bmp
+	map_Kd out01.textures/ground/drsrns.bmp
+	
+newmtl swdrtxnw:g
+	map_Ka out01.textures/ground/swdrtxnw.bmp
+	map_Kd out01.textures/ground/swdrtxnw.bmp
+	
+newmtl drsrn_e:g
+	map_Ka out01.textures/ground/drsrn_e.bmp
+	map_Kd out01.textures/ground/drsrn_e.bmp
+	
+newmtl drsrew:g
+	map_Ka out01.textures/ground/drsrew.bmp
+	map_Kd out01.textures/ground/drsrew.bmp
+	
+newmtl drsrne1:g
+	map_Ka out01.textures/ground/drsrne1.bmp
+	map_Kd out01.textures/ground/drsrne1.bmp
+	
+newmtl swtylv2:g
+	map_Ka out01.textures/ground/swtylv2.bmp
+	map_Kd out01.textures/ground/swtylv2.bmp
+	
+newmtl drsrne2:g
+	map_Ka out01.textures/ground/drsrne2.bmp
+	map_Kd out01.textures/ground/drsrne2.bmp
+	
+newmtl grdrtxse:g
+	map_Ka out01.textures/ground/grdrtXSE.bmp
+	map_Kd out01.textures/ground/grdrtXSE.bmp
+	
+newmtl grdrtse:g
+	map_Ka out01.textures/ground/grdrtSE.bmp
+	map_Kd out01.textures/ground/grdrtSE.bmp
+	
+newmtl swdrtsw:g
+	map_Ka out01.textures/ground/swdrtsw.bmp
+	map_Kd out01.textures/ground/swdrtsw.bmp
+	
+newmtl swdrts:g
+	map_Ka out01.textures/ground/swdrts.bmp
+	map_Kd out01.textures/ground/swdrts.bmp
+	
+newmtl swdrtxsw:g
+	map_Ka out01.textures/ground/swdrtxsw.bmp
+	map_Kd out01.textures/ground/swdrtxsw.bmp
+	
+newmtl wtrdrxne:g
+	map_Ka out01.textures/ground/wtrdrXNE.bmp
+	map_Kd out01.textures/ground/wtrdrXNE.bmp
+	
+newmtl wtrdrne:g
+	map_Ka out01.textures/ground/wtrdrNE.bmp
+	map_Kd out01.textures/ground/wtrdrNE.bmp
+	
+newmtl wtrdrn:g
+	map_Ka out01.textures/ground/wtrdrN.bmp
+	map_Kd out01.textures/ground/wtrdrN.bmp
+	
+newmtl wtrdrnw:g
+	map_Ka out01.textures/ground/wtrdrNW.bmp
+	map_Kd out01.textures/ground/wtrdrNW.bmp
+	
+newmtl wtrdrxnw:g
+	map_Ka out01.textures/ground/wtrdrXNW.bmp
+	map_Kd out01.textures/ground/wtrdrXNW.bmp
+	
+newmtl drsrncap:g
+	map_Ka out01.textures/ground/drsrNcap.bmp
+	map_Kd out01.textures/ground/drsrNcap.bmp
+	
+newmtl drsrns_w:g
+	map_Ka out01.textures/ground/drsrNS_W.bmp
+	map_Kd out01.textures/ground/drsrNS_W.bmp
+	
+newmtl drsrew_s:g
+	map_Ka out01.textures/ground/drsrEW_s.bmp
+	map_Kd out01.textures/ground/drsrEW_s.bmp
+	
+newmtl drsrn_w:g
+	map_Ka out01.textures/ground/drsrn_w.bmp
+	map_Kd out01.textures/ground/drsrn_w.bmp
+	
+newmtl drsrscap:g
+	map_Ka out01.textures/ground/drsrscap.bmp
+	map_Kd out01.textures/ground/drsrscap.bmp
+	
+newmtl t1books1
+	map_Ka out01.textures/T1books1.bmp
+	map_Kd out01.textures/T1books1.bmp
+	
+newmtl t1beds2
+	map_Ka out01.textures/T1beds2.bmp
+	map_Kd out01.textures/T1beds2.bmp
+	
+newmtl t1beds1
+	map_Ka out01.textures/T1beds1.bmp
+	map_Kd out01.textures/T1beds1.bmp
+	
+newmtl hhm3d
+	map_Ka out01.textures/Hhm3d.bmp
+	map_Kd out01.textures/Hhm3d.bmp
+	
+newmtl t1butt
+	map_Ka out01.textures/T1butt.bmp
+	map_Kd out01.textures/T1butt.bmp
+	
+newmtl grastyl:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/grastyl.bmp
+	map_Kd out01.textures/grastyl.bmp
+	
+newmtl gt001a
+	map_Ka out01.textures/gt001a.bmp
+	map_Kd out01.textures/gt001a.bmp
+	
+newmtl hhp1bw
+	map_Ka out01.textures/Hhp1bw.bmp
+	map_Kd out01.textures/Hhp1bw.bmp
+	
+newmtl hhp1b
+	map_Ka out01.textures/Hhp1b.bmp
+	map_Kd out01.textures/Hhp1b.bmp
+	
+newmtl trim3_32a
+	map_Ka out01.textures/TRIM3_32a.bmp
+	map_Kd out01.textures/TRIM3_32a.bmp
+	
+newmtl hhp2rf
+	map_Ka out01.textures/Hhp2rf.bmp
+	map_Kd out01.textures/Hhp2rf.bmp
+	
+newmtl trim2_32
+	map_Ka out01.textures/TRIM2_32.bmp
+	map_Kd out01.textures/TRIM2_32.bmp
+	
+newmtl sign01-3
+	map_Ka out01.textures/Sign01-3.bmp
+	map_Kd out01.textures/Sign01-3.bmp
+	
+newmtl sign01-4
+	map_Ka out01.textures/Sign01-4.bmp
+	map_Kd out01.textures/Sign01-4.bmp
+	
+newmtl sign01-2
+	map_Ka out01.textures/Sign01-2.bmp
+	map_Kd out01.textures/Sign01-2.bmp
+	
+newmtl gt002b
+	map_Ka out01.textures/gt002b.bmp
+	map_Kd out01.textures/gt002b.bmp
+	
+newmtl gt002g
+	map_Ka out01.textures/gt002g.bmp
+	map_Kd out01.textures/gt002g.bmp
+	
+newmtl gt002c
+	map_Ka out01.textures/gt002c.bmp
+	map_Kd out01.textures/gt002c.bmp
+	
+newmtl gt002a
+	map_Ka out01.textures/gt002a.bmp
+	map_Kd out01.textures/gt002a.bmp
+	
+newmtl gt002e
+	map_Ka out01.textures/gt002e.bmp
+	map_Kd out01.textures/gt002e.bmp
+	
+newmtl dirttyl
+	map_Ka out01.textures/DirtTyl.bmp
+	map_Kd out01.textures/DirtTyl.bmp
+	
+newmtl wtrtyl
+	map_Ka out01.textures/WtrTyl.bmp
+	map_Kd out01.textures/WtrTyl.bmp
+	
+newmtl dirttyl:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/DirtTyl.bmp
+	map_Kd out01.textures/DirtTyl.bmp
+	
+newmtl grass:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/Grass.bmp
+	map_Kd out01.textures/Grass.bmp
+	
+newmtl hhm3ch
+	map_Ka out01.textures/Hhm3ch.bmp
+	map_Kd out01.textures/Hhm3ch.bmp
+	
+newmtl t1cabs
+	map_Ka out01.textures/T1cabs.bmp
+	map_Kd out01.textures/T1cabs.bmp
+	
+newmtl hhm1rf
+	map_Ka out01.textures/Hhm1rf.bmp
+	map_Kd out01.textures/Hhm1rf.bmp
+	
+newmtl t1beds
+	map_Ka out01.textures/T1beds.bmp
+	map_Kd out01.textures/T1beds.bmp
+	
+newmtl trim1_16
+	map_Ka out01.textures/TRIM1_16.bmp
+	map_Kd out01.textures/TRIM1_16.bmp
+	
+newmtl hhp2b2
+	map_Ka out01.textures/Hhp2b2.bmp
+	map_Kd out01.textures/Hhp2b2.bmp
+	
+newmtl trim11_32
+	map_Ka out01.textures/Trim11_32.bmp
+	map_Kd out01.textures/Trim11_32.bmp
+	
+newmtl trim12_32
+	map_Ka out01.textures/Trim12_32.bmp
+	map_Kd out01.textures/Trim12_32.bmp
+	
+newmtl trim11_32:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/Trim11_32.bmp
+	map_Kd out01.textures/Trim11_32.bmp
+	
+newmtl trim2_32a
+	map_Ka out01.textures/TRIM2_32a.bmp
+	map_Kd out01.textures/TRIM2_32a.bmp
+	
+newmtl t1beds:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/T1beds.bmp
+	map_Kd out01.textures/T1beds.bmp
+	
+newmtl t1beds2:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/T1beds2.bmp
+	map_Kd out01.textures/T1beds2.bmp
+	
+newmtl hhm1d
+	map_Ka out01.textures/Hhm1d.bmp
+	map_Kd out01.textures/Hhm1d.bmp
+	
+newmtl trim2_16a
+	map_Ka out01.textures/TRIM2_16a.bmp
+	map_Kd out01.textures/TRIM2_16a.bmp
+	
+newmtl hhm1bw
+	map_Ka out01.textures/Hhm1bw.bmp
+	map_Kd out01.textures/Hhm1bw.bmp
+	
+newmtl trim2_32:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/TRIM2_32.bmp
+	map_Kd out01.textures/TRIM2_32.bmp
+	
+newmtl hhp1d
+	map_Ka out01.textures/Hhp1d.bmp
+	map_Kd out01.textures/Hhp1d.bmp
+	
+newmtl hhp1b:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/Hhp1b.bmp
+	map_Kd out01.textures/Hhp1b.bmp
+	
+newmtl hhp1er
+	map_Ka out01.textures/Hhp1er.bmp
+	map_Kd out01.textures/Hhp1er.bmp
+	
+newmtl hhp1el
+	map_Ka out01.textures/Hhp1el.bmp
+	map_Kd out01.textures/Hhp1el.bmp
+	
+newmtl hhp1bs
+	map_Ka out01.textures/Hhp1bs.bmp
+	map_Kd out01.textures/Hhp1bs.bmp
+	
+newmtl sgweapon
+	map_Ka out01.textures/sgWEAPON.bmp
+	map_Kd out01.textures/sgWEAPON.bmp
+	
+newmtl wtrtyl:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/WtrTyl.bmp
+	map_Kd out01.textures/WtrTyl.bmp
+	
+newmtl sign01-1
+	map_Ka out01.textures/Sign01-1.bmp
+	map_Kd out01.textures/Sign01-1.bmp
+	
+newmtl cwb1
+	map_Ka out01.textures/Cwb1.bmp
+	map_Kd out01.textures/Cwb1.bmp
+	
+newmtl solid01
+	map_Ka out01.textures/solid01.bmp
+	map_Kd out01.textures/solid01.bmp
+	
+newmtl hhm3b
+	map_Ka out01.textures/Hhm3b.bmp
+	map_Kd out01.textures/Hhm3b.bmp
+	
+newmtl hhm3bw2
+	map_Ka out01.textures/Hhm3bw2.bmp
+	map_Kd out01.textures/Hhm3bw2.bmp
+	
+newmtl hhm3el2
+	map_Ka out01.textures/Hhm3el2.bmp
+	map_Kd out01.textures/Hhm3el2.bmp
+	
+newmtl hhm3el2a
+	map_Ka out01.textures/Hhm3el2a.bmp
+	map_Kd out01.textures/Hhm3el2a.bmp
+	
+newmtl sgair
+	map_Ka out01.textures/sgAIR.bmp
+	map_Kd out01.textures/sgAIR.bmp
+	
+newmtl cwb1:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/Cwb1.bmp
+	map_Kd out01.textures/Cwb1.bmp
+	
+newmtl solid01:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/solid01.bmp
+	map_Kd out01.textures/solid01.bmp
+	
+newmtl hhr1rf
+	map_Ka out01.textures/Hhr1rf.bmp
+	map_Kd out01.textures/Hhr1rf.bmp
+	
+newmtl hhp1elw
+	map_Ka out01.textures/Hhp1elw.bmp
+	map_Kd out01.textures/Hhp1elw.bmp
+	
+newmtl sgarm
+	map_Ka out01.textures/sgARM.bmp
+	map_Kd out01.textures/sgARM.bmp
+	
+newmtl hhp1erw
+	map_Ka out01.textures/Hhp1erw.bmp
+	map_Kd out01.textures/Hhp1erw.bmp
+	
+newmtl tws1f
+	map_Ka out01.textures/Tws1f.bmp
+	map_Kd out01.textures/Tws1f.bmp
+	
+newmtl hhm1b3
+	map_Ka out01.textures/Hhm1b3.bmp
+	map_Kd out01.textures/Hhm1b3.bmp
+	
+newmtl hhm1b2le
+	map_Ka out01.textures/Hhm1b2le.bmp
+	map_Kd out01.textures/Hhm1b2le.bmp
+	
+newmtl hhm1b1
+	map_Ka out01.textures/Hhm1b1.bmp
+	map_Kd out01.textures/Hhm1b1.bmp
+	
+newmtl sgtrain
+	map_Ka out01.textures/sgTRAIN.bmp
+	map_Kd out01.textures/sgTRAIN.bmp
+	
+newmtl trimd
+	map_Ka out01.textures/trimD.bmp
+	map_Kd out01.textures/trimD.bmp
+	
+newmtl sgbody
+	map_Ka out01.textures/sgBODY.bmp
+	map_Kd out01.textures/sgBODY.bmp
+	
+newmtl hhm2erw
+	map_Ka out01.textures/Hhm2erw.bmp
+	map_Kd out01.textures/Hhm2erw.bmp
+	
+newmtl hhm2el
+	map_Ka out01.textures/Hhm2el.bmp
+	map_Kd out01.textures/Hhm2el.bmp
+	
+newmtl hhm2b1
+	map_Ka out01.textures/Hhm2b1.bmp
+	map_Kd out01.textures/Hhm2b1.bmp
+	
+newmtl hhm2er
+	map_Ka out01.textures/Hhm2er.bmp
+	map_Kd out01.textures/Hhm2er.bmp
+	
+newmtl hhm2rf
+	map_Ka out01.textures/Hhm2rf.bmp
+	map_Kd out01.textures/Hhm2rf.bmp
+	
+newmtl hhm2elw
+	map_Ka out01.textures/Hhm2elw.bmp
+	map_Kd out01.textures/Hhm2elw.bmp
+	
+newmtl hhm2bw
+	map_Ka out01.textures/Hhm2bw.bmp
+	map_Kd out01.textures/Hhm2bw.bmp
+	
+newmtl hhm2bs
+	map_Ka out01.textures/Hhm2bs.bmp
+	map_Kd out01.textures/Hhm2bs.bmp
+	
+newmtl hhm2d
+	map_Ka out01.textures/Hhm2d.bmp
+	map_Kd out01.textures/Hhm2d.bmp
+	
+newmtl trim3_16a
+	map_Ka out01.textures/TRIM3_16a.bmp
+	map_Kd out01.textures/TRIM3_16a.bmp
+	
+newmtl hhm3er2a
+	map_Ka out01.textures/Hhm3er2a.bmp
+	map_Kd out01.textures/Hhm3er2a.bmp
+	
+newmtl hhm3rf
+	map_Ka out01.textures/Hhm3rf.bmp
+	map_Kd out01.textures/Hhm3rf.bmp
+	
+newmtl hhm3bwl2
+	map_Ka out01.textures/Hhm3bwl2.bmp
+	map_Kd out01.textures/Hhm3bwl2.bmp
+	
+newmtl hhm3bwr2
+	map_Ka out01.textures/Hhm3bwr2.bmp
+	map_Kd out01.textures/Hhm3bwr2.bmp
+	
+newmtl sgtvrn
+	map_Ka out01.textures/sgTVRN.bmp
+	map_Kd out01.textures/sgTVRN.bmp
+	
+newmtl drsrns:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/drsrns.bmp
+	map_Kd out01.textures/drsrns.bmp
+	
+newmtl trim3_32
+	map_Ka out01.textures/TRIM3_32.bmp
+	map_Kd out01.textures/TRIM3_32.bmp
+	
+newmtl hhm3er2b
+	map_Ka out01.textures/Hhm3er2b.bmp
+	map_Kd out01.textures/Hhm3er2b.bmp
+	
+newmtl hhm3bs
+	map_Ka out01.textures/Hhm3bs.bmp
+	map_Kd out01.textures/Hhm3bs.bmp
+	
+newmtl sgfire
+	map_Ka out01.textures/sgFIRE.bmp
+	map_Kd out01.textures/sgFIRE.bmp
+	
+newmtl trim7_32
+	map_Ka out01.textures/Trim7_32.bmp
+	map_Kd out01.textures/Trim7_32.bmp
+	
+newmtl trim7_32a
+	map_Ka out01.textures/Trim7_32a.bmp
+	map_Kd out01.textures/Trim7_32a.bmp
+	
+newmtl trim9_32a
+	map_Ka out01.textures/Trim9_32a.bmp
+	map_Kd out01.textures/Trim9_32a.bmp
+	
+newmtl t1books1:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/T1books1.bmp
+	map_Kd out01.textures/T1books1.bmp
+	
+newmtl trimd:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/trimD.bmp
+	map_Kd out01.textures/trimD.bmp
+	
+newmtl pending:i
+	d 0.3
+	Tr 0.7
+	map_Ka out01.textures/pending.bmp
+	map_Kd out01.textures/pending.bmp
+	
+newmtl t1butts
+	map_Ka out01.textures/T1butts.bmp
+	map_Kd out01.textures/T1butts.bmp
+	
+newmtl sgmagi
+	map_Ka out01.textures/sgMAGI.bmp
+	map_Kd out01.textures/sgMAGI.bmp
+	
+newmtl hwm2rf
+	map_Ka out01.textures/Hwm2rf.bmp
+	map_Kd out01.textures/Hwm2rf.bmp
+	
+newmtl sgtempl
+	map_Ka out01.textures/sgTEMPL.bmp
+	map_Kd out01.textures/sgTEMPL.bmp
+	
+newmtl hhm2elw2
+	map_Ka out01.textures/Hhm2elw2.bmp
+	map_Kd out01.textures/Hhm2elw2.bmp
+	
+newmtl hhm2b2
+	map_Ka out01.textures/Hhm2b2.bmp
+	map_Kd out01.textures/Hhm2b2.bmp
+	
+newmtl sgalch
+	map_Ka out01.textures/sgALCH.bmp
+	map_Kd out01.textures/sgALCH.bmp
+	
+newmtl trimda
+	map_Ka out01.textures/trimDa.bmp
+	map_Kd out01.textures/trimDa.bmp
+	
+newmtl gt003a
+	map_Ka out01.textures/gt003a.bmp
+	map_Kd out01.textures/gt003a.bmp
+	
+newmtl sgspirit
+	map_Ka out01.textures/sgSPIRIT.bmp
+	map_Kd out01.textures/sgSPIRIT.bmp

@@ -1,0 +1,21 @@
+# MTL for "out11.odt" map from MM7.
+	
+newmtl gt002a
+	map_Ka chest_S.textures/gt002a.bmp
+	map_Kd chest_S.textures/gt002a.bmp
+	
+newmtl gt002b
+	map_Ka chest_S.textures/gt002b.bmp
+	map_Kd chest_S.textures/gt002b.bmp
+	
+newmtl gt002g
+	map_Ka chest_S.textures/gt002g.bmp
+	map_Kd chest_S.textures/gt002g.bmp
+	
+newmtl gt002c
+	map_Ka chest_S.textures/gt002c.bmp
+	map_Kd chest_S.textures/gt002c.bmp
+	
+newmtl gt002e
+	map_Ka chest_S.textures/gt002e.bmp
+	map_Kd chest_S.textures/gt002e.bmp

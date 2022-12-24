@@ -1,0 +1,42 @@
+Scripts\Global\Editor Base.lua:437: attempt to index local 'p' (a nil value)
+
+stack traceback:
+	...ows\Might and Magic 7 Mod\Scripts\Global\Editor Base.lua:437: in function 'MatchesOrientation'
+	...dows\Might and Magic 7 Mod\Scripts\Global\Editor BSP.lua:372: in function 'UpdatePortalRooms'
+	...s\Might and Magic 7 Mod\Scripts\Global\Editor Import.lua:602: in function 'LoadObj'
+	...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:273: in function 'Import'
+	...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:287: in function <...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:286>
+	[C]: in function 'pcall'
+	Scripts/Core/Common.lua:102: in function 'pcall2'
+	...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:114: in function 'GUICommand'
+	...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:99: in function <...dows\Might and Magic 7 Mod\Scripts\Global\Editor GUI.lua:98>
+	[C]: in function 'pcall'
+	Scripts/Core/Common.lua:102: in function 'pcall2'
+	Scripts/Core/RSMem.lua:1653: in function <Scripts/Core/RSMem.lua:1650>
+
+arguments of 'MatchesOrientation':
+	p = nil
+	rfacets = (table: 0x1513d008)
+
+local variables of 'MatchesOrientation':
+	(*temporary) = (function: 0x0a65c3b8)
+	(*temporary) = 3
+	(*temporary) = nil
+	(*temporary) = nil
+	(*temporary) = 3
+	(*temporary) = (function: builtin#4)
+	(*temporary) = (table: 0x027a9e98)
+	(*temporary) = nan
+	(*temporary) = (table: 0x0f6be568)
+	(*temporary) = (table: 0x0f6be568)
+	(*temporary) = true
+	(*temporary) = (table: 0x0f6be568)
+	(*temporary) = 57
+	(*temporary) = 1
+	(*temporary) = 4
+	(*temporary) = (table: 0x0c3d5ee0)
+	(*temporary) = "57 37 47 51"
+	(*temporary) = nil
+	(*temporary) = (table: 0x0f6be568)
+	(*temporary) = "attempt to index local 'p' (a nil value)"
+--------------------------------------------------------------- 

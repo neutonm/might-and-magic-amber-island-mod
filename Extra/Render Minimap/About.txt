@@ -1,0 +1,17 @@
+Here's my stuff for MM8 minimaps rendering and post-processing.
+Put "Ground Override" from Data into Data folder of your game. This will replace water and lava textures on Export with minimap-friendly ones.
+
+In Blender:
+ minimap.blend - for Ravenshore
+ minimap desert.blend - for Ironsand and Shadowspire
+ File - Import - Wavefront (.obj)
+  Set "Clamp Size" to 100
+ Select ground (with right mouse button) and press Smooth under Shading on the left (in default layout) panel.
+ Render and save.
+ Delete the ground and do render just with objects, save the result to a file.
+ 
+Next, post-processing. I did it in a Russian version of Corel Photo-Paint and now I want to convert the process into GIMP. Images in this folder are all related to post-processing.
+
+
+Yours,
+ Sergey "GrayFace" Rozhenko

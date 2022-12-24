@@ -1,0 +1,79 @@
+# Model MTL from "d15.dat" map from MM7.
+	
+newmtl cnb
+	map_Ka d15.textures/CNB.bmp
+	map_Kd d15.textures/CNB.bmp
+
+newmtl _portal_
+	map_Tr d15.textures/_Portal_.png
+	map_d d15.textures/_Portal_.png
+	map_Ka d15.textures/_Portal_.png
+	map_Kd d15.textures/_Portal_.png
+	
+newmtl t3s2fl
+	map_Ka d15.textures/T3S2FL.bmp
+	map_Kd d15.textures/T3S2FL.bmp
+	
+newmtl t3s2fl:i
+	d 0.3
+	Tr 0.7
+	map_Ka d15.textures/T3S2FL.bmp
+	map_Kd d15.textures/T3S2FL.bmp
+	
+newmtl tfb11
+	map_Ka d15.textures/TFB11.bmp
+	map_Kd d15.textures/TFB11.bmp
+	
+newmtl solid01
+	map_Ka d15.textures/solid01.bmp
+	map_Kd d15.textures/solid01.bmp
+	
+newmtl gt002a
+	map_Ka d15.textures/gt002a.bmp
+	map_Kd d15.textures/gt002a.bmp
+	
+newmtl gt002b
+	map_Ka d15.textures/gt002b.bmp
+	map_Kd d15.textures/gt002b.bmp
+	
+newmtl gt002g
+	map_Ka d15.textures/gt002g.bmp
+	map_Kd d15.textures/gt002g.bmp
+	
+newmtl gt002e
+	map_Ka d15.textures/gt002e.bmp
+	map_Kd d15.textures/gt002e.bmp
+	
+newmtl gt002c
+	map_Ka d15.textures/gt002c.bmp
+	map_Kd d15.textures/gt002c.bmp
+	
+newmtl gt003b
+	map_Ka d15.textures/gt003b.bmp
+	map_Kd d15.textures/gt003b.bmp
+	
+newmtl gt003a
+	map_Ka d15.textures/gt003a.bmp
+	map_Kd d15.textures/gt003a.bmp
+	
+newmtl cnb:i
+	d 0.3
+	Tr 0.7
+	map_Ka d15.textures/CNB.bmp
+	map_Kd d15.textures/CNB.bmp
+	
+newmtl cndr
+	map_Ka d15.textures/CNDR.bmp
+	map_Kd d15.textures/CNDR.bmp
+	
+newmtl cndl
+	map_Ka d15.textures/CNDL.bmp
+	map_Kd d15.textures/CNDL.bmp
+	
+newmtl t5bs
+	map_Ka d15.textures/T5bs.bmp
+	map_Kd d15.textures/T5bs.bmp
+	
+newmtl t1butt
+	map_Ka d15.textures/T1butt.bmp
+	map_Kd d15.textures/T1butt.bmp

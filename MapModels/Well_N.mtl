@@ -1,0 +1,25 @@
+# MTL for "out11.odt" map from MM7.
+	
+newmtl t1cabs
+	map_Ka Well_N.textures/T1cabs.bmp
+	map_Kd Well_N.textures/T1cabs.bmp
+	
+newmtl hhm3ch
+	map_Ka Well_N.textures/Hhm3ch.bmp
+	map_Kd Well_N.textures/Hhm3ch.bmp
+	
+newmtl t1beds
+	map_Ka Well_N.textures/T1beds.bmp
+	map_Kd Well_N.textures/T1beds.bmp
+	
+newmtl hhm1rf
+	map_Ka Well_N.textures/Hhm1rf.bmp
+	map_Kd Well_N.textures/Hhm1rf.bmp
+	
+newmtl t1books1
+	map_Ka Well_N.textures/T1books1.bmp
+	map_Kd Well_N.textures/T1books1.bmp
+	
+newmtl wtrtyl
+	map_Ka Well_N.textures/WtrTyl.bmp
+	map_Kd Well_N.textures/WtrTyl.bmp

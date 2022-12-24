@@ -1,0 +1,2191 @@
+# Blender MTL File: 'minimap.blend'
+# Material Count: 199
+
+newmtl bdoorb
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bdoorb.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bdoorb.bmp
+
+newmtl btrima1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\btrima1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\btrima1.bmp
+
+newmtl btrima2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\btrima2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\btrima2.bmp
+
+newmtl btrima2:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\btrima2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\btrima2.bmp
+
+newmtl btrimb1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\btrimb1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\btrimb1.bmp
+
+newmtl btrimb2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\btrimb2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\btrimb2.bmp
+
+newmtl bwooda1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwooda1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwooda1.bmp
+
+newmtl bwooda1:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwooda1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwooda1.bmp
+
+newmtl bwooda2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwooda2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwooda2.bmp
+
+newmtl bwoodb1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwoodb1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwoodb1.bmp
+
+newmtl bwoodb1:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwoodb1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwoodb1.bmp
+
+newmtl bwoodb3
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwoodb3.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwoodb3.bmp
+
+newmtl bwoodb4
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\bwoodb4.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\bwoodb4.bmp
+
+newmtl cr_w128a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\cr_W128a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\cr_W128a.bmp
+
+newmtl cr_w128b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\cr_W128b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\cr_W128b.bmp
+
+newmtl dirt1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\dirt1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\dirt1.bmp
+
+newmtl dirt2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\dirt2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\dirt2.bmp
+
+newmtl dirttyl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\dirttyl.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\dirttyl.bmp
+
+newmtl drsrecap
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrecap.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrecap.bmp
+
+newmtl drsrew
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrew.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrew.bmp
+
+newmtl drsrew_n
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrew_n.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrew_n.bmp
+
+newmtl drsrew_s
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrew_s.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrew_s.bmp
+
+newmtl drsrn_e
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrn_e.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrn_e.bmp
+
+newmtl drsrn_w
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrn_w.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrn_w.bmp
+
+newmtl drsrncap
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrncap.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrncap.bmp
+
+newmtl drsrne1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrne1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrne1.bmp
+
+newmtl drsrne2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrne2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrne2.bmp
+
+newmtl drsrns
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrns.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrns.bmp
+
+newmtl drsrns_e
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrns_e.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrns_e.bmp
+
+newmtl drsrns_w
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrns_w.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrns_w.bmp
+
+newmtl drsrnw1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrnw1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrnw1.bmp
+
+newmtl drsrnw2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrnw2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrnw2.bmp
+
+newmtl drsrs_e
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrs_e.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrs_e.bmp
+
+newmtl drsrs_w
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrs_w.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrs_w.bmp
+
+newmtl drsrscap
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrscap.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrscap.bmp
+
+newmtl drsrwcap
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\drsrwcap.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\drsrwcap.bmp
+
+newmtl gcrydoor
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\Gcrydoor.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\Gcrydoor.bmp
+
+newmtl gcryout1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GcryOut1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GcryOut1.bmp
+
+newmtl gcryout2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GcryOut2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GcryOut2.bmp
+
+newmtl gcryout3
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GcryOut3.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GcryOut3.bmp
+
+newmtl gcryout4
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GcryOut4.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GcryOut4.bmp
+
+newmtl gcryowal
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GcryOWal.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GcryOWal.bmp
+
+newmtl gcst2-bs
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\Gcst2-bs.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\Gcst2-bs.bmp
+
+newmtl gn_mtl01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gn_mtl01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gn_mtl01.bmp
+
+newmtl gn_mtl02
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gn_mtl02.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gn_mtl02.bmp
+
+newmtl gn_mtl03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gn_mtl03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gn_mtl03.bmp
+
+newmtl grastyl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grastyl.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grastyl.bmp
+
+newmtl grastyl2
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grastyl2.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grastyl2.bmp
+
+newmtl grdrte
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrte.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrte.bmp
+
+newmtl grdrtn
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtn.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtn.bmp
+
+newmtl grdrtne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtne.bmp
+
+newmtl grdrtnw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtnw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtnw.bmp
+
+newmtl grdrts
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrts.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrts.bmp
+
+newmtl grdrtse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtse.bmp
+
+newmtl grdrtsw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtsw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtsw.bmp
+
+newmtl grdrtw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtw.bmp
+
+newmtl grdrtxne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtxne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtxne.bmp
+
+newmtl grdrtxnw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtxnw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtxnw.bmp
+
+newmtl grdrtxse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtxse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtxse.bmp
+
+newmtl grdrtxsw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\grdrtxsw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\grdrtxsw.bmp
+
+newmtl gstn1bot
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GStn1BOT.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GStn1BOT.bmp
+
+newmtl gstn1cl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GStn1CL.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GStn1CL.bmp
+
+newmtl gstnlock
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GStnLock.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GStnLock.bmp
+
+newmtl gston1wl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\GSton1WL.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\GSton1WL.bmp
+
+newmtl gt002a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt002a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt002a.bmp
+
+newmtl gt002b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt002b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt002b.bmp
+
+newmtl gt002c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt002c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt002c.bmp
+
+newmtl gt002e
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt002e.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt002e.bmp
+
+newmtl gt002g
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt002g.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt002g.bmp
+
+newmtl gt003a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt003a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt003a.bmp
+
+newmtl gt003b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\gt003b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\gt003b.bmp
+
+newmtl hhr1p
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\HHR1P.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\HHR1P.bmp
+
+newmtl rke
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rke.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rke.bmp
+
+newmtl rkn
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkn.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkn.bmp
+
+newmtl rkne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkne.bmp
+
+newmtl rknw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rknw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rknw.bmp
+
+newmtl rks
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rks.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rks.bmp
+
+newmtl rkse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkse.bmp
+
+newmtl rksw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rksw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rksw.bmp
+
+newmtl rktyl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rktyl.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rktyl.bmp
+
+newmtl rktylx
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rktylx.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rktylx.bmp
+
+newmtl rkw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkw.bmp
+
+newmtl rkxne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkxne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkxne.bmp
+
+newmtl rkxnw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkxnw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkxnw.bmp
+
+newmtl rkxse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkxse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkxse.bmp
+
+newmtl rkxsw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\rkxsw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\rkxsw.bmp
+
+newmtl sgalch
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgALCH.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgALCH.bmp
+
+newmtl sgarm
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgArm.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgArm.bmp
+
+newmtl sgbank
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgBANK.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgBANK.bmp
+
+newmtl sginn
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\SGinn.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\SGinn.bmp
+
+newmtl sgmagic
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgMAGIC.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgMAGIC.bmp
+
+newmtl sgspell
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgSPELL.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgSPELL.bmp
+
+newmtl sgstabl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\SGstabl.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\SGstabl.bmp
+
+newmtl sgtrain
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgTRAIN.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgTRAIN.bmp
+
+newmtl sgtvrn
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgTvrn.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgTvrn.bmp
+
+newmtl sgweap
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\sgWeap.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\sgWeap.bmp
+
+newmtl solid01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\solid01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\solid01.bmp
+
+newmtl t01a01a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T01A01A.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T01A01A.bmp
+
+newmtl t03a05c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T03A05C.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T03A05C.bmp
+
+newmtl t05a10
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T05a10.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T05a10.bmp
+
+newmtl t05a11
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T05a11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T05a11.bmp
+
+newmtl t06a01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a01.bmp
+
+newmtl t06a02
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a02.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a02.bmp
+
+newmtl t06a03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a03.bmp
+
+newmtl t06a05
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a05.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a05.bmp
+
+newmtl t06a06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a06.bmp
+
+newmtl t06a07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a07.bmp
+
+newmtl t06a08
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a08.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a08.bmp
+
+newmtl t06a09
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a09.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a09.bmp
+
+newmtl t06a10
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a10.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a10.bmp
+
+newmtl t06a11
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a11.bmp
+
+newmtl t06a12
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06a12.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06a12.bmp
+
+newmtl t06b01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b01.bmp
+
+newmtl t06b02
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b02.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b02.bmp
+
+newmtl t06b03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b03.bmp
+
+newmtl t06b05
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b05.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b05.bmp
+
+newmtl t06b06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b06.bmp
+
+newmtl t06b07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b07.bmp
+
+newmtl t06b08
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b08.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b08.bmp
+
+newmtl t06b09
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b09.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b09.bmp
+
+newmtl t06b11
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06b11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06b11.bmp
+
+newmtl t06c03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06c03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06c03.bmp
+
+newmtl t06c04
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06c04.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06c04.bmp
+
+newmtl t06c11
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06c11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06c11.bmp
+
+newmtl t06d03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06d03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06d03.bmp
+
+newmtl t06d04
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06d04.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06d04.bmp
+
+newmtl t06e04
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t06e04.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t06e04.bmp
+
+newmtl t14a01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a01.bmp
+
+newmtl t14a03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a03.bmp
+
+newmtl t14a04a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a04a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a04a.bmp
+
+newmtl t14a04b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a04b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a04b.bmp
+
+newmtl t14a04c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a04c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a04c.bmp
+
+newmtl t14a05
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a05.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a05.bmp
+
+newmtl t14a05b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a05b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a05b.bmp
+
+newmtl t14a05b:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a05b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a05b.bmp
+
+newmtl t14a06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a06.bmp
+
+newmtl t14a07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14a07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14a07.bmp
+
+newmtl t14abcd02
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14abcd02.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14abcd02.bmp
+
+newmtl t14abcd10
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14abcd10.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14abcd10.bmp
+
+newmtl t14abcd10:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14abcd10.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14abcd10.bmp
+
+newmtl t14abcd11
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14abcd11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14abcd11.bmp
+
+newmtl t14abcd11:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14abcd11.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14abcd11.bmp
+
+newmtl t14b01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b01.bmp
+
+newmtl t14b03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b03.bmp
+
+newmtl t14b04a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b04a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b04a.bmp
+
+newmtl t14b04b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b04b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b04b.bmp
+
+newmtl t14b04c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b04c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b04c.bmp
+
+newmtl t14b05
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b05.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b05.bmp
+
+newmtl t14b06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b06.bmp
+
+newmtl t14b07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b07.bmp
+
+newmtl t14b12c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14b12c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14b12c.bmp
+
+newmtl t14c01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c01.bmp
+
+newmtl t14c01b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c01b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c01b.bmp
+
+newmtl t14c03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c03.bmp
+
+newmtl t14c04a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c04a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c04a.bmp
+
+newmtl t14c04b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c04b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c04b.bmp
+
+newmtl t14c04c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c04c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c04c.bmp
+
+newmtl t14c06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c06.bmp
+
+newmtl t14c07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c07.bmp
+
+newmtl t14c12a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c12a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c12a.bmp
+
+newmtl t14c12ba
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c12ba.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c12ba.bmp
+
+newmtl t14c12c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14c12c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14c12c.bmp
+
+newmtl t14d01
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d01.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d01.bmp
+
+newmtl t14d03
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d03.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d03.bmp
+
+newmtl t14d04a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d04a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d04a.bmp
+
+newmtl t14d04b
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d04b.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d04b.bmp
+
+newmtl t14d04c
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d04c.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d04c.bmp
+
+newmtl t14d05
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d05.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d05.bmp
+
+newmtl t14d06
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d06.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d06.bmp
+
+newmtl t14d07
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d07.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d07.bmp
+
+newmtl t14d12ba
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t14d12ba.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t14d12ba.bmp
+
+newmtl t1beds
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T1beds.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T1beds.bmp
+
+newmtl t1beds1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T1beds1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T1beds1.bmp
+
+newmtl t1books1
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T1books1.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T1books1.bmp
+
+newmtl t1butts
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T1butts.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T1butts.bmp
+
+newmtl t1cabs
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T1cabs.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T1cabs.bmp
+
+newmtl t65b02
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\T65B02.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\T65B02.bmp
+
+newmtl t66a12d
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\t66a12d.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\t66a12d.bmp
+
+newmtl trim1_16
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\TRIM1_16.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\TRIM1_16.bmp
+
+newmtl trim1_16a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\TRIM1_16a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\TRIM1_16a.bmp
+
+newmtl trim9_32
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\Trim9_32.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\Trim9_32.bmp
+
+newmtl trim9_32:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\Trim9_32.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\Trim9_32.bmp
+
+newmtl trim9_32a
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\Trim9_32a.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\Trim9_32a.bmp
+
+newmtl trimd
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\trimD.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\trimD.bmp
+
+newmtl trimd:i
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 0.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\trimD.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\trimD.bmp
+
+newmtl trimda
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\trimDa.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\trimDa.bmp
+
+newmtl wtrdre
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdre.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdre.bmp
+
+newmtl wtrdrn
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrn.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrn.bmp
+
+newmtl wtrdrne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrne.bmp
+
+newmtl wtrdrnw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrnw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrnw.bmp
+
+newmtl wtrdrs
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrs.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrs.bmp
+
+newmtl wtrdrse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrse.bmp
+
+newmtl wtrdrsw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrsw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrsw.bmp
+
+newmtl wtrdrw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrw.bmp
+
+newmtl wtrdrxne
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrxne.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrxne.bmp
+
+newmtl wtrdrxnw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrxnw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrxnw.bmp
+
+newmtl wtrdrxse
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrxse.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrxse.bmp
+
+newmtl wtrdrxsw
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrdrxsw.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrdrxsw.bmp
+
+newmtl wtrtyl
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\Games\mm8\MapObj\out02.textures\wtrtyl.bmp
+map_Ka C:\\Games\\mm8\\MapObj\\out02.textures\\wtrtyl.bmp

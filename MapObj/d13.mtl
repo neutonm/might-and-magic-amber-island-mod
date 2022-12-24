@@ -1,0 +1,87 @@
+# Model MTL from "d13.dat" map from MM7.
+	
+newmtl cfb1
+	map_Ka d13.textures/Cfb1.bmp
+	map_Kd d13.textures/Cfb1.bmp
+	
+newmtl twb2
+	map_Ka d13.textures/Twb2.bmp
+	map_Kd d13.textures/Twb2.bmp
+	
+newmtl cwb1
+	map_Ka d13.textures/Cwb1.bmp
+	map_Kd d13.textures/Cwb1.bmp
+	
+newmtl twb1a
+	map_Ka d13.textures/Twb1a.bmp
+	map_Kd d13.textures/Twb1a.bmp
+	
+newmtl tfb1
+	map_Ka d13.textures/Tfb1.bmp
+	map_Kd d13.textures/Tfb1.bmp
+	
+newmtl twb2:i
+	Tr 0.3
+	d 0.3
+	map_Ka d13.textures/Twb2.bmp
+	map_Kd d13.textures/Twb2.bmp
+	
+newmtl twb1
+	map_Ka d13.textures/Twb1.bmp
+	map_Kd d13.textures/Twb1.bmp
+	
+newmtl cfb1:i
+	Tr 0.3
+	d 0.3
+	map_Ka d13.textures/Cfb1.bmp
+	map_Kd d13.textures/Cfb1.bmp
+	
+newmtl t5bs
+	map_Ka d13.textures/T5bs.bmp
+	map_Kd d13.textures/T5bs.bmp
+	
+newmtl tfb2
+	map_Ka d13.textures/Tfb2.bmp
+	map_Kd d13.textures/Tfb2.bmp
+	
+newmtl t5d1
+	map_Ka d13.textures/T5d1.bmp
+	map_Kd d13.textures/T5d1.bmp
+
+newmtl _portal_
+	map_Tr d13.textures/_Portal_.png
+	map_d d13.textures/_Portal_.png
+	map_Ka d13.textures/_Portal_.png
+	map_Kd d13.textures/_Portal_.png
+	
+newmtl solid01
+	map_Ka d13.textures/solid01.bmp
+	map_Kd d13.textures/solid01.bmp
+	
+newmtl t1s2b
+	map_Ka d13.textures/T1S2B.bmp
+	map_Kd d13.textures/T1S2B.bmp
+	
+newmtl tws2
+	map_Ka d13.textures/Tws2.bmp
+	map_Kd d13.textures/Tws2.bmp
+	
+newmtl tws1h
+	map_Ka d13.textures/Tws1h.bmp
+	map_Kd d13.textures/Tws1h.bmp
+	
+newmtl tws1f
+	map_Ka d13.textures/Tws1f.bmp
+	map_Kd d13.textures/Tws1f.bmp
+	
+newmtl twb2vr
+	map_Ka d13.textures/Twb2VR.bmp
+	map_Kd d13.textures/Twb2VR.bmp
+	
+newmtl wtrtyl
+	map_Ka d13.textures/WtrTyl.bmp
+	map_Kd d13.textures/WtrTyl.bmp
+	
+newmtl twb2vl
+	map_Ka d13.textures/Twb2VL.bmp
+	map_Kd d13.textures/Twb2VL.bmp

@@ -1,0 +1,57 @@
+# Model MTL from "test.dat" map from MM7.
+	
+newmtl dirttyl:g
+	map_Ka test.textures/ground/dirttyl.bmp
+	map_Kd test.textures/ground/dirttyl.bmp
+	
+newmtl grdrtnw:g
+	map_Ka test.textures/ground/grdrtNW.bmp
+	map_Kd test.textures/ground/grdrtNW.bmp
+	
+newmtl grdrtn:g
+	map_Ka test.textures/ground/grdrtN.bmp
+	map_Kd test.textures/ground/grdrtN.bmp
+	
+newmtl grdrtne:g
+	map_Ka test.textures/ground/grdrtNE.bmp
+	map_Kd test.textures/ground/grdrtNE.bmp
+	
+newmtl grdrtw:g
+	map_Ka test.textures/ground/grdrtW.bmp
+	map_Kd test.textures/ground/grdrtW.bmp
+	
+newmtl grastyl:g
+	map_Ka test.textures/ground/grastyl.bmp
+	map_Kd test.textures/ground/grastyl.bmp
+	
+newmtl grdrte:g
+	map_Ka test.textures/ground/grdrtE.bmp
+	map_Kd test.textures/ground/grdrtE.bmp
+	
+newmtl grdrtxne:g
+	map_Ka test.textures/ground/grdrtXNE.bmp
+	map_Kd test.textures/ground/grdrtXNE.bmp
+	
+newmtl grdrtxnw:g
+	map_Ka test.textures/ground/grdrtXNW.bmp
+	map_Kd test.textures/ground/grdrtXNW.bmp
+	
+newmtl grdrtxse:g
+	map_Ka test.textures/ground/grdrtXSE.bmp
+	map_Kd test.textures/ground/grdrtXSE.bmp
+	
+newmtl grdrtse:g
+	map_Ka test.textures/ground/grdrtSE.bmp
+	map_Kd test.textures/ground/grdrtSE.bmp
+	
+newmtl grdrtsw:g
+	map_Ka test.textures/ground/grdrtSW.bmp
+	map_Kd test.textures/ground/grdrtSW.bmp
+	
+newmtl grdrtxsw:g
+	map_Ka test.textures/ground/grdrtXSW.bmp
+	map_Kd test.textures/ground/grdrtXSW.bmp
+	
+newmtl grdrts:g
+	map_Ka test.textures/ground/grdrtS.bmp
+	map_Kd test.textures/ground/grdrtS.bmp
