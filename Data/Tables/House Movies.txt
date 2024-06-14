@@ -195,3 +195,5 @@
 193	Human Temple02	939	Temple	27
 194	Player Castle Good	0	Dungeon Ent	0
 195	Player Castle Bad	0	Dungeon Ent	0
+196	Jail	0		0
+197

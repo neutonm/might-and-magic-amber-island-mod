@@ -511,7 +511,7 @@ end]=]
 	[mmv(0x4C3F20, 0x4F0830, 0x500DF8)].array(mmv(36, 35, 25)).struct(structs.TravelInfo)  'TransportLocations'
 	[mmv(0x4C43A0, 0x4F0C90, 0x501118)].array(mmv(48, 54, 54), mmv(68, 73, 73)).array(1, mmv(3, 4, 4)).i1  'TransportIndex'
 	if mmver > 6 then
-		define[mm78(0x5C8B40, 0x5E4F08)].array(89).array(89).u1  'HostileTxt'
+		define[mm78(0x5C8B40, 0x5E4F08)].array(93).array(93).u1  'HostileTxt'
 		 .Info{Sig = "[mon1][mon2]"; "0 - 4. Attitude of 'mon1' towards 'mon2'. 'mon2' = 0 is party. 'mon1' and 'mon2' are monster classes: !Lua[[mon1 = (Id1 + 2):div(3)]]"}
 	end
 	define

@@ -1,41 +1,23 @@
-# Compiled Lua sources
-luac.out
+# Ignore everything in the root folder
+/*
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+# Except for specific files in the root folder
+!mm7.ini
+!README.md
+!.gitattributes
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+# Allow these folders and their contents
+!/Data/
+!/DataFiles/
+!/ExeMods/
+!/Language/
+!/Misc/
+!/Scripts/
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
-
-# Shared objects (inc. Windows DLLs)
-#*.dll
-#*.so
-#*.so.*
-#*.dylib
-
-# Executables
-#*.exe
-#*.out
-#*.app
-#*.i*86
-#*.x86_64
-#*.hex
-
+# Allow all subdirectories and their contents
+/Data/**
+/DataFiles/**
+/ExeMods/**
+/Language/**
+/Misc/**
+/Scripts/**

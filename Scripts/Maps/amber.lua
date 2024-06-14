@@ -1,3 +1,9 @@
+--[[
+Map: Amber Island
+Author: Henrik Chukhran, 2022 - 2024
+]]
+
+
 local TXT = Localize{
 	[0] = " ",
     [1] = "House",
@@ -10,11 +16,11 @@ local TXT = Localize{
     [8] = "Teleportation Platform",
     [9] = "Statue",
     [10] = "Altar",
-    [11] = "Wine Cellar",
+    [11] = "Oak Hill Cottage",
     [12] = "Archmage's Residence",
-    [13] = "Cave",
+    [13] = "Apple Cave",
     [14] = "Abandoned Mines",
-    [15] = "Enter the Wine Cellar",
+    [15] = "Enter the Oak Hill Cottage",
     [16] = "Enter the Archmage's Residence",
     [17] = "Enter the Cave",
     [18] = "Enter the Abandoned Mines",
@@ -41,7 +47,17 @@ local TXT = Localize{
     [39] = "Guild of Earth Magic",
     [40] = "Amber Townhall",
     [41] = "Tower",
-    [42] = "Residence"
+    [42] = "Residence",
+    [43] = "Apple Tree",
+    [44] = "Yuck! Apples are too sour to be consumed...",
+    [45] = "+5 AC (Temporary)",
+    [46] = "+2 Accuracy (Permanent)",
+    [47] = "+ 10 Might (Temporary)",
+    [48] = "Maybe that wasn't such a good idea.",
+    [49] = "You probably shouldn't do that.",
+    [50] = "+ 10 hit and spell points",
+    [51] = "+5 Elemental Resistance (Temporary)",
+    [52] = "Skull"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -49,10 +65,34 @@ Game.MapEvtLines.Count = 0
 -- CHESTS
 ------------------------------------------------------------------------------
 for i = 0, 19, 1 do
-	evt.hint[1 + i] = evt.str[2] .." #"..tostring(i)
+	local hintStr = evt.str[2]
+    if Game.Debug then
+        hintStr = hintStr .. " #"..tostring(i)
+    end
+	evt.hint[1 + i] = hintStr
 	evt.map[1 + i] = function()
 	    evt.OpenChest(i)
 	end
+end
+
+-- APPLES
+------------------------------------------------------------------------------
+for i = 200, 255, 1 do
+	evt.hint[i] = evt.str[43] 
+    evt.map[i] = function()
+        evt.StatusText(44)
+        --if not evt.CheckSeason(3) then
+            --if not evt.CheckSeason(2) then
+                -- local checkStr = "MapVar50"..tostring(50+(i-200))
+                -- if not evt.Cmp(checkStr, 1) then
+                --     evt.Add("Inventory", 630)         -- "Red Apple"
+                --     evt.Set(checkStr, 1)
+                --     evt.StatusText(61)         -- "You received an apple"
+                --     evt.SetSprite{SpriteId = 200+i, Visible = 1, Name = "tree37"}
+                -- end
+            --end
+        --end
+    end
 end
 
 -- WELLS
@@ -65,23 +105,73 @@ evt.hint[25] = evt.str[7]
 
 -- Well: Port Island
 evt.map[22] = function()
-    evt.StatusText(4)
+
+    if evt.Cmp("PlayerBits", 3) then
+		evt.StatusText(4)         -- "Refreshing!"
+		return
+	end
+
+    evt.Add("ArmorClassBonus", 5)
+    evt.Set("PlayerBits", 3)
+	evt.StatusText(45)         -- "+5 AC (Temporary)"
 end
+
+RefillTimer(function()
+	evt.ForPlayer("All")
+	evt.Subtract("PlayerBits", 3)
+end, const.Day)
 
 -- Well: Before Amber Town Bridge
 evt.map[23] = function()
-    evt.StatusText(4)
+
+    if evt.Cmp("MapVar2", 5) then
+		evt.StatusText(4)         -- "Refreshing!"
+		return
+	end
+
+    evt.Add("MapVar2", 1)
+    evt.Add("BaseAccuracy", 2)
+	evt.StatusText(46)         -- "+2 Accuracy (Permanent)"
 end
 
 -- Well: Inside Amber Town
 evt.map[24] = function()
-    evt.StatusText(4)
+
+    if evt.Cmp("PlayerBits", 4) then
+		evt.StatusText(4)         -- "Refreshing!"
+		return
+	end
+
+    evt.Add("MightBonus", 5)
+    evt.Set("PlayerBits", 4)
+	evt.StatusText(47)         -- "+ 10 Might (Temporary)"
 end
+
+RefillTimer(function()
+	evt.ForPlayer("All")
+	evt.Subtract("PlayerBits", 4)
+end, const.Day)
 
 -- Well: Swamp Island
 evt.map[25] = function()
-    evt.StatusText(4)
+
+    if evt.Cmp("PlayerBits", 5) then
+		evt.StatusText(4)         -- "Refreshing!"
+		return
+	end
+
+    evt.Add("FireResBonus", 5)
+    evt.Add("AirResBonus", 5)
+    evt.Add("WaterResBonus", 5)
+    evt.Add("EarthResBonus", 5)
+    evt.Set("PlayerBits", 5)
+	evt.StatusText(51)         -- "+5 Elemental Resistance (Temporary)"
 end
+
+RefillTimer(function()
+	evt.ForPlayer("All")
+	evt.Subtract("PlayerBits", 5)
+end, const.Day)
 
 -- FOUNTAINS
 ------------------------------------------------------------------------------
@@ -91,42 +181,59 @@ evt.hint[28] = evt.str[5]
 
 -- Fountain: Port Island
 evt.map[27] = function()
-    evt.StatusText(4)
+    evt.Add("HP", 10)
+    evt.Add("SP", 10)
+    evt.StatusText(50) -- "+ 10 Hit and Spell points"
 end
 
 -- Fountain: Amber Town
 evt.map[28] = function()
-    evt.StatusText(4)
+    
+    if evt.Cmp("Gold", 0) and evt.Cmp("MapVar1", 1) == false then
+        evt.Add("Gold", 500)
+        evt.Set("MapVar1", 1)
+    else
+        evt.StatusText(4)
+    end
 end
 
 -- DUNGEONS
 ------------------------------------------------------------------------------
--- Dungeon: Wine Cellar
-evt.house[29] = evt.str[11]
+-- Dungeon: Oak Hill Cottage
+evt.hint[29] = evt.str[11]
 evt.hint[30] = evt.str[15]
 evt.map[30] = function()
-    evt.MoveToMap(293,286,14,1312,1,1,191,1,"testlevel.blv")
+    evt.MoveToMap(-41,369,0,2,1,1,193,1,"oakhome.blv")
 end
 
--- Dungeon: ArchMage's Residence
+-- Dungeon: Archmage's Residence
 evt.hint[31] = evt.str[12]
 evt.hint[32] = evt.str[16]
 evt.map[32] = function()
-    evt.MoveToMap(293,286,14,1312,1,1,191,1,"testlevel.blv")
+    evt.MoveToMap{X = -4, Y = -2, Z = 1, Direction = 512, LookAngle = 0, SpeedZ = 0, HouseId = 195, Icon = 1, Name = "archmageEX.blv"}
 end
 
--- Dungeon: Cave
-evt.hint[34] = evt.str[17] -- Abandoned Cave
+-- Dungeon: Apple Cave
+evt.hint[34] = evt.str[17] -- Apple Cave
 evt.hint[33] = evt.str[13] -- Enter the Cave
 evt.map[34] = function()
-    evt.MoveToMap(293,286,14,1312,1,1,191,1,"testlevel.blv")
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID  == 517 then
+            if mon.Hostile == false and mon.HP > 0 then
+                evt.SpeakNPC(521)  
+                return
+            end
+        end
+    end
+    
+    evt.MoveToMap(-148,3,0,2044,1,1,194,1,"applecave.blv")
 end
 
 -- Dungeon: Abandoned Mines
 evt.hint[35] = evt.str[14] -- Abandoned Mines
 evt.hint[36] = evt.str[18] -- Enter the Abandoned Mines
 evt.map[36] = function()
-    evt.MoveToMap(293,286,14,1312,1,1,191,1,"testlevel.blv")
+    evt.MoveToMap{X = 190, Y = 140, Z = 33, Direction = 512, LookAngle = 0, SpeedZ = 0, HouseId = 196, Icon = 1, Name = "abmines.blv"}
 end
 
 -- MISC
@@ -147,152 +254,106 @@ end
 evt.hint[39] = evt.str[8] -- Teleportation Platform
 evt.hint[40] = evt.str[8]
 evt.map[40] = function()
-    --
+    if evt.All.Cmp("Inventory",796) then
+	evt.MoveToMap{X = 17708 ,Y = -20470, Z = 1 , Direction = 715, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 1, Name = "amber-east.odm"}
+	end
 end
 
 -- Altar: Swamp Island
 evt.hint[41] = evt.str[10] -- Altar
 evt.hint[42] = evt.str[21]
 evt.map[42] = function()
-    --
+    if evt.All.Cmp("Inventory", 785) and vars.MyQuests.QVarRitual == false then
+        vars.MyQuests.QVarRitual = true
+        evt.Subtract("Inventory", 785)
+        evt.PlaySound(14050,Party.X,Party.Y)
+        evt.All.Add("Exp",0)
+        local monster = SummonMonster(22, 19427, -1525, 897, true)
+        monster.Level               = 5
+        monster.FullHitPoints       = 360
+        monster.HP                  = 360
+        monster.ArmorClass          = 10
+        monster.Attack1.DamageAdd   = 4
+        monster.Attack1.Missile     = 0
+        monster.Special             = 0
+        monster.Spell               = 0
+    end
 end
 ------------------------------------------------------------------------------
 -- SHIPS
 evt.hint[60] = evt.str[22]
-evt.hint[61] = evt.str[22]
+evt.hint[61] = evt.str[22] -- Black Betty
 evt.map[61] = function()
     
-    evt.EnterHouse(238)
+    evt.EnterHouse(579)
 end
 
 evt.hint[62] = evt.str[23]
-evt.hint[63] = evt.str[23]
+evt.hint[63] = evt.str[23] -- 
 evt.map[63] = function()
     
-    evt.EnterHouse(64)
+    evt.EnterHouse(580)
 end
 
 
 -- SHOPS
 ------------------------------------------------------------------------------
--- Inn
-evt.hint[64] = evt.str[24] -- Powder Keg Inn
-evt.hint[65] = evt.str[24]
-evt.map[65] = function()
-    evt.EnterHouse(117)
-end
+-- Tavern: Powder Keg Inn
+evt.HouseDoor(65, 249)
 
--- Training Hall
-evt.hint[66] = evt.str[25] -- Amber Training Grounds
-evt.hint[67] = evt.str[25]
-evt.map[67] = function()
-    evt.EnterHouse(116)
-end
+-- Training: Amber Training Grounds
+evt.HouseDoor(67, 91)
 
--- Temple
-evt.hint[68] = evt.str[26] -- Nourville's Cathedrall
-evt.hint[69] = evt.str[26]
+-- Temple: Saint Nourville Cathedral
 evt.map[69] = function()
-    evt.EnterHouse(116)
+
+    if vars.MyMisc.OnDeathLocation == 0 then
+        vars.MyMisc.OnDeathLocation = 1
+    end
+    evt.EnterHouse(246)
 end
 
--- Bank
-evt.hint[70] = evt.str[27] -- Amber Bank
-evt.hint[71] = evt.str[27]
-evt.map[71] = function()
-    evt.EnterHouse(116)
-end
+-- Bank: Amber Bank
+evt.HouseDoor(71, 251)
 
--- Tavern
-evt.hint[72] = evt.str[28] -- Crusty Eagle Inn
-evt.hint[73] = evt.str[28]
-evt.map[73] = function()
-    evt.EnterHouse(116)
-end
+-- Tavern: Crusty Eagle Inn
+evt.HouseDoor(73, 250)
 
--- Armorer
-evt.hint[74] = evt.str[29] -- Steel Bucket
-evt.hint[75] = evt.str[29]
-evt.map[75] = function()
-    evt.EnterHouse(116)
-end
+-- Smith: Razorsharp
+evt.HouseDoor(77, 3)
 
--- Smith
-evt.hint[76] = evt.str[30] -- Razorsharp
-evt.hint[77] = evt.str[30]
-evt.map[77] = function()
-    evt.EnterHouse(116)
-end
+-- Armorer: Steel Bucket
+evt.HouseDoor(75, 17)
 
--- Alchemist
-evt.hint[78] = evt.str[31] -- Magic in the Potion
-evt.hint[79] = evt.str[31]
-evt.map[79] = function()
-    evt.EnterHouse(116)
-end
+-- Magician: Odds and Ends
+evt.HouseDoor(81, 41)
 
--- Magician
-evt.hint[80] = evt.str[32] -- Odds and Ends
-evt.hint[81] = evt.str[32]
-evt.map[81] = function()
-    evt.EnterHouse(116)
-end
-
--- Guild: Spirit
-evt.hint[82] = evt.str[33] -- Guild of Spirit Magic
-evt.hint[83] = evt.str[33]
-evt.map[83] = function()
-    evt.EnterHouse(116)
-end
-
--- Guild: Body
-evt.hint[84] = evt.str[34] -- Guild of Body Magic
-evt.hint[85] = evt.str[34]
-evt.map[85] = function()
-    evt.EnterHouse(116)
-end
-
--- Guild: Mind
-evt.hint[86] = evt.str[35] -- Guild of Mind Magic
-evt.hint[87] = evt.str[35]
-evt.map[87] = function()
-    evt.EnterHouse(116)
-end
+-- Alchemist: Potions of Payne
+evt.HouseDoor(79, 53)
 
 -- Guild: Fire
-evt.hint[88] = evt.str[36] -- Guild of Fire Magic
-evt.hint[89] = evt.str[36]
-evt.map[89] = function()
-    evt.EnterHouse(116)
-end
+evt.HouseDoor(89, 140)
 
 -- Guild: Air
-evt.hint[90] = evt.str[37] -- Guild of Air Magic
-evt.hint[91] = evt.str[37]
-evt.map[91] = function()
-    evt.EnterHouse(116)
-end
+evt.HouseDoor(91, 144)
 
 -- Guild: Water
-evt.hint[92] = evt.str[38] -- Guild of Water Magic
-evt.hint[93] = evt.str[38]
-evt.map[93] = function()
-    evt.EnterHouse(116)
-end
+evt.HouseDoor(93, 148)
 
 -- Guild: Earth
-evt.hint[94] = evt.str[39] -- Guild of Water Magic
-evt.hint[95] = evt.str[39]
-evt.map[95] = function()
-    evt.EnterHouse(116)
-end
+evt.HouseDoor(95, 152)
 
--- Townhall
-evt.hint[96] = evt.str[40] -- Amber Townhall
-evt.hint[97] = evt.str[40]
-evt.map[97] = function()
-    evt.EnterHouse(116)
-end
+-- Guild: Spirit
+evt.HouseDoor(83, 156)   
+
+-- Guild: Mind
+evt.HouseDoor(87, 160)
+
+-- Guild: Body
+evt.HouseDoor(85, 164)
+
+-- Town Hall: Amber Town
+evt.HouseDoor(97, 248)
 
 -- RESIDENCES
 ------------------------------------------------------------------------------
@@ -382,4 +443,43 @@ evt.HouseDoor(152, 575) -- Knight Camp: West Tent
 evt.HouseDoor(153, 576) -- Lighthouse
 evt.HouseDoor(154, 577) -- Big House at East
 evt.HouseDoor(155, 578) -- Witch Hut
+
+-- Exit: Amber Island to East Amber Island
+evt.map[160] = function()
+    evt.MoveToMap{X = -22255, Y = 9476, Z = 79, Direction = 2048, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 1, Name = "amber-east.odm"}
+end
+
+-- Bunny Burrow
+evt.HouseDoor(161, 606)
+
+-- Skull NE corner
+evt.hint[162] = evt.str[52]
+evt.map[162] = function()
+    if evt.Cmp("MapVar39", 1) == false then
+        evt.Set("MapVar39", 1)
+        evt.Add("Inventory", 397)
+    end
+end
+
+-- Body Guild Window
+evt.map[163] = function()
+    if evt.Cmp("MapVar38", 1) == false then
+        evt.Set("MapVar38", 1)
+        evt.Add("Inventory", 385)
+    end
+end
+
+-- Sir Henry
+evt.map[164] = function()
+    if Game and Game.Debug == false and vars.MyMisc.FirstTimePlaying == 0 then
+        vars.MyMisc.FirstTimePlaying = 1
+        evt.SpeakNPC(449)
+    end
+end
+
+-- North town basin
+evt.map[165] = function()
+    evt.StatusText(4) -- Refreshing
+end
+
 ------------------------------------------------------------------------------

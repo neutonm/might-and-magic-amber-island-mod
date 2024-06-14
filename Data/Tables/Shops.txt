@@ -207,3 +207,32 @@ House	Shop	Level	1	2	3	4	Comments
 168	GuildAward	59					
 169	GuildAward	60					
 170	GuildAward	60					
+580	Weapon	1	Sword	Bow	Weapon_	Weapon_	'Weapon' defines items for Buy dialog.
+	SWeapon	2	Axe	Staff	Weapon_	Weapon_	'SWeapon' defines items for Buy Special dialog.
+581	Armor1	1	Helm_	Helm_	Gountlets_	Gountlets_	'Armor1' defines items on the upper shelf of Buy dialog.
+	Armor2	1	Leather	Leather	Leather	Shield_	'Armor2' defines items on the lower shelf of Buy dialog.
+	SArmor1	2	Helm_	Helm_	Gountlets_	Gountlets_	'SArmor1' and 'SArmor2' define items for Buy Special dialog.
+	SArmor2	2	Leather	Leather	Leather	Shield_	
+582	Magic	1					'Magic' defines items for Buy dialog.
+	SMagic	2					'SMagic' defines items for Buy Special dialog.
+583	Alchemist	1					'Alchemist' defines reagents for Buy dialog.
+	SAlchemist	2					'SAlchemist' defines potions for Buy Special dialog.
+587	Training	10					Training cap. '-1' means no cap.
+592	Guild	4					Maximum spell number withing the magic school.
+593	Guild	4					Maximum spell number withing the magic school.
+594	Guild	4					Maximum spell number withing the magic school.
+595	Guild	4					Maximum spell number withing the magic school.
+596	Guild	4					Maximum spell number withing the magic school.
+597	Guild	4					Maximum spell number withing the magic school.
+598	Guild	4					Maximum spell number withing the magic school.
+601	Guild	4					Maximum spell number withing the magic school.
+602	Guild	4					Maximum spell number withing the magic school.
+592	GuildAward	0					Award number required to access the guild.
+593	GuildAward	0					
+594	GuildAward	0					
+595	GuildAward	0					
+596	GuildAward	0					
+597	GuildAward	0					
+598	GuildAward	0					
+601	GuildAward	0					
+602	GuildAward	0					

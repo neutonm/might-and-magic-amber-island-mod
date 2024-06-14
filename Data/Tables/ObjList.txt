@@ -253,3 +253,4 @@ FireTrap	811	16	16	-	-	x	x	x	x	-	-	-	-	-	spell01	96	0	0	0	0	0
 ElecTrap	812	16	16	-	-	x	x	x	x	-	-	-	-	-	spell02	96	0	0	0	0	0
 ColdTrap	813	16	16	-	-	x	x	x	x	-	-	-	-	-	spell97c	64	0	0	0	0	0
 PoisonTrap	814	16	16	-	-	x	x	x	x	-	-	-	-	-	spell29	64	0	0	0	0	0
+Coin	149	64	64	-	-	-	-	-	-	-	x	-	-	-	obj366	0	0	0	0	0	0

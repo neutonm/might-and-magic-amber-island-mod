@@ -1,3 +1,8 @@
+--[[
+Map: Castle Amber
+Author: Henrik Chukhran, 2022 - 2024
+]]
+
 local TXT = Localize{
 	[0] = " ",
     [1] = "Doctor's Residence",
@@ -23,7 +28,8 @@ local TXT = Localize{
     [21] = "+10 Spell points restored",
     [22] = "+15 AC (Temporary)",
     [23] = "Refreshing",
-    [24] = "You need teleportation stone."
+	[24] = "You need teleportation stone.",
+	[25] = "Leave Dungeon"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -38,7 +44,7 @@ Game.MapEvtLines.Count = 0
 evt.hint[2] = evt.str[1]
 evt.map[2] = function()
     
-    evt.EnterHouse(74)
+    evt.EnterHouse(581)
 end
 
 -- Start loc elevator top lever
@@ -92,7 +98,11 @@ end
 
 -- Chests
 for i = 0, 19, 1 do
-	evt.hint[10 + i] = evt.str[7] --.." #"..tostring(i)
+	local hintStr = evt.str[7]
+    if Game.Debug then
+        hintStr = hintStr .. " #"..tostring(i)
+    end
+	evt.hint[10 + i] = hintStr
 	evt.map[10 + i] = function() 
 	    evt.OpenChest(i)
 
@@ -213,7 +223,7 @@ evt.map[42] = function()
 
     if not evt.Cmp("MapVar0", 1) then
 
-    	if not evt.Cmp("Inventory", 781) then         	-- "Teleportation Gem"
+    	if not evt.All.Cmp("Inventory", 781) then         	-- "Teleportation Gem"
     		evt.FaceAnimation{Player = "All", Animation = 43}
     		Game.ShowStatusText(evt.str[24])
 	    	return
@@ -569,5 +579,17 @@ evt.map[85] = function()
     evt.Add("ArmorClassBonus", 15)
     evt.Add("PlayerBits", 1)
 	evt.StatusText(22)         -- "+15 AC (Temporary)"
+end
+
+RefillTimer(function()
+	evt.ForPlayer("All")
+	evt.Subtract("PlayerBits", 1)
+end, const.Day)
+
+-- EXIT DOOR
+-- @todo trigger not set
+evt.hint[88] = evt.str[25]
+evt.map[88] = function()
+    evt.MoveToMap{X = 19042, Y = 21122, Z = 113, Direction = 232, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 4, Name = "amber-east.odm"}
 end
 

@@ -264,21 +264,18 @@ Monster	Undead	Demon	Dragon	Elf	Swimmer	Immobile	Titan	NoArena
 262  zUltra Dragon A	-	-	-	-	-	-	-	-
 263  zUltra Dragon B	-	-	-	-	-	-	-	-
 264  zUltra Dragon C	-	-	-	-	-	-	-	-
-265  zcat a	-	-	-	-	-	-	-	-
-266  zcat b	-	-	-	-	-	-	-	-
-267  zcat c	-	-	-	-	-	-	-	-
-268  zchicken a	-	-	-	-	-	-	-	-
-269  zchicken b	-	-	-	-	-	-	-	-
-270  zchicken c	-	-	-	-	-	-	-	-
+265  Thunder Lizard A	-	-	-	-	-	-	-	-
+266  Thunder Lizard B	-	-	-	-	-	-	-	-
+267  Thunder Lizard C	-	-	-	-	-	-	-	-
+268  Wererat Ratman Form Male A	-	-	-	-	-	-	-	-
+269  Wererat Ratman Form Male B	-	-	-	-	-	-	-	-
+270  Wererat Ratman Form Male C	-	-	-	-	-	-	-	-
 271  zdog a	-	-	-	-	-	-	-	-
 272  zdog b	-	-	-	-	-	-	-	-
 273  zdog c	-	-	-	-	-	-	-	-
 274  zrat a	-	-	-	-	-	-	-	-
 275  zrat b	-	-	-	-	-	-	-	-
 276  zrat c	-	-	-	-	-	-	-	-
-277  Wererat Ratman Form Male A	-	-	-	-	-	-	-	-
-278  Wererat Ratman Form Male B	-	-	-	-	-	-	-	-
-279  Wererat Ratman Form Male C	-	-	-	-	-	-	-	-
-
-
-
+277  Wererat Human Form Male A	-	-	-	-	-	-	-	-
+278  Wererat Human Form Male B	-	-	-	-	-	-	-	-
+279  Wererat Human Form Male C	-	-	-	-	-	-	-	-

@@ -2649,3 +2649,19 @@ Human Alchemy Shop 01	39501	swap	-
 Human Alchemy Shop 02	39502	swap	-
 Human Alchemy Shop 03	39503	swap	-
 Human Alchemy Shop 04	39504	swap	-
+wererat ratman Attack	8000	swap	-
+wererat ratman Death	8001	swap	-
+wererat ratman Wince	8002	swap	-
+wererat ratman Aware	8003	swap	-
+wererat human Attack	8004	swap	-
+wererat human Death	8005	swap	-
+wererat human Wince	8006	swap	-
+wererat human Aware	0	0	-
+crystal dragon attk	8008	swap	-
+crystal dragon death	8009	swap	-
+crystal dragon wince	8010	swap	-
+crystal dragon aware	8011	swap	-
+pirate_warrior Attack	8012	swap	-
+pirate_warrior Death	8013	swap	-
+pirate_warrior Wince	8014	swap	-
+pirate_warrior Aware	8015	0	-
