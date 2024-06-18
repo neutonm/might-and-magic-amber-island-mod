@@ -202,14 +202,18 @@ general.table_destructor = table_destructor
 -- Actual mem functions
 -----------------------------------------------------
 
---!++(mem.i1[p],  mem.i2[p],  mem.i4[p],  mem.i8[p])v Read/write signed integer at address 'p'. Can also be called to convert a number to specified format.
+--!++(mem.i1)v([p],  mem.i2[p],  mem.i4[p],  mem.i8[p]) Read/write signed integer at address 'p'. Can also be called to convert a number to specified format.
 -- For example, for a function that returns a signed byte:
 -- !Lua[[
 -- return mem.i1(mem.call(func, 0))
 -- ]]
 -- This would treat function call result as a signed byte, ignoring 3 higher-order bytes.
---!++(mem.u1[p],  mem.u2[p],  mem.u4[p],  mem.u8[p])v Read/write unsigned integer at address 'p'. Can also be called to convert a number to specified format.
---!++(mem.r4[p],  mem.r8[p],  mem.r10[p])v Read/write a floating-point number at address 'p'
+--!++(mem.u1)v([p],  mem.u2[p],  mem.u4[p],  mem.u8[p]) Read/write unsigned integer at address 'p'. Can also be called to convert a number to specified format.
+--!++(mem.r4)v([p],  mem.r8[p],  mem.r10[p]) Read/write a floating-point number at address 'p'
+--!++(mem.i1p)v([p],  mem.i2p[p],  ...) Versions of all of the above with 'p' at the end to be used for editing code. They perform !Lua[[mem.prot(true)]] before changing the memory and !Lua[[mem.prot(false)]] afterwards.
+--!++(mem.dll)v([Name]) Loads specified library using #mem.LoadDll:# and stores it for later use. Allows for extension to be omitted when only the DLL name without the path is specified.
+-- Example:
+-- !Lua[[mem.dll.user32.MessageBoxA(Game.WindowHandle, 'World', 'Hello', 0)]]
 
 local mem_string = internal.Mem_String
 --!++(mem.string)(p, size, ReadNull) !Lua[[mem.string(p)]] - read null-terminated string
@@ -294,7 +298,7 @@ local function MyProt(on)
 	IgnoreInternal = on
 end
 
---!++(mem.prot)(on) Same as above.
+--!++(mem.prot)(on) Same as the above.
 
 _mem.topointer = internal.toaddress
 local Mem_GetNum = internal.Mem_GetNum
@@ -305,7 +309,7 @@ local function malloc(size)
 	return ucall(internal.malloc, 0, assertnum(size, 2))
 end
 _mem.malloc = malloc
--- Same as above.
+-- Same as the above.
 _mem.alloc = malloc
 
 
@@ -533,6 +537,8 @@ _mem.r10 = memarr(7)
 if ffi then
 	local function ffiarr(type)
 		local size, type = ffi.sizeof(type), type.."*"
+		local ptype = type:sub(1,3) == 'int' and 'u'..type or type
+		local ntype = type:sub(1,4) == 'uint' and type:sub(2) or type
 		local function index(t, a)
 			a = assertnum(a, 2)
 			need_read(a, size, 2)
@@ -541,7 +547,7 @@ if ffi then
 		local function newindex(t, a, v)
 			a = assertnum(a, 2)
 			local a1, a2 = Protect(a, size)
-			ffi.cast(type, a)[0] = v
+			ffi.cast(v < 0 and ntype or ptype, a)[0] = v
 			Unprotect(a1, a2)
 		end
 		return setmetatable({}, {__index = index, __newindex = newindex})
@@ -575,6 +581,18 @@ if ffi then
 	toffi("u8", "uint64_t", true)
 	toffi("r4", "float")
 	toffi("r8", "double")
+end
+
+-- protected versions
+for _, s in pairs({'i1', 'i2', 'i4', 'i8', 'u1', 'u2', 'u4', 'u8', 'r4', 'r8', 'r10', ffi and 'i8x' or nil, ffi and 'u8x' or nil}) do
+	local mt = table_copy(getmetatable(_mem[s]))
+	local newindex = mt.__newindex
+	function mt.__newindex(...)
+		IgnoreCount = IgnoreCount + 1
+		newindex(...)
+		IgnoreCount = IgnoreCount - 1
+	end
+	_mem[s..'p'] = setmetatable({}, mt)
 end
 
 local i4, i2, i1, u8, u4, u2, u1 = _mem.i4, _mem.i2, _mem.i1, _mem.u8, _mem.u4, _mem.u2, _mem.u1
@@ -801,6 +819,7 @@ do -- mem.struct
 		define.members[name] = f
 		if define.isro then
 			define.rofields[name] = true
+			define.isro = nil
 		end
 		define.LastDefinedMemberName = name
 		return define
@@ -962,17 +981,11 @@ do -- mem.struct
 				local n = size + start
 				local v
 				if val then
-					if int then
-						while val < 0 do
-							val = val + sizePow
-						end
-					end
-					start = 2^start
-					val = math_floor(val)*start
-					if start > 1 then
+					val = (val - val % 1) % sizePow
+					if start > 0 then
+						start = 2^start
+						val = val*start
 						start = u1[p] % start
-					else
-						start = 0
 					end
 					while n > 8 do
 						v = val % 256
@@ -1069,7 +1082,7 @@ do -- mem.struct
 				end
 
 				local ret = setmetatable(type(p)=="number" and {["?ptr"] = p} or p, 
-				         {__index = index, __newindex = newindex, __persist = nullpersist, __call = ccall})
+				         {__index = index, __newindex = newindex, __persist = nullpersist, __call = ccall, mem_struct = "struct"})
 				return struct_callback(ret, class, fields, offs, rofields)
 			end
 
@@ -1239,7 +1252,7 @@ do -- mem.struct
 					local f = fields[a]
 					return f and f(offs[a], t, a)
 				end
-				val = setmetatable({}, {__index = index, __newindex = newindex, __persist = nullpersist})
+				val = setmetatable({}, {__index = index, __newindex = newindex, __persist = nullpersist, mem_struct = "union"})
 				val = union_callback(val, fields, offs, rofields)
 				rawset(obj, name, val)
 				return val
@@ -1353,7 +1366,7 @@ do -- mem.struct
 
 		local function myF(o, obj, name, val)
 			if val then
-				roError(name)
+				roError(name, 2)
 			end
 			val = {}
 			
@@ -1443,7 +1456,7 @@ do -- mem.struct
 				end
 			end
 			
-			local meta = {__index = indexes, __newindex = indexes, __call = _call, __persist = nullpersist}
+			local meta = {__index = indexes, __newindex = indexes, __call = _call, __persist = nullpersist, mem_struct = "array"}
 			val = setmetatable(val, meta)
 			val = array_callback(val)
 			rawset(obj, name, val)
@@ -1588,11 +1601,13 @@ end
 
 if GetInstructionSize then
 	-- Takes a string to search for. Only checks for a match at the start of a new instruction.
-	function _mem.findcode(p, s)
-		while mem_cmp(p, s, #s) ~= 0 do
+	function _mem.findcode(p, s, p2)
+		while not p2 or p < p2 do
+			if mem_cmp(p, s, #s) == 0 then
+				return p
+			end
 			p = p + GetInstructionSize(p)
 		end
-		return p
 	end
 	
 	-- Finds a call to 'fpts' starting at 'p' and stopping at 'p2' (optional). If 'fptr' isn't specified, searches for any call instruction.
@@ -2039,7 +2054,7 @@ local function copy_codef(p, codef, code)
 end
 
 -- Like #autohook:mem.autohook#, but takes a compiled Asm code string as parameter
--- 'code' can also be a function !Lua[[f(ptr)]]. 'ptr' is the address of memory allocated for hook code or 'nil' (to calculate size)
+-- 'code' can also be a function !Lua[[f(ptr)]]. The function returns the bytecode string. First it's called with 'nil' as parameter and its result is only used to calculate code size, then it's called with 'ptr' pointing to memory allocated for hook code.
 function _mem.bytecodehook(p, code, size)
 	local codef = (type(code) == "function" and code)
 	code = (codef and codef() or code)
@@ -2138,12 +2153,19 @@ if internal.CompileAsm then
 	-- .text:00441D4C    call sub_4C2E6C
 	-- .text:00441D51    mov ecx, offset unk_511768
 	-- ]]
-	-- Resulting Asm code:
+	-- Resulting Asm code is similar to:
 	-- !Code[[
-	-- .text:00441D4C    jmp @p
+	--                   cmp dword [0xE31AF0], 0
+	--                   jnz 0x441D51
+	-- .text:00441D4C    call sub_4C2E6C
+	-- .text:00441D51    mov ecx, offset unk_511768
+	-- ]]
+	-- Actual resulting Asm code:
+	-- !Code[[
+	-- .text:00441D4C    jmp @p2
 	-- .text:00441D51    mov ecx, offset unk_511768
 	--
-	-- @p:
+	-- @p2:
 	--                   cmp dword [0xE31AF0], 0
 	--                   jnz 0x441D51
 	--                   call sub_4C2E6C
@@ -2165,12 +2187,18 @@ if internal.CompileAsm then
 	-- .text:0043C8E3    mov edi, offset CurrentEvtLines
 	-- .text:0043C8E8    rep movsd
 	-- ]]
-	-- Resulting Asm code:
+	-- Resulting Asm code is similar to:
 	-- !Code[[
-	-- .text:0043C8E3    jmp @p
+	-- .text:0043C8E3    mov edi, offset CurrentEvtLines
+	--                   mov [edi], esi
+	-- .text:0043C8E8    rep movsd
+	-- ]]
+	-- Actual resulting Asm code:
+	-- !Code[[
+	-- .text:0043C8E3    jmp @p2
 	-- .text:0043C8E8    rep movsd
 	--
-	-- @p:
+	-- @p2:
 	--                   mov edi, offset CurrentEvtLines
 	--                   mov [edi], esi
 	--                   jmp 0x43C8E8

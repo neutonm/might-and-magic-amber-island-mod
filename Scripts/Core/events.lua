@@ -9,8 +9,12 @@ end
 local function mm78(...)
 	return (select(mmver - 5, nil, ...))
 end
+local is6 = mmver == 6 or nil
+local is7 = mmver == 7 or nil
+local is8 = mmver == 8 or nil
+local is78 = mmver > 6 or nil
 
-local _KNOWNGLOBALS_F = Party, Game, Map, VFlipUnfixed, structs, GameInitialized1, GameInitialized2
+local _KNOWNGLOBALS_F = Party, Game, Map, VFlipUnfixed, structs, GameInitialized0, GameInitialized1, GameInitialized2, RespectMonsterExp, SplitSkill
 
 local PatchOptionsSize = offsets.PatchOptionsSize -- Game.PatchOptions.Size
 
@@ -38,7 +42,7 @@ do
 		hookcall = false,
 	}
 
-	-- Allows switching all hooks installed by it on/off. 'ref' table is used for substitutions in Asm code: "%key%" is replaced with !Lua[=[ref[key]]=], "%%" is replaced with "%". All hook functions are supported, but memory-editing arrays are supported through 'set' function.
+	-- Allows switching all hooks installed by it on/off. 'ref' table is used for substitutions in Asm code: "%key%" is replaced with !Lua[=[ref[key]]=], "%%" is replaced with "%". All hook functions are supported, but memory-editing arrays are supported as functions instead.
 	-- !\ Example 1 - substitution:!Lua[=[
 	-- local ArtifactBonus = mem.StaticAlloc(8)
 	-- HookManager{
@@ -60,8 +64,8 @@ do
 	-- end]=]
 	-- !\ Example 3 - editing memory:!Lua[=[
 	-- local hooks = HookManager()
-	-- hooks.set('i4', 0x469BBE+1, 0x10000)  -- instead of mem.prot(true);  mem.i4[0x469BBE+1] = 0x10000;  mem.prot(false)
-	-- hooks.set('u2', 0x472FB7, 0x9090)  -- instead of mem.prot(true);  mem.u2[0x472FB7] = 0x9090;  mem.prot(false)
+	-- hooks.i4p(0x469BBE+1, 0x10000)  -- instead of mem.i4p[0x469BBE+1] = 0x10000
+	-- hooks.u2p(0x472FB7, 0x9090)     -- instead of mem.u2p[0x472FB7] = 0x9090
 	-- hooks.asmpatch(0x472F5E, "add eax, ecx", 2)
 	-- DisableVFlipFix = |on| hooks.Switch(not on)]=]
 	-- !\ P.S. Don't try to run the code of these examples, they are for illustration.
@@ -136,10 +140,22 @@ do
 			mem.nop2(p, p2)
 		end
 		function t.set(a, p, v)
-			t.AddMem(p, a:sub(2, -1) + 0)
+			t.AddMem(p, a:match('%d+') + 0)
 			mem.prot(true)
 			mem[a][p] = v
 			mem.prot(false)
+		end
+		local function SetMe(s)
+			local sz = s:match('%d+') + 0
+			local a = mem[s]
+			t[s] = function(p, v)
+				t.AddMem(p, sz)
+				a[p] = v
+			end
+		end
+		for _, s in pairs({'i1', 'i2', 'i4', 'i8', 'u1', 'u2', 'u4', 'u8', 'r4', 'r8', 'r10', ffi and 'i8x' or nil, ffi and 'u8x' or nil}) do
+			SetMe(s)
+			SetMe(s..'p')
 		end
 		function t.hookalloc(size)
 			local p = mem.hookalloc(size)
@@ -272,8 +288,21 @@ function internal.CalcSpellDamage(dmg, spell, skill, mastery, HP)
 		-- :const
 		Mastery = mastery,
 		HP = HP, HitPoints = HP}
-	events.cocall("CalcSpellDamage", t)
+	events.cocalls("CalcSpellDamage", t)
 	return t.Result
+end
+
+if mmver == 6 then
+	mem.asmpatch(0x4320D7, [[
+		mov eax, [esp]
+		push eax  ; mastery
+		push edx  ; skill
+		push ecx  ; spell
+		mov ecx, esi
+		call absolute 0x481EA0
+		mov [esp + 12], eax  ; HP
+		call absolute 0x47F0A0
+	]])
 end
 
 
@@ -312,7 +341,7 @@ function internal.TravelWalk(mapName, x, y, buf, bufsize, result)
 	-- Sides:
 	--   0, "up", "down", "left", "right".
 	--   0 means "party start" sprite.
-	events.cocall("WalkToMap", t)
+	events.cocalls("WalkToMap", t)
 	local res = t.EnterMap and tostring(t.EnterMap)
 	if res and res ~= oldRes and assert(#res < bufsize) then
 		mem.copy(buf, res, #res + 1)
@@ -370,12 +399,20 @@ if mmver < 8 then
 	end)
 	
 else
+
 	mem.hookfunction(0x4903C0, 1, 2, function(d, def, party, clearClass, fill)
 		def(party, clearClass, fill)
 		if clearClass ~= 0 then
 			events.cocalls(fill ~= 0 and "NewGameDefaultParty" or "NewGameClearParty")
 		end
 	end)
+	
+	mem.hookfunction(0x4949BD, 1, 0, function(d, def, party)
+		def(party)
+		-- Loaded roster.txt and pcnames.txt
+		events.cocalls("LoadedRosterTxt")
+	end)
+	
 end
 
 if mmver > 6 and PatchOptionsSize < 336 then
@@ -390,6 +427,14 @@ if mmver > 6 and PatchOptionsSize < 336 then
 		mov eax, 8
 		jmp absolute mm7*0x454DA6 + mm8*0x45258D
 	@@:
+	]])
+end
+
+if mmver > 6 and PatchOptionsSize < 228 then
+	-- fix LoadBitmapInPlace
+	mem.asmhook(mm78(0x4105F9, 0x4119FC), [[
+	  mov eax, [esi + $14]
+	  mov [esp + 4], eax
 	]])
 end
 
@@ -420,16 +465,26 @@ local function delayed(f)
 	delayedDefs[f] = true
 end
 
-function internal.GameInitialized1()
+local InitDone0
+
+mem.autohook(mmv(0x4455D0, 0x452C75, 0x450493), function(d)
+	if not InitDone0 then
+		InitDone0, GameInitialized0 = true, true
+		-- loaded icons.lod, events.lod[MM7], language LODs[MM8]; about to start loading global.txt
+		events.cocalls("GameInitialized0")
+	end
+end)
+
+function internal.GameInitialized1()  -- called after 460D27 in MM8
 	for f in pairs(delayedDefs) do
 		f()
 	end
 	GameInitialized1 = true
-	-- loaded .bin data
+	-- loaded all archives except games.lod, loaded global.txt and .bin data
 	events.cocalls("GameInitialized1")
 end
 
-function internal.GameInitialized2()
+function internal.GameInitialized2()  -- called after 460E12 in MM8
 	GameInitialized2 = true
 	-- fix water in maps without a building with WtrTyl texture, also don't turn textures with water bit into water (fixed in patch 2.5)
 	if mmver == 7 and Game.IsD3D and PatchOptionsSize < 336 then
@@ -437,7 +492,7 @@ function internal.GameInitialized2()
 			i4[0xEF5114] = Game.BitmapsLod:LoadBitmap("WtrTyl")
 		end)
 	end
-	-- loaded .txt data
+	-- loaded .txt data, global.evt and all archives, intro shown, various bitmaps, sprites and sounds loaded
 	events.cocalls("GameInitialized2")
 end
 
@@ -640,7 +695,7 @@ if mmver ~= 7 then
 	mem.autohook2(mmv(0x40D40F, nil, 0x4CC481), function(d)
 		CopyDialogIndexes()
 		-- Use this event to add quest indexes to #Game.DialogLogic.List:structs.DialogLogic.List# or rearrange them
-		events.cocall("PopulateQuestLog")
+		events.cocalls("PopulateQuestLog")
 	end)
 	
 	-- populate autonotes list
@@ -648,7 +703,7 @@ if mmver ~= 7 then
 		CopyDialogIndexes()
 		local t = {Category = Game.DialogLogic.AutonotesCategory}
 		-- Use this event to add autonote indexes to #Game.DialogLogic.List:structs.DialogLogic.List# or rearrange them
-		events.cocall("PopulateAutonotesList", t)
+		events.cocalls("PopulateAutonotesList", t)
 	end)
 else
 	local p = mem.StaticAlloc(4)
@@ -657,10 +712,10 @@ else
 	mem.autohook2(0x4126A8, function(d)
 		local k = i4[p]
 		if k == 200 then
-			events.cocall("PopulateQuestLog")
+			events.cocalls("PopulateQuestLog")
 		elseif k == 201 then
 			local t = {Category = Game.DialogLogic.AutonotesCategory}
-			events.cocall("PopulateAutonotesList", t)
+			events.cocalls("PopulateAutonotesList", t)
 		end
 	end)
 end
@@ -669,7 +724,7 @@ end
 mem.autohook2(mmv(0x40E73E, 0x413832, 0x4CCDB6), function(d)
 	CopyDialogIndexes()
 	local t = {Category = Game.DialogLogic.AutonotesCategory}
-	events.cocall("PopulateAutonotesList", t)
+	events.cocalls("PopulateAutonotesList", t)
 end)
 
 -- populate awards list
@@ -686,7 +741,7 @@ local function PopulateAwards(d)
 		NoShuffle = mmver == 6,
 	}
 	-- Use this event to add award indexes to #Game.DialogLogic.List:structs.DialogLogic.List# or rearrange them. Awards would later be arranged into groups of different colors. If 'NoShuffle' is set to 'true', their order within groups would be preserved, otherwise default game code will sort them in an unpredictable manner.
-	events.cocall("PopulateAwardsList", t)
+	events.cocalls("PopulateAwardsList", t)
 	d.eax = a.ListCount
 	if mmver == 6 or t.NoShuffle then
 		local t, a, sort = {}, Game.DialogLogic.List, Game.AwardsSort
@@ -710,25 +765,30 @@ end
 -- show monster info
 mem.autohook(mmv(0x41CF11, 0x41E3CC, 0x41D9B0), function(d)
 	--!(MonId) Called when monster kind in monster info dialog changes. #Game.DialogLogic.MonsterInfoMonster:structs.DialogLogic.MonsterInfoMonster# holds the monster prototype being displayed. This is the event you can use to change #Game.PatchOptions.MonSpritesSizeMul:structs.PatchOptions.MonSpritesSizeMul#.
-	events.cocall("MonsterInfoPictureChanged", Game.DialogLogic.MonsterInfoMonster.Id)
+	events.cocalls("MonsterInfoPictureChanged", Game.DialogLogic.MonsterInfoMonster.Id)
 end)
 
 -- WindowProc
 do
-	local buf = mem.hookalloc()
 	local ptr = mmv(0x45733A+4, 0x4652BB+3, 0x463542+3)
 	local std = u4[ptr]
+	local hooks = HookManager{p = std}
+	local buf, bufN = hooks.asmproc[[
+		cmp dword [esp + 8], 0xFF  ; ignore WM_INPUT to avoid slowing the game down
+		jz absolute %p%
+		jmp absolute %p%  ; this is here to be replaced by a hook call
+	]]
 	u4[ptr] = buf
 	function CallDefaultWindowProc(Msg, WParam, LParam)
 		return call(std, 0, u4[offsets.MainWindow], Msg or 0, WParam or 0, LParam or 0)
 	end
 	
-	mem.hook(buf, function(d)
+	mem.hook(buf + bufN - 5, function(d)
 		d.esp = d.esp + 4
 		local wnd, msg, wp, lp = d:getparams(0, 4)
 		d:ret(4*4)
 		local t = {Window = wnd, Msg = msg, WParam = wp, LParam = lp, Handled = false, Result = 0}
-		events.cocall("WindowMessage", t)
+		events.cocalls("WindowMessage", t)
 		if t.Handled then
 			d.eax = t.Result
 			return
@@ -741,7 +801,7 @@ do
 				Alt = (msg >= 0x104), ExtendedKey = lp:And(0x1000000) ~= 0,
 				WasPressed = lp:And(0x40000000) ~= 0, Handled = false}
 			local down = (msg % 2 == 0)
-			events.cocall(down and "KeyDown" or "KeyUp", t)
+			events.cocalls(down and "KeyDown" or "KeyUp", t)
 			if down then
 				internal.TimersKeyDown(wp, t)
 			end
@@ -755,20 +815,65 @@ do
 	end)
 end
 
+-- right click reaction
+do
+	local hooks = HookManager{}
+	hooks.hookfunction(mmv(0x4113C0, 0x416D0B, 0x41634C), 1, 0, function(d, def, mouse)
+		if Game.CurrentScreen == 16 then
+			return  -- movie
+		end
+		local t = {
+			-- false
+			Handled = false,
+			-- nil
+			Once = nil,
+		}
+		local done
+		-- function!Params[[()]]
+		t.CallDefault = function()
+			if not t.Handled then
+				def(mouse)
+				t.Handled, done = true, true
+			end
+		end
+		-- First called when the right mouse button is pressed, then on every frame while the button is being held.
+		-- You can assume that if #Game.RightButtonPressed:# is 'false', this is the moment the button has been pressed.
+		-- Set 'Handled' to 'true' to prevent standard reaction.
+		-- Set 'Once' to 'true' to prevent #Game.RightButtonPressed:# from being set to 'true' and thus have the event trigger only once per click.
+		events.cocalls("RightClick", t)
+		t.CallDefault()
+		if t.Once ~= nil or not done then
+			Game.RightButtonPressed = not t.Once
+			Game.NeedRedraw = true
+		end
+	end)
+	Conditional(hooks, "RightClick")
+end
+
+-- MM6 - fix CurrentScreen staying at its last value when main menu is shown
+if mmver == 6 then
+	mem.asmhook(0x4506F0, 'mov dword [0x4BCDD8], 0')
+end
+
 -- Draw D3D effects
 if mmver > 6 then
 	local hooks = HookManager()
 	hooks.autohook(mm78(0x4A1F92, 0x49FA68), function()
-		events.cocall("PostRender")
+		events.cocalls("PostRender")
 	end)
 	Conditional(hooks, "PostRender")
 end
 
+-- count frames
+if mmver == 6 then
+	internal.FrameCounter = mem.StaticAlloc(4)
+	mem.asmhook(0x41F190, 'inc dword ['..internal.FrameCounter..']')
+end
 
 -- OnAction
 local function OnAction(InGame, a1, a2, a3)
 	local t = {Action = i4[a1], Param = i4[a2], Param2 = a3 and i4[a3] or 0, Handled = false}
-	events.cocall(InGame and "Action" or "MenuAction", t)
+	events.cocalls(InGame and "Action" or "MenuAction", t)
 	if t.Handled or InGame and internal.OnActionNPC(t) then
 		i4[a1] = 0
 	else
@@ -818,36 +923,40 @@ do
 			-- :const.ExitMapAction
 			Action = d[reg],
 		}
-		events.cocall('ExitMapAction', t)
+		events.cocalls('ExitMapAction', t)
 		Game.ExitMapAction = t.NextAction or t.Action  -- just in case someone actually needs a trick like this
 		d[reg] = t.Action or Game.ExitMapAction
 	end)
 end
 
 -- KeysFilter
-if mmver > 6 then
-	mem.hook(mm78(0x42FCD1, 0x42E616), function(d)
-		local on = d.al ~= 0
-		local t = {
-			-- :const.Keys
-			Key = i4[d.esp + 0x1C - 8],
-			On = on, Result = on}
-		events.cocalls("KeysFilter", t)
-		if not t.Result then
-			u4[d.esp] = mm78(0x43015B, 0x42EC44)
+do
+	local hooks = HookManager()
+	if mmver > 6 then
+		hooks.hook(mm78(0x42FCD1, 0x42E616), function(d)
+			local on = d.al ~= 0
+			local t = {
+				-- :const.Keys
+				Key = i4[d.esp + 0x1C - 8],
+				On = on, Result = on}
+			events.cocalls("KeysFilter", t)
+			if not t.Result then
+				u4[d.esp] = mm78(0x43015B, 0x42EC44)
+			end
+		end, 6)
+	else
+		local function f(d)
+			local on = not d.ZF
+			local t = {Key = d.esi, On = on, Result = on}
+			events.cocalls("KeysFilter", t)
+			if not t.Result then
+				u4[d.esp] = 0x42B229
+			end
 		end
-	end, 6)
-else
-	local function f(d)
-		local on = not d.ZF
-		local t = {Key = d.esi, On = on, Result = on}
-		events.cocalls("KeysFilter", t)
-		if not t.Result then
-			u4[d.esp] = 0x42B229
-		end
+		hooks.hook(0x42AE5C, f, 6)
+		hooks.hook(0x42AE73, f, 6)
 	end
-	mem.hook(0x42AE5C, f, 6)
-	mem.hook(0x42AE73, f, 6)
+	Conditional(hooks, "KeysFilter")
 end
 
 -- Save/load game
@@ -995,12 +1104,122 @@ if mmver == 7 then
 	]])
 end
 
+-- fix drawing of dialogs under Esc message or custom dialogs that use MimicScreen
+if PatchOptionsSize < 400 then
+	local hooks = HookManager{
+		CurrentScreen = mmv(0x4BCDD8, 0x4E28D8, 0x4F37D8),
+		EscMessageLastScreen = mmv(0x4CB6A0, 0x506D8C, 0x51856C),
+	}
+	for _, p in ipairs(mmv({0x45097A}, {0x4414BB, 0x42266B, 0x4416E3}, {0x421886, 0x43E53B, 0x4218B8})) do
+		hooks.asmhook2(p, [[
+			cmp eax, 22
+			jnz @f
+			mov eax, [%EscMessageLastScreen%]
+		@@:
+		]])
+	end
+	if mmver == 7 then
+		hooks.asmhook(0x441030, [[
+			mov eax, [%CurrentScreen%]
+			cmp eax, 22
+			jnz @f
+			push eax
+			mov eax, [%EscMessageLastScreen%]
+			mov [%CurrentScreen%], eax
+			call @f
+			pop edx
+			mov [%CurrentScreen%], edx
+			ret
+		@@:
+		]])
+	end
+	if mmver > 6 then
+		hooks.asmhook(mm78(0x462A80, 0x460AFA), [[
+		  jz @std
+		  cmp dword [%CurrentScreen%], 22
+		  jz @chk
+		  or al, 12
+		  jmp @std
+		@chk:
+		  cmp dword [%EscMessageLastScreen%], 12
+		@std:
+		]])
+	end
+end
+
+-- locale-independant shortcuts (custom dialogs depend on this fix)
+if PatchOptionsSize < 400 then
+	local hooks = HookManager{
+		MainMenuCode = mmv(0x5F811C, 0x6A0BC4, 0x6CEB24),
+		CurrentScreen = mmv(0x4BCDD8, 0x4E28D8, 0x4F37D8),
+		CheckShortCut = mmv(0x417F90, 0x41B3E1, 0x41B214),
+		TextInputMode = mmv(0x5F6E70, 0x69AD80, 0x6C8CD8) + 0x104,
+		DialogsHigh = mmv(0x4D46BC, 0x5074B0, 0x518CE8),
+	}
+	
+	hooks.ref.cmp_code = hooks.ProcessAsm[[
+		cmp dword ptr [%MainMenuCode%], 0
+	if mm6
+		mov cl, [esp + 0x5C]
+	else
+		mov cl, [ebp + 0x10]
+	end if
+		jl @down
+		cmp dword ptr [%CurrentScreen%], 22
+		jz @down
+		cmp cl, 'A'
+		jb @char
+		cmp cl, 'Z' + 1
+	]]
+	
+	-- WM_CHAR - ignore in most cases
+	hooks.asmhook(mmv(0x454564, 0x463D46, 0x461E46), [[
+		jnz @down
+		%cmp_code%
+		jb @down
+	@char:
+		xor eax, eax
+	@down:
+	]])
+	
+	-- WM_KEYDOWN - call CheckShortCut in most cases
+	hooks[mmver == 6 and 'asmhook' or 'asmhook2'](mmv(0x454592, 0x463D6F, 0x461E6F), [[
+	if mm6 = 0
+		jnz @exit
+	else
+		cmp dword [%DialogsHigh%], 0
+		jz @exit
+	end if
+		mov eax, [%TextInputMode%]
+		dec eax
+		jz @char  ; 1 - text input
+		dec eax
+		jz @char  ; 2 - numbers input
+		%cmp_code%
+		ja @char
+	@down:
+		call absolute %CheckShortCut%
+	@char:
+		xor eax, eax
+	@exit:
+	]])
+	
+	-- no toupper() calls for shortcuts
+	if mmver > 6 then
+		mem.nop(mm78(0x41B3E7, 0x41B21B))
+		mem.nop(mm78(0x41B496, 0x41B2CB))
+		mem.nop(mm78(0x41B4A2, 0x41B2D8))
+	else
+		mem.asmpatch(0x417F9A, 'mov eax, ecx')
+	end
+end
+
 -- Improve doors in D3D mode
 if mmver > 6 then
 	-- Bitmap-independant door UV calculation in D3D mode (was good for editor when it used to change textures)
 	u4[mm78(0x46F7C4, 0x46E2A5)] = 0xC0316690  -- xor ax,ax
 	u4[mm78(0x46F784, 0x46E265)] = 0xC0316690  -- xor ax,ax
-	-- Don't reset static door texture coordinates in D3D mode
+	-- Don't reset texture coordinates if Align* properties aren't set in D3D mode
 	mem.asmpatch(mm78(0x46F622, 0x46E103), [[
 		mov ecx, [ebx + 0x2C]  ; bits
 		test ecx, 0x9000
@@ -1011,6 +1230,50 @@ if mmver > 6 then
 		jz @f
 		mov [esi + 0x16], ax   ; BitmapV
 	@@:
+	]])
+end
+
+-- Support darkness of 31 and above in dungeons in D3D
+if mmver > 6 then
+	local n = 61 - 31  -- for darkness 32..61
+	local p = mem.StaticAlloc(n*4)
+	for i = 0, n - 1 do
+		local x = i + 32
+		local v = (-0.000339112165*x^4 + 0.063560570978*x^3 - 4.167895880712*x^2 + 103.333659974953*x - 522.885383275568):round()
+		i4[p + i*4] = (v*256 + v)*256 + v
+	end
+
+	mem.asmhook(mm78(0x4B0B85, 0x4AEF65), [[
+		mmdef jmp1, 0, 0x4B0B91, 0x4AEF71
+		cmp eax, 31
+		jl @ok
+		je @lim
+		shl eax, 24
+		add eax, 1
+		jmp absolute jmp1
+	@lim:
+		mov eax, 1
+		jmp absolute jmp1
+	@ok:
+	]])
+
+	HookManager{p = p, lim = 32 + n}.asmhook2(mm78(0x4A2F97, 0x4A0E4C), [[
+		cmp esi, ebx
+		jz @std
+		mov edx, [ebp + 0x1C]
+		test edx, 0xff000000
+		jz @std
+		lea ecx, [edx - 0x10101]
+		test ecx, 0xffffff
+		jnz @std
+		shr ecx, 24
+		xor edx, edx
+		cmp ecx, %lim%
+		jge @skip
+		mov edx, [ecx*4 + %p% - 32*4]
+	@skip:
+		mov [eax], edx
+	@std:
 	]])
 end
 
@@ -1028,6 +1291,22 @@ else
 	mem.asmhook(mm78(0x478C40, 0x477B71), [[
 		mov [ebx + 0x4C], ax
 	]])
+end
+
+-- restore AnimatedTFT and HasData bits from Blv rather than Dlv in case patch is below 2.6
+if mmver > 6 and PatchOptionsSize < 400 then
+	local s = [[
+		mov eax, [esp]
+		mov edx, [esp+4]
+		mov edx, [edx]
+		mov ecx, [eax]
+		and ecx, 0x80004000  ; AnimatedTFT + HasData
+		and edx, 0xFFFFFFFF - 0x80004000
+		or edx, ecx
+		mov [eax], edx
+	]]
+	mem.asmpatch(mm78(0x49A745, 0x497C3A), s)  -- blv
+	mem.asmpatch(mm78(0x47E787, 0x47DCAD), s)  -- odm
 end
 
 -- allow 64k files in lods instead of 32k
@@ -1097,14 +1376,6 @@ else
 	end
 end
 
--- Special effects of spells (can't do as Lua hook, they slow things down)
--- if mmver > 6 then
--- 	mem.hookfunction(mm78(0x4A815A, 0x4A673D), 1, 1, function(d, def, this, obj)
--- 		local t = {}
--- 		local function callDef()
--- 	end)
--- end
-
 -- when games.lod index is used make negative indeces refer to mapstats.txt lines, make "Town Portal to" text respect TownPortalInfo
 if mmver == 6 then
 	local hooks = HookManager{
@@ -1149,6 +1420,7 @@ if mmver == 6 then
 	@@:
 	]])
 	-- lloyd set
+	mem.nop(0x42E47B)
 	hooks.asmhook(0x42E4B1, [[
 		push 0x6107BC  ; MapName
 		mov ecx, %MapStats%
@@ -1219,8 +1491,7 @@ if mmver == 6 then
 else
 	local hooks = HookManager{
 		MapStats = mm78("[0x410FB2]", "[0x41336B]"),
-		MapName = mm78(0x6BE1C4, 0x6F3984),
-		MapStats_Find = mm78(0x4547CF, 0x451F39),
+		MapStatsIndex = mm78(0x6BDFBC, 0x6F30C4),
 		TownPortalInfo = mm78(0x4ECA60, 0x4FCA88),
 	}
 	-- lloyd games index -> mapstats index
@@ -1247,13 +1518,10 @@ else
 	hooks.ref.p = mm78(0x433699, 0x430F79)
 	hooks.asmhook(mm78(0x433690, 0x430F70), code)
 	-- lloyd set
+	mem.nop(mm78(0x433821, 0x431086))
 	hooks.asmhook2(mm78(0x43385C, 0x4310B3), [[
 		jl @f
-		push %MapName%
-		mov ecx, %MapStats%
-		call absolute %MapStats_Find%
-		test eax, eax
-		jz @f
+		mov eax, [%MapStatsIndex%]
 		neg eax
 	if mm7
 		mov ecx, [esp + 0x5F8 - 0x5DC]
@@ -1324,6 +1592,63 @@ mem.autohook(mmv(0x4554B5, 0x450AD6, 0x44E339), function(d)
 	internal.MapRefilled = 1
 end)
 
+-- LoadSavedMap
+do
+	local function f(d, outdoor)
+		local ebp = (is8 or is7 and not outdoor) and d.ebp
+		if ebp and u4[ebp - 0xC] ~= 0 then
+			return
+		end
+		local a = ebp and u4 or d
+		local p = is6 and 'ebx' or ebp and ebp - 4 or 'edi'
+		local dx = is6 and 8 or outdoor and 40 or 0
+		local t = {
+			-- Raw 'ddm' or 'dlv' data
+			Data = a[p] - dx,
+			IsOutdoor = outdoor,
+			IsIndoor = not outdoor,
+			-- [MM7+] Total numuber of facets on the map
+			FacetsCount = is78 and (outdoor and d.ecx or Map.Facets.Count),
+		}
+		-- You can do a number of things here:
+		-- 1. Set #Map.LastRefillDay:structs.GameMap.LastRefillDay# to '0' to force a refill.
+		-- 2. In MM7+ you could handle games saved in an older version of your mod. The game checks #Map.SanitySpritesCount:structs.GameMap.SanitySpritesCount# against #Map.Sprites.Count:structs.GameMap.Sprites#, #Map.SanityFacetsCount:structs.GameMap.SanityFacetsCount# against 'FacetsCount', and on outdoor maps #Map.SanityModelsCount:structs.GameMap.SanityModelsCount# against #Map.Models.Count:structs.GameMap.Models#. If all sanity fields are non-zero and either of them doesn't match the real count, the game forcibly refills the map. You can do a similar check, and either change 'Data' (use #mem.free:# and #mem.malloc:# if needed) or backup monsters, objects, chests and visible map data and restore them in #CancelLoadingMapScripts:events.CancelLoadingMapScripts# event (that's the first of events that fires once the map is loaded). Not an easy task, but it will provide saves compatibility when signinficant changes to maps happen.
+		-- !b[[Important:]] #Map.Name:structs.GameMap.Name# at this point is changed from "map.odm"/"map.blv" to "map.ddm"/"map.dlv".
+		-- Another note: #Map.SanityDoorDataSize:structs.GameMap.SanityDoorDataSize# was added in MMExtension. At this point you can check it against #Map.IndoorHeader.DoorDataSize:structs.BlvHeader.DoorDataSize#, later on 'DoorDataSize' gets replaced with 'SanityDoorDataSize' if the latter is non-zero.
+		events.cocalls("LoadSavedMap", t)
+		a[p] = t.Data + dx
+	end
+	mem.autohook(mmv(0x46DAB4, 0x47E520, 0x47DA26), |d| f(d, true))
+	mem.autohook(mmv(0x48BEB1, 0x49A4FE, 0x4979E8), |d| f(d, false))
+end
+
+-- SanityDoorDataSize
+if mmver > 6 then
+	delayed(function()
+		local hooks = HookManager{
+			sanity = structs.ptr(Map, "SanityDoorDataSize"),
+			size = structs.ptr(Map.IndoorHeader, "DoorDataSize"),
+		}
+		-- write
+		hooks.asmpatch(mm78(0x45FB69, 0x45D5AA), [[
+			mov edx, [%size%]
+			mov [%sanity%], edx
+		]])
+		-- read
+		hooks.asmhook(mm78(0x49A5B8, 0x497AAD), [[
+			xor eax, eax
+			mov [%sanity%], eax
+		]])
+		hooks.asmhook(mm78(0x49A92E, 0x497E28), [[
+			mov eax, [%sanity%]
+			and eax, 0xfffFFFF
+			jz @f
+			mov [%size%], eax
+		@@:
+		]])
+	end)
+end
+
 -- PlayMapTrack
 local function PlayMapTrack(d, def, this, track)
 	local index = (mmver == 6 and d.esi - Game.MapStats["?ptr"] or d.eax)/structs.MapStatsItem["?size"]
@@ -1331,7 +1656,7 @@ local function PlayMapTrack(d, def, this, track)
 		MapIndex = index,
 		Track = mmver == 6 and track or Game.MapStats[index].RedbookTrack
 	}
-	events.cocall("PlayMapTrack", t)
+	events.cocalls("PlayMapTrack", t)
 	if mmver == 6 then
 		def(this, t.Track)
 	else
@@ -1384,7 +1709,7 @@ mem.hookfunction(mmv(0x4A59A0, 0x4BE671, 0x4BC1F1), 2, mmv(1, 2, 2), function(d,
 			t.Allow = false
 		end
 	end
-	events.cocall("ShowMovie", t)
+	events.cocalls("ShowMovie", t)
 	t.CallDefault()
 end)
 
@@ -1409,9 +1734,9 @@ mem.hookfunction(mmv(0x48EB40, 0x4AA29B, 0x4A87DC), 1, 8, function(d, def, this,
 		end
 	end
 	--!-
-	events.cocall("InternalPlaySound", t)
+	events.cocalls("InternalPlaySound", t)
 	if t.Allow then
-		events.cocall("PlaySound", t)
+		events.cocalls("PlaySound", t)
 	end
 	t.CallDefault()
 end)
@@ -1464,10 +1789,10 @@ do
 			end
 		end
 		--!-
-		events.cocall("InternalFaceAnimation", t)
+		events.cocalls("InternalFaceAnimation", t)
 		if t.Allow then
 			--!k{Player :structs.Player}
-			events.cocall("FaceAnimation", t)
+			events.cocalls("FaceAnimation", t)
 		end
 		t.CallDefault()
 	end)
@@ -1555,6 +1880,7 @@ if mmver > 6 then
 	]])
 end
 
+
 ---- Player hooks
 
 -- CalcStatBonusByItems
@@ -1601,10 +1927,10 @@ mem.hookfunction(mmv(0x482E80, 0x48EAA6, 0x48E213), 1, mmv(1, 2, 2), function(d,
 	--!k{Player :structs.Player}
 	-- Here's how 'SetArtifactBonus'!Params[[(value)]] method works:
 	--   [MM7+] If 'value' is bigger than 'ArtifactBonus', it modifies 'ArtifactBonus' and increases 'Result'.
-	--   [MM6] It just adds the 'value' to 'Result'. The game does the same, but only includes one instance of each artifact into consideration.
+	--   [MM6] It just adds the 'value' to 'Result'. The game does the same, but only takes one instance of each artifact into consideration.
 	--
 	-- 'SetMagicBonus' does the same to 'MagicBonus'.
-	events.cocall("CalcStatBonusByItems", t)
+	events.cocalls("CalcStatBonusByItems", t)
 	return t.Result
 end)
 
@@ -1617,7 +1943,7 @@ mem.hookfunction(mmv(0x483800, 0x48F734, 0x48EE09), 1, 1, function(d, def, this,
 	}
 	t.PlayerIndex, t.Player = GetPlayer(this)
 	--!k{Player :structs.Player}
-	events.cocall("CalcStatBonusByMagic", t)
+	events.cocalls("CalcStatBonusByMagic", t)
 	return t.Result
 end)
 
@@ -1630,7 +1956,7 @@ mem.hookfunction(mmv(0x483930, 0x48FBF8, 0x48F084), 1, 1, function(d, def, this,
 	}
 	t.PlayerIndex, t.Player = GetPlayer(this)
 	--!k{Player :structs.Player}
-	events.cocall("CalcStatBonusBySkills", t)
+	events.cocalls("CalcStatBonusBySkills", t)
 	return t.Result
 end)
 
@@ -1643,7 +1969,7 @@ if mmver > 6 then
 		}
 		t.PlayerIndex, t.Player = GetPlayer(this)
 		--!k{Player :structs.Player} [MM7+]
-		events.cocall("GetSkill", t)
+		events.cocalls("GetSkill", t)
 		return t.Result
 	end)
 end
@@ -1656,7 +1982,7 @@ mem.hookfunction(mmv(0x481A80, 0x48E19B, 0x48D62A), 1, 1, function(d, def, this,
 	}
 	t.PlayerIndex, t.Player = GetPlayer(this)
 	--!k{Player :structs.Player}
-	events.cocall("GetAttackDelay", t)
+	events.cocalls("GetAttackDelay", t)
 	return t.Result
 end)
 
@@ -1670,7 +1996,7 @@ mem.hookfunction(mmv(0x47F670, 0x48D499, 0x48CDA6), 1, 2, function(d, def, this,
 	}
 	t.PlayerIndex, t.Player = GetPlayer(this)
 	--!k{Player :structs.Player}
-	events.cocall("CalcDamageToPlayer", t)
+	events.cocalls("CalcDamageToPlayer", t)
 	return t.Result
 end)
 
@@ -1682,7 +2008,7 @@ local function SimplePlayerHook(p, name)
 		}
 		t.PlayerIndex, t.Player = GetPlayer(this)
 		--!k{Player :structs.Player}
-		events.cocall(name, t)
+		events.cocalls(name, t)
 		return t.Result
 	end)
 end
@@ -1703,14 +2029,14 @@ if false then  -- for help
 		Player = 1,
 		PlayerIndex = 1,
 	}
-	events.cocall("GetMerchantTotalSkill", t)
-	events.cocall("GetDisarmTrapTotalSkill", t)
+	events.cocalls("GetMerchantTotalSkill", t)
+	events.cocalls("GetDisarmTrapTotalSkill", t)
 	-- [MM6]
-	events.cocall("GetDiplomacyTotalSkill", t)
+	events.cocalls("GetDiplomacyTotalSkill", t)
 	-- [MM7+]
-	events.cocall("GetPerceptionTotalSkill", t)
+	events.cocalls("GetPerceptionTotalSkill", t)
 	-- [MM7+]
-	events.cocall("GetLearningTotalSkill", t)
+	events.cocalls("GetLearningTotalSkill", t)
 end
 
 -- DoBadThingToPlayer
@@ -1725,9 +2051,71 @@ mem.hookfunction(mmv(0x480010, 0x48DCDC, 0x48D166), 1, mmv(1, 2, 2), function(d,
 		t.MonsterIndex, t.Monster = GetMonster(mon)
 	end
 	--!k{Player :structs.Player, Monster :structs.MapMonster [MM7+], MonsterIndex [MM7+]}
-	events.cocall("DoBadThingToPlayer", t)
+	events.cocalls("DoBadThingToPlayer", t)
 	return t.Allow and def(this, thing, mon) or 0
 end)
+
+-- ChangePlayerClass
+do
+	local sClass = mmv('dl', 'al', 'al')
+	local sPlayer = mmv('esi', 'esi', 'edi')
+	local function f(d)
+		local t = {
+			Class = d[sClass],
+			Lich = mmver > 6 and d.zf,
+		}
+		local pl = d[sPlayer]
+		t.PlayerIndex, t.Player = GetPlayer(pl)
+		--!k{Player :structs.Player} Called before the class change is performed.
+		-- If 'Lich' is 'true', player face would be changed and immunities would be given.
+		events.cocalls("ChangePlayerClass", t)
+		d[sClass] = t.Class
+		if mmver > 6 then
+			d.zf = t.Lich
+		else
+			u1[pl + 0x12] = t.Class
+		end
+	end
+
+	if mmver > 6 then
+		mem.autohook(mm78(0x44A6E6, 0x447D3D), f)
+	else
+		mem.nop(0x440AEE)
+		mem.autohook2(0x440AEA, f)
+	end
+end
+
+-- LichFace
+if mmver > 6 then
+	local reg = mm78('esi', 'edi')
+	mem.autohook(mm78(0x44A7BE, 0x447DE0), function(d)
+		local t = {}
+		t.PlayerIndex, t.Player = GetPlayer(d[reg])
+		local pl = t.Player
+		--!k{Player :structs.Player} [MM7+] Called when a player becomes a lich, letting you change the face before its frames are loaded
+		events.cocalls("LichFace", t)
+	end)
+end
+
+-- ZombieFace
+if mmver == 7 then
+	-- do all the work in SetCondition
+	mem.hook(0x493166, function(d)
+		local t = {}
+		t.PlayerIndex, t.Player = GetPlayer(d.esi)
+		local pl = t.Player
+		-- use GetSex() instead of in-place code that does the same
+		local face = pl:GetSex() ~= 0 and 24 or 23
+		pl.Face = face
+		pl.Voice = face
+		--!k{Player :structs.Player} [MM7] Called when a player becomes a zombie, letting you change the face before its frames are loaded
+		events.cocalls("ZombieFace", t)
+		Game.LoadPlayerFace(pl:GetSlot(), pl.Face)
+	end)
+	-- remove the work in other places
+	mem.asmpatch(0x4B7621, 'jmp absolute 0x4B7659')  -- temple
+	mem.nop(0x42DD70)  -- spell 89
+end
 
 -- GetStatisticEffect
 mem.hookfunction(mmv(0x482DC0, 0x48EA13, 0x48E18E), 0, 1, function(d, def, val)
@@ -1735,35 +2123,32 @@ mem.hookfunction(mmv(0x482DC0, 0x48EA13, 0x48E18E), 0, 1, function(d, def, val)
 		Value = val,
 		Result = def(val),
 	}
-	events.cocall("GetStatisticEffect", t)
+	events.cocalls("GetStatisticEffect", t)
 	return t.Result
 end)
 
--- UseMouseItem
-do
-	local phases = {[1] = true, [3] = true}
-	local screens = {[29] = true, [10] = true, [15] = true}
-	mem.hookfunction(mmv(0x459040, 0x4680F1, 0x466572), 1, 2, function(d, def, this, player, portrait)
-		if mmver > 6 and Game.TurnBased and phases[Game.TurnBasedPhase] or mmver == 8 and screens[Game.CurrentScreen] then
-			return def(this, player, portrait)
+-- CanLearnSpell
+if mmver > 6 then
+	local MasteryToIndex, GetMastery = {0, 4, 7, 10, 11}, {}
+	for i = 1, #MasteryToIndex - 1 do
+		for j = MasteryToIndex[i], MasteryToIndex[i + 1] - 1 do
+			GetMastery[j] = i
 		end
+	end
+	mem.autohook(mm78(0x468559, 0x466A43), function(d)
+		local v = d.edx
+		local mas = GetMastery[v] or v < 0 and 1 or 5
 		local t = {
-			Player = Party[player - 1],
-			PlayerIndex = player - 1,
-			IsPortraitClick = (portrait ~= 0),
-			Allow = true,
+			Spell = d.edi + 1,
+			NeedMastery = mas,
 		}
-		-- function!Params[[()]]
-		t.CallDefault = function()
-			if t.Allow then
-				def(t.ActivePlayer, t.PlayerIndex + 1, t.IsPortraitClick)
-				t.Allow = false
-			end
+		t.PlayerIndex, t.Player = GetPlayer(d.esi)
+		--!k{Player :structs.Player}
+		events.cocalls("CanLearnSpell", t)
+		local new = t.NeedMastery
+		if new ~= mas then
+			d.edx = MasteryToIndex[new] or new < 1 and 0 or 11
 		end
-		t.ActivePlayerIndex, t.ActivePlayer = GetPlayer(this)
-		--!k{Player :structs.Player, ActivePlayer :structs.Player}
-		events.cocall("UseMouseItem", t)
-		t.CallDefault()
 	end)
 end
 
@@ -1781,9 +2166,8 @@ do
 		if pl.Dead ~= 0 or pl.Eradicated ~= 0 then
 			return
 		end
-		-- 'HP' and 'SP' don't include regeneration values assigned by the game, but setting them takes care of conditions
-		--!k{Player :structs.Player}
-		events.cocall('Regeneration', t)
+		--!k{Player :structs.Player} 'HP' and 'SP' don't include regeneration values assigned by the game, but setting them takes care of conditions
+		events.cocalls('Regeneration', t)
 		if t.HP ~= 0 then
 			local v = pl.HP
 			v = min(v + t.HP, max(v, pl:GetFullHP()))
@@ -1803,13 +2187,41 @@ do
 	Conditional(hooks, "Regeneration")
 end
 
+-- UseMouseItem
+do
+	local phases = {[1] = true, [3] = true}
+	local screens = {[29] = true, [10] = true, [15] = true}
+	mem.hookfunction(mmv(0x459040, 0x4680F1, 0x466572), 1, 2, function(d, def, this, player, portrait)
+		if mmver > 6 and Game.TurnBased and phases[Game.TurnBasedPhase] or mmver == 8 and screens[Game.CurrentScreen] then
+			return def(this, player, portrait)
+		end
+		local t = {
+			Player = Party[player - 1],
+			PlayerSlot = player - 1,
+			IsPortraitClick = (portrait ~= 0),
+			Allow = true,
+		}
+		-- function!Params[[()]]
+		t.CallDefault = function()
+			if t.Allow then
+				def(t.ActivePlayer, t.PlayerSlot + 1, t.IsPortraitClick)
+				t.Allow = false
+			end
+		end
+		t.ActivePlayerIndex, t.ActivePlayer = GetPlayer(this)
+		--!k{Player :structs.Player, ActivePlayer :structs.Player}
+		events.cocalls("UseMouseItem", t)
+		t.CallDefault()
+	end)
+end
+
 -- ModifyItemDamage
 local function ModifyItemDamage(dmg, mon, pl, slot)
 	local t = {Damage = dmg, Result = dmg, MonsterId = mon, Slot = slot}
 	local i = (pl - Party.PlayersArray["?ptr"]):div(Party.PlayersArray[0]["?size"])
 	t.PlayerIndex, pl = i, Party.PlayersArray[i]
 	t.Player, t.Item = pl, pl:GetActiveItem(slot, true)
-	events.cocall("ModifyItemDamage", t)
+	events.cocalls("ModifyItemDamage", t)
 	return t.Result
 end
 
@@ -1845,6 +2257,33 @@ else
 	end)
 end
 
+-- GenerateItem
+do
+	local hooks = HookManager()
+	hooks.hookfunction(mmv(0x448790, 0x45664C, 0x453ECC), 1, mmv(3, 3, 4), function(d, def, this, strength, kind, item, alwaysEnchant)
+		local t = {
+			-- :structs.Item
+			Item = structs.Item:new(item),
+			Strength = strength,
+			-- :const.ItemType
+			Kind = kind,
+			AlwaysEnchant = alwaysEnchant ~= 0,
+			Handled = false,
+		}
+		-- can be called even if 'Handled' is 'true'
+		function t.CallDefault()
+			def(this, t.Strength or strength, t.Kind or kind, item)
+			t.Handled = true
+		end
+		events.cocalls("GenerateItem", t)
+		if not t.Handled then
+			def(this, t.Strength or strength, t.Kind or kind, item)
+		end
+		events.cocalls("ItemGenerated", t)
+	end)
+	Conditional(hooks, {"GenerateItem", "ItemGenerated"})
+end
+
 
 ---- Monster hooks
 
@@ -1854,9 +2293,49 @@ mem.hookfunction(mmv(0x403050, 0x402D6E, 0x402E78), 1, 0, function(d, def, index
 		def = def and def(index) and nil
 	end
 	--!(mon:structs.MapMonster, monIndex, defaultHandler)
-	events.cocall("MonsterKilled", Map.Monsters[index], index, callDef)
+	events.cocalls("MonsterKilled", Map.Monsters[index], index, callDef)
 	callDef()
 end)
+
+--!++(RespectMonsterExp)v()
+-- Set it to 'true' to take experience from map monster structure rather than from monsters.txt based on monster 'Id'.
+-- In MM8 only Armageddon uses monster XP from monsters.txt, other ways of killing monsters use experience value from monster structure.
+
+-- MonsterKillExp
+do
+	local function f(mon, def, exp)
+		local t = {
+			Exp = exp,
+			Handled = false,
+		}
+		t.MonsterIndex, t.Monster = GetMonster(mon)
+		if RespectMonsterExp then
+			t.Exp = t.Monster.Exp
+		end
+		--!k{Monster :structs.MapMonster}
+		events.cocalls("MonsterKillExp", t)
+		if not t.Handled and t.Exp ~= 0 then
+			def(t.Exp)
+		end
+	end
+	-- monster in esi
+	for _, p in ipairs(mmv({0x4312A8, 0x431A8C}, {0x439B29, 0x43A2CE, 0x43A7EC}, {0x437613, 0x437DE2, 0x43827F})) do
+		mem.hookcall(p, 1, 0, |d, ...| f(d.esi, ...))
+	end
+	-- pointer to monster field in esi (Armaggedon)
+	local off = mmv(0xA0, 0x28, 0x28)
+	mem.hookcall(mmv(0x401946, 0x401BB0, 0x401BD4), 1, 0, |d, ...| f(d.esi - off, ...))
+	-- finger of death (override my patch giving exp)
+	if mmver == 6 then
+		local def = |exp| call(0x421520, 1, exp)
+		mem.hook(0x45D65B, function(d)
+			local i = d.ecx
+			call(0x403050, 1, i)
+			local mon = Map.Monsters[i]
+			return f(mon['?ptr'], def, not RespectMonsterExp and i4[u4[0x4A3689] + 0x38 + 72*mon.Id])
+		end)
+	end
+end
 
 
 if mmver > 6 then
@@ -1902,7 +2381,7 @@ if mmver > 6 then
 		t.DamageKind = i4[kind]
 		t.Vampiric = (i4[vampiric] ~= 0)
 		-- [MM7+]
-		events.cocall("ItemAdditionalDamage", t)
+		events.cocalls("ItemAdditionalDamage", t)
 		i4[kind] = t.DamageKind
 		i4[vampiric] = (t.Vampiric and 1 or 0)
 		return t.Result
@@ -1920,7 +2399,7 @@ mem.hookfunction(mmv(0x421DC0, 0x427522, 0x425951), 0, 3, function(d, def, mon, 
 	}
 	t.MonsterIndex, t.Monster = GetMonster(mon)
 	--!k{Monster :structs.MapMonster}
-	events.cocall("CalcDamageToMonster", t)
+	events.cocalls("CalcDamageToMonster", t)
 	return t.Result
 end)
 
@@ -1938,7 +2417,7 @@ mem.hookfunction(mmv(0x421670, 0x426A03, 0x424E3D), 0, 1, function(d, def, mon)
 	end
 	t.MonsterIndex, t.Monster = GetMonster(mon)
 	--!k{Monster :structs.MapMonster}
-	events.cocall("PickCorpse", t)
+	events.cocalls("PickCorpse", t)
 	t.CallDefault()
 end)
 
@@ -1957,7 +2436,7 @@ if mmver > 6 then
 		end
 		t.MonsterIndex, t.Monster = GetMonster(mon)
 		--!k{Monster :structs.MapMonster} [MM7+]
-		events.cocall("CastTelepathy", t)
+		events.cocalls("CastTelepathy", t)
 		t.CallDefault()
 	end)
 end
@@ -1974,7 +2453,7 @@ delayed(|| if mmver > 6 then
 		}
 		t.MonsterIndex, t.Monster = GetMonster(mon)
 		--!k{Monster :structs.MapMonster} [MM7+]
-		events.cocall("CanMonsterCastSpell", t)
+		events.cocalls("CanMonsterCastSpell", t)
 		return t.Allow
 	end)
 	Conditional(hooks, "CanMonsterCastSpell")
@@ -2003,7 +2482,7 @@ do
 			return r
 		end
 		-- 'Action' starts uninitialized. Each time you call 'CallDefault', it generates new result, assigns it to 'Action' and returns the value.
-		events.cocall("MonsterChooseAction", t)
+		events.cocalls("MonsterChooseAction", t)
 		return t.Action or def(ai, mon, monIndex, dist)
 	end)
 	Conditional(hooks, "MonsterChooseAction")
@@ -2012,41 +2491,65 @@ end
 
 -- monster/player attacked
 do
-	local Mon_Who, Mon_Idx, Pl_Who, Pl_Slot
+	local Mon_Who, Mon_Idx, Pl_Who, Pl_Slot, Is_Pl
 
 	local function Who(i, action)
 		local t, kind = {}, i%8
 		i = (i - kind)/8
-		if kind == 2 then
+		if i >= 0 and kind == 2 then
 			local obj = Map.Objects[i]
 			t.ObjectIndex, t.Object = i, obj
 			i = obj.Owner
 			kind = i%8
 			i = (i - kind)/8
+			if kind ~= 3 and obj.Spell ~= 0 then
+				t.Spell, t.SpellSkill, t.SpellMastery = obj.Spell, obj.SpellSkill, obj.SpellMastery
+			end
 		end
-		if kind == 4 then
-			t.PlayerIndex, t.Player = i, Party.PlayersArray[i]
+		if i < 0 then
+			return false  -- sometimes either initial attackerID or obj.Owner is negative
+		elseif kind == 4 then
+			if mmver == 8 then
+				t.PlayerIndex, t.Player = i, Party.PlayersArray[i]
+			else
+				t.PlayerSlot, t.Player = i, Party[i]
+			end
 		elseif kind == 3 then
-			t.MonsterIndex, t.Monster, t.MonsterAction = i, Map.Monsters[i], action
+			local mon = Map.Monsters[i]
+			t.MonsterIndex, t.Monster, t.MonsterAction = i, mon, action
+			local sp, sk
+			if action == 2 then
+				sp, sk = mon.Spell, mon.SpellSkill
+			elseif action == 3 then
+				sp, sk = mon.Spell2, mon.Spell2Skill
+			end
+			t.Spell, t.SpellSkill, t.SpellMastery = sp, SplitSkill(sk)
 		end
 		return t
 	end
 
+	-- As first value returns 'true' if the target of attack currently being handled is a player, 'false' if it's a monster
+	-- As second value returns attack information structure as returned by #WhoHitMonster:# and #WhoHitPlayer:# functions
+	function IsAttackOnPlayer()
+		return Is_Pl, Is_Pl and Pl_Who or Is_Pl == false and Mon_Who or nil
+	end
+
 	-- If a monster is being attacked, returns 't', 'TargetMonsterIndex'.
-	-- #t.Player:structs.Player# and 't.PlayerIndex' are set if monster is attacked by the party.
+	-- #t.Player:structs.Player# and either 't.PlayerSlot'[MM6-7] or 't.PlayerIndex'[MM8] are set if monster is attacked by the party.
 	-- #t.Monster:structs.MapMonster#, 't.MonsterIndex' and #t.MonsterAction:const.MonsterAction# fields are set if monster is attacked by another monster.
 	-- #t.Object:structs.MapObject# and 't.ObjectIndex' are set if monster is hit by a missile.
+	-- #t.Spell:const.Spells#, 't.SpellSkill' and 't.SpellMastery' are set if a spell is being used.
 	-- Note that 't.Object' can be set at the same time as 't.Monster' or 't.Player'.
 	function WhoHitMonster()
 		return Mon_Who, Mon_Idx
 	end
 
 	local function HitMon(d, def, attackerID, monIndex, speed, action)
-		if attackerID < 0 then
+		local attacker, old, old2, old3 = Who(attackerID, action), Mon_Who, Mon_Idx, Is_Pl
+		if not attacker then
 			return
 		end
-		local attacker, old, old2 = Who(attackerID, action), Mon_Who, Mon_Idx
-		Mon_Who, Mon_Idx = attacker, monIndex
+		Mon_Who, Mon_Idx, Is_Pl = attacker, monIndex, false
 		local t = {
 			-- table returned by #WhoHitMonster:#
 			Attacker = attacker,
@@ -2057,13 +2560,14 @@ do
 		}
 		
 		-- Called when a player or a projectile tries to hit a monster. Can be used to completely replace what happens.
-		events.cocall("MonsterAttacked", t, attacker)
+		-- Doesn't get triggered when using Armageddon or Finger of Death.
+		events.cocalls("MonsterAttacked", t, attacker)
 		if not t.Handled then
-			def(attackerID, monIndex, speed, action)
+			def(attackerID, monIndex, speed, attacker.MonsterAction or action)
 		end
 		--!k{Handled carried over from #MonsterAttacked:events.MonsterAttacked# event}
-		events.cocall("AfterMonsterAttacked", t, attacker)
-		Mon_Who, Mon_Idx = old, old2
+		events.cocalls("AfterMonsterAttacked", t, attacker)
+		Mon_Who, Mon_Idx, Is_Pl = old, old2, old3
 	end
 
 	mem.hookfunction(mmv(0x430E50, 0x439463, 0x436E26), 2, 1, HitMon)  -- from party
@@ -2072,18 +2576,22 @@ do
 		mem.hookfunction(mm78(0x43B1D3, 0x438DDE), 2, 2, HitMon)  -- from monster
 	end
 	
+	
 	-- If a player is being attacked, returns 't', 'PlayerSlot'.
 	-- #t.Monster:structs.MapMonster#, 't.MonsterIndex' and #t.MonsterAction:const.MonsterAction# fields are set if player is attacked by a monster.
 	-- #t.Object:structs.MapObject# and 't.ObjectIndex' are set if player is hit by a missile.
+	-- #t.Spell:const.Spells#, 't.SpellSkill' and 't.SpellMastery' are set if a spell is being used.
 	-- Note that 't.Object' and 't.Monster' can be set at the same time if the projectile was fired by a monster.
 	function WhoHitPlayer()
 		return Pl_Who, Pl_Slot
 	end
 	
 	local function HitPlayer(d, def, attackerID, action, speed, slot)
-		local attacker, old, old2 = Who(attackerID, action), Pl_Who, Pl_Slot
+		local attacker, old, old2, old3 = Who(attackerID, action), Pl_Who, Pl_Slot, Is_Pl
 		-- choose the player slot the same way the function does it
-		if slot == -1 then
+		if not attacker then
+			return
+		elseif slot == -1 then
 			local m = attacker.Monster
 			if m then
 				slot = m:ChooseTargetPlayer()
@@ -2098,7 +2606,7 @@ do
 			end
 		end
 		
-		Pl_Who, Pl_Slot = attacker, slot
+		Pl_Who, Pl_Slot, Is_Pl = attacker, slot, true
 		local t = {
 			-- table returned by #WhoHitPlayer:#
 			Attacker = attacker,
@@ -2109,16 +2617,20 @@ do
 		}
 		
 		-- Called when a monster or a projectile tries to hit a player. Can be used to completely replace what happens.
-		events.cocall("PlayerAttacked", t, attacker)
+		-- Doesn't get triggered when using Armageddon.
+		events.cocalls("PlayerAttacked", t, attacker)
+		Pl_Slot = t.PlayerSlot or slot
 		if not t.Handled then
-			def(attackerID, action, speed, slot)
+			def(attackerID, attacker.MonsterAction or action, speed, Pl_Slot)
 		end
+		
 		--!k{Handled carried over from #PlayerAttacked:events.PlayerAttacked# event}
-		events.cocall("AfterPlayerAttacked", t, attacker)
-		Pl_Who, Pl_Slot = old, old2
+		events.cocalls("AfterPlayerAttacked", t, attacker)
+		Pl_Who, Pl_Slot, Is_Pl = old, old2, old3
 	end
 	
 	mem.hookfunction(mmv(0x431BE0, 0x439FEE, 0x437B06), 2, 2, HitPlayer)  -- from anything
+	-- TODO: Armageddon, Finger of Death
 end
 
 

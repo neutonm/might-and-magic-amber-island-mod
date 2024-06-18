@@ -49,10 +49,12 @@ local GitPath = internal.GitPath
 AppPath = internal.AppPath
 local AppPath = internal.AppPath
 DevPath = GitPath or AppPath
+local DevPath = DevPath
 local CoreScriptsPath = DevPath.."Scripts/Core/"
 internal.CoreScriptsPath = CoreScriptsPath
 local CoreGamePath = internal.CoreGamePath and internal.CoreGamePath.."Scripts/Core/" or CoreScriptsPath  -- for game-specific core files (used by LuaConsole)
 local GamePath = internal.AllowForeignDir and AppPath or ""
+local dummy = {}
 
 -- dofile(CoreScriptsPath.."RSFunctions.lua")
 -- PrintToFile("InternalLog.txt")  -- temporary
@@ -62,8 +64,23 @@ offsets = offsets or {}
 dofile(CoreScriptsPath.."Common.lua")
 internal.NoGlobals.CheckChunkFile(1, 1)
 internal.NoGlobals.Options.NameCharCodes[("?"):byte()] = true
+
+local function path_insert(str, new, after)
+	local n1, n2 = str:find(after, 1, true)
+	if n1 then
+		return str:sub(1, n2)..';'..new..str:sub(n2 + 1)
+	end
+	return new..';'..str
+end
+
+local function make_cpath(scripts)
+	return scripts.."Dll\\?.dll;"..scripts.."Dll\\loadall.dll"
+end
+
 local package_main = AppPath.."Scripts\\Modules\\?.lua"
 package.path = package_main..(GitPath and ";"..GitPath.."Scripts\\Modules\\?.lua" or "")
+local package_cmain = make_cpath(AppPath.."Scripts\\")
+package.cpath = package_cmain..(GitPath and ";"..make_cpath(GitPath.."Scripts\\") or "")--..';'..DevPath.."ExeMods\\MMExtension\\socket.dll"
 GitPath = internal.GitPath  -- allow changing GitPath by offsets.lua
 local loadfile = loadfile
 local loadstring = loadstring
@@ -141,7 +158,7 @@ local IgnoreProtection = mem.IgnoreProtection
 if isMM then
 	-- Calls allocation function that MM uses for most of things. Note that my patch intersects these calls and uses Delphi memory manager to do the allocation.
 	function _G.mem.allocMM(size)
-		return call(offsets.allocMM, 1, offsets.allocatorMM, 0, assertnum(size, 2), 0)
+		return call(offsets.allocMM, 1, offsets.allocatorMM, 0, assertnum(size, 2), 0) % 0x100000000
 	end
 	local allocMM = mem.allocMM
 
@@ -357,6 +374,7 @@ local structs = _G.structs
 structs.f = structs.f or {}  -- definition functions
 structs.o = structs.o or {}  -- offsets
 structs.m = structs.m or {}  -- members
+structs.aux = structs.aux or {}  -- various functions useful for structs
 
 function structs.class(t)
 	local mt = getmetatable(t)
@@ -364,7 +382,7 @@ function structs.class(t)
 end
 
 function structs.enum(t)
-	local a = (getmetatable(t) or {}).members
+	local a = (getmetatable(t) or dummy).members
 	if a == nil then
 		error("not a structure", 2)
 	end
@@ -400,6 +418,16 @@ local function structs_index(t, a)
 end
 
 setmetatable(structs, {__index = structs_index})
+
+-- returns address of a field inside a structure or an element inside an array
+function structs.ptr(t, field)
+	local name = structs.name(t)
+	if name then
+		return structs.o[name][field] + t['?ptr']
+	end
+	-- assume an array
+	return (field - t.Low)*t.ItemSize + t['?ptr']
+end
 
 -- EditablePChar
 
@@ -503,19 +531,15 @@ internal.PathList = PathList
 function _G.AddScriptsPath(s)
 	s = path_addslash(s)
 	if not PathList[s] then
-		local sp = package.path
-		local n1, n2 = sp:find(package_main, 1, true)
-		if n1 then
-			package.path = sp:sub(1, n2)..';'..s..'Modules\\?.lua'..sp:sub(n2 + 1)
-		else
-			package.path = s..'Modules\\?.lua;'..sp
-		end
+		package.path = path_insert(package.path, s..'Modules\\?.lua', package_main)
+		package.cpath = path_insert(package.cpath, make_cpath(s), package_cmain)
 	end
 	PathList[s] = true
 end
 
 -- core files
 
+internal.DebugDll = mem.dll[DevPath..'ExeMods\\MMExtension\\MMExtDialogs.dll']
 dofile(CoreScriptsPath.."Debug.lua")
 d_debug = _G.debug.debug
 
@@ -559,18 +583,19 @@ events.cocalls("StructsLoaded")
 
 local Sleep = mem.dll.kernel32.Sleep
 local AbsoleteStr = "-- this file is here to raplace the one from older MMExtension versions"
-local function CheckNoDel(fname)
+local function CheckNoDel(fname, bad)
+	bad = bad or AbsoleteStr
 	local f = assert(_G.io.open(fname, "rb"))
-	local s = f:read(#AbsoleteStr + 1)
+	local s = f:read(#bad + 1)
 	f:close()
-	if AbsoleteStr ~= s then
+	if bad ~= s then
 		return true
 	end
 	for i = 1, 20 do
 		if _G.os.remove(fname, true) then
 			break
 		end
-		Sleep(10);
+		Sleep(10)
 	end
 end
 
@@ -590,8 +615,14 @@ if isMM then
 	for f in path_find(AppPath.."MMExtension.txt") do
 		CheckNoDel(f)
 	end
-	for f in path_find(AppPath.."General/*.lua") do
+	for f in path_find(AppPath.."Scripts/General/*.lua") do
 		CheckNoDel(f)
+	end
+	if isMM == 6 then
+		-- old Town Portal.txt had locations arranged incorrectly
+		for f in path_find(AppPath..'Data/Tables/Town Portal.txt') do
+			CheckNoDel(f, "#\9Map\9X\9Y\9Z\9Direction\9LookAngle\9Icon X\9Icon Y\9Icon Width\9Icon Height\13\n0\9OutB2.Odm\9-15079\00912878\009161\0091536\0090\009346\009280\00962\00931\13\n1\9OutC2.Odm\0096991\00913438\00997\0090\0090\009360\009186\00946\00942\13\n2\9OutE2.Odm\0093489\9-14582\009257\0090\0090\009318\009121\00952\00926\13\n3\9OutE3.Odm\9-9705\9-6858\009161\0091536\0090\009223\009156\00951\00930\13\n4\9OutD1.Odm\00913146\9-9194\0091\0090\0090\009113\009150\00951\00933\13\n5\9OutC1.Odm\9-9138\00914518\00997\0090\0090\009192\00981\00954\00930\13\n")
+		end
 	end
 end
 

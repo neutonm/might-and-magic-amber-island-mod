@@ -4,6 +4,7 @@ Editor = Editor or {}
 local _KNOWNGLOBALS
 
 local abs, floor, ceil, round, max, min = math.abs, math.floor, math.ceil, math.round, math.max, math.min
+local dummy = {}
 
 local skSpawn = 1
 local skObject = 2
@@ -67,6 +68,17 @@ local function GetFromArray(arr, n, name)
 		return (name and arr[n][name] or arr[n])
 	end
 end
+
+local function IndexVis(v)
+	return mmver > v and not (Editor.State.ShowAllIndexes or Editor.ShowAllIndexes) or nil
+end
+ 
+local function ExcludeIndex(v)
+	return function()
+		return {Index = IndexVis(v)}
+	end
+end
+
 
 local COMMENT = "      --"
 
@@ -190,7 +202,8 @@ local function MakeProps(t)
 		end
 	end
 	
-	t.GetExcluded = t.GetExcluded or function() end
+	t.GetExcluded = t.GetExcluded or function()
+	end
 	
 	return t
 end
@@ -210,6 +223,18 @@ local function Remapper(name)
 			end
 		end
 	end
+end
+
+local function SetDataProp(a, prop, val)
+	if val == nil then
+		local tp = type(a[prop])
+		if tp == "number" then
+			val = 0
+		elseif tp == "boolean" then
+			val = false
+		end
+	end
+	a[prop] = val
 end
 
 -----------------------------------------------------
@@ -356,8 +381,8 @@ local FacetProps = MakeProps{
 	"BitmapU",
 	"BitmapV",
 	
-	mm6o "Index",
-	mm6o "ModelIndex",
+	"Index",
+	"ModelIndex",
 	mm7 "Id",
 	
 	"Event",
@@ -393,9 +418,12 @@ local FacetProps = MakeProps{
 	
 	GetExcluded = function()
 		return Map.IsIndoor() and {
+			Index = IndexVis(6),
 			ModelIndex = true,
 			ScrollDown = mmver == 6,  -- implemented through IsSky = true in MM6 outdoors
 		} or {
+			Index = IndexVis(6),
+			ModelIndex = IndexVis(6),
 			IsSky = true,
 			IsLava = true,
 			DoorStaticBmp = true,
@@ -459,19 +487,18 @@ local FacetProps = MakeProps{
 		elseif Editor.ShowInvisible and (prop == "Invisible" or prop == "IsSky" and not Game.IsD3D) then
 			-- do nothing
 		elseif prop == "ScrollDown" and mmver == 6 then
-			a.IsSky = val
+			a.IsSky = val or false
 		elseif not IsFacetDataProp[prop] then
-			a[prop] = val
+			SetDataProp(a, prop, val)
 		else
 			local d = NeedFacetData(a, id)
 			if prop == "BitmapU" or prop == "BitmapV" then
 				Editor["Update"..prop](t)
-				-- print(t[prop], a[prop])
 			elseif IsFacetAlignProp[prop] then
-				a[prop] = val
+				a[prop] = val or false
 				Editor["Update"..IsFacetAlignProp[prop]](t)
 			else
-				d[prop] = val
+				SetDataProp(d, prop, val)
 			end
 		end
 	end,
@@ -529,9 +556,69 @@ local IsDoorBit = {
 	ClosePortal = true,
 }
 
+local function EnumStretchedEdges(t, chk)
+	local ver = Editor.GetDoorVertexLists(t)
+	local check = |f, v1, v2| not ver[v2] and chk(f, v1, v2)
+	
+	for f, id in pairs(Editor.FacetIds) do
+		if f.Door == t or f.MultiDoor then
+			for i, v in ipairs(f.Vertexes) do
+				if ver[v] then
+					check(f, v, f.Vertexes[i % #f.Vertexes + 1])
+					check(f, v, f.Vertexes[(i - 2) % #f.Vertexes + 1])
+				end
+			end
+		end
+	end
+end
+
+local function CalcMoveLength(t)
+	local MaxLen = 64000
+	local move = MaxLen
+	local function check(f, v1, v2)
+		for X in XYZ do
+			local x = v1[X] - v2[X]
+			if (x + t['Direction'..X]*move)*x < 0 then
+				move = abs(x/t['Direction'..X])
+			end
+		end
+	end
+	EnumStretchedEdges(t, check)
+	return move ~= MaxLen and move
+end
+
+local function inorm(x, y, z)
+	local n = x*x + y*y + z*z
+	return (n ~= 0) and n^(-0.5) or 0
+end
+
+local function normalize(x, y, z, mul)
+	local n = inorm(x, y, z)*(mul or 1)
+	return x*n, y*n, z*n
+end
+
+local function CalcDoorDirection(d)
+	local x, y, z = 0, 0, 0
+	local dx, dy, dz = d.DirectionX or 0, d.DirectionY or 0, d.DirectionZ or 0
+	local function check(f, v1, v2)
+		local a, b, c = v2.X - v1.X, v2.Y - v1.Y, v2.Z - v1.Z
+		local dir = a*dx + b*dy + c*dz
+		if dir == 0 then
+			dir = a*x + b*y + c*z
+		end
+		a, b, c = normalize(a, b, c, dir >= 0 and 1 or -1)
+		x, y, z = x + a, y + b, z + c
+	end
+	EnumStretchedEdges(d, check)
+	if x*x + y*y + z*z ~= 0 then
+		return normalize(x, y, z)
+	end
+end
+
 local FirstSelDoor
 local DoorsNeedBounds = {}
 local DoorsNeedUpdate = {}
+local DoorsNeedDirection = {}
 
 local DoorProps = MakeProps{
 	"Id",
@@ -567,18 +654,23 @@ local DoorProps = MakeProps{
 		local t = Editor.Facets[id + 1].Door
 		if not t then
 			return
+		elseif not val and prop == "MoveLength" then
+			val = CalcMoveLength(t) or t.MoveLength or 128
+		elseif not val and (prop == "DirectionX" or prop == "DirectionY" or prop == "DirectionZ") then
+			DoorsNeedDirection[t] = id
+			return
 		end
-		AddUndoProp(id, prop, t[prop])
 		if t[prop] == val then
 			return
 		end
+		AddUndoProp(id, prop, t[prop])
 		local a = Map.Doors[Editor.DoorIds[t]]
 		t[prop] = val
 		if IsDoorDirProp[prop] then
 			-- a[prop] = (val*0x10000):round()
 			DoorsNeedUpdate[t] = true
 		else
-			a[prop] = val
+			SetDataProp(a, prop, val)
 		end
 		if IsDoorUpdateProp[prop] then
 			Editor.NeedDoorsUpdate = true
@@ -595,6 +687,15 @@ local DoorProps = MakeProps{
 	end,
 	
 	done = function()
+		for t, id in pairs(DoorsNeedDirection) do
+			local x, y, z = CalcDoorDirection(t)
+			if x then
+				CurrentProps.set(id, "DirectionX", x)
+				CurrentProps.set(id, "DirectionY", y)
+				CurrentProps.set(id, "DirectionZ", z)
+			end
+		end
+		DoorsNeedDirection = {}
 		Editor.RecreateDoors(DoorsNeedUpdate)
 		DoorsNeedUpdate = {}
 		FirstSelDoor = nil
@@ -612,8 +713,8 @@ local DoorProps = MakeProps{
 
 local CoordCache = {}
 
-local function GetModelCoord(t, X)
-	t = t.BaseFacets
+local function GetModelCoord(m, X)
+	local t = m.BaseFacets
 	if not CoordCache[X] then
 		CoordCache[X] = setmetatable({}, {__mode = "k"})
 	end
@@ -623,12 +724,14 @@ local function GetModelCoord(t, X)
 	end
 	local m1, m2 = 1/0, -1/0
 	for f in pairs(t) do
-		local v = f.Vertexes[1][X]
-		if v < m1 then
-			m1 = v
-		end
-		if v > m2 then
-			m2 = v
+		for _, a in ipairs(f.Vertexes) do
+			local v = a[X]
+			if v < m1 then
+				m1 = v
+			end
+			if v > m2 then
+				m2 = v
+			end
 		end
 	end
 	if X == "Z" then
@@ -637,6 +740,9 @@ local function GetModelCoord(t, X)
 		x = (m2 + m1)/2
 	end
 	x = round(x)
+	if m['Lazy'..X] then
+		x = x + m[X] - m['Lazy'..X]
+	end
 	CoordCache[X][t] = x
 	return x
 end
@@ -671,14 +777,13 @@ local ModelProps = MakeProps{
 			return
 		end
 		if IsXYZ[prop] and val ~= nil then
-			if val ~= nil then
-				local last = t[prop] or GetModelCoord(t, prop)
-				ModelsToMove[t] = ModelsToMove[t] or {}
-				ModelsToMove[t][prop] = ModelsToMove[t][prop] or last
-				t["Lazy"..prop] = t["Lazy"..prop] or last
-				Editor.State.LazyModels = true
-			elseif t["Lazy"..prop] then
-				Editor.CheckLazyModels()
+			local last = t[prop] or GetModelCoord(t, prop)
+			ModelsToMove[t] = ModelsToMove[t] or {}
+			ModelsToMove[t][prop] = ModelsToMove[t][prop] or last
+			t["Lazy"..prop] = t["Lazy"..prop] or last
+			Editor.State.LazyModels = true
+			if CoordCache[prop] then
+				CoordCache[prop][t.BaseFacets] = nil
 			end
 		elseif prop == "Name" then
 			Editor.State.ModelByName[t[prop]] = nil
@@ -845,7 +950,7 @@ local RoomProps = MakeProps{
 		local a, t = Map.Rooms[id], Editor.State.Rooms[id + 1]
 		AddUndoProp(id, prop, t[prop])
 		t[prop] = val
-		a[prop] = val
+		SetDataProp(a, prop, val)
 		Editor.Update(Editor.UpdateNoDark)
 	end,
 	
@@ -882,7 +987,8 @@ local SpriteProps = MakeProps{
 	"Y",
 	"Z",
 	"Direction",
-	"Id",
+	"Index",
+	mm7 "Id",
 	"Event",
 	"TriggerRadius",
 	"TriggerByTouch",
@@ -894,6 +1000,8 @@ local SpriteProps = MakeProps{
 	mmver == 6 and "IsShip" or "IsObeliskChest",
 
 	IndexList = "Sprites",
+	
+	GetExcluded = ExcludeIndex(6),
 	
 	get = function(id, prop)
 		local a = Editor.Sprites[id + 1]
@@ -912,7 +1020,7 @@ local SpriteProps = MakeProps{
 		AddUndoProp(id, prop, t[prop])
 		t[prop] = val
 		if prop ~= "Event" and (prop ~= "Invisible" or Editor.ShowInvisible) then
-			a[prop] = val
+			SetDataProp(a, prop, val)
 		end
 		if prop == "DecName" then
 			Editor.NormalSpriteDec(a)
@@ -943,12 +1051,18 @@ local IsPosProp = {
 	Z = true,
 }
 
+local LightPropDef = {
+	R = 255,
+	G = 255,
+	B = 255,
+}
+
 local LightProps = MakeProps{
 	"X",
 	"Y",
 	"Z",
 	"Radius",
-	mm67 "Index",
+	"Index",
 	mm8 "Id",
 	-- Bits
 	"Off",
@@ -956,24 +1070,35 @@ local LightProps = MakeProps{
 	mm7 "R",
 	mm7 "G",
 	mm7 "B",
-	-- MM8
+	mm7 "Halo",
 	
 	IndexList = "Lights",
 	IndexSetId = mmver < 8,
+
+	GetExcluded = ExcludeIndex(7),
 	
 	get = function(id, prop)
 		local a = Editor.Lights[id + 1]
 		if prop == "OBJ" then
 			return a
+		elseif prop == "Halo" then
+			return (a.Type or 5)%4 == 2
 		end
 		return a[prop] or prop ~= "Off" and 0
 	end,
 
 	set = function(id, prop, val)
 		local t = Editor.Lights[id + 1]
+		if prop == "Halo" then
+			prop = "Type"
+			val = (t.Type or 5):AndNot(3) + (val and 2 or 1)
+		end
 		AddUndoProp(id, prop, t[prop])
 		t[prop] = val
-		Map.Lights[id][prop] = val
+		if val == nil then
+			val = LightPropDef[prop]
+		end
+		SetDataProp(Map.Lights[id], prop, val)
 	end,
 
 	create = function(t)
@@ -1257,6 +1382,8 @@ local function MonSpecialDef(special)
 	return {A = (special == 2 and 1 or 0), B = 0, C = 0, D = (special == 3 and const.Damage.Fire or 0)}
 end
 
+local MoveTypes = {[0] = "Short", "Medium", "Long", "Stand Still when friendly", "Very Long", "Stand Still always"}
+
 local MonsterProps = MakeProps{
 	"Id",
 	"X",
@@ -1408,6 +1535,8 @@ local MonsterProps = MakeProps{
 			elseif (prop == "SpellSkill" or prop == "Spell2Skill") and ret >= 0x40 and ret < mmv(0xC0, 0x140, 0x140) then
 				local n, mast = SplitSkill(ret)
 				retVal = ("JoinSkill(%s, %s)"):format(n, "const."..table.find(const, mast))
+			elseif prop == "MoveType" then
+				comment = MoveTypes[ret]
 			end
 		end
 		comment = (def and " default" or "")..(comment and " ("..comment..")" or "")
@@ -1582,7 +1711,11 @@ local IndoorProps = {
 	"DefaultDarkness",
 
 	get = function(id, prop)
-		return Editor.State[prop]
+		local v, comment = Editor.State[prop], nil
+		if prop == "OutlineFlatSkip" then
+			comment = "set lower value to ignore more outlines between almost flat facets (from 0 to 1, default is 0.9, game default is 1)"
+		end
+		return v, comment and ('%s%s %s'):format(tostring2(v), COMMENT, comment)
 	end,
 	
 	set = function(id, prop, val)
@@ -1616,15 +1749,18 @@ local OutdoorProps = {
 	"FogRange2",
 	
 	get = function(id, prop)
-		local v = Editor.State.Header[prop]
-		if prop == "Ceiling" and not v or v == 0 then
-			return 4000
+		local v, comment = Editor.State.Header[prop], nil
+		if prop == "Ceiling" then
+			v = v ~= 0 and v or 4000
+			comment = "maximum flight height"
 		elseif prop == "FogRange1" then
-			return v or 0, (v or 0)..COMMENT.."4096 for light fog, 0 for middle or thick"
+			v = v or 0
+			comment = "4096 for light fog, 0 for middle or thick"
 		elseif prop == "FogRange2" then
-			return v or 4096, (v or 4096)..COMMENT.."8192 for light fog, 4096 for middle, 2048 for thick, must be bigger than FogRange1"
+			v = v or 4096
+			comment = "8192 for light fog, 4096 for middle, 2048 for thick, must be bigger than FogRange1"
 		end
-		return v
+		return v, comment and ('%s%s %s'):format(tostring2(v), COMMENT, comment)
 	end,
 	
 	set = function(id, prop, val)
@@ -1644,9 +1780,27 @@ local OutdoorProps = {
 
 local CommonMapProps = {
 	"TestWithLivingMonsters",
+	"ImportIgnoreUV",
+	"ImportScale",
+	"NoExportRotation",
+	"ShowAllIndexes",
 	
 	get = function(id, prop)
-		return Editor.State[prop] or false
+		local ret, comment = Editor.State[prop], nil
+		if ret == nil and prop ~= "ImportIgnoreUV" then
+			ret = Editor[prop] or false
+		end
+		if prop == "ImportIgnoreUV" then
+			comment = "set to 'true' if you want to assign texture coordinates only inside the Editor"
+		elseif prop == "ImportScale" then
+			ret = ret or Editor[prop] or 1
+			comment = "all coordinates are multiplied by this number on import and divided by it on export"
+		elseif prop == "NoExportRotation" then
+			comment = "set to 'true' to keep Z coordinate the vertical one on export and import"
+		elseif prop == "ShowAllIndexes" then
+			comment = "set to 'true' to allow editing of 'Index' properties even when 'Id' property is available"
+		end
+		return ret, comment and ('%s%s %s'):format(tostring2(ret), COMMENT, comment)
 	end,
 	
 	set = function(id, prop, val)
@@ -1689,10 +1843,12 @@ OutdoorProps = JoinProps(OutdoorProps, CommonMapProps)
 -- Editor.EditProps
 -----------------------------------------------------
 
+local function nilv()
+end
+
 local function CombineProps(sel, props, GetProp)
 	local t = {}
 	local s = {}
-	local nilv = t
 	local exclude = props.GetExcluded() or {}
 	for i, prop in ipairs(props) do
 		if not exclude[prop] then
@@ -1718,7 +1874,10 @@ local function CombineProps(sel, props, GetProp)
 				val = nil
 			end
 			s[#s + 1] = (bad and "--" or "")..prop.." = "..(bad ~= 2 and (valStr or tostr(val)) or "")
-			if not bad then
+			if bad then
+				t[i] = nilv
+				t[prop] = nilv
+			else
 				t[i] = val
 			end
 		end
@@ -1726,12 +1885,12 @@ local function CombineProps(sel, props, GetProp)
 	return s, t
 end
 
-local function UpdateProps(t, ot, sel, props, SetProp)
+local function UpdateProps(t, sel, props, SetProp)
 	local exclude = props.GetExcluded() or {}
 	for i, prop in ipairs(props) do
 		if not exclude[prop] then
 			local val = t[prop]
-			if val ~= ot[i] then
+			if val ~= t[i] then
 				for id in pairs(sel) do
 					props.set(id, prop, val)
 				end
@@ -1764,13 +1923,12 @@ function Editor.EditProps(SpecialKind, ChestNum)
 	if not f then
 		return debug.debug(err)
 	end
-	local ot = table.copy(t)
 	setmetatable(t, {__index = _G})
 	setfenv(f, t)
 	f()
 	setmetatable(t, nil)
 	
-	UpdateProps(t, ot, sel, props)
+	UpdateProps(t, sel, props)
 	props.done()
 end
 

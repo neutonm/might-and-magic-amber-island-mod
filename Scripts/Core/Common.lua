@@ -192,7 +192,7 @@ end
 _G.tget = tget
 
 local function pcall2_ret(ok, ...)
-	if not ok then
+	if not ok and internal.ErrorMessage then
 		internal.ErrorMessage((...))
 	end
 	return ok, ...
@@ -235,6 +235,22 @@ local function coroutine_resume2(...)
 	return pcall2_ret(coroutine_resume(...))
 end
 _G.coroutine.resume2 = coroutine_resume2
+
+-- Same as 'pairs', but accepts 'nil' as an argument
+function _G.pairs2(t)
+	if t ~= nil then
+		return pairs(t)
+	end
+	return nullsub
+end
+
+-- Same as 'ipairs', but accepts 'nil' as an argument
+function _G.ipairs2(t)
+	if t ~= nil then
+		return ipairs(t)
+	end
+	return nullsub
+end
 
 -- pause/unpause game, synchronize keys state
 internal.PauseGame = function() end
@@ -333,6 +349,13 @@ function mem.struct_callback(t, class, fields, offs, rofields)
 	meta.members = fields
 	meta.offsets = offs
 	meta.class = class
+	return t
+end
+
+function mem.union_callback(t, fields, offs, rofields)
+	local meta = getmetatable(t)
+	meta.members = fields
+	meta.offsets = offs
 	return t
 end
 
@@ -529,15 +552,16 @@ if offsets.exit then
 end
 
 local FindStruct = mem.struct(function(define)
+	local u8 = mem.u8x and 'u8x' or 'u8'
 	define
 	.u4  'FileAttributes'
-	.alt.u8x  'CreationTime'
+	.alt[u8]  'CreationTime'
 	.u4  'CreationTimeLow'
 	.u4  'CreationTimeHigh'
-	.alt.u8x  'LastAccessTime'
+	.alt[u8]  'LastAccessTime'
 	.u4  'LastAccessTimeLow'
 	.u4  'LastAccessTimeHigh'
-	.alt.u8x  'LastWriteTime'
+	.alt[u8]  'LastWriteTime'
 	.u4  'LastWriteTimeLow'
 	.u4  'LastWriteTimeHigh'
 	.i4  'FileSizeHigh'
@@ -590,7 +614,7 @@ local function GetCurrentDirectory()
 	return mem_string(dirBuf)
 end
 
---!([dir]) Returns previous current directory. Call without parameters to look up current dirrectory
+--!([dir]) Returns previous current directory. Call without parameters to look up current directory
 function _G.os.chdir(dir)
 	-- return call(internal.SetCurrentDirectory, 0, dir) ~= 0
 	local s = GetCurrentDirectory()
