@@ -24,6 +24,7 @@ local function nullproc()
 end
 
 local DLL = mem.dll[DevPath.."ExeMods\\MMExtension\\MMEditorDlg.dll"]
+local pCGame = mmv(0, 0x71FE94, 0x75CE00)
 
 local HookManager = HookManager
 local TmpHooks = HookManager()
@@ -54,8 +55,6 @@ if not TmpHooks.AddEx then  -- support older MMExt versions just in case
 	end
 	TmpHooks = HookManager()
 end
-
-events.LeaveGame = TmpHooks.Clear
 
 local function TmpHookManager(...)
 	local t = HookManager(...)
@@ -89,6 +88,7 @@ Editor.SelectionKind = Editor.SelectionKind or skObject
 
 local PatchOptionsPtr = mem.dll[AppPath.."mm"..mmver.."patch"].GetOptions
 PatchOptionsPtr = PatchOptionsPtr and PatchOptionsPtr()
+local PatchOptionsSize = PatchOptionsPtr and i4[PatchOptionsPtr] or 0
 
 local PatchOptions = {}
 local PatchOpOff = 4
@@ -96,7 +96,7 @@ local PatchOpOff = 4
 local function PatchOption(name, val, p)
 	p = p or PatchOpOff
 	PatchOpOff = p + 4
-	if val and PatchOptions and i4[PatchOptionsPtr] >= p + 4 then
+	if val and PatchOptionsSize >= p + 4 then
 		Editor[name] = Editor[name] or i4[PatchOptionsPtr + p]
 		PatchOptions[#PatchOptions + 1] = {PatchOptionsPtr + p, Editor[name], val}
 	end
@@ -119,12 +119,40 @@ PatchOption("BaseMouseLookTempKey")
 PatchOption("BaseMouseLookChangeKey")
 PatchOption("BaseInventoryKey", 0)
 PatchOption("BaseCharScreenKey", 0)
+PatchOption("ShooterMode", 0, 280)
+
+local function SwitchableEvents()
+	local t, was = {}, false
+	return t, function(on)
+		if not on ~= was then
+			return
+		end
+		was = not was
+		for s, f in pairs(t) do
+			events[was and 'add' or 'remove'](s, f)
+		end
+	end
+end
+local WorkEvents, SwitchWorkEvents = SwitchableEvents()
+local WorkLoadEvents, SwitchWorkLoadEvents = SwitchableEvents()
+Editor.SwitchWorkLoadEvents = SwitchWorkLoadEvents
+
+function events.LeaveGame()
+	Editor.LoadBlvTime = nil
+	if Editor.WorkMode then
+		Editor.SetWorkMode(false)
+	end
+	Editor.SwitchWorkLoadEvents = nil
+	TmpHooks.Clear()
+end
 
 function Editor.SetWorkMode(mode)
 	Editor.Time = Game.Time
 	Editor.WorkMode = mode
 	SwitchPatchOptions(mode)
 	WorkModeHooks.Switch(mode)
+	SwitchWorkEvents(mode)
+	SwitchWorkLoadEvents(mode or Editor.LoadBlvTime)
 	if mode then
 		-- Party.NeedRender = false
 		Party.Drowning = false
@@ -135,14 +163,14 @@ function Editor.SetWorkMode(mode)
 		Party.WaterWalkingBit = false
 		Party.InJumpSpell = true
 		Party.InLava = false
-		if Editor.SelectionKind == skFacet then
+		if Editor.SelectionKind == skFacet and Editor.StateSync then
 			local sel = Editor.Selection
 			Editor.Selection = {}
 			for id in pairs(sel) do
 				Editor.SelectSingleFacet(id)
 			end
 		end
-	elseif Editor.SelectionKind == skFacet then
+	elseif Editor.SelectionKind == skFacet and Editor.StateSync then
 		local sel = Editor.Selection  -- table.copy(Editor.Selection)
 		Editor.ClearSelection()
 		Editor.Selection = sel
@@ -171,14 +199,30 @@ end
 -- Free movement
 -----------------------------------------------------
 
-function Editor.ProcessDoors()
+function Editor.ProcessDoors(move)
+	local old = not move and Game.TimeDelta
+	if old then
+		Game.TimeDelta = 0
+	end
 	mem.call(mmv(0x4603E0, 0x46F22C, 0x46DD08))
+	if old then
+		Game.TimeDelta = old
+	end
 end
 
 local deltaX, deltaY, deltaZ = 0, 0, 0
+local SubDir = PatchOptionsSize >= 388 + 8 and PatchOptionsPtr + 388
+
+local function PartyDir()
+	return Party.Direction + (SubDir and i4[SubDir] or 0)/2048
+end
+
+local function PartyLookAngle()
+	return Party.LookAngle + (SubDir and i4[SubDir + 4] or 0)/2048
+end
 
 function Editor.GetPartyDirection()
-	local a, b = Party.Direction*math.pi/1024, Party.LookAngle*math.pi/1024
+	local a, b = PartyDir()*math.pi/1024, PartyLookAngle()*math.pi/1024
 	local c = math.cos(b)
 	return math.cos(a)*c, math.sin(a)*c, math.sin(b)
 end
@@ -189,8 +233,8 @@ function Editor.GetMouseDirection()
 		my = my + i4[0x9DE3C0] - i4[0x9DE3C4]
 	end
 
-	local angle = Party.LookAngle + mem.call(mmv(0x45B880, 0x46A0FA, 0x46846A), 2, my)
-	local a, b = Party.Direction*math.pi/1024, angle*math.pi/1024
+	local angle = PartyLookAngle() + mem.call(mmv(0x45B880, 0x46A0FA, 0x46846A), 2, my)
+	local a, b = PartyDir()*math.pi/1024, angle*math.pi/1024
 	local ca, sa = math.cos(a), math.sin(a)
 	local cb = math.cos(b)
 	local x, y, z = ca*cb, sa*cb, math.sin(b)
@@ -221,7 +265,7 @@ WorkModeHooks.hook(mmv(0x453B5E, 0x463471, 0x461451), function(data)
 	if Keys.IsPressed(const.Keys.CTRL) then
 		d = 0
 	elseif Keys.IsPressed(const.Keys.SHIFT) then
-		d = d*2
+		d = d*3
 	end
 	local x, y, z = deltaX, deltaY, deltaZ
 	do
@@ -237,18 +281,19 @@ WorkModeHooks.hook(mmv(0x453B5E, 0x463471, 0x461451), function(data)
 	deltaX, deltaY, deltaZ = x%1, y%1, z%1
 	Party.X, Party.Y, Party.Z = Party.X + x - deltaX, Party.Y + y - deltaY, Party.Z + z - deltaZ
 
-	Editor.ProcessDoors()
+	Editor.ProcessDoors(true)
 	u4[data.esp] = u4[data.esp] + 5  -- skip movement
 end)
 
-function events.WindowMessage(t)
-	-- mouse wheel
-	if t.Msg == 0x20A and Editor.WorkMode and Game.CurrentScreen == 0 then
+function WorkEvents.WindowMessage(t)
+	if t.Msg == 0x20A and Game.CurrentScreen == 0 then  -- mouse wheel
 		local d = 40*(t.WParam < 0 and -1 or 1)*(Keys.IsPressed(const.Keys.SHIFT) and 2 or 1)
 		local x, y, z = Editor.GetPartyUpDirection()
 		Party.X = Party.X + d*x
 		Party.Y = Party.Y + d*y
 		Party.Z = Party.Z + d*z
+	elseif t.Msg == 0x203 and Editor.StateSync then  -- WM_LBUTTONDBLCLK
+		t.Msg = 0x201  -- WM_LBUTTONDOWN
 	end
 end
 
@@ -258,8 +303,11 @@ function Editor.CopyPartyPos(to, from)
 	to.LookAngle = from.LookAngle
 end
 
-function events.Tick()
-	if Editor.WorkMode and Editor.StateSync and Game.CurrentScreen == 0 and not Game.MoveToMap.Defined then
+function WorkEvents.Tick()
+	if not Editor.LoadBlvTime then
+		Game.Time = Editor.Time
+	end
+	if Editor.StateSync and Game.CurrentScreen == 0 and not Game.MoveToMap.Defined then
 		Editor.State.Party = Editor.State.Party or {}
 		Editor.CopyPartyPos(Editor.State.Party, Party)
 	end
@@ -293,16 +341,18 @@ local IgnoreActionsSync = {
 	[110] = true,  -- select character
 }
 
-function events.Action(t)
-	if Editor.WorkMode and Game.CurrentScreen == 0 and
+function WorkEvents.Action(t)
+	if Game.CurrentScreen == 0 and
 			(IgnoreActions[t.Action] or Editor.StateSync and IgnoreActionsSync[t.Action]) then
 		t.Action = 0
 	end
 end
 
-function events.KeysFilter(t)
+local allowKeys = {[9] = 1, [18] = 2, [23] = 2, [24] = 2}
+
+function WorkLoadEvents.KeysFilter(t)
 	if (Editor.WorkMode or Editor.LoadBlvTime) and Game.CurrentScreen == 0 then
-		t.Result = t.On and ((t.Key == 18) or (t.Key == 9) and not Editor.StateSync)  -- and Keys.IsPressed(const.Keys.M)
+		t.Result = t.On and (allowKeys[t.Key] or 0) > (Editor.StateSync and 1 or 0)  -- and Keys.IsPressed(const.Keys.M)
 	end
 end
 
@@ -382,16 +432,6 @@ end)
 		-- end
 	-- end
 -- end
-
------------------------------------------------------
--- Tick - Keep game time
------------------------------------------------------
-
-function events.Tick()
-	if Editor.WorkMode and not Editor.LoadBlvTime then
-		Game.Time = Editor.Time
-	end
-end
 
 -----------------------------------------------------
 -- Left Click - Select facets and objects
@@ -520,12 +560,6 @@ std = TmpHooks.hook(mmv(0x42D4E6, 0x434F45, 0x4328D2), function()
 	end
 end)
 
-function events.WindowMessage(t)
-	if t.Msg == 0x203 and Editor.WorkMode and Editor.StateSync then  -- WM_LBUTTONDBLCLK
-		t.Msg = 0x201  -- WM_LBUTTONDOWN
-	end
-end
-
 
 -----------------------------------------------------
 -- Tint selected facets
@@ -542,6 +576,9 @@ local hooks = TmpHookManager{
 	ModelFacetOff = 0x128,  -- use 1 of 2 unused bytes
 	IndoorDarkness = mmv(0x9DDAA4, 0xF8ABD4, 0xFFCFDC),
 	FacetPtrBuf = TmpAlloc(4),
+	DrawFacetOutlineD3D = mmv(0, 0x4378F5, 0x435286),
+	pCGame = pCGame,
+	RenderIndoorFlags = mmv(0, 0x51B564, 0x52CE4C),
 }
 
 if Game.IsD3D then
@@ -554,6 +591,26 @@ if Game.IsD3D then
 		jz @f
 		mov eax, [%TintColor%]
 		mov [ebp - 4], eax
+	@@:
+	]])
+	
+	-- indoor outline (only when Portals is on)
+	hooks.asmhook(mmv(nil, 0x4B0E31, 0x4AF20F), [[
+		cmp byte [eax + %MapFacetOff%], 0
+		jz @f
+		test byte [%RenderIndoorFlags%], 1
+		jz @f
+		push eax
+		push edx
+		push ecx
+		mov ecx, [%pCGame%]
+		mov ecx, [ecx + 0xE54]
+		push 0xFF4400
+		push eax
+		call absolute %DrawFacetOutlineD3D%
+		pop ecx
+		pop edx
+		pop eax
 	@@:
 	]])
 
@@ -727,7 +784,7 @@ function events.EditorSelectionChanged()
 	hooks.Switch(on)
 	mem.i4[SelectionColorBuf] = Editor.SelectionColor
 	if mmver > 6 then
-		local p = 0xE20 + mem.u4[mmv(nil, 0x71FE94, 0x75CE00)]
+		local p = 0xE20 + mem.u4[pCGame]
 		local v = mem.u4[p]
 		local function bit(n, on)
 			v = on and v:Or(n) or v:AndNot(n)
@@ -1027,7 +1084,7 @@ end
 -- Change texture of selected tiles
 -----------------------------------------------------
 
-if not Editor.GroundHooked then
+if not Editor.UpdateTileSelectState then
 	local addr = mmv(0x47BA92, 0x488F05, 0x488805)
 	local addr2 = (mmver == 8 and 0x486E5D or nil)
 	local CodeStd = mem.string(addr, 5, true)
@@ -1125,8 +1182,8 @@ end
 
 function Editor.UpdateGameBits()
 	local portals = Editor.ShowPortals and Editor.VisibleGUI
-	if Game.Version > 6 then
-		local p = 0xE20 + mem.u4[mmv(nil, 0x71FE94, 0x75CE00)]
+	if mmver > 6 then
+		local p = 0xE20 + mem.u4[pCGame]
 		local v = mem.u4[p]
 		local function bit(n, on)
 			v = on and v:Or(n) or v:AndNot(n)
@@ -1155,8 +1212,38 @@ end
 
 function events.CancelLoadingMapScripts()
 	if Editor.State and Editor.StateSync or Editor.LoadBlvTime then
+		Map.LastRefillDay = 0
 		return true
 	end
+end
+
+function events.LoadSavedMap(t)
+	if Editor.LoadBlvTime then
+		Map.LastRefillDay = 0
+	end
+end
+
+-----------------------------------------------------
+-- Max Perception and Id Mon
+-----------------------------------------------------
+
+if mmver > 6 then
+	local StateSyncEvents, SwitchStateSyncEvents = SwitchableEvents()
+
+	local MaxSkills = {
+		[const.Skills.Perception] = true,
+		[const.Skills.IdentifyMonster] = true,
+	}
+
+	StateSyncEvents.GetSkill = |t| if MaxSkills[t.Skill] then
+		t.Result = JoinSkill(60, const.GM)
+	end
+
+	function events.EditorMapUpdated()
+		SwitchStateSyncEvents(true)
+	end
+
+	events.LeaveMap = || SwitchStateSyncEvents(false)
 end
 
 -----------------------------------------------------

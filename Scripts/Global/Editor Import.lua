@@ -12,6 +12,8 @@ local abs, floor, ceil, round, max, min = math.abs, math.floor, math.ceil, math.
 local MessageBox = MessageBox or Message
 local insert = table.insert
 
+local state
+
 -----------------------------------------------------
 -- LoadMtl
 -----------------------------------------------------
@@ -56,7 +58,7 @@ local function ParseObjString(str)
 end
 
 local function ParseObj(file, AddVertex, AddFacet, NewObject)
-	local scale = (Editor.ImportScale or 1)
+	local scale = (state.ImportScale or Editor.ImportScale or 1)
 	local mtl = {}
 	local mtlInv = {}
 	--local mtl = LoadMtl(path.setext(file, ".mtl"), {})
@@ -80,7 +82,7 @@ local function ParseObj(file, AddVertex, AddFacet, NewObject)
 			end
 		elseif s == "v" then
 			local t = ParseObjString(line)
-			if not Editor.NoExportRotation then
+			if not (state.NoExportRotation or state.NoExportRotation == nil and Editor.NoExportRotation) then
 				t[3], t[2] = t[2], -t[3]
 			end
 			t[1], t[2], t[3] = t[1]*scale, t[2]*scale, t[3]*scale
@@ -111,7 +113,6 @@ end
 
 -----------------------------------------------------
 
-local state
 local UniqueVertex, UniqueFacet
 -- local NewVertexes, OldVertexes
 local NewFacets, OldFacets
@@ -167,6 +168,7 @@ local function LoadBlvObj(file, AsObjects)
 	UniqueVertex, UniqueFacet = Editor.AddUnique(state)
 	-- NewVertexes, OldVertexes = {}, {}
 	NewFacets, OldFacets = {}, {}
+	local duplicates = {}
 	local OldRoomObj = state.RoomObj or {}
 	state.RoomObj = {}
 	local obj
@@ -192,7 +194,7 @@ local function LoadBlvObj(file, AsObjects)
 				t.Invisible = invis
 				t.Bitmap = texture
 			end
-			if u and v then
+			if u and v and not state.ImportIgnoreUV then
 				t.ImportVertex, t.ImportU, t.ImportV = t.Vertexes[1], u % 1, v % 1
 			end
 			if AsObjects then
@@ -215,6 +217,9 @@ local function LoadBlvObj(file, AsObjects)
 			ObjName = s
 			if not AsObjects then
 				local o = OldRoomObj[ObjName] or {}
+				if state.RoomObj[ObjName] then
+					duplicates[#duplicates + 1] = ObjName
+				end
 				state.RoomObj[ObjName] = o
 				obj = {}
 				o.BaseFacets = obj
@@ -245,6 +250,9 @@ local function LoadBlvObj(file, AsObjects)
 				end
 			end
 		end
+	elseif duplicates[1] then
+		Editor.LastError = "Duplicated rooms have not been imported:\n"..table.concat(duplicates, "\n")
+		Editor.LastErrorFacets = {}
 	end
 end
 
@@ -349,6 +357,7 @@ local function LoadOdmObj(file)
 	UniqueVertex, UniqueFacet = Editor.AddUnique(state)
 	-- NewVertexes, OldVertexes = {}, {}
 	NewFacets, OldFacets = {}, {}
+	local duplicates = {}
 	local OldModels = state.ModelByName or {}
 	local models = {}
 	state.ModelByName = models
@@ -412,6 +421,8 @@ local function LoadOdmObj(file)
 			obj = {}
 			if s == GroundStr then
 				return
+			elseif models[s] then
+				duplicates[#duplicates + 1] = s
 			end
 			UniqueVertex, UniqueFacet = Editor.AddUnique(state, OldModels[s])
 			local model = OldModels[s] or {Name = s}
@@ -463,6 +474,11 @@ local function LoadOdmObj(file)
 				Editor.AddDeleteModelUndo(m, state)
 			end
 		end
+	end
+	
+	if duplicates[1] then
+		Editor.LastError = "Duplicated models have not been imported:\n"..table.concat(duplicates, "\n")
+		Editor.LastErrorFacets = {}
 	end
 end
 

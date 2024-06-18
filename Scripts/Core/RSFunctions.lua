@@ -7,6 +7,8 @@ local string_byte = string.byte
 local string_sub = string.sub
 local string_gsub = string.gsub
 local string_find = string.find
+local string_lower = string.lower
+local string_upper = string.upper
 
 local next = next
 local pairs = pairs
@@ -27,10 +29,6 @@ local table_insert = table.insert
 local table_remove = table.remove
 local table_concat = table.concat
 local table_sort = table.sort
-local math_min = math.min
-local math_floor = math.floor
-local math_ceil = math.ceil
-local abs = math.abs
 local co_yield = coroutine.yield
 local co_running = coroutine.running
 local io_open = io.open
@@ -209,11 +207,17 @@ function io.save(path, s, translate)
 end
 
 -- Loads a file as a string
-function io.load(path, translate)
-	local f = assert(io_open(path, translate and "rt" or "rb"))
-	local s = f:read("*a")
-	f:close()
-	return s
+function io.load(path, translate, IgnoreErrors)
+	local f, err = io_open(path, translate and "rt" or "rb")
+	if f then
+		local s = f:read("*a")
+		f:close()
+		return s
+	elseif IgnoreErrors then
+		return nil, err
+	else
+		error(err, 2)
+	end
 end
 
 local function print1(t, n, arg, ...)
@@ -286,8 +290,13 @@ do
 end
 
 -- Parameters are treated as plain strings, not patterns
-function string.replace(str, old, new)
+function string.replace(str, old, new, IgnoreCase)
 	old = string_gsub(old, "[%^%$%(%)%%%.%[%]%*%+%-%?]", "%%%0")
+	if IgnoreCase then
+		old = string_gsub(old, "%a", function(c)
+			return format("[%s%s]", string_lower(c), string_upper(c))
+		end)
+	end
 	old = string_gsub(old, "%z", "%%%z")
 	local tp = type(new)
 	if tp == "string" or tp == "number" then

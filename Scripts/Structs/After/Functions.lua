@@ -7,10 +7,13 @@ local function mmv(...)
 	return ret
 end
 
-local _KNOWNGLOBALS_F = SimpleMessage, HouseMessageVisible
+local _KNOWNGLOBALS_F = SimpleMessage, HouseMessageVisible, CustomActions, CustomMenuActions, CustomAction, CustomMenuAction
 
 
 function SplitSkill(val)
+	if not val then
+		return
+	end
 	local n = val % 0x40
 	local mast
 	if val >= 0x100 then
@@ -367,6 +370,142 @@ function StrColor(r, g, b, s)
 end
 
 -----------------------------------------------------
+-- Pcx Cache
+-----------------------------------------------------
+
+do
+	local Command = |t, k, a, s| if s == "Clear" then
+		a:Destroy()
+		t[k] = nil
+	elseif s == "Reload" then
+		Game.LoadPcx(s, a, t[1])
+	end
+	
+	local mt = {
+		__index = function(t, s)
+			local a = Game.LoadPcx(s, nil, t[1])
+			t[s] = a
+			return a
+		end,
+		__call = function(t, s, one)
+			if one then
+				local a = t[one]
+				return a and Command(t, one, a, s)
+			end
+			for k, a in pairs(t) do
+				if k ~= 1 then
+					Command(t, k, a, s)
+				end
+			end
+		end,
+	}
+
+	-- Example - loading:
+	-- !Lua[[local t = PcxCache(true)
+	-- local win = t["winBG.PCX"]
+	-- local lose = t["LOSEBG.PCX"]
+	-- ]]
+	-- Drawing:
+	-- !Lua[[Screen.DrawPcx(0, 0, win)
+	-- ]]
+	-- Clearing cache deletes all loaded images:
+	-- !Lua[[t("Clear")
+	-- ]]
+	-- You can also reload all images, say, if you conditionally load a LOD with an inteface skin (all obtained addresses stay the same):
+	-- !Lua[[t("Reload")
+	-- ]]
+	-- Pass file name as second argument when invoking "Clear" or "Reload" to handle a specific file only.
+	function PcxCache(EnglishD)
+		return setmetatable({not not EnglishD}, mt)
+	end
+end
+
+-----------------------------------------------------
+-- Icon Cache
+-----------------------------------------------------
+
+do
+	local Command = |t, k, a, s| if s == "Clear" then
+		a:DestroyInPlace()
+		mem.freeMM(a)
+		t[k] = nil
+	elseif s == "Reload" then
+		a:DestroyInPlace()
+		Game.IconsLod:LoadBitmapInPlace(a, s)
+	end
+	
+	local mt = {
+		__index = function(t, s)
+			local p = mem.allocMM(0x48)
+			Game.IconsLod:LoadBitmapInPlace(p, s)
+			local a = structs.LodBitmap:new(p)
+			t[s] = a
+			return a
+		end,
+		__call = function(t, s, one)
+			if one then
+				local a = t[one]
+				return a and Command(t, one, a, s)
+			end
+			for k, a in pairs(t) do
+				Command(t, k, a, s)
+			end
+		end,
+	}
+
+	-- Same as 'PcxCache', but for in-place icons, which means loaded icons aren't stored in #Game.IconsLod.Bitmaps:structs.BitmapsLod.Bitmaps#, but instead stored in the cache until it's cleared
+	function IconCache()
+		return setmetatable({}, mt)
+	end
+end
+
+-----------------------------------------------------
+-- Custom Actions
+-----------------------------------------------------
+
+do
+	local ActCustom = const.Actions.CustomAction
+	--!+v([])
+	CustomActions = {}
+	--!+v([])
+	CustomMenuActions = {}
+
+	local f = |actions| |t| if t.Action == ActCustom then
+		local f = actions[t.Param]
+		return f and f(t)
+	end
+	events.Action = f(CustomActions)
+	events.MenuAction = f(CustomMenuActions)
+	local add = |actions| function(f)
+		local p = mem.topointer(f, true)
+		actions[p] = f
+		return p
+	end
+	--!+(f) Usage example:!Lua[[
+	-- local param = CustomAction(|| MessageBox'Action triggered!')
+	-- Game.Actions:Add(const.Actions.CustomAction, param)]]
+	-- To delete the action:!Lua[[
+	-- CustomActions[param] = nil]]
+	CustomAction = add(CustomActions)
+	--!+(f) Same, but for main menu actions. You can pass the same function to both 'CustomAction' and 'CustomMenuAction', the returned 'param' would be the same.
+	CustomMenuAction = add(CustomMenuActions)
+end
+
+-----------------------------------------------------
+-- Sprite Events
+-----------------------------------------------------
+
+-- Sets 'f' as the handler of !Lua[[Map.Sprites[i].Event]], optionally sets its hint to 'hint'
+function SetSpriteEvent(i, f, hint)
+	local id = 20000 + i
+	Map.Sprites[i].Event = id
+	evt.map[id] = |...| f(i, Map.Sprites[i], ...)
+	if hint then
+		evt.hint[id] = hint
+	end
+end
+
+-----------------------------------------------------
 -- Summon*
 -----------------------------------------------------
 
@@ -484,7 +623,8 @@ function ChangeSprite(n, name)
 	-- also need to do sound: 45E6EE (MM8)
 end
 
---!a{name, x, y, z}
+--!a{name, x, y, z} Warning: In MM7+ sprite bits are stored in the save game. Thus, adding sprites would cause mismatch between #Map.SanitySpritesCount:structs.GameMap.SanitySpritesCount# and #Map.Sprites.Count:structs.GameMap.Sprites# next time the game is loaded (see #LoadSavedMap:events.LoadSavedMap# event for more info on that).
+-- If you do decide to use this function in a live MM7+ game, I recommend setting #Map.Sprites.Count:structs.GameMap.Sprites# to normal amount in #BeforeSaveGame:events.BeforeSaveGame# event and restoring current amount in #AfterSaveGame:events.AfterSaveGame#.
 function CreateSprite(t)
 	local n = Map.Sprites.Count
 	if n < Map.Sprites.Limit then

@@ -7,6 +7,7 @@ local _KNOWNGLOBALS = DeduceDoorStartState2
 local VertexShifts
 local FacetDoorIdx
 local Vertexes
+local NeedVertexIds
 local Facets
 local Sprites
 local Lights
@@ -255,7 +256,12 @@ function Editor.ReadFacet(a, _, Verts)
 	t.MoveByDoor = a.MoveByDoor
 	
 	local okMul = 0.99
-	local nx, ny, nz = normalize(a.NormalX, a.NormalY, a.NormalZ)
+	local nx, ny, nz
+	if mmver == 6 or Map.IsOutdoor() then
+	  nx, ny, nz = normalize(a.NormalX, a.NormalY, a.NormalZ)
+	else
+	  nx, ny, nz = normalize(a.NormalFX, a.NormalFY, a.NormalFZ)
+	end
 	Editor.FindNormal(t, true)
 	local mulBefore = t.ndist and t.nx*nx + t.ny*ny + t.nz*nz or -2
 	ShiftVertexes(true, t, {})
@@ -305,7 +311,11 @@ end
 local function CheckAlign(t, prop, Left, Right, Width)
 	if t[Left] or t[Right] then
 		local a = Map.GetFacet(Editor.FacetIds[t])
-		local a = Map.IsOutdoor() and a or a.HasData and Map.FacetData[a.DataIndex]
+		a = Map.IsOutdoor() and a or a.HasData and Map.FacetData[a.DataIndex]
+		if not a then
+			t[Left], t[Right] = nil, nil
+			return
+		end
 		local u = a[prop]
 		Editor['Update'..prop](t)
 		if u ~= a[prop] then
@@ -512,6 +522,7 @@ local LightProps = {
 	Y = true,
 	Z = true,
 	Radius = true,
+	Type = true,
 	-- Brightness = true,
 	-- Bits
 	Off = true,
@@ -562,7 +573,14 @@ end
 -- Editor.ResetDoors
 -----------------------------------------------------
 
-function Editor.ResetDoor(t)
+Editor.ResetDoor = |t| if t.State ~= 0 then
+	t.TimeStep = t.Speed2 > 0 and (t.MoveLength*128/t.Speed2):ceil() or 15360
+	t.State = 3
+	t.SilentMove = true
+	Editor.NeedDoorsUpdate = true
+end
+
+function Editor.ResetDoor2(t)
 	for i, fi in t.FacetIds do
 		assert(fi < Map.Facets.count)
 		local f = Map.Facets[fi]
@@ -578,16 +596,15 @@ function Editor.ResetDoor(t)
 		v.Y = t.VertexStartY[i]
 		v.Z = t.VertexStartZ[i]
 	end
-	if t.State == 2 then
-		t.State = 1
-		t.SilentMove = true
-	end
-	Editor.NeedDoorsUpdate = true
 end
 
 function Editor.ResetDoors()
 	for _, t in Map.Doors do
 		Editor.ResetDoor(t)
+	end
+	Editor.CheckDoorsUpdate()
+	for _, t in Map.Doors do
+		Editor.ResetDoor2(t)
 	end
 	-- local states = {}
 	-- local times = {}
@@ -623,53 +640,8 @@ end
 -- ReadDoor
 -----------------------------------------------------
 
--- local function VerToNum(v)
--- 	return v.X % 0x10000 + (v.Y % 0x10000)*0x10000 + (v.Z % 0x10000)*0x100000000
--- end
-
--- local function DoorCheckFree(t, ver, fac)
--- 	do return end  -- doesn't work right yet
--- 	local fac2, include, exclude = {}, {}, {}
--- 	for _, f in pairs(Facets) do
--- 		local need = fac[f]
--- 		if need and not f.MoveByDoor and not f.IsPortal then
--- 			need = false
--- 			for _, v in ipairs(f.Vertexes) do
--- 				if ver[v] then
--- 					need = true
--- 					break
--- 				end
--- 			end
--- 		end
--- 		if need then
--- 			fac2[f] = true
--- 		end
--- 		if not f.IsPortal then
--- 			for _, v in ipairs(f.Vertexes) do
--- 				(need and include or exclude)[v] = true
--- 				if not need and (not v.Shift or v.Shift.Delete) then
--- 					exclude[VerToNum(v)] = true
--- 				end
--- 			end
--- 		end
--- 	end
--- 	-- check
--- 	for v in pairs(include) do
--- 		if not ver[v] and not exclude[v] and (v.Shift and not v.Shift.Delete or not exclude[VerToNum(v)]) then
--- 			return
--- 		end
--- 	end
--- 	for v in pairs(ver) do
--- 		if exclude[v] or (not v.Shift or v.Shift.Delete) and exclude[VerToNum(v)] then
--- 			return
--- 		end
--- 	end
--- 	t.VertexFilter = "Free"
--- 	return fac2
--- end
-
 local function DoorCheckShrink(t, ver, fac)
-	local fac2, include, exclude = {}, {}, {}
+	local fac2 = {}
 	for _, f in pairs(Facets) do
 		local need = fac[f]
 		if need and not f.MoveByDoor and not f.IsPortal then
@@ -768,6 +740,7 @@ local function ReadDoor(a, t)
 	local fac = {}
 	for _, i in a.VertexIds do
 		ver[Vertexes[i]] = true
+		Editor.State.VertexIds[Vertexes[i]] = i
 	end
 	for _, i in a.FacetIds do
 		fac[Facets[i + 1] or fac] = true
@@ -811,19 +784,44 @@ local function ReadDoor(a, t)
 				break
 			end
 		end
-	-- elseif t.VertexFilter == "Free" then
-	-- 	local v2 = Editor.GetDoorVertexLists(t)
-	-- 	for v in pairs(v2) do
-	-- 		if not ver[v] then
-	-- 			SetShiftFilter(t, ver)
-	-- 			break
-	-- 		end
-	-- 	end
 	end
 	
 	a["?ptr"] = nil
 
 	return t
+end
+
+local function CheckSameTable(t, q)
+	local n = 0
+	for v in pairs(q) do
+		if t[v] == nil then
+			return
+		end
+		n = n + 1
+	end
+	for v in pairs(t) do
+		n = n - 1
+	end
+	return n == 0
+end
+
+local function DoorTryFreeFilter(t)
+	local ver = Editor.GetDoorVertexLists(t)
+	local filter = t.VertexFilter
+	t.VertexFilter = "Free"
+	if CheckSameTable(ver, Editor.GetDoorVertexLists(t)) then
+		t.VertexFilterParam1, t.VertexFilterParam2 = nil
+	else
+		t.VertexFilter = filter
+	end
+end
+
+local function ClearMovedByDoor()
+	for f in pairs(Editor.FacetIds) do
+		if f.MovedByDoor and f.Door.VertexFilter then
+			f.MovedByDoor = nil
+		end
+	end
 end
 
 -----------------------------------------------------
@@ -1163,6 +1161,7 @@ function Editor.ReadMap()
 		end
 	end
 	-- doors
+	state.VertexIds = {}
 	Editor.State = state
 	Editor.Doors, Editor.DoorIds = ReadListEx({}, {}, Map.Doors, ReadDoor)
 	-- outlines
@@ -1186,7 +1185,11 @@ function Editor.ReadMap()
 	Editor.SetState(state)
 	if Editor.ExactMode ~= 2 then
 		Editor.AddUnique()
+		for t in pairs(Editor.DoorIds) do
+			DoorTryFreeFilter(t)
+		end
 	end
+	-- ClearMovedByDoor()
 	Editor.DefaultFileName = (Editor.MapsDir or "")..path.setext(Map.Name, '.dat')
 	-- Editor.ProcessDoors()
 	Editor.profile(nil)

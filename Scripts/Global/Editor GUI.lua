@@ -4,7 +4,7 @@ local unpersist = internal.unpersist
 local DevPath = DevPath or AppPath
 
 Editor = Editor or {}
-local _KNOWNGLOBALS
+local _KNOWNGLOBALS = NoTrash, NoMapsInTrash
 Editor.Selection = Editor.Selection or {}
 local skSpawn = 1  -- in the game 1 is for doors
 local skObject = 2
@@ -36,33 +36,37 @@ Editor.Commands = Commands
 	-- end
 -- end
 
-function events.KeyDown(t)
-	local key = t.Key
-	if key == const.Keys.F1 and t.Alt then
-		t.Key = 0
-		Editor()
-	elseif Editor.VisibleGUI and Game.CurrentScreen == 0 then
-		if t.Alt then
-			--
-		elseif Keys.IsPressed(const.Keys.CTRL) then
-			DLL.CtrlKeyPressed(key)
-		else
-			DLL.KeyPressed(key)
-		end
-		local IsNum = (key >= const.Keys.NUMPAD0 and key <= const.Keys.NUMPAD9)
-		local IsShift = Keys.IsPressed(const.Keys.SHIFT) or not t.ExtendedKey and Keys.IsToggled(const.Keys.NUMLOCK) ~= IsNum
-		if key == const.Keys.RIGHT or key == const.Keys.NUMPAD6 then
-			Editor.MoveKeyPressed(1, 0, 0, IsShift)
-		elseif key == const.Keys.LEFT or key == const.Keys.NUMPAD4 then
-			Editor.MoveKeyPressed(-1, 0, 0, IsShift)
-		elseif key == const.Keys.UP or key == const.Keys.NUMPAD8 then
-			Editor.MoveKeyPressed(0, 1, 0, IsShift)
-		elseif key == const.Keys.DOWN or key == const.Keys.NUMPAD2 then
-			Editor.MoveKeyPressed(0, -1, 0, IsShift)
-		elseif key == const.Keys.PGUP or key == const.Keys.NUMPAD9 then
-			Editor.MoveKeyPressed(0, 0, 1, IsShift)
-		elseif key == const.Keys.PGDN or key == const.Keys.NUMPAD3 then
-			Editor.MoveKeyPressed(0, 0, -1, IsShift)
+do
+	local ck = const.Keys
+
+	function events.KeyDown(t)
+		local key = t.Key
+		if key == ck.F1 and t.Alt then
+			t.Key = 0
+			Editor()
+		elseif Editor.VisibleGUI and Game.CurrentScreen == 0 then
+			if t.Alt then
+				--
+			elseif Keys.IsPressed(ck.CTRL) then
+				DLL.CtrlKeyPressed(key)
+			else
+				DLL.KeyPressed(key)
+			end
+			local IsNum = (key >= ck.NUMPAD0 and key <= ck.NUMPAD9)
+			local IsShift = Keys.IsPressed(ck.SHIFT) or not t.ExtendedKey and Keys.IsToggled(ck.NUMLOCK) ~= IsNum
+			if key == ck.RIGHT or key == ck.NUMPAD6 then
+				Editor.MoveKeyPressed(1, 0, 0, IsShift)
+			elseif key == ck.LEFT or key == ck.NUMPAD4 then
+				Editor.MoveKeyPressed(-1, 0, 0, IsShift)
+			elseif key == ck.UP or key == ck.NUMPAD8 then
+				Editor.MoveKeyPressed(0, 1, 0, IsShift)
+			elseif key == ck.DOWN or key == ck.NUMPAD2 then
+				Editor.MoveKeyPressed(0, -1, 0, IsShift)
+			elseif key == ck.PGUP or key == ck.NUMPAD9 then
+				Editor.MoveKeyPressed(0, 0, 1, IsShift)
+			elseif key == ck.PGDN or key == ck.NUMPAD3 then
+				Editor.MoveKeyPressed(0, 0, -1, IsShift)
+			end
 		end
 	end
 end
@@ -141,6 +145,7 @@ function Editor.SetState(state)
 end
 
 function Editor.SetStateLoaded()
+	Editor.LoadingOldState = nil
 	Editor.StateSync = true
 	Editor.UpdateSelectionState(true)
 	Editor.UpdateTileSelectState()
@@ -336,10 +341,25 @@ function Commands.Open(name)
 	Editor.NeedStateSync()
 end
 
+local function backup(name)
+	-- mem.dll.kernel32.CopyFileA(name, path.setext(name, ".bak"), false)
+	local bak = path.setext(name, ".bak")
+	local time1, time2
+	for _, a in path.find(bak) do
+		time1, time2 = a.LastWriteTimeLow, a.LastWriteTimeHigh
+	end
+	if time1 then
+		local del = path.setext(name, '.'..time2..'-'..time1)
+		os.rename(bak, del)
+		os.remove(del, NoTrash or NoMapsInTrash)
+	end
+	os.rename(name, bak)
+end
+
 function Commands.Save(name)
 	name = memstr(name)
 	Editor.FileName = name
-	mem.dll.kernel32.CopyFileA(name, path.setext(name, ".bak"), false)
+	backup(name)
 	io.SaveString(name, persist(Editor.State))
 end
 
@@ -378,6 +398,7 @@ local function FindExtInGamesLod(ext)
 end
 
 function Editor.NeedStateSync()
+	Editor.LoadingOldState = true
 	local s = Editor.State.BaseInternalMap
 	if s and s:lower() ~= Map.Name:lower() and FindInGamesLod(s) then
 		return Editor.LoadBlv(s, true)
@@ -392,14 +413,20 @@ function Editor.NeedStateSync()
 			Editor.UpdateSelectionState(true)  -- unknown error
 		end
 	end
+	Editor.LoadingOldState = nil
 end
 
 function Editor.LoadBlv(name, KeepState)
 	if not Editor.JustOpenMap then
 		Editor.LoadBlvTime = Game.Time
 		Editor.LoadBlvKeepState = KeepState
-		Game.Time = Game.Time + 0x1000000000
-		Editor.ClearUndoStack()
+		if not (Game.PatchOptions or {}).Present then
+			Game.Time = Game.Time + 0x1000000000
+		end
+		if not KeepState then
+			Editor.ClearUndoStack()
+		end
+		Editor.SwitchWorkLoadEvents(true)
 		if mmver == 6 then
 			mem.u1[offsets.MapName] = 1  -- avoid triggering losing game
 		end
@@ -522,22 +549,17 @@ function Editor.MapUpdated()
 	Game.MapEvtLines.Count = 0
 	Editor.UpdateShowInvisible()
 	Editor.UpdateNoDark()
-	if mmver > 6 then
-		Party[0].Skills[const.Skills.Perception] = JoinSkill(60, const.GM)
-		Party[0].Skills[const.Skills.IdentifyMonster] = JoinSkill(60, const.GM)
-	end
 	-- once had an AV due to corrupt ObjectByPixel
 	if mmver == 6 or Game.RendererD3D == 0 then
 		for i, a in Game.ObjectByPixel do
-			for i in a do
-				a[i].Value = 0
-			end
+			mem.fill(a)
 		end
 	end
 	if Editor.State.Party then
 		Editor.CopyPartyPos(Party, Editor.State.Party)
 	end
 	Party.NeedRender = true
+	events.EditorMapUpdated()
 end
 
 local PauseState
@@ -678,28 +700,78 @@ local function FreeDoorId()
 	return id + 1
 end
 
+local function DoorFromSelection(door, MakeMoving)
+	local ver = door.VertexFilter and {}
+	local props = Editor.GetProps()
+	for id in pairs(Editor.Selection) do
+		if ver then
+			local f = Editor.Facets[id + 1]
+			for _, v in ipairs(f.Vertexes) do
+				ver[v] = true
+			end
+		elseif MakeMoving then
+			props.set(id, "MovedByDoor", true)
+		end
+		props.set(id, "Door", door)
+	end
+	if not ver then
+		return props.done()
+	end
+
+	local check = |f| for _, v in ipairs(f.Vertexes) do
+		if ver[v] then
+			return true
+		end
+	end
+
+	-- add all facets containing these vertexes
+	local inc = {}
+	for f, id in pairs(Editor.FacetIds) do
+		if f.Door ~= door and check(f) then
+			inc[f.PartOf] = true
+		end
+	end
+	for f, id in pairs(Editor.FacetIds) do
+		if not inc[f.PartOf] then
+			--
+		elseif f.Door then
+			props.set(id, "MultiDoor", true)
+		else
+			props.set(id, "Door", door)
+		end
+	end
+	props.done()
+	Commands.SelectDoor()
+end
+
 function Commands.NewDoor()
 	-- find the 'main' facet that would define door direction
 	local FoundMoving
+	local weight = |f| max(max(abs(f.nx), abs(f.ny)), abs(f.nz)) + (f.nx == 0 and 1 or 0) + (f.ny == 0 and 1 or 0) + (f.nz == 0 and 1 or 0)
 	local f = Editor.Facets[next(Editor.Selection) + 1]
 	for id in pairs(Editor.Selection) do
 		local f1 = Editor.Facets[id + 1]
-		if f1.MovedByDoor then
+		local mov = (f1.MovedByDoor and 1 or 0) - (FoundMoving or 0)
+		if mov > 0 then
 			f = f1
-			FoundMoving = true
-			break
+			FoundMoving = 1
+		elseif mov == 0 and weight(f1) > weight(f) then
+			f = f1
 		end
 	end
 	-- create door
 	local door = {
-		DirectionX = -f.nx, DirectionY = -f.ny, DirectionZ = -f.nz,
+		DirectionX = f.nx, DirectionY = f.ny, DirectionZ = f.nz,
 		MoveLength = 128, Speed1 = 50, Speed2 = 50,
-		VertexFilter = not FoundMoving and "Free" or nil,
+		VertexFilter = Keys.IsPressed(const.Keys.CTRL) and "Free" or nil,
 		Id = FreeDoorId(),
 	}
-	for id, props in Editor.ForSelection() do
-		props.set(id, "Door", door)
-	end
+	Editor.BeginUndoState()
+	DoorFromSelection(door, not FoundMoving)
+	local props = Editor.GetNewProps("Door")
+	props.set(next(Editor.Selection), "MoveLength", nil)
+	props.done()
+	Editor.EndUndoState()
 end
 
 local function FindDoor()

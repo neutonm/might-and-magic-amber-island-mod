@@ -26,7 +26,51 @@ if mmver == 7 and mem.u1[0x445F76] == 4 then
 	mem.u1[0x445F76] = 3
 end
 
---!(NPC:structs.NPC) Finds the prototype NPC in Game.NPC array for the supplied hired NPC. Returns 'nil' if it's a street NPC.
+-- fix inability to hire NPCs with index over 256
+-- (too manu places to fix in MM6)
+if mmver == 7 then
+	-- GetNPCPtrFromIndex (2 variants)
+	local code = [[
+		mov eax, [ebp - 8]
+		shl eax, 2
+		mov [ebx + 1000], ah
+	]]
+	for _, p in ipairs{0x445B0E, 0x445C51} do
+		mem.nop(p)
+		mem.asmhook(p, code)
+	end
+	local code2 = [[
+		jb @f
+		mov ah, [0x5C5C30 + 1000 + esi]
+		shr eax, 2
+		add eax, 2
+	@@:
+	]]
+	for _, p in ipairs{0x445B2D, 0x445C78} do
+		mem.asmhook2(p, code2)
+	end
+	mem.asmpatch(0x445C93, [[add eax, 2]])
+	-- AddGold - pay followers
+	local code3 = [[
+		lea eax, [ebx*4]
+		mov [0x5C5C30 + 1000 + ecx], ah
+	]]
+	mem.asmhook(0x420C5F, code3)
+	mem.asmhook(0x420C8A, [[
+		cmp dl, 2
+		jb @f
+		mov ah, [0x5C5C30 + 1000 + edi]
+		shr eax, 2
+		add eax, 2
+	@@:
+	]])
+	-- draw portrait
+	mem.asmhook(0x492008, code3)
+	mem.asmhook(0x492046, [[mov esi, eax]])
+	mem.asmhook2(0x49204C, code2)
+end
+
+--!(NPC:structs.NPC) Finds the prototype NPC in #Game.NPC:# array for the supplied hired NPC. Returns 'nil' if it's a street NPC.
 function FindHiredNPC(npc)
 	local s = npc.Name
 	for i, a in Game.NPC do
@@ -59,7 +103,7 @@ local function NPCTopicsHook(p)
 		CurrentNPC = i
 		if FirstEnterNPC then
 			FirstEnterNPC = nil
-			--!(Index) Only called for NPCs from Game.NPC array, not for street or hired NPCs
+			--!(Index) Only called for NPCs from #Game.NPC:# array, not for street or hired NPCs
 			events.cocalls("EnterNPC", i)
 		end
 		--!(Index) NPC topics are about to be shown and you can update them here
@@ -67,7 +111,7 @@ local function NPCTopicsHook(p)
 	elseif kind == 'HiredNPC' then
 		--!(Index, RealNPC) Happens only in MM6 when you talk to a hired NPC.
 		-- 'Index' is the index in Party.HiredNPC array.
-		-- 'RealNPC' is the index of the prototype NPC in Game.NPC array or 'nil'.
+		-- 'RealNPC' is the index of the prototype NPC in #Game.NPC:# array or 'nil'.
 		events.cocalls("ShowHiredNPCTopics", i, FindHiredNPC(npc))
 	end
 end
@@ -108,7 +152,9 @@ if mmver == 7 then
 	end, 7)
 elseif mmver == 8 then
 	mem.i4[0x44274E + 2] = 0
-	mem.hook(0x442765, function(d)  d.eax = NPCGreetingHook(d.eax, d.edi)  end, 7)
+	mem.hook(0x442765, function(d)
+		d.eax = NPCGreetingHook(d.eax, d.edi)
+	end, 7)
 	mem.i4[0x4B1389 + 2] = 0
 	mem.hook(0x4B13A3, function(d)
 		d.edx = NPCGreetingHook(d.eax, d.esi)
@@ -139,11 +185,18 @@ end
 
 -- make all peasants hireable
 if mmver == 7 then
-	local hooks
+	local hooks, off = nil, true
 	-- [MM7] Normally first level of each peasant kind just talls you some news and can't be hired. Pass 'on' = 'true' to this function to make all peasants hireable.
+	-- Pass 'on' = 'nil' to obtain current state of it.
 	function HireAllPeasants(on)
+		if on == nil then
+			return not off
+		elseif off == not on then
+			return
+		end
+		off = not on
 		if hooks then
-			hooks.Switch(on)
+			hooks.Switch(not off)
 		elseif on then
 			hooks = HookManager()
 			hooks.asmpatch(0x4611DC, [[jmp absolute 0x461382]])
@@ -170,7 +223,7 @@ internal.OnActionNPC = |t| if CurrentAnyNPC and (t.Action == 113 and screensNPC[
 			events.cocalls("CanExitStreetNPC", t)
 		else
 			t.RealNPC = FindHiredNPC(t.NPC)
-			--!k{NPC :structs.NPC} 'RealNPC' is the index of the prototype NPC in Game.NPC array or 'nil'.
+			--!k{NPC :structs.NPC} 'RealNPC' is the index of the prototype NPC in #Game.NPC:# array or 'nil'.
 			events.cocalls("CanExitHiredNPC", t)
 		end
 		allow = t.Allow
@@ -383,12 +436,19 @@ if mmver > 6 then
 end
 
 if mmver == 7 then
-	local hooks
+	local hooks, off = nil, false
 	-- [MM7] Pass 'false' to remove the deck requirement.
+	-- Pass 'on' = 'nil' to obtain current state of it.
 	function ArcomageRequireDeck(on)
+		if on == nil then
+			return not off
+		elseif off == not on then
+			return
+		end
+		off = not on
 		if hooks then
-			hooks.Switch(not on)
-		elseif not on then
+			hooks.Switch(off)
+		elseif off then
 			hooks = HookManager()
 			hooks.nop(0x4B3A06)  -- no arcomage deck requirement
 			hooks.nop(0x4B8A31)  -- no arcomage deck requirement
@@ -513,11 +573,7 @@ local function ReadPopulatedDialog(action, NoTopics)
 	local it = structs.Button:new(dlg.LastItemPtr)
 	local n0 = dlg.KeyboardItemsCount
 	local n = n0 == 0 and 0 or dlg.ItemsCount - dlg.KeyboardItemsStart
-	if n < n0 then
-		-- unused house PicType produces boken keyboard items count (1 instead of 0)
-		n0 = n
-		dlg:SetKeyboardNavigation(n, 1, 0, dlg.KeyboardItemsStart)
-	elseif NoTopics and n == 1 and it.ActionType ~= action then
+	if NoTopics and n == 1 and it.ActionType ~= action then
 		-- Seer Pilgrimage
 		n, n0 = 0, 0
 	end
@@ -665,12 +721,12 @@ local function PopulateHouseDlg(eventName, type)
 		events.cocall("PopulateArcomageDialog", t)
 		events.cocall("PopulateDisplayInventoryDialog", t)
 		t.ExtraParams = nil
-		--!k{PicType :const.HouseType} There are also similar AfterPopulateArcomageDialog and PopulateDisplayInventoryDialog events
+		--!k{PicType :const.HouseType} There are also similar 'AfterPopulateArcomageDialog' and 'AfterPopulateDisplayInventoryDialog' events
 		events.cocall("AfterPopulateHouseDialog", t)
 	end
 	events.cocall(eventName, t)
 	local t, extra = modify(t.Result)
-	local t = {PicType = type, House = Game.GetCurrentHouse(), Result = t, ExtraParams = extra}
+	local t = {PicType = type or Game.HousePicType, House = Game.GetCurrentHouse(), Result = t, ExtraParams = extra}
 	--!-
 	events.cocall("After"..eventName, t)
 	i4[pItemsCount] = dlg.KeyboardItemsCount
@@ -686,6 +742,10 @@ if mmver == 7 then  -- make room for PopulateHouseDialog hook
 end
 
 mem.hookfunction(mmv(0x498490, 0x4B3AA5, 0x4B250A), 1, 0, function(d, def, type)
+	-- unused house PicType produces boken keyboard items count
+	local dlg = Game.CurrentNPCDialog
+	dlg:SetKeyboardNavigation(0, 1, 0, 2)
+	
 	def(type)
 	PopulateHouseDlg("PopulateHouseDialog", type)
 end)
@@ -736,6 +796,219 @@ if mmver > 6 then
 			d:push(mm78(0x4B39AF, 0x4B23B6))
 			return true
 		end
+	end)
+	mem.autohook(mm78(0x4B39C3, 0x4B23CA), function(d)
+		local t = {PicType = Game.HousePicType, House = Game.GetCurrentHouse()}
+		events.cocall("AfterPopulateLearnSkillsDialog", t)
+	end)
+end
+
+-- Draw dialogs
+
+do
+	local p = mem.StaticAlloc(1)
+	u1[p] = 0
+	local hooks = HookManager{p = p, CurScreen = 0x4F37D8, MenuCode = 0x6CEB24}
+	local LastIndex, LastID, LastDialog
+	local DrawnCount = 0
+	local AfterDraw
+	
+	-- before each dialog
+	hooks.autohook(mmv(0x40FCA3, 0x415735, 0x414C3C), function(d)
+		LastIndex = LastIndex and AfterDraw() or false
+		u1[p] = 1
+		if DrawnCount == 0 then
+			events.cocalls("BeforeDrawDialogs")
+		end
+		local dialogs = Game.Dialogs
+		local reg = mmver == 6 and 'ecx' or 'eax'
+		local i = d[reg]
+		local dlg = dialogs[i]
+		local t = {
+			Index = i,
+			-- :structs.Dlg
+			Dialog = dlg,
+			-- :const.DlgID
+			DlgID = dlg.DlgID,
+			DrawnCount = DrawnCount,
+		}
+		-- Called when a dialog is just about to be drawn. 'Index' goes from 1 to #Game.Dialogs.Count:Game.Dialogs# and you can change if you have to.
+		events.cocalls("BeforeDrawDialog", t)
+		
+		-- update index
+		if i ~= t.Index then
+			i = tonumber(t.Index) or i
+			d[reg] = i
+			i4[d.esp + mmv(0x14, 0x10, 0x10)] = i
+		end
+		-- check index limit
+		if i < 0 or i > dialogs.Count then
+			d:push(mmv(0x410801, 0x4160B7, 0x415580))
+			return true
+		end
+		
+		LastIndex = i
+		LastDialog = dialogs[i]
+		LastID = LastDialog.DlgID
+		DrawnCount = DrawnCount + 1
+	end)
+	
+	-- after drawing each dialog
+	AfterDraw = function()
+		local dlg, dialogs = LastDialog, Game.Dialogs
+		dlg = LastIndex < dialogs.Count and dialogs[LastIndex] == dlg and dlg.DlgID == LastID and dlg
+		local t = {
+			Index = LastIndex,
+			-- :structs.Dlg
+			Dialog = dlg,
+			-- :const.DlgID
+			DlgID = LastID,
+			DrawnCount = DrawnCount,
+		}
+		-- Note that some dialogs get destroyed once they are drawn. When that happens, 'Dialog' is 'nil'.
+		events.cocalls("DrawDialog", t)
+		events.cocalls("AfterDrawDialog", t)
+	end
+	
+	-- after all dialogs are drawn
+	local pAfter = mmv(0x410808, 0x4160BB, 0x415584)
+	local code = hooks.asmhook(pAfter, [[
+	if mm8
+		mov eax, dword[%MenuCode%]
+		inc eax
+		or al, byte [%p%]
+		or eax, dword [%CurScreen%]
+	else
+		cmp byte [%p%], 0
+	end if
+		jz @f
+		call absolute 0
+	@@:
+	]])
+	local callPtr = mem.findcall(code)
+
+	mem.hook(callPtr, function(d)
+		if LastIndex ~= nil or mmver == 8 and not d.ZF then
+			u1[p] = 0
+			if LastIndex == nil then
+				events.cocalls("BeforeDrawDialogs")  -- only OO dialogs in MM8 - still must call both before and after
+			else
+				LastIndex = LastIndex and AfterDraw() or nil
+			end
+			-- Called after drawing dialogs
+			events.cocalls("AfterDrawDialogs", DrawnCount)
+		else
+			-- Called in place of drawing dialogs when no dialog is active. The reason it's separated from 'AfterDrawDialogs' event is to improve performance, because this event would usually stay unused.
+			events.cocalls("AfterDrawNoDialogs", 0)
+		end
+		DrawnCount = 0
+	end)
+	
+	-- if AfterDrawNoDialogs hook is set, always call After* hook
+	local hooks2 = HookManager{ptr = callPtr}
+	if mmver == 8 then
+		hooks2.nop(callPtr - 2)  -- remove 'jz'
+	else
+		hooks2.asmpatch(pAfter, [[jmp absolute %ptr%]])
+	end
+	Conditional(hooks2, "AfterDrawNoDialogs")
+end
+
+-- Create dialogs
+mem.hookfunction(mmv(0x419320, 0x41C3DB, 0x41BAF1), 2, 5, function(d, def, x, y, w, h, id, ...)
+	local p = def(x, y, w, h, id, ...)
+	local dlg = Game.DialogsArray:Find(p)
+	local init = internal.InitDlg
+	if init then
+		internal.InitDlg = nil
+		init()
+	end
+	-- Called once a new dialog finishes creation. Note that in case of house dialogs, they internally create an extra dialog with 'DlgID' = '1' for dialog topics, this leads to 'NewDialog' event getting triggered for that extra dialog before the one for the base dialog, however both dialogs are already created and added to #Game.Dialogs:# when either event fires.
+	-- At this point the dialog can be populated with some items, while other items are added afterwards. To manipulate a dialog after it's fully populated you can use the first time subsequent #BeforeDrawDialog:# event is called. 'OnFirstDraw' of #custom dialogs:CustomDialog# implements this functionality.
+	events.cocalls("NewDialog", dlg, id)
+	return p
+end)
+
+-- Destroy dialogs
+mem.hookfunction(mmv(0x4190D0, 0x41C213, 0x41B923), 1, 0, function(d, def, p)
+	local dlg, id = Game.DialogsArray:Find(p), nil
+	if dlg then
+		id = dlg.DlgID
+		events.cocalls("BeforeDestroyDialog", dlg, id)
+		events.cocalls("DestroyDialog", dlg, id)
+	end
+	local r = def(p)
+	if dlg then
+		events.cocalls("AfterDestroyDialog", dlg, id)
+	end
+	return r
+end)
+
+-- OO dialogs
+if mmver == 8 then
+	-- Show
+	mem.hookfunction(0x4D1BC7, 1, 2, function(d, def, mgr, dlg, param)
+		local t = {
+			DialogPtr = dlg,
+			-- This lets you know what dialog is being created even if 'DialogPtr' got changed by the event
+			ClassPtr = u4[dlg],
+			Param = param,
+		}
+		events.cocalls("BeforeShowOODialog", t)
+		t.Result = def(mgr, t.DialogPtr, t.Param)
+		--!-
+		events.cocalls("InternalAfterShowOODialog", t)
+		events.cocalls("AfterShowOODialog", t)
+		return t.Result
+	end)
+	
+	-- Close
+	mem.autohook(0x4D1D62, function(d)
+		local t = {
+			DialogPtr = u4[d.esp + 4],
+		}
+		events.cocalls("CloseOODialog", t)
+		u4[d.esp + 4] = t.DialogPtr
+	end)
+end
+
+-- main menu buttons drawn over my dialogs
+if mmver < 8 then
+	mem.asmhook2(mmv(0x450A69, 0x462B82), [[
+		jnz @f
+		cmp dword [mm6*0x4BCDD8 + mm7*0x4E28D8], 22
+		setz al
+		test al, al
+	@@:
+	]], mmver == 6 and 7 or nil)
+end
+
+-- allow skipping drawing of gold and food
+if mmver == 7 then
+	local p = mem.StaticAlloc(1)
+	internal.FoodGoldVisible = p
+	mem.u1[p] = 1
+	-- drawing glod,food
+	HookManager{p = p}.asmhook2(0x41AE64, [[
+		jz @std
+		cmp byte [%p%], 0
+		jnz @std
+		mov byte [%p%], 1
+	@std:
+	]])
+end
+
+-- draw loading screen
+do
+	local function DrawProgress(d)
+		events.cocalls("DrawProgressBar")
+	end
+	mem.autohook(mmv(0x439140, 0x4437F7, 0x4405FE), DrawProgress)
+	if mmver == 6 then
+		mem.autohook(0x438FD7, DrawProgress)	
+	end
+	mem.autohook(mmv(0x438D40, 0x443605, 0x4403DA), function(d)
+		events.cocalls("HideProgressBar")
 	end)
 end
 
