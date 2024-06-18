@@ -15,9 +15,9 @@
 !/Scripts/
 
 # Allow all subdirectories and their contents
-/Data/**
-/DataFiles/**
-/ExeMods/**
-/Language/**
-/Misc/**
-/Scripts/**
+!/Data/**
+!/DataFiles/**
+!/ExeMods/**
+!/Language/**
+!/Misc/**
+!/Scripts/**
