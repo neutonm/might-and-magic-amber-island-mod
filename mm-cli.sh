@@ -6,6 +6,7 @@ if [ $# -eq 0 ]; then
   echo -e 'Commands:'
   echo -e '  install [path_to_mm7_game]     Instal Might and Magic VII executable and game assets.'
   echo -e '  run                            Execute mm7.exe.'
+  echo -e '  test                           Execute tests.'
   exit 1
 fi
 
@@ -113,16 +114,15 @@ function cmd_install {
 }
 
 
-
-pp="../mm7/DATA/00 add.icons.lod"
-if ! du -sh "$pp" &> /dev/null; then
-  echo "$pp file exists"
-else
-  echo "$pp does not exist."
-fi
-
 function cmd_run {
-  echo "Mock cmd_run"
+  sudo MM7Setup.Exe
+}
+
+
+function cmd_test {
+  cd Tests
+  python SmokeTest.py
+  cd ..
 }
 
 
@@ -141,6 +141,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     run)
       cmd_run
+      exit 0
+      ;;
+    test)
+      cmd_test
       exit 0
       ;;
     *)

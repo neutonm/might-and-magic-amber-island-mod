@@ -14,10 +14,10 @@ def assert_no_lua_exception(directory):
         raise Exception(f"Found a .txt file: {file}")
 
 print("Remove lua logs")
-shutil.rmtree('../../Logs')
+shutil.rmtree('../Logs')
 
 print("Start mm7.exe")
-app = Application(allow_magic_lookup=False).start("../../mm7.exe")
+app = Application(allow_magic_lookup=False).start("../mm7.exe")
 
 try:
   window = app.window(title_re="Might*")
@@ -43,9 +43,9 @@ try:
   window.type_keys('{ESC}') 
   time.sleep(0.5)
 
-  print("Sleep 2 sec") 
-  time.sleep(2.0)
-  assert_no_lua_exception("../../Logs")
+  print("Sleep 4 sec") 
+  time.sleep(4.0)
+  assert_no_lua_exception("../Logs")
 
   app.kill()
   print("SmokeTest.py: PASSED") 
