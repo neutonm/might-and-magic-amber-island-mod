@@ -13,6 +13,7 @@
 !/Language/
 !/Misc/
 !/Scripts/
+!/Tests/
 
 # Allow all subdirectories and their contents
 !/Data/**
@@ -21,3 +22,4 @@
 !/Language/**
 !/Misc/**
 !/Scripts/**
+!/Tests/**
