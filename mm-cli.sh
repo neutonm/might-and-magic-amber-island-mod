@@ -35,7 +35,6 @@ MM7_FILES=(
   "DATA/MouseLookCursor.bmp"
   "DATA/MouseLookCursorHD.bmp"
   "DATA/SPRITES.LOD"
-  "DATA/UI.txt"
   "Music/2.mp3"
   "Music/3.mp3"
   "Music/4.mp3"

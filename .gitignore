@@ -8,7 +8,17 @@
 !mm-cli.sh
 
 # Allow these folders and their contents
-!/Data/
+!/Data/Tables/
+!/Data/UI.txt
+!/Data/editor.bitmaps.lod
+!/Data/editor.icons.lod
+!/Data/editor.sprites.lod
+!/Data/new.BITMAPS.LOD
+!/Data/new.Events.lod
+!/Data/new.GAMES.LOD
+!/Data/new.ICONS.LOD
+!/Data/new.SPRITES.LOD
+!/Data/new.lod
 !/DataFiles/
 !/ExeMods/
 !/Language/
@@ -17,10 +27,12 @@
 !/Tests/
 
 # Allow all subdirectories and their contents
-!/Data/**
+!/Data/Tables/**
 !/DataFiles/**
 !/ExeMods/**
 !/Language/**
 !/Misc/**
 !/Scripts/**
 !/Tests/**
+
+
