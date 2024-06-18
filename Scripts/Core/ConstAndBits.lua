@@ -33,12 +33,15 @@ end
 const.MapLimit = 22528
 
 const.Minute = 256  -- each in-game minute amounts to 2 seconds of real time
+const.RTSecond = 128  -- second in real time
 const.Second = const.Minute/60
 const.Hour = const.Minute*60
 const.Day = const.Hour*24
 const.Week = const.Day*7
 const.Month = const.Week*4
 const.Year = const.Month*12
+const.SpriteEventsMin = 20000  -- Event indexes 20000 – 28191 are reserved for sprite events
+const.SpriteEventsMax = 28191  -- Maximum possible sprite event index. Currently sprite limit is 3000, pushing it to 8192 is possible
 
 local function MakeBitsDefiner(name)
 	internal[name] = function(define)
@@ -206,7 +209,7 @@ elseif mmver == 7 then
 		Ranger = 0x0040,
 		Thief = 0x0080,
 		Monk = 0x0100,
-		Male = 0x0200,
+		Male = 0x0200,  -- in monsters.txt it's "M" in MM6 and "X" in MM7 and MM8
 		Female = 0x0400,
 		Human = 0x0800,
 		Elf = 0x1000,
@@ -374,6 +377,7 @@ const.Keys = {
 	F23 = 134,
 	F24 = 135,
 	NUMLOCK = 144,
+	SCROLLLOCK = 145,
 	SCROLL = 145,
 	-- VK_L & VK_R - left and right Alt, Ctrl and Shift virtual keys.
 	-- Used only as parameters to GetAsyncKeyState() and GetKeyState().
@@ -597,7 +601,7 @@ const.ItemType = {
 	Helm       = 6,
 	Belt       = 7,
 	Cloak      = 8,
-	Gountlets  = 9,
+	Gauntlets  = 9,  -- Was called 'Gountlets' before MMExtension v2.3, old name is supported for backward compatibility
 	Boots      = 10,
 	Ring       = 11,
 	Amulet     = 12,
@@ -627,7 +631,7 @@ const.ItemType = {
 	Helm_      = 35,
 	Belt_      = 36,
 	Cloak_     = 37,
-	Gountlets_ = 38,
+	Gauntlets_ = 38,  -- Was called 'Gountlets_' before MMExtension v2.3, old name is supported for backward compatibility
 	Boots_     = 39,
 	Ring_      = 40,
 	Amulet_    = 41,
@@ -639,6 +643,7 @@ const.ItemType = {
 	Gems2      = 47,
 	Gold_      = 50,
 }
+setmetatable(const.ItemType, {__index = {Gountlets = 9, Gountlets_ = 38}})
 
 const.ItemSlot = {
 	ExtraHand = 0,
@@ -648,7 +653,7 @@ const.ItemSlot = {
 	Helm = 4,
 	Belt = 5,
 	Cloak = 6,
-	Gountlets = 7,
+	Gauntlets = 7,  -- Was called 'Gountlets' before MMExtension v2.3, old name is supported for backward compatibility
 	Boots = 8,
 	Amulet = 9,
 	Ring1 = 10,
@@ -658,6 +663,7 @@ const.ItemSlot = {
 	Ring5 = 14,
 	Ring6 = 15,
 }
+setmetatable(const.ItemSlot, {__index = {Gountlets = 7}})
 
 if mmver == 6 then
 	const.Damage = {
@@ -872,20 +878,20 @@ const.Screens = {
 	Game = 0,
 	Menu = 1,
 	Controls = 2,
-	Info = 3,  -- quests, map, autonotes
+	Info = 3,  -- Quests, Autonotes, Map, Calendar, History, Town Portal, Lloyd Beacon
 	NPC = 4,
 	Rest = 5,
 	Query = 6,  -- like with hotkeys in Chinese debug MM6
-	Inventory = 7,
+	Inventory = 7,  -- character screen, not necessarily Inventory
 	SpellBook = 8,
-	NewGameBreefing = 9,
+	NewGameBriefing = 9,  -- was called 'NewGameBreefing' before MMExtension v2.3, old name is supported for backward compatibility
 	Chest = 10,
 	SaveGame = 11,
 	LoadGame = 12,
 	House = 13,
 	InventoryInShop = 14,  -- double clicking a character in any Buy dialog in MM6 or in Buy Standard in MM7
 	InventoryInChest = 15,
-	MainManu = 16,  -- or movie
+	Movie = 16,  -- was called 'MainManu' before MMExtension v2.3, old name is supported for backward compatibility
 	WalkToMap = 17,
 	MapEntrance = 18,  -- or #Question:# screen
 	SimpleMessage = 19,
@@ -898,6 +904,59 @@ const.Screens = {
 	AdventurersInn = 29,
 	ItemSpellMM6 = 103,
 	QuickReference = 104,
+}
+setmetatable(const.Screens, {__index = {NewGameBreefing = 9, MainManu = 16}})
+
+const.DlgID = {
+	Generic = 1,  -- a lot of dialogs use this Id
+	Menu = 3,
+	Inventory = 4,  -- character screen, not necessarily Inventory
+	Controls = 6,
+	-- ControlsUnk = 8,
+	Info = 9,  -- Quests, Autonotes, Map, Calendar, History, Town Portal, Lloyd Beacon. See #const.InfoDialog:# for values of 'Param' that define the dialog type.
+	NPC = 10,  -- 'Param' is NPC index
+	QuickReference = 12,
+	Rest = 16,
+	WalkToMap = 17,
+	SpellBook = 18,
+	SimpleMessage = 19,
+	Chest = 20,
+	SaveGame = 23,
+	LoadGame = 24,
+	House = 25,  -- 'Param' is the #house:Game.Houses# index
+	MapEntrance = 26,
+	SelectTarget = 27,  -- Heal and other such spells
+	Scroll = 30,  -- When reading a message scroll
+	ItemSpell = 31,
+	EscMessage = 70,
+	Query = 80,
+	CheatCreateItem = 89,
+	Button = 90,  -- shown for 1 frame when clicking most buttons
+	ButtonImg2 = 91,
+	ButtonTransparent = 92,
+	ButtonTransparentImg2 = 93,
+	ButtonSaveLoad = 94,  -- clicking Save/Load button in corresponding dialog
+	ButtonEscTransparent = 95,
+	ButtonEsc = 96,
+	ButtonEscImg2 = 97,
+	ButtonRestAndHeal = 98,
+	DrawImage = 99,  -- used in Info screen to draw the currently selected book
+	CheatCreateMonster = 103,
+	ConfigureKeyboard = 105,
+	VideoOptions = 106,
+	CustomDialog = 1000,  -- used by CustomDialog function
+	BlockDialogs = 1001,  -- in MM8 if #custom dialogs:CustomDialog# exist, these screens are created for each OO dialog in order to prevent processing of said custom dialogs
+	BlockDialogsNoDraw = 1002,  -- used in situation discribed above when it's also important to block drawing of the dialogs
+}
+
+const.InfoDialog = {
+	Quests = 200,
+	Autonotes = 201,
+	Map = 202,
+	Calendar = 203,
+	History = 224,
+	TownPortal = 195,
+	LloydBeacon = 177,
 }
 
 const.CharScreens = {
@@ -1336,9 +1395,16 @@ elseif mmver == 8 then
 
 end
 
-const.GameActions = {
+const.Actions = {
 	Exit = 113,
+	CustomDialogButton = 1000,
+	CustomDialogHint = 1001,
+	CustomDialogMouseUp = 1002,
+	CustomAction = 1003,
 }
+
+--!-
+const.GameActions = const.Actions
 
 const.ExitMapAction = {
 	None = 0,
@@ -1738,40 +1804,39 @@ else
 		MindBlast = 59,
 		SummonWisp = 82,
 		DarkGrasp = 96,
-		DarkElfAbilities = 100,
-		Glamour = 101,
-		TravelersBoon = 102,
-		Blind = 103,
-		DarkfireBolt = 104,
+		Glamour = 100,
+		TravelersBoon = 101,
+		Blind = 102,
+		DarkfireBolt = 103,
+		--Unused = 104,
 		--Unused = 105,
 		--Unused = 106,
 		--Unused = 107,
 		--Unused = 108,
 		--Unused = 109,
 		--Unused = 110,
-		--Unused = 111,
-		VampireAbilities = 112,
-		Lifedrain = 113,
-		Levitate = 114,
-		Charm = 115,
-		Mistform = 116,
+		Lifedrain = 111,
+		Levitate = 112,
+		Charm = 113,
+		Mistform = 114,
+		--Unused = 115,
+		--Unused = 116,
 		--Unused = 117,
 		--Unused = 118,
 		--Unused = 119,
 		--Unused = 120,
 		--Unused = 121,
-		--Unused = 122,
-		--Unused = 123,
-		DragonAbilities = 124,
-		Fear = 125,
-		FlameBlast = 126,
-		Flight = 127,
-		WingBuffet = 128,
+		Fear = 122,
+		FlameBlast = 123,
+		Flight = 124,
+		WingBuffet = 125,
+		--Unused = 126,
+		--Unused = 127,
+		--Unused = 128,
 		--Unused = 129,
 		--Unused = 130,
 		--Unused = 131,
 		--Unused = 132,
-		-- top 3 dragon spells are used for shooting!
 		Shoot = 133,
 		ShootFire = 134,
 		ShootBlaster = 135,
@@ -1780,3 +1845,26 @@ else
 	}, const.Spells, true)
 	
 end
+
+const.ArcomageIf = {
+	Always = 1,
+	LessIncomeBricks = 2,
+	LessIncomeGems = 3,
+	LessIncomeBeasts = 4,
+	EqualIncomeBricks = 5,
+	EqualIncomeGems = 6,
+	EqualIncomeBeasts = 7,
+	MoreIncomeBricks = 8,
+	MoreIncomeGems = 9,
+	MoreIncomeBeasts = 10,
+	NoWall = 11,
+	HaveWall = 12,
+	NoEnemyWall = 13,
+	HaveEnemyWall = 14,
+	LessWall = 15,
+	LessTower = 16,
+	EqualWall = 17,
+	EqualTower = 18,
+	MoreWall = 19,
+	MoreTower = 20,
+}

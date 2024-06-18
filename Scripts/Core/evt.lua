@@ -73,7 +73,7 @@ internal.OnLeaveMap = OnLeaveMap
 local function OnLeaveGame()
 	MayShow = 0
 	if internal.InGame then
-		events.cocall("LeaveGame")
+		events.cocalls("LeaveGame")
 		internal.TimersLeaveGame()
 		internal.InGame = false
 	end
@@ -138,7 +138,7 @@ function internal.BeforeMapLoad()
 		end
 	end
 	--!-
-	events.cocall("InternalBeforeLoadMap", WasInGame, WasLoaded)
+	events.cocalls("InternalBeforeLoadMap", WasInGame, WasLoaded)
 	if not WasInGame then
 		LoadScripts("Global/*.lua", GlobalScripts)
 		LoadScripts("Maps/*.global.lua", GlobalScripts)
@@ -160,7 +160,7 @@ function internal.OnLoadMap()
 	--!v([]) Event handlers
 	--
 	-- Event indexes convention:
-	-- Indexes 20000 - 22999 are for sprite events, so that event (20000 + i) corresponds to #Map.Sprites:#[i].
+	-- Indexes 20000 - 28191 are for sprite events, so that event (20000 + i) corresponds to #Map.Sprites:#[i].
 	evt.map = MakeEventsTable()
 	evt.Map = evt.map
 	--!v([])
@@ -175,10 +175,10 @@ function internal.OnLoadMap()
 	-- internal.LoadMonsterIds()
 	CurMapScripts = {}
 	-- Return 'true' to cancel execution of map scripts. Used by the Editor.
-	local NoScripts = events.call("CancelLoadingMapScripts")
+	local NoScripts = events.cocalls("CancelLoadingMapScripts", WasInGame)
 	if not NoScripts then
 		internal.ResetEvtPlayer()
-		events.cocall("BeforeLoadMapScripts", WasInGame)
+		events.cocalls("BeforeLoadMapScripts", WasInGame)
 		LoadScripts("Maps/"..path.setext(MapName, ".lua"), CurMapScripts)
 		LoadScripts("Maps/*."..path.setext(MapName, ".lua"), CurMapScripts)
 		internal.ResetEvtPlayer()
@@ -188,13 +188,18 @@ function internal.OnLoadMap()
 	internal.ResetEvtPlayer()
 	-- 'NoScripts' = 'true' if map scripts execution was cancelled by #CancelLoadingMapScripts:events.CancelLoadingMapScripts# event.
 	events.cocall("LoadMap", WasInGame, NoScripts)
+	if not NoScripts and events.exists("InitSprite") then
+		for i, a in Map.Sprites do
+			events.cocalls("InitSprite", i, a, a.DecName or "")
+		end
+	end
 	UpdateEventJustHint()
 	MayShow = 1
 end
 
 function internal.AfterLoadMap()
 	internal.ResetEvtPlayer()
-	events.cocall("AfterLoadMap", WasInGame)
+	events.cocalls("AfterLoadMap", WasInGame)
 end
 
 ----------- Hint, MazeInfo
@@ -208,7 +213,7 @@ local function GetHouseHint(id)
 end
 
 function internal.OnGetEventHint(evtId)
-	local h = evt.house and (events.call("GetEventHint", evtId) or evt.hint[evtId] or GetHouseHint(evt.house[evtId]))
+	local h = evt.house and (events.cocalls("GetEventHint", evtId) or evt.hint[evtId] or GetHouseHint(evt.house[evtId]))
 	if h then
 		mem.copy(TextBuffer, h, #h + 1)
 	end
@@ -217,7 +222,7 @@ end
 
 if mmver == 6 then
 	function internal.OnGetMazeInfo()
-		local h = events.call("GetMazeInfo") or evt.MazeInfo
+		local h = events.cocalls("GetMazeInfo") or evt.MazeInfo
 		if h then
 			mem.copy(TextBuffer, h, #h + 1)
 		end
@@ -504,6 +509,7 @@ local function MakeCmd(name, num, f, invis)
 			DeclareCmd[num](t)
 			DeclareCmd[1]()
 			DeclareCmd[1]()  -- for jump
+			local curLineN, curBufSize = LineN, BufPtr - oldBuf
 
 			if num == 3 then
 				Game.LoadSound(t.Id or 0)
@@ -525,6 +531,7 @@ local function MakeCmd(name, num, f, invis)
 			end
 			u4[o.CurrentEvtBuf] = EvtBuf
 			u4[o.CurrentEvtLines] = oldLines
+			i4[o.AbortEvt] = 0
 
 			local ret = mem.call(internal.CallProcessEvent2, 0, 0x7FFF, t.KeepSound and 1 or 0, player, MayShow)
 			local abort = i4[o.AbortEvt] ~= 0
@@ -540,6 +547,7 @@ local function MakeCmd(name, num, f, invis)
 					return coroutine.yield()
 				end
 			elseif ret == 0 then -- async command
+				mem.call(internal.StoreReenterEventInfo, 0, oldBuf, curBufSize, oldLines, curLineN)
 				AsyncTrue = jumpTrue
 				AsyncProc = t.OnDone
 				AsyncPlayer, AsyncCurrentPlayer = evt.Player, evt.CurrentPlayer
@@ -763,7 +771,16 @@ local function DeclareCommands()
 	MakeCmd("SetSprite", 0x0D, function(define)
 		define
 		.i4  'SpriteId'
-		.u1  'Visible'
+		.CustomType('Visible', 1, function(o, obj, name, val)
+			o = obj["?ptr"] + o
+			if val == nil then
+				return u1[o]
+			elseif val == true then
+				u1[o] = 1
+			else
+				u1[o] = val or 0
+			end
+		end)
 		 .Info "bit 0x20 of sprite"
 		EvtString 'Name'
 		 .Info[[If 'Name' is unspecified or "0", the sprite isn't changed]]
@@ -1013,6 +1030,8 @@ Message("Hi!")]]]=]
 
 	---------------------------
 	MakeCmd("SummonObject", 0x22, function(define)
+		define
+		 .Info "To make your script compatible with all MM versions, instead of calling this function you can call #SummonItem:# to create an item and #Game.SummonObjects:# to create an object."
 		if mmver == 8 then
 			define.i4  'Item'
 			 .Info "Item index. Index over 1000 means random item of the same kind as 'Item' % 1000 of strength 'Item' div 1000. For backward compatibility, this parameter can also be called 'Type'."

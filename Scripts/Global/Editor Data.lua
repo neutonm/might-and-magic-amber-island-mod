@@ -95,6 +95,15 @@ local function WriteKeysList(a, t, ref)
 	alloc(2*n)
 end
 
+local function NextInList(list)
+	local i = list.n or 0
+	repeat
+		i = i + 1
+	until not list[i]
+	list.n = i
+	return i
+end
+
 local function AddToList(list, ids, obj, id)
 	if type(id) == "number" then
 		list.m = max(id + 1, list.m or 0)
@@ -104,12 +113,8 @@ local function AddToList(list, ids, obj, id)
 			return
 		end
 	end
-	local i = list.n or 0
-	repeat
-		i = i + 1
-	until not list[i]
+	local i = NextInList(list)
 	list[i], ids[obj] = obj, i - 1
-	list.n = i
 end
 Editor.AddToList = AddToList
 
@@ -411,6 +416,9 @@ local function WriteFacet(a, t)
 	if t.IsPortal then
 		a.Room = t.Room or 0
 		a.RoomBehind = t.RoomBehind or 0
+		if a.PolygonType % 2 == 0 then  -- angled portal can't be displayed in D3D mode
+			a.PolygonType = abs(a.NormalZ) >= 0xB569 and a.PolygonType - 1 or 1  -- doesn't work well in either case
+		end
 	else
 		a.Room = FacetRooms[t]
 	end
@@ -420,6 +428,67 @@ end
 -- WriteFacetData
 -----------------------------------------------------
 
+local function FindDoorFacet(a, fid)
+	for i, id in a.FacetIds do
+		if id == fid then
+			return i
+		end
+	end
+end
+
+local function RetractFacetDoors(t, id)
+	local doors = {}
+	if t.Door and Editor.DoorIds and Map.IsIndoor() then
+		if t.MultiDoor then
+			for _, door in Map.Doors do
+				doors[door] = FindDoorFacet(door, id)
+			end
+		else
+			local door = Map.Doors[Editor.DoorIds[t.Door]]
+			doors[door] = FindDoorFacet(door, id)
+		end
+	end
+	
+	-- backup door state and time
+	local bk = {}
+	for a in pairs(doors) do
+		if a.State ~= 0 then
+			local t = {TimeStep = a.TimeStep, State = a.State, SilentMove = a.SilentMove}
+			if t.State == 2 then
+				t.TimeStep = a.Speed1 > 0 and (a.MoveLength*128/a.Speed1):ceil() or 15360
+				t.State = 1
+				t.SilentMove = true
+			end
+			bk[a] = t
+			Editor.ResetDoor(a)
+		end
+	end
+	Editor.CheckDoorsUpdate()
+	
+	-- restore door state and time, but don't call Editor.CheckDoorsUpdate()
+	for a, t in pairs(bk) do
+		table.copy(t, a, true)
+		Editor.NeedDoorsUpdate = true
+	end
+	
+	return doors
+end
+
+local function SetFacetDoorsProp(doors, prop, v)
+	for a, i in pairs(doors) do
+		a[prop][i] = v
+	end
+end
+
+local function FindMinOrMax(a, sign, mu)
+	for _, u in a do
+		if not mu or (u - mu)*sign > 0 then
+			mu = u
+		end
+	end
+	return mu
+end
+
 local function UpdateBitmapCoord(t, prop, Left, Right, UList)
 	local id = Editor.FacetIds[t]
 	local a = Map.GetFacet(id)
@@ -427,12 +496,22 @@ local function UpdateBitmapCoord(t, prop, Left, Right, UList)
 	if not d then
 		return
 	end
+	
+	local doors = RetractFacetDoors(t, id)
+	
 	if t[Left] or t[Right] then
 		local sign = t[Left] and -1 or 1
-		local mu
-		for _, u in a[UList] do
-			if not mu or (u - mu)*sign > 0 then
-				mu = u
+		local mu = FindMinOrMax(a[UList], sign)
+		if t ~= t.PartOf then
+			local mu0, base = mu, t.PartOf
+			for t1, id in pairs(Editor.FacetIds) do
+				if t1.PartOf == base and t1 ~= t then
+				 	mu = FindMinOrMax(Map.GetFacet(id)[UList], sign, mu)
+				end
+			end
+			if mu ~= mu0 then
+				a[Left] = false
+				a[Right] = false
 			end
 		end
 		d[prop] = -mu
@@ -447,6 +526,9 @@ local function UpdateBitmapCoord(t, prop, Left, Right, UList)
 		end
 		d[prop] = v
 	end
+	
+	SetFacetDoorsProp(doors, prop == "BitmapU" and "FacetStartU" or "FacetStartV", d[prop])
+	Editor.CheckDoorsUpdate()
 end
 
 function Editor.UpdateBitmapU(t)
@@ -557,7 +639,7 @@ local function WriteRoom(a, t)
 	a.Bits = t.BSP and 24 or 8  -- 8 for 'have non-vertical portals', 16 for 'has BSP'
 	a.Darkness = t.Darkness or state.DefaultDarkness
 	a.FirstBSPNode = StoreBSP(t.BSP)
-	a.NonBSPDrawFacetsCount = t.NonBSP
+	a.NonBSPDrawFacetsCount = t.BSP and t.NonBSP or #t.DrawFacets
 	if Game.Version == 8 then
 		a.EaxEnvironment = t.EaxEnvironment or 0
 	end
@@ -928,19 +1010,25 @@ end
 -- WriteLights
 -----------------------------------------------------
 
+local function WriteLight(t, a)
+	rawset(a, "?ptr", nil)
+	a["?ptr"] = a["?ptr"]  -- speed up
+	a.Brightness = 31
+	if mmver ~= 6 then
+		a.Type = 5
+		a.R = 255
+		a.G = 255
+		a.B = 255
+	end
+	table.copy(t, a, true)
+	a["?ptr"] = nil
+end
+
 local function WriteLights()
 	new(Map.Lights, 3000)
 	Map.Lights.Count = #Lights
 	for t, i in pairs(LightIds) do
-		local a = Map.Lights[i]
-		rawset(a, "?ptr", nil)
-		a["?ptr"] = a["?ptr"]  -- speed up
-		if mmver ~= 6 then
-			a.Type = 5
-			a.Brightness = 31
-		end
-		table.copy(t, a, true)
-		a["?ptr"] = nil
+		WriteLight(t, Map.Lights[i])
 	end
 	Editor.Lights = Lights
 	Editor.LightIds = LightIds
@@ -949,14 +1037,7 @@ end
 function Editor.CreateLight(t)
 	Editor.State.Lights[t] = true
 	local a = InsertEntity(t, "Light", 3000)
-	rawset(a, "?ptr", nil)
-	a["?ptr"] = a["?ptr"]  -- speed up
-	if mmver ~= 6 then
-		a.Type = 5
-		a.Brightness = 31
-	end
-	table.copy(t, a, true)
-	a["?ptr"] = nil
+	WriteLight(t, a)
 	Editor.Update(Editor.UpdateLightsList)
 	return Editor.LightIds[t]
 end
@@ -976,11 +1057,10 @@ end
 function Editor.WriteSpawns()
 	local state = Editor.State
 	local Spawns, SpawnIds = {}, {}
-	local n = 0
+	local LastIds = Editor.LoadingOldState and Editor.SpawnIds or {}
 	state.Spawns = state.Spawns or {}
 	for a in pairs(state.Spawns) do
-		SpawnIds[a], n = n, n + 1
-		Spawns[n] = a
+		AddToList(Spawns, SpawnIds, a, LastIds[a])
 	end
 	Editor.Spawns = Spawns
 	Editor.SpawnIds = SpawnIds
@@ -1155,7 +1235,6 @@ function Editor.GetDoorVertexLists(t, Add2, write)
 	for f, rid in pairs(Mults) do
 		for i, v in ipairs(f.Vertexes) do
 			if DVertex[v] then
-				AddDFacet(f, rid)
 				AddFacetVerts(f, true)
 				break
 			end
@@ -1180,6 +1259,16 @@ function Editor.GetDoorVertexLists(t, Add2, write)
 		else
 			Editor.LastError = "Unknown VertexFilter"
 			Editor.LastErrorFacets = DFacets
+		end
+	end
+
+	-- enumerate differed multidoor facets
+	for f, rid in pairs(Mults) do
+		for i, v in ipairs(f.Vertexes) do
+			if DVertex[v] then
+				AddDFacet(f, rid)
+				break
+			end
 		end
 	end
 	
@@ -1217,7 +1306,7 @@ function Editor.GetDoorVertexLists(t, Add2, write)
 end
 
 
-function Editor.WriteDoor(a, t)
+function Editor.WriteDoor(a, t, compile)
 	rawset(a, "?ptr", nil)
 	a["?ptr"] = a["?ptr"]  -- speed up
 	mem.fill(a)
@@ -1257,30 +1346,39 @@ function Editor.WriteDoor(a, t)
 	-- cut vertexes, create vertex lists
 	local CutVertex = {}
 	local UncutVertex = {}
-	local Vertexes = {}
+	local DVertexes = {}
 	local VertexStartX = {}
 	local VertexStartY = {}
 	local VertexStartZ = {}
+	local NewVertIds = t.NewVertexIds or {}
 	for v in pairs(DVertex) do
 		local i = assert(VertexIds[v] or v.id)
 		if NDVertex[v] or v.portal then
 			-- a vertex is used both for door and static geometry
 			-- create a "moveable" copy of the vertex
-			local n = Map.Vertexes.Count
-			if n == VertexLim then
+			local count = Map.Vertexes.Count
+			local n = compile and (NewVertIds[v] or NextInList(Vertexes) - 1) or count
+			while n >= VertexLim do
 				mem.reallocMM(Map.Vertexes, VertexLim*6, VertexLim*12)
 				VertexLim = VertexLim*2
 			end
-			Map.Vertexes.Count = n + 1
+			Map.Vertexes.Count = max(n + 1, count)
 			WriteVertex(Map.Vertexes[n], v)
+			if compile then
+				NewVertIds[v] = n
+				t.NewVertexIds = NewVertIds
+			end
 			UncutVertex[n], CutVertex[i], i = i, n, n
 			
 			if v.portal then
 				Map.Facets[v.portal].VertexIds[v.index] = n
 			end
+		elseif compile then
+			state.VertexIds = state.VertexIds or {}
+			state.VertexIds[v] = i
 		end
-		local n = #Vertexes + 1
-		Vertexes[n] = i
+		local n = #DVertexes + 1
+		DVertexes[n] = i
 		VertexStartX[n] = Map.Vertexes[i].X
 		VertexStartY[n] = Map.Vertexes[i].Y
 		VertexStartZ[n] = Map.Vertexes[i].Z
@@ -1306,7 +1404,7 @@ function Editor.WriteDoor(a, t)
 	ReplaceVerts(CutVertex)
 	DoorUncutVertex[t] = UncutVertex
 	
-	WriteList(a.VertexIds, Vertexes)
+	WriteList(a.VertexIds, DVertexes)
 	WriteList(a.FacetIds, DFacets)
 	WriteKeysList(a.RoomIds, DRooms)
 	WriteList(a.FacetStartU, FacetStartU)
@@ -1315,12 +1413,13 @@ function Editor.WriteDoor(a, t)
 	WriteList(a.VertexStartY, VertexStartY)
 	WriteList(a.VertexStartZ, VertexStartZ)
 
-	if next(Vertexes) or next(DFacets) then
-		a.TimeStep = (a.MoveLength*128/a.Speed2):ceil()
-		a.State = a.StartState2 and 1 or 3
+	if next(DVertexes) or next(DFacets) then
+		local state2 = not compile and a.StartState2
+		a.TimeStep = (a.MoveLength*128/a[state2 and 'Speed1' or 'Speed2']):ceil()
+		a.State = state2 and 1 or 3
 		a.SilentMove = true
 		Editor.NeedDoorsUpdate = true
-	else
+	elseif Editor.DoorIds then
 		local id = Editor.DoorIds[t]
 		Editor.Doors[id + 1] = nil
 		Editor.DoorIds[t] = nil
@@ -1338,7 +1437,7 @@ function Editor.ResetMoveByDoor()
 	end
 end
 
-local function WriteDoors()
+local function WriteDoors(compile)
 	DoorUncutVertex = {}
 	local Doors = {}
 	local DoorIds = {}
@@ -1349,7 +1448,7 @@ local function WriteDoors()
 			DoorIds[f.Door], nd = nd, nd + 1
 			Doors[nd] = f.Door
 			Map.Doors.Count = nd
-			Editor.WriteDoor(Map.Doors[nd - 1], f.Door)
+			Editor.WriteDoor(Map.Doors[nd - 1], f.Door, compile)
 		end
 	end
 	Editor.Doors = Doors
@@ -1392,6 +1491,8 @@ function Editor.RecreateDoors(list)
 		if a then
 			local OldState, OldStep = a.State, a.TimeStep
 			Editor.ResetDoor(a)
+			Editor.CheckDoorsUpdate()
+			Editor.ResetDoor2(a)
 			Editor.WriteDoor(a, door)
 			Editor.InvalidateDoorBSP(a)
 			a.State = (OldState == 0 or OldState == 3) and 3 or 1
@@ -1516,30 +1617,19 @@ function Editor.WriteObject(a, t)
 	a["?ptr"] = nil
 end
 
-local function RemapSelection(old, new)
-	local t = {}
-	for id in pairs(Editor.Selection) do	
-		t[new[old[id + 1]]] = true
-	end
-	Editor.Selection = t
-end
-
 local function WriteObjects()
 	Editor.State.Objects = Editor.State.Objects or {}
 	Map.Objects.Count = 0
-	local OldObjects = Editor.Objects
+	local LastIds = Editor.LoadingOldState and Editor.ObjectIds or {}
 	Editor.Objects = {}
 	Editor.ObjectIds = {}
 	for t, id in pairs(Editor.State.Objects) do
-		AddToList(Editor.Objects, Editor.ObjectIds, t, id)
+		AddToList(Editor.Objects, Editor.ObjectIds, t, LastIds[t] or id)
 	end
 	FinalizeList(Editor.Objects, Editor.ObjectIds)
 	Map.Objects.Count = #Editor.Objects
 	for i, t in ipairs(Editor.Objects) do
 		Editor.WriteObject(Map.Objects[i - 1], t)
-	end
-	if Editor.SelectionKind == skObject then
-		RemapSelection(OldObjects, Editor.ObjectIds)
 	end
 end
 
@@ -1574,6 +1664,7 @@ local function WriteMonster(a, t, CompileFile)
 	a["?ptr"] = a["?ptr"]  -- speed up
 	WriteMonProps(a, t, Editor.MonsterProps, "")
 	a.HP = a.FullHitPoints
+	a.Velocity = a.MoveSpeed
 	a.AIState = t.Invisible and const.AIState.Invisible or nil
 	mem.u8[a["?ptr"] + 0x2C] = 0  -- StandardName, Picture pointers
 	a["?ptr"] = nil
@@ -1590,11 +1681,11 @@ end
 local function WriteMonsters(CompileFile)
 	Editor.State.Monsters = Editor.State.Monsters or {}
 	Map.Monsters.Count = 0
-	local OldMonsters = Editor.Monsters
+	local LastIds = Editor.LoadingOldState and Editor.MonsterIds or {}
 	Editor.Monsters = {}
 	Editor.MonsterIds = {}
 	for t, id in pairs(Editor.State.Monsters) do
-		AddToList(Editor.Monsters, Editor.MonsterIds, t, id)
+		AddToList(Editor.Monsters, Editor.MonsterIds, t, LastIds[t] or id)
 	end
 	FinalizeList(Editor.Monsters, Editor.MonsterIds)
 	for i, t in ipairs(Editor.Monsters) do
@@ -1606,9 +1697,6 @@ local function WriteMonsters(CompileFile)
 			assert(n == i - 1)
 			WriteMonster(a, t, CompileFile)
 		end
-	end
-	if Editor.SelectionKind == skMonster then
-		RemapSelection(OldMonsters, Editor.MonsterIds)
 	end
 end
 
@@ -1651,6 +1739,9 @@ local function NewEntityList()
 end
 
 local function PrepareLists(compile)
+	local LastFacetIds = Editor.LoadingOldState and Editor.FacetIds or {}
+	local LastSpriteIds = Editor.LoadingOldState and Editor.SpriteIds or {}
+	local LastLightIds = Editor.LoadingOldState and Editor.LightIds or {}
 	FacetData = {{}}
 	DeanimateFacets = {}
 	Vertexes = {}
@@ -1664,17 +1755,20 @@ local function PrepareLists(compile)
 	LightIds = {}
 	Editor.Facets = Facets
 	Editor.FacetIds = FacetIds
+	Editor.Doors, Editor.DoorIds = nil, nil
 	
 	-- verts
 	if state.ExactVertexes then
 		VertexIds = table.invert(state.ExactVertexes)
-		for i, v in pairs(state.ExactVertexes) do
-			Vertexes[i + 1] = v
-		end
+	elseif state.VertexIds then
+		table.copy(state.VertexIds, VertexIds, true)
+	end
+	for v, i in pairs(VertexIds) do
+		Vertexes[i + 1] = v
 	end
 	
 	-- facets
-	local vn = 0
+	local doors = {}
 	for i, r in ipairs(state.Rooms) do
 		if not r.DrawFacets then
 			local t = {}
@@ -1694,20 +1788,30 @@ local function PrepareLists(compile)
 		end
 		for _, a in ipairs(r.DrawFacets) do
 			FacetRooms[a] = i - 1
-			if not a.IsPortal or not a.Room or a.Room == i - 1 or a.RoomBehind ~= i - 1 then
-				AddToList(Facets, FacetIds, a, r.Facets[a])
-				for _, v in ipairs(a.Vertexes) do
-					if not VertexIds[v] then
-						VertexIds[v], vn = vn, vn + 1
-						Vertexes[vn] = v
-					end
-				end
+			if compile and a.Door then
+				doors[a.Door] = true
+			end
+			if not a.IsPortal or (a.Room or 0) == 0 or a.Room == i - 1 or a.RoomBehind ~= i - 1 then
+				AddToList(Facets, FacetIds, a, LastFacetIds[a] or r.Facets[a])
 			end
 		end
 	end
-	for a in pairs(FacetRooms) do
+	for t in pairs(doors) do
+		for v, i in pairs(t.NewVertexIds or {}) do
+			Vertexes[i + 1] = v
+		end
+	end
+	for a in pairs(FacetIds) do
+		for _, v in ipairs(a.Vertexes) do
+			if not VertexIds[v] then
+				AddToList(Vertexes, VertexIds, v)
+			end
+		end
+	end
+	for a, r in pairs(FacetRooms) do
 		if not FacetIds[a] then
-			print(dump(a))
+			print('not in FacetIds', dump(a))
+			AddToList(Facets, FacetIds, a, LastFacetIds[a] or r.Facets[a])
 		end
 	end
 	FinalizeList(Facets, FacetIds)
@@ -1716,7 +1820,7 @@ local function PrepareLists(compile)
 	RoomSprites = state.ExactRoomSprites or NewEntityList()
 	state.Sprites = state.Sprites or {}
 	for a, id in pairs(state.Sprites) do
-		AddToList(Editor.Sprites, Editor.SpriteIds, a, id)
+		AddToList(Editor.Sprites, Editor.SpriteIds, a, LastSpriteIds[a] or id)
 		if compile and not state.ExactRoomSprites then
 			AssignSpriteToRooms(a)
 		end
@@ -1727,7 +1831,7 @@ local function PrepareLists(compile)
 	RoomLights = state.ExactRoomLights or NewEntityList()
 	state.Lights = state.Lights or {}
 	for a, id in pairs(state.Lights) do
-		AddToList(Lights, LightIds, a, id)
+		AddToList(Lights, LightIds, a, LastLightIds[a] or id)
 		if compile and not state.ExactRoomLights then
 			AssignLightToRooms(a)
 		end
@@ -1793,11 +1897,12 @@ function Editor.UpdateMap(CompileFile)
 
 	-- vertexes
 	profile "vertexes"
-	VertexLim = #Vertexes + 10000
-	new(Map.Vertexes, VertexLim)  -- with room for vertex copies by doors
-	Map.Vertexes.Count = #Vertexes
-	for i, a in ipairs(Vertexes) do
-		WriteVertex(Map.Vertexes[i - 1], a)
+	local vn = table.maxn(Vertexes)
+	VertexLim = vn + 32  -- extra +32 for new vertexes by doors
+	new(Map.Vertexes, VertexLim)
+	Map.Vertexes.Count = vn
+	for a, i in pairs(VertexIds) do
+		WriteVertex(Map.Vertexes[i], a)
 	end
 	Editor.Vertexes = Vertexes
 	Editor.VertexIds = VertexIds
@@ -1863,7 +1968,7 @@ function Editor.UpdateMap(CompileFile)
 		Map.Doors.Count = Map.Doors.Limit
 		mem.fill(Map.Doors)
 	end
-	WriteDoors()
+	WriteDoors(CompileFile)
 	bin.DoorsSize = allocPtr - bin.DoorsBuf
 	
 	profile "WriteSprites"
@@ -1888,6 +1993,11 @@ function Editor.UpdateMap(CompileFile)
 	Editor.CheckDoorsUpdate()
 
 	if CompileFile then
+		for _, a in Map.Doors do
+			if a.StartState2 then
+				a.State = 2
+			end
+		end
 		Editor.CompileBlv(CompileFile)
 		Editor.WriteListIds()
 	end
@@ -1910,6 +2020,16 @@ function Editor.UpdateMap(CompileFile)
 	end
 	InitRoomEntityList("Sprites")
 	InitRoomEntityList("Lights")
+	if CompileFile then
+		for _, a in Map.Doors do
+			if a.StartState2 then
+				a.State = 1
+				a.SilentMove = true
+				Editor.NeedDoorsUpdate = true
+			end
+		end
+		Editor.CheckDoorsUpdate()
+	end
 	profile(nil)
 	-- return standard struct behavior
 	Editor.RemoveListSpeedup(Map.Vertexes)

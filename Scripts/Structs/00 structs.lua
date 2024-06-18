@@ -1,5 +1,5 @@
 local abs, floor, ceil, round, max, min = math.abs, math.floor, math.ceil, math.round, math.max, math.min
-local i4, i2, i1, u4, u2, u1, pchar, call = mem.i4, mem.i2, mem.i1, mem.u4, mem.u2, mem.u1, mem.pchar, mem.call
+local i4, i2, i1, u4, u2, u1, r4, pchar, call = mem.i4, mem.i2, mem.i1, mem.u4, mem.u2, mem.u1, mem.r4, mem.pchar, mem.call
 local mmver = offsets.MMVersion
 
 local function mmv(...)
@@ -15,16 +15,31 @@ local PatchDll = offsets.PatchDll
 local PatchOptionsPtr = PatchDll.GetOptions
 PatchOptionsPtr = PatchOptionsPtr and PatchOptionsPtr()
 
+local function Dialogs_Find(a, p)
+	local i = (p - a["?ptr"])/0x54
+	if i >= 0 and i <= 19 then
+		return a[i]
+	end
+end
+
 function events.StructsLoaded()
 	Game = structs.GameStructure:new(0)
+	rawset(Game, "Dll", PatchDll)
+	rawset(Game, "IsD3D", mmver > 6 and i4[mm78(0xDF1A68, 0xEC1980)] ~= 0)
+	rawset(Game, "Version", offsets.MMVersion)
 	Party = Game.Party
 	Map = Game.Map
 	Mouse = Game.Mouse
 	Screen = Game.Screen
-	Game.Dll = PatchDll
+	rawset(Party, '?ptr', Party['?ptr'])
+	rawset(Map, '?ptr', Map['?ptr'])
+	rawset(Game.DialogsArray, "Find", Dialogs_Find)
+	Game.PauseCount =  Game.PauseCount or 0
+	Game.PauseCount2 = Game.PauseCount2 or 0
 end
 
-local _KNOWNGLOBALS, DecListBuf
+local _KNOWNGLOBALS = StrColor
+local DecListBuf
 
 local function SetLenRealloc(obj, v, ps, lenA, size, o)
 	local old = lenA[ps]
@@ -32,6 +47,53 @@ local function SetLenRealloc(obj, v, ps, lenA, size, o)
 		local p = obj['?ptr'] + o
 		u4[p] = mem.reallocMM(u4[p], old*size, v*size)
 		lenA[ps] = v
+	end
+end
+structs.aux.SetLenRealloc = SetLenRealloc
+
+local MissileLim = mmv(0, 9110, 12110)
+
+local SetLenReallocMissile = mmver == 6 and SetLenRealloc or function(obj, v, ps, lenA, size, o)
+	local old = lenA[ps]
+	SetLenRealloc(obj, v, ps, lenA, size, o)
+	if old < MissileLim then
+		old = MissileLim
+	end
+	if v > old then
+		assert(size == 1)
+		local p = obj['?ptr'] + o
+		mem.fill(u4[p] + old, v - old, 3)
+	end
+end
+
+function structs.aux.i4_plus(d, a)
+	a = a or i4
+	return function(o, obj, name, val)
+		o = obj["?ptr"] + o
+		if val == nil then
+			return a[o] + d
+		else
+			a[o] = val - d
+		end
+	end
+end
+
+local function i4_CurrentPlayer(o, obj, name, val)
+	if val == nil then
+		return u4[o] - 1
+	else
+		u4[o] = val + 1
+	end
+end
+
+function structs.aux.PDialog(o, obj, name, val)
+	if val == nil then
+		local v = u4[obj["?ptr"] + o]
+		if v ~= 0 then
+			return Game.DialogsArray:Find(v)
+		end
+	else
+		i4[obj["?ptr"] + o] = val["?ptr"]
 	end
 end
 
@@ -61,13 +123,7 @@ function structs.f.GameStructure(define)
 	define
 	[offsets.MainWindow].u4  'WindowHandle'
 	[offsets.Windowed].u4  'Windowed'
-	[offsets.CurrentPlayer].CustomType('CurrentPlayer', 4, function(o, obj, name, val)
-		if val == nil then
-			return u4[o] - 1
-		else
-			u4[o] = val + 1
-		end
-	end)
+	[offsets.CurrentPlayer].CustomType('CurrentPlayer', 4, i4_CurrentPlayer)
 	[mmv(0x4C2750, 0x4EDD80, 0x4FDF88)].array(13).i2  'SkillRecoveryTimes'
 	 .Info{Sig = "[skill:const.Skills]"}
 	[mmv(0x42A239, 0x42EFC9, 0x42DA52)].CustomType('MinMeleeRecoveryTime', 1, function(o, obj, name, val)
@@ -86,15 +142,14 @@ function structs.f.GameStructure(define)
 	[mmv(0x4D4714, 0x506DC8, 0x5185A8)].i4  'CurrentCharScreen'
 	 .Info ":const.CharScreens"
 	[mmv(0x5F811C, 0x6A0BC4, 0x6CEB24)].i4  'MainMenuCode'
-	 .Info "-1 = in game, 1 = show new game, 6 = in new game, 3 = load menu, 4 = exit, 2 = show credits, 8 = in credits, 9 = load game"
+	 .Info "-1 = in game, 0 = in main menu, 1 = show new game, 2 = show credits, 3 = show load menu, 4 = exit, 5 = loading game, 6 = in new game screen, 8 = in credits/new game breefing in MM6, 9 = load game/clicked Create Party in MM6, 10 = load level [MM7+]"
 	-- 465012(MM8) SetMainMenuCode
 	[mmv(0x52D0E4, 0x576CEC, 0x587914)].b4  'LoadingScreen'
-	--[mmv(0x4D48F8, nil, nil)].array{20, lenA = i4, lenP = mmv(0x4D46BC, nil, nil)}.struct(structs.Dlg)  'DialogsStack'
 	[mmv(0x533EB8, 0x590F10, 0x5A537C)].i4  'DialogNPC'
 	[mmv(0x54D040, 0x590F0C, 0x5A5378)].i4  'NPCCommand'
 	[mmv(0x9DDD8C, 0xF8B01C, 0xFFD408)].i4  'HouseScreen'
 	[mmv(0x551F94, 0x591270, 0x5A56E0)].i4  'HouseNPCSlot'
-	 .Info "If #HouseOwnerPic:structs.GameStructure.HouseOwnerPic# isn't '0', the value of '1' refers to the shop keeper and higher value needs to be reduce by 1 before accessing .\nIf #HouseExitMap:structs.GameStructure.HouseExitMap# isn't '0', last slot is occupied by map enter icon."
+	 .Info "If #Game.HouseOwnerPic:# isn't '0', the value of '1' refers to the shop keeper and higher value needs to be reduced by 1 before accessing .\nIf #Game.HouseExitMap:# isn't '0', last slot is occupied by map enter icon."
 	[mmv(0x53CB60, 0x5912A4, 0x5A5714)].i4  'HouseNPCSlotsCount'
 	[mmv(0x9DDD9C, 0xF8B034, 0xFFD420)].i4  'HouseCost'
 	[mmv(0x9DDD70, 0xF8B028, 0xFFD414)].i4  'HouseAllowAction'
@@ -104,21 +159,52 @@ function structs.f.GameStructure(define)
 	[mmv(0x552F48, 0x590F00, 0x5A5384)].i4  'HouseOwnerPic'
 	[mmv(0x55BDA4, 0x5C3450, 0x5DB8FC)].i4  'HouseExitMap'
 	[mmv(0x54D020, 0x591258, 0x5A56C8)].array(1, 6).i4  'HouseNPCs'
+	 .Info "If #Game.HouseExitMap:# isn't '0', last slot is occupied by map enter pseudo-NPC."
 	[mmv(0x9DDDFC, 0xF8B060, 0xFFD450)].i4  'HouseItemsCount'
 	 .Info "Number of interactive items of the dialog. Items count of the dialog object gets changed to this or 0 depending on selected player being concious."
-	[mmv(0x4D50C0, 0x507A3C, 0x519324)].pstruct(structs.Dlg)  'CurrentNPCDialog'
-	 .Info "If #HouseExitMap:structs.GameStructure.HouseExitMap# isn't '0', last slot is occupied by map enter pseudo-NPC."
+	
+	local DlgLen = setmetatable({}, {
+		__index = |_, p| i4[p] + 1,
+		__newindex = |_, p, v| i4[p] = v - 1,
+	})
+	local function DialogByIndex(o, obj, name, val)
+		local a = Game.DialogsArray
+		if val == nil then
+			return a[u4[obj["?ptr"] + o] - 1]
+		else
+			i4[obj["?ptr"] + o] = (val["?ptr"] - a["?ptr"])/0x54 + 1
+		end
+	end
+	define[mmv(0x4D48F8, 0x506DD0, 0x518608)].array(20).struct(structs.Dlg)  'DialogsArray'
+	[mmv(0x4CB5F8, 0x507460, 0x518C98)].alt.array(20).CustomType('DialogIndexes', 4, structs.aux.i4_plus(-1))
+	.array{20, lenA = DlgLen, lenP = mmv(0x4D46BC, 0x5074B0, 0x518CE8)}.CustomType('Dialogs', 4, DialogByIndex)
+	 .Info{"List of currently open dialogs, from lowest to topmost. Doesn't include object-oriented dialogs in MM8.\nDialog at index '0' contains adventure interface that you see when no dialog is open. Even when you boot into the main menu, this dialog is present.", Type = "structs.Dlg"}
+	
+	[mmv(0x4D50C0, 0x507A3C, 0x519324)].CustomType('CurrentNPCDialog', 4, structs.aux.PDialog)
+	 .Info{Type = "structs.Dlg"}
+	.CustomType('CurrentHouseDialog', 4, structs.aux.PDialog)
+	 .Info{Type = "structs.Dlg"}
 	.func{name = "ExitHouseScreen", p = mmv(0x4A4AA0, 0x4BD818, 0x4BB3F8), ret = true}
 	if mmver == 8 then
 		define
 		[0x5CCCE4].b1  'InQuestionDialog'
-		[0x100614C].b4  'InOODialog'
+		[0x1006148].struct(structs.OODialogManager)  'OODialogs'
+		[0x100614C].u4  'OODialogPtr'
+		 .Info "Same as #Game.OODialogs.CurrentDialogPtr:structs.OODialogManager.CurrentDialogPtr#"
 		local function d(v, std)
 			return v == nil and (std or 0) or v
 		end
 		function define.f.OODialogProcessKey(key, _1, _2, _3, _4)
 			call(0x4D1D6A, 1, 0x1006148, key or 27, d(_1, 1), d(_2), d(_3), d(_4))
 		end
+		function define.f.GetAdventureInnInfo()
+			local p = u4[0x100614C]
+			if p ~= 0 and Game.CurrentScreen == 29 then
+				local inv = i4[p + 0xC] == 1
+				return i4[p + (inv and 0x130 or 0x128)], inv
+			end
+		end
+		define.Info "Returns 'PlayerIndex', 'InInventory' or nothing if Adventure Inn dialog isn't active.\n'PlayerIndex' is the index of currently selected player in #Party.PlayersArray:#. Compare it against !Lua[=[Party.PlayersIndexes[Party.CurrentPlayer]]=] to see if selected player is part of the party.\n'InInventory' is 'true' if player inventory (or Stats, Skills, Awards) screen is open."
 	end
 	define
 	[mmv(0x4C3E10, 0x4F076C, 0x500D30)].array(mmv(17, 11, 11)).i4  'GuildJoinCost'
@@ -130,7 +216,17 @@ function structs.f.GameStructure(define)
 	 .Info{Sig = "[skill:const.Skills]"}
 	[mmv(0x56F394, 0x5C88F0, 0x5E4CB0)].array(mmv(31, 37, 39)).EditPChar  'SkillDescriptions'
 	 .Info{Sig = "[skill:const.Skills]"}
-	[mmv(0x970BEC, 0xAE3070, 0xBB2FD0)].array(mmv(18, 36, 36)).EditPChar  'ClassNames'
+	[mmv(0x56B76C, 0x5C8858, 0x5E4C10)].array(mmv(31, 37, 39)).EditPChar  'SkillDesNormal'
+	 .Info{Sig = "[skill:const.Skills]"}
+	[mmv(0x56F29C, 0x5C87C0, 0x5E4B70)].array(mmv(31, 37, 39)).EditPChar  'SkillDesExpert'
+	 .Info{Sig = "[skill:const.Skills]"}
+	[mmv(0x56F318, 0x5C8728, 0x5E4AD0)].array(mmv(31, 37, 39)).EditPChar  'SkillDesMaster'
+	 .Info{Sig = "[skill:const.Skills]"}
+	if mmver > 6 then
+		define[mm78(0x5C8690, 0x5E4A30)].array(mmv(31, 37, 39)).EditPChar  'SkillDesGM'
+	 .Info{Sig = "[skill:const.Skills]"}
+	end
+	define[mmv(0x970BEC, 0xAE3070, 0xBB2FD0)].array(mmv(18, 36, 36)).EditPChar  'ClassNames'
 	 .Info{Sig = "[class:const.Class]"}
 	[mmv(0x56B6C0, 0x5C8560, 0x5E48F0)].array(mmv(18, 36, 36)).EditPChar  'ClassDescriptions'
 	 .Info{Sig = "[class:const.Class]"}
@@ -149,9 +245,30 @@ function structs.f.GameStructure(define)
 	end
 	define
 	[mmv(0x52D29C, 0x576EAC, 0x587ADC)].b4  'NeedRedraw'
-	[mmv(0x55BC04, 0x5C32A8, 0x5DB758)].string(200)  'StatusMessage'
-	.string(200)  'MouseOverStatusMessage'
+	[mmv(0x55BC04, 0x5C32A8, 0x5DB758)].alt.string(200)  'StatusMessage'
+	.array(200).u1  'StatusMessageBytes'
+	.alt.string(200)  'MouseOverStatusMessage'
+	.array(200).u1  'MouseOverStatusMessageBytes'
 	.i4  'StatusDisappearTime'
+	if mmver > 6 then
+		define.b4  'NeedUpdateStatusBar'
+	end
+	if mmver == 7 then
+		define[internal.FoodGoldVisible or 0].b1  'FoodGoldVisible'
+		 .Info "Set it to 'false' to skip 1 draw call of drawing food and gold"
+	end
+	define
+	[mmv(0x5F6E6C, 0x69AD7C, 0x6C8CD4)].i4  'TextInputLimit'
+	.alt.string(257)  'TextInput'
+	.array(257).u1  'TextInputBytes'
+	.u1  'TextInputLength'
+	.skip(2)
+	.i4  'TextInputMode'
+	.CustomType('TextInputDialog', 4, structs.aux.PDialog)
+	[mmv(0x4CB6A0, 0x506D8C, 0x51856C)].i4  'EscMessageLastScreen'
+	[mmv(0x4D50DC, 0x507A5C, 0x519340)].CustomType('EscMessageDialog', 4, structs.aux.PDialog)
+	 .Info{Type = "structs.Dlg"}
+	
 	[mmv(0x9DDE04, 0xF8B068, 0xFFD458)].EditPChar  'NPCMessage'
 	 .Info "Current message displayed in a dialog with some NPC"
 	[mmv(0x55276C, 0x5B07B8, 0x5C6848)].string(2000)  'StreetMessage'
@@ -166,13 +283,18 @@ function structs.f.GameStructure(define)
 	-- 552F50 TimersCount
 	-- 5F883C ; char SaveSlotsFiles[40][280]
 	-- 5FB9B4 SaveSlotsCount
-	-- 6296EC dist_mist
 
 	[mmv(0x560C14, 0x5D2864, 0x5EFBCC)].array{mmv(581, 800, 803), lenA = i4, lenP = mmv(0x560C10, 0x5D2860, 0x5EFBC8)}.struct(structs.ItemsTxtItem)  'ItemsTxt'
 	.array(mmv(14, 24, 24)).struct(structs.StdItemsTxtItem)  'StdItemsTxt'
 	.array(mmv(59, 72, 72)).struct(structs.SpcItemsTxtItem)  'SpcItemsTxt'
+	[mmv(0x6A86A8, 0x723BB8, 0x761500)].array(mmv({500, 586}, {700, 781}, {700, 781})).EditPChar  'ScrollTxt'
+	-- rnditems
+
 	local i, j = mmv(160, 222, 222), mmv(188, 271, 271)
 	define[mmv(0x56A780, 0x5E17C4, 0x5FEC10)].array(i, j).array(i, j)[mmv('u1','i2','i2')]  'PotionTxt'
+	if mmver > 6 then
+		define.array(i, j).array(i, j).i2  'PotNotesTxt'
+	end
 	
 	if mmver == 6 then
 		define[0x56C188].array{174, lenA = i4, lenP = 0x56C188 + structs.MonstersTxtItem["?size"]*174}.struct(structs.MonstersTxtItem)  'MonstersTxt'
@@ -208,21 +330,38 @@ function structs.f.GameStructure(define)
 	[mmv(0x551D20, 0x5B6428, 0x5CCCB8)].struct(structs.MoveToMap) 'MoveToMap'
 	[mmv(0x52D0A8, 0x576CB0, 0x5878D8)].struct(structs.ProgressBar)  'ProgressBar'
 	[0].struct(structs.DialogLogic)  'DialogLogic'
-	[mmv(0x55BDB4, 0x5C346C, 0x5DB91C)].i4  'Lucida_fnt'
-	[mmv(0x55BDB8, 0x5C3488, 0x5DB938)].i4  'Smallnum_fnt'
-	[mmv(0x55BDC4, 0x5C3468, 0x5DB918)].i4  'Arrus_fnt'
-	[mmv(0x55BDC8, 0x5C347C, 0x5DB92C)].i4  'Create_fnt'
-	[mmv(0x55BDCC, 0x5C3484, 0x5DB934)].i4  'Comic_fnt'
-	[mmv(0x55BDBC, 0x5C3474, 0x5DB924)].i4  'Book_fnt'
-	[mmv(0x55BDD4, 0x5C3470, 0x5DB920)].i4  'Book2_fnt'
+	[mmv(0x55BDB4, 0x5C346C, 0x5DB91C)].alt.i4  'Lucida_fnt'
+	.pstruct(structs.Fnt)  'FontLucida'
+	[mmv(0x55BDB8, 0x5C3488, 0x5DB938)].alt.i4  'Smallnum_fnt'
+	.pstruct(structs.Fnt)  'FontSmallnum'
+	[mmv(0x55BDC4, 0x5C3468, 0x5DB918)].alt.i4  'Arrus_fnt'
+	.pstruct(structs.Fnt)  'FontArrus'
+	[mmv(0x55BDC8, 0x5C347C, 0x5DB92C)].alt.i4  'Create_fnt'
+	.pstruct(structs.Fnt)  'FontCreate'
+	[mmv(0x55BDCC, 0x5C3484, 0x5DB934)].alt.i4  'Comic_fnt'
+	.pstruct(structs.Fnt)  'FontComic'
+	[mmv(0x55BDBC, 0x5C3474, 0x5DB924)].alt.i4  'Book_fnt'
+	.pstruct(structs.Fnt)  'FontBook'
+	[mmv(0x55BDD4, 0x5C3470, 0x5DB920)].alt.i4  'Book2_fnt'
+	.pstruct(structs.Fnt)  'FontBook2'
 	if mmver < 8 then
-		define[mmv(0x55BDDC, 0x5C3480, nil)].i4  'Cchar_fnt'
+		define[mmv(0x55BDDC, 0x5C3480, nil)].alt.i4  'Cchar_fnt'
+		.pstruct(structs.Fnt)  'FontCchar'
 	end
 	define
-	[mmv(0x55BDD0, 0x5C3460, 0x5DB910)].i4  'Autonote_fnt'
-	[mmv(0x55BDC0, 0x5C3464, 0x5DB914)].i4  'Spell_fnt'  -- Autonote_fnt2
-	[mmv(0x55CDE0, 0x5C5C30, 0x5DF0E0)].string(2000)  'TextBuffer'
-	[mmv(0x55D5B0, 0x5C6400, 0x5E1020)].string(2000)  'TextBuffer2'
+	[mmv(0x55BDD0, 0x5C3460, 0x5DB910)].alt.i4  'Autonote_fnt'
+	.pstruct(structs.Fnt)  'FontAutonote'
+	[mmv(0x55BDC0, 0x5C3464, 0x5DB914)].alt.i4  'Spell_fnt'  -- Autonote_fnt2
+	.pstruct(structs.Fnt)  'FontSpell'
+	[mmv(0x55CDE0, 0x5C5C30, 0x5DF0E0)].alt.string(2000)  'TextBuffer'
+	.array(2000).u1  'TextBufferBytes'
+	 .Info "Lets you get address of 'TextBuffer' or access it byte by byte (note: traversing it like that is very slow)"
+	[mmv(0x55D5B0, 0x5C6400, 0x5E1020)].alt.string(2000)  'TextBuffer2'
+	.array(2000).u1  'TextBuffer2Bytes'
+	 .Info "Lets you get address of 'TextBuffer2' or access it byte by byte (note: traversing it like that is very slow)"
+	[mmv(0x55BDE0, 0x5C4430, 0x5DC8E0)].alt.string(2048)  'WordWrappedText'
+	.array(2048).u1  'WordWrappedTextBytes'
+	 .Info "Lets you get address of 'WordWrappedText' or access it byte by byte (note: traversing it like that is very slow)"
 	[mmv(0x5F6E0C, 0x69AC8C, 0x6C8BC4)].array(mmv(12, 30, 30)).i4  'KeyCodes'
 	[mmv(0x5F6E3C, 0x69AD04, 0x6C8C3C)].array(mmv(12, 30, 30)).i4  'KeyTypes'
 	[mmv(0x908D08, 0xACCE64, 0xB20EBC)].i8  'Time'
@@ -321,12 +460,16 @@ function structs.f.GameStructure(define)
 	define
 	[mmv(0x4BD10C, 0x4E2B50, 0x4F3A80)].array(mmv(60, 88, 66)).i1  'MonsterClassInfoY'
 	[offsets.TimeStruct1 + 4].b4  'Paused'
-	 .Info "pauses game logic"
+	 .Info "Game logic is paused"
 	[offsets.TimeStruct2 + 4].b4  'Paused2'
-	 .Info "pauses updating view"
-	[mmv(0x4D519C, 0x50BA7C, 0x51D354)].i4  'TimeDelta'
+	 .Info "Updates of 3D view are paused"
+	[offsets.TimeStruct1 + 28].i4  'TimeDelta'
 	 .Info "Time since last tick"
-	-- MM6: 4C4468 - something related to shop items generation
+	[offsets.TimeStruct2 + 28].i4  'TimeDelta2'
+	 .Info "Time since last tick of updating 3D view"
+	.Info{new = true, Name = "PauseCount", "See #Game.Pause:# and #Game.Resume:#"}
+	.Info{new = true, Name = "PauseCount2", "See #Game.Pause2:# and #Game.Resume2:#"}
+	[mmv(internal.FrameCounter or 0, 0x5C6C70, 0x5E3000)].u4  'FrameCounter'
 	[mmv(0x90EADC, 0xAD45B4, 0xB7CA8C)].array(0, mmv(47, 52, 52)).array(12).struct(structs.Item)  'ShopItems'
 	 .Info{Sig = "[house][slot]"}
 	[mmv(0x9129DC, 0xAD9F24, 0xB823FC)].array(mmv(1, 0, 0), mmv(46, 52, 52)).array(12).struct(structs.Item)  'ShopSpecialItems'
@@ -382,6 +525,8 @@ end]=]
 	 .Info "damage is 50 + skill"
 	[mmv(0x6296F4, 0x6BDF04, 0x6F300C)].i4  'OutdoorViewMul'
 	 .Info "Acts as the opposite of FOV"
+	.i4  'OutdoorViewDiv'
+	 .Info "!Lua[[= math.floor(0x10000/Game.OutdoorViewMul)]]"
 	[mmv(0x56B830, 0x5E4000, 0x601448)].array(mmv(596, 677, 750)).EditPChar  'GlobalTxt'
 	[mmv(0x52D530, 0x5912B8, 0x5A5728)].array(mmv(558, 526, 526)).struct(structs.Events2DItem)  'Houses'  -- 2DEvents
 	 .Info "2DEvents.txt"
@@ -399,35 +544,32 @@ end]=]
 		[mm78(0x73B8D4, 0x7798B8)].array(0, 205).array(0, 1).EditPChar  'NPCGreet'
 		[mm78(0x73BFAA, 0x779F8E)].array(0, 50).i2  'NPCGroup'
 		[mm78(0x739CF4, 0x778F50)].array(0, 50).EditPChar  'NPCNews'
-		[mm78(0x5C89E0, 0x5E4DA8)].array(1, 29).struct(structs.HistoryTxtItem)  'HistoryTxt'
+		[mm78(0x5C89E0, 0x5E4DA8)].array(0, 29).struct(structs.HistoryTxtItem)  'HistoryTxt'
 	else
 		define
 		[0x6B8C60].array{0, 279}.struct(structs.NPCNewsItem)  'NPCNews'
 		[0x6BA568].array(96).i2  'NPCNewsCountByMap'
 	end
+	define[mmv(0x6A9168, 0x724050, 0x761998)]
+	.array(mmv(400, 501, 551)).struct(structs.NPC)  'NPCDataTxt'
+	.array{mmv(400, 501, 551), lenA = i4, lenP = mmv(0x6BA534, 0x73C014, 0x779FF8)}.struct(structs.NPC)  'NPC'
+	[mmv(0x6BA85C, 0x73C110, 0x77A0E8)].array(mmv(78, 59, 59)).EditPChar  'NPCProfNames'
 	if mmver < 8 then
-		define[mmv(0x6A9168, 0x724050)]
-		.array(mmv(400, 501)).struct(structs.NPC)  'NPCDataTxt'
-		.array{mmv(400, 501), lenA = i4, lenP = mmv(0x6BA534, 0x73C014)}.struct(structs.NPC)  'NPC'
-		[mmv(0x6BA85C, 0x73C110)].array(mmv(78, 59)).EditPChar  'NPCProfNames'
-		[mmv(0x6B5DC8, 0x737AA8)].array(mmv(78, 59)).struct(structs.NPCProfTxtItem)  'NPCProfTxt'
+		define
 		[mmv(0x6B4CE8, 0x7369C8)].array(540).array(2).EditPChar  'NPCNames'
+		[mmv(0x6B5DC8, 0x737AA8)].array(mmv(78, 59)).struct(structs.NPCProfTxtItem)  'NPCProfTxt'
 		[mmv(0x6BA540, 0x73C020)].array(2).i4  'NPCNamesCount'
-	else
-		define[0x761998]
-		.array(551).struct(structs.NPC)  'NPCDataTxt'
-		.array(551).struct(structs.NPC)  'NPC'
 	end
 	define
 	[mmv(0x6B74F0, 0x737F44, 0x7771A0)].array{100, lenA = i4, lenP = mmv(0x6BA530, 0x73C010, 0x779FF4)}.struct(structs.NPC)  'StreetNPC'
 	[mmv(0x4BDD70, 0x4E3C48, 0x4F4870)].array(0, mmv(99, 99, 132)).struct(structs.SpellInfo)  'Spells'
 	[mmv(0x56ABD0, 0x5CBEB0, 0x5E8278)].array(0, mmv(99, 99, 132)).struct(structs.SpellsTxtItem)  'SpellsTxt'
 	[mmv(0x4C28E2, 0x4EDF32, 0x4FE12A)].array(1, mmv(99, 99, 132)).i2  'SpellSounds'
-	[mmv(0x4BDBD8, 0x4E3AB0, 0x4F4648)].array(1, mmv(99, 99, 132)).CustomType('SpellObjId', 4, function(o, obj, name, val)
-		if val ~= nil then
-			i2[obj["?ptr"] + o] = val
-		else
+	[mmv(0x4BDBD8, 0x4E3AB0, 0x4F4648)].array(1, mmv(102, 102, 137)).CustomType('SpellObjId', 4, function(o, obj, name, val)
+		if val == nil then
 			return i2[obj["?ptr"] + o]
+		else
+			i2[obj["?ptr"] + o] = val
 		end
 	end)
 	[mmv(0x4A6C1A, 0x4BF832, 0x4BD38D)].CustomType('TitleTrack', 1, function(o, obj, _, val)
@@ -466,7 +608,7 @@ end]=]
 	
 	local pmis = mem.StaticAlloc(8)
 	mem.fill(pmis, 8)
-	define[pmis].parray{lenA = i4, lenP = pmis + 4, lenSet = SetLenRealloc}.struct(structs.MissileSetup)  'MissileSetup'
+	define[pmis].parray{lenA = i4, lenP = pmis + 4, lenSet = SetLenReallocMissile}.struct(structs.MissileSetup)  'MissileSetup'
 	if mmver > 6 then
 		define
 		[mm78(0x44FA9D, 0x44D1FB)].EditConstPChar  'SummonElementalA'
@@ -511,7 +653,7 @@ end]=]
 	[mmv(0x4C3F20, 0x4F0830, 0x500DF8)].array(mmv(36, 35, 25)).struct(structs.TravelInfo)  'TransportLocations'
 	[mmv(0x4C43A0, 0x4F0C90, 0x501118)].array(mmv(48, 54, 54), mmv(68, 73, 73)).array(1, mmv(3, 4, 4)).i1  'TransportIndex'
 	if mmver > 6 then
-		define[mm78(0x5C8B40, 0x5E4F08)].array(93).array(93).u1  'HostileTxt'
+		define[mm78(0x5C8B40, 0x5E4F08)].array(89).array(89).u1  'HostileTxt'
 		 .Info{Sig = "[mon1][mon2]"; "0 - 4. Attitude of 'mon1' towards 'mon2'. 'mon2' = 0 is party. 'mon1' and 'mon2' are monster classes: !Lua[[mon1 = (Id1 + 2):div(3)]]"}
 	end
 	define
@@ -557,8 +699,6 @@ end]=]
 	[mmv(0x4C22F0, 0x4ED280, 0x4FD660)].array(mmv(103, 110, 110)).struct(structs.FaceAnimationInfo)  'StandardFaceAnimations'
 	[mmv(0x4C20DC, 0x4ECDB0, 0x4FD0A0)].array(1, mmv(44, 49, 49)).array(mmv(12, 25, 30)).u1  'StandardPlayerSoundsCount'
 	
-	-- stditems, spcitems, rnditems
-
 	define
 	[mmv(0x6104F8, 0x6A08E0, 0x6CE838)].struct(structs.Lod)  'GamesLod'
 	[mmv(0x4CB6D0, 0x6D0490, 0x70D3E8)].struct(structs.BitmapsLod)  'IconsLod'
@@ -567,11 +707,27 @@ end]=]
 	[mmv(0x610830, 0x6A06A0, 0x6CE5F8)].struct(structs.Lod)  'SaveGameLod'
 	if mmver == 7 then
 		define[0x6BE8D8].struct(structs.Lod)  'EventsLod'
+	elseif mmver == 8 then
+		define
+		[0x6F30D0].struct(structs.LanguageLod)  'EnglishTLod'
+		[0x6F330C].struct(structs.LanguageLod)  'EnglishDLod'
 	end
-	define.Info{Name = "IsD3D", new = true}
+	define
+	[mmv(0x6296EC, 0x6BDEFC, 0x6F3004)].i4  'dist_mist'
+	.Info{Name = "IsD3D", new = true}
 	if mmver > 6 then
 		define[mm78(0xE31AF0, 0xF01A08)].alt.u4  'RendererD3D'
 		.Info{Name = "IsD3D", new = true}
+		[mm78(0x474913, 0x4737ED)].CustomType('ModelClimbRequirement', 4, function(o, obj, name, val)
+			if val == nil then
+				return i4[o]
+			else
+				mem.prot(true)
+				i4[o] = val
+				mem.prot(false)
+			end
+		end)
+		 .Info "Minimum required Z coordinate of the normal to climb a building surface. MM6 default is 1 (any non-vertical surface), MM7+ default is 46378, which corresponds to Lua[[46378/0x10000 = 0.7]]."
 	end
 	define[0].CustomType('RandSeed', 0, function(o, obj, name, val)
 		local p = (mmver > 6 and call(mmv(0, 0x4CECD2, 0x4DDD52), 0) + 5*4 or 0x4C5354)
@@ -582,7 +738,42 @@ end]=]
 		end
 	end)
 	.func{name = "Rand", p = mmv(0x4AE22B, 0x4CAAC2, 0x4D99F2), cc = 0}
-
+	local function Pauses(s, time, info, infoR, info2)
+		local var, bool, pause, resume = "PauseCount"..s, "Paused"..s, "DoPause"..s, "DoResume"..s
+		local backup = "Backup"..bool
+		define
+		.func{name = pause, p = offsets.PauseTime, cc = 1; time}
+		 .Info{Sig = "", info..info2}
+		.func{name = resume, p = offsets.ResumeTime, cc = 1; time}
+		 .Info{Sig = "", "Resumes "..infoR}
+		 
+		define.f["Pause"..s] = function()
+			local n = Game[var]
+			Game[var] = n + 1
+			local b = Game[bool]
+			if not b then
+				Game[backup] = false
+				Game[pause]()
+			elseif n == 0 then
+				Game[backup] = true
+			end
+			return b
+		end
+		define.Info(info..", increments 'Game."..var.."' by '1' and updates 'Game."..backup.."'"..info2)
+		define.f["Resume"..s] = function()
+			local n = max(0, Game[var] - 1)
+			Game[var] = n
+			if n == 0 then
+				if not Game[backup] then
+					Game[resume]()
+				end
+				Game[backup] = nil
+			end
+		end
+		define.Info("Subtracts '1' from 'Game."..var.."' and resumes "..infoR.." upon reaching '0' if the the game wasn't paused before #Game.Pause"..s..":# was called")
+	end
+	Pauses("", offsets.TimeStruct1, "Pauses game logic", "game logic", "")
+	Pauses("2", offsets.TimeStruct2, "Pauses updating 3D view", "updating 3D view", " (honored by the game only if logic is also paused)")
 	if mmver == 7 then
 		define.func{name = "SetInterfaceColor", p = 0x422698, cc = 2, must = 1; 1, 1}  -- 0 - good, 1 - neutral, 2 - evil
 		 .Info{Sig = "Color, Unk = 1"; "0 = good, 1 = neutral, 2 = evil"}
@@ -613,16 +804,16 @@ end]=]
 		 .Info{Sig = "Index"}
 	end
 	define
-	.func{name = "CalcSpellDamage", p = mmv(0x47F0A0, 0x43B006, 0x438B05), cc = 0, must = 4}
+	.func{name = "CalcSpellDamage", p = mmv(0x47F0A0, 0x43B006, 0x438B05), cc = mmv(0, 2, 2), must = 4}
 	 .Info{Sig = "Spell, Skill, Mastery, MonsterHP"}
 	.func{name = "GetSpellDamageType", p = mmv(0x481A60, 0x48E189, 0x48D618), cc = 0, must = 1}
 	 .Info{Sig = "Spell"}
 	.func{name = "GetStatisticEffect", p = mmv(0x482DC0, 0x48EA13, 0x48E18E), cc = 0, must = 1}
 	 .Info{Sig = "Stat"}
-	.func{name = "EscMessage", p = mmv(0x40F480, 0x4141D5, 0x41365A), cc = 2, must = 1; "", 0}
-	 .Info{Sig = "Text, Unk = 0"}
 	.func{name = "SummonMonster", p = mmv(0x4A35F0, 0x4BBEC4, 0x4BA076), cc = 2, must = 4}
 	 .Info{Sig = "Id, X, Y, Z"}
+	.func{name = "SummonObjects", p = mmv(0x42AA10, 0x42F7C7, 0x42E245), cc = 2, must = 4; 0, 0,0,0, 0,1,false, 0, 0}
+	 .Info{Sig = "Type, X, Y, Z, Speed, Count = 1, RandomAngle = false, Bits = 0, pItem:structs.Item [MM7+]"; "This function is called by #evt.SummonObject:# internally. If you specify the 'pItem' parameter, it will only work properly in MM8."}
 	.func{name = "GenerateChests", p = mmv(0x456300, 0x450244, 0x44D96C), cc = 0}
 	 .Info "You can add random items (Number = -1 to -6 for different power or -7 for artifact) to some chests and then call this function to generate them"
 	if mmver > 6 then
@@ -631,6 +822,12 @@ end]=]
 		 .Info{Sig = "Id, Kind:const.MonsterKind"}
 	end
 	define
+	.func{name = "FileRead", p = offsets.fread, cc = 0; 0, 1, 0, 0}
+	 .Info{Sig = "pTarget, Size, Count, FileStream"; "Reads 'Size'*'Count' bytes from 'FileStream' into 'pTarget' buffer. The 'FileStream' can be obtained by calling #FindFile:structs.Lod.FindFile# method of a Lod archive."}
+	.func{name = "FileSeek", p = mmv(0x4AE5B0, 0x4CB7EC, 0x4DA588), cc = 0; 0, 0, 0}
+	 .Info{Sig = "FileStream, Offset, Origin = 0"; "Sets current position of 'FileStream'.\n\t'Origin' = '0' sets absolute position to 'Offset'.\n\t'Origin' = '1' adds 'Offset' to current position.\n\t'Origin' = '2' sets position to end of file plus 'Offset'."}
+	.func{name = "FileTell", p = mmv(0x4AE458, 0x4CB669, 0x4DA405), cc = 0; 0}
+	 .Info{Sig = "FileStream"; "Returns current position of 'FileStream'."}
 	.func{name = "Uncompress", p = mmv(0x4A7AA0, 0x4C2F60, 0x4D1EC0), cc = 2, must = 4}
 	 .Info{Sig = "pTarget, pTargetSize, pSrc, SrcSize"; "'pTargetSize' must point to a 4-byte buffer specifying unpacked size."}
 	.func{name = "Compress", p = mmv(0x4A7B20, 0x4C2FF0, 0x4D1F50), cc = 2, must = 4, ret = 'u1'; 0,0,0,0, -1}
@@ -647,9 +844,9 @@ end]=]
 	end
 	define.Info{Sig = "SoundId, Unk = 0, Unk2 = 0"; "'Unk2' is present only in MM8"}
 	function define.f.PlaySound(soundId, object, loops, x, y, unk, volume, playbackRate)
-		call(mmv(0x48EB40, 0x4AA29B, 0x4A87DC), 1, SoundStru, soundId, object or -1, loops or 0, x or -1, y or 0, unk or 0, volume or 0, playbackRate or 0)
+		call(mmv(0x48EB40, 0x4AA29B, 0x4A87DC), 1, SoundStru, soundId, object or 0, loops or 0, x or -1, y or 0, unk or 0, volume or 0, playbackRate or 0)
 	end
-	define.Info{Sig = "SoundId, Object = -1, Loops = 0, X = -1, Y = 0, Unk = 0, Volume = 0, PlaybackRate = 0"}
+	define.Info{Sig = "SoundId, Object = 0, Loops = 0, X = -1, Y = 0, Unk = 0, Volume = 0, PlaybackRate = 0"; "Each object kind has a number of sound channels to use. Special 'Object' values of '-1' and '-2' also have 1 channel reserved for each (lower values have the same effect as '-2'). So, when many sounds are played at once you could use one of these negative values instead of the default 'Object' = '0'."}
 	function define.f.StopAllSounds(keepMin, keepMax)
 		call(mmv(0x48FB40, 0x4AB69F, 0x4A9BF7), 1, SoundStru, keepMin, keepMax)
 	end
@@ -684,27 +881,119 @@ end]=]
 		return i
 	end
 	define.Info{Sig = "Name";  "Loads a texture and returns its ID."}
+	if mmver > 6 then
+		define
+		.func{name = "LoadPlayerFace", p = mm78(0x491DDF, 0x4909B5), cc = 2, must = 2}
+		 .Info{Sig = "PlayerSlot, NewFace"}
+	end
 	function define.f.UpdateDialogTopics()
 		if Game.CurrentScreen == 13 then
 			if Game.HouseNPCSlot > (Game.HouseOwnerPic ~= 0 and 1 or 0) then
 				Game.HouseScreen = -1
 				call(mmv(0x4998A0, 0x4B4187, 0x4B2C36), 1, Game.HouseNPCSlot - 1)
 			end
-		elseif Game.CurrentNPCDialog['?ptr'] ~= 0 then
+		elseif Game.CurrentNPCDialog then
 			internal.RefillNPCTopics()
 		end
 	end
-	function define.f.ShowStatusText(text, time)
-		call(mmv(0x442BD0, 0x44C1A1, 0x4496C5), 2, tostring(text), time or 2)
-		Game.NeedRedraw = true
+	local function FindFreeDlg()
+		for _, a in Game.DialogsArray do
+			if a.DlgID == 0 then
+				return a
+			end
+		end
 	end
-	define.Info{Sig = "Text, Seconds = 2"}
+	function define.f.NewDialog(x, y, w, h, id, param, str, init, initParam)
+		local dlg = FindFreeDlg()
+		if not dlg then
+			return
+		elseif str then
+			dlg.StrParam = str
+			str = u4[dlg['?ptr'] + 0x48]
+		end
+		if init then
+			internal.InitDlg = || init(dlg, initParam)
+		end
+		call(mmv(0x419320, 0x41C3DB, 0x41BAF1), 2, x, y, w, h, tonumber(id) or 1, param, str)
+		return dlg
+	end
+	define.Info{Sig = "Left, Top, Width, Height, DlgID, Param, StrParam, InitProc, InitParam"; "If specified, !Lua[[InitProc(dlg, InitParam)]] is called before any calls to the #NewDialog:events.NewDialog# event."}
+	function define.f.GetDialogFromPoint(x, y)
+		if x < 0 or x >= 640 or y < 0 or y >= 480 then
+			return
+		end
+		local dialogs = Game.Dialogs
+		for i = dialogs.High, 0, -1 do
+			local dlg = dialogs[i]
+			if dlg:GetRelativePoint(x, y) then
+				return dlg
+			end
+		end
+	end	
+	define.Info{Sig = "Returns the #dialog:structs.Dlg# that the mouse is over."}
+	function define.f.GetButtonFromPoint(x, y)
+		if x < 0 or x >= 640 or y < 0 or y >= 480 then
+			return
+		end
+		local dialogs = Game.Dialogs
+		for i = dialogs.High, 0, -1 do
+			local dlg = dialogs[i]
+			local a = dlg:GetFromPoint(x, y, true)
+			if a or dlg.Height == 480 then  -- logic of UpdateMouseHint function
+				return a, dlg
+			end
+		end
+	end	
+	define.Info{Sig = "Returns #item:structs.Button#, #dialog:structs.Dlg# that the mouse is over. Uses the logic of hint updates rather than clicks. That is, stops iteration upon finding an item in specified position or encountering a dialog with #Height:structs.Dlg.Height# equal to '480', beyond which it wouldn't go.\nNote that the logic of clicks is generally less permissive: it's 'GetDialogFromPoint' followed by #GetFromPoint:structs.Dlg.GetFromPoint# of said dialog."}
+	function define.f.GetTopDialog()
+		local a = Game.Dialogs
+		local n = a.High
+		if n >= 0 then
+			return Game.Dialogs[n]
+		end
+	end	
+	define.Info{Sig = "Returns the #dialog:structs.Dlg# that the mouse is over."}
+	function define.f.ShowStatusText(text, time, NoRedraw)
+		call(mmv(0x442BD0, 0x44C1A1, 0x4496C5), 2, tostring(text), time or 2)
+		if not NoRedraw then
+			Game[mmver == 6 and "NeedRedraw" or "NeedUpdateStatusBar"] = true
+		end
+	end
+	define.Info{Sig = "Text, Seconds = 2, NoRedraw"}
+	function define.f.ShowStatusHint(text, AcceptEmpty)
+		if text == "" and AcceptEmpty then
+			if mmver == 6 then
+				text = " "
+			elseif Game.StatusDisappearTime == 0 then
+				Game.MouseOverStatusMessage = ""
+				Game.NeedUpdateStatusBar = true
+				return
+			end
+		end
+		call(mmv(0x418F40, 0x41C061, 0x41B711), 2, tostring(text))
+	end
+	define.Info{Sig = "Text, AcceptEmpty"; "Unless 'AcceptEmpty' is 'true', passing an empty string won't do anything."}
+	function define.f.EscMessage(text, act)
+		local dlg = FindFreeDlg()
+		if dlg then
+			dlg.StrParam = text
+			call(mmv(0x40F480, 0x4141D5, 0x41365A), 2, dlg.StrParamPtr, act)
+			return dlg
+		end
+	end
+	define.Info{Sig = "Text, ActionOnClose = 0"}
+	function define.f.StartTextInput(lim, numberic, dlg)
+		call(mmv(0x44C8A0, 0x459E93, 0x45775A), 1, mmv(0x5F6E00, 0x69AC80, 0x6C8BB8), numberic, lim or 50, dlg or Game.GetTopDialog() or Game.DialogsArray[0])
+	end
+	define.Info{Sig = "MaxLength = 50, Numerical = false, Dialog = nil"}
+	.func{name = "EndTextInput", p = mmv(0x44C920, 0x459F0A, 0x4577D1), cc = 1, fixed = {mmv(0x5F6E00, 0x69AC80, 0x6C8BB8)}; 0}
+	 .Info{Sig = "State"}
 	function define.f.LoadPalette(PalNum)
 		return call(mmv(0x47CBC0, 0x48A3A2, 0x489C9F), 1, mmv(0x762D80, 0x80D018, 0x84AFE0), PalNum)
 	end
 	define.Info{Sig = "PalNum"}
 	function define.f.LoadDataFileFromLod(name, UseMalloc)
-		local p = call(mmv(0x40C1A0, 0x410897, 0x411C9B), 1, mmv(0x4CB6D0, 0x6BE8D8, 0x6FB828), name, UseMalloc)
+		local p = call(mmv(0x40C1A0, 0x410897, 0x411C9B), 1, mmv(0x4CB6D0, 0x6BE8D8, 0x6FB828), name, UseMalloc or 0)
 		return p ~= 0 and p, Game.PatchOptions.LastLoadedFileSize
 	end
 	define.Info{Sig = "Name, UseMalloc"}
@@ -717,6 +1006,41 @@ end]=]
 		end
 	end
 	define.Info{Sig = "Name"}
+	local checkLods = mmv({'IconsLod'}, {'EventsLod'}, {'EnglishDLod', 'EnglishTLod'})
+	function define.f.CanLoadFileFromLod(name)
+		for _, s in ipairs(checkLods) do
+			if Game[s]:FindFile(name) ~= 0 then
+				return true
+			end
+		end
+		if Game.PatchOptions.DataFiles ~= false then
+			local f = io.open((Game.PatchOptions.DataFilesDir or 'DataFiles\\')..name, "rb")
+			if f then
+				f:close()
+				return true
+			end
+		end
+	end
+	define.Info{Sig = "Name"; "Returns 'true' if specified file exists in LOD archives that 'LoadTextFileFromLod' and 'LoadTextFileFromLod' functions use.\nThe archives are: !b[[icons.lod]] in MM6, !b[[events.lod]] in MM7, !b[[EnglishD.lod]] and !b[[EnglishT.lod]] in MM8."}
+
+	function define.f.LoadPcx(name, pcx, EnglishD, AllocKind)
+		pcx = pcx or mem.allocMM(0x28)  -- relies on my patch zeroing it out
+		if mmver < 8 then
+			call(mmv(0x409E50, 0x40F420), 1, pcx, name, AllocKind)
+		else
+			call(0x4106F3, 1, pcx, name, EnglishD, AllocKind)
+		end
+		return pcx['?ptr'] and pcx or structs.LodPcx:new(pcx)
+	end
+	define.Info{Sig = "Name, PcxBuffer, FromEnglishD = false, LoadKind = 0"; "Returns #loaded pcx:structs.LodPcx#. 'PcxBuffer' can be 'nil', a #pcx strucutre:structs.LodPcx# or a pointer to the buffer. If it's 'nil', the buffer gets allocated and must freed via a call to #Destroy:structs.LodPcx.Destroy# function."}
+	
+	function define.f.LoadFont(name, pal1, ...)
+		local t = {...}
+		t[#t+1] = 0
+		local p = call(mmv(0x442CF0, 0x44C474, 0x449BA1), 0, name, pal1 or "FONTPAL", unpack(t))
+		return structs.Fnt:new(p)
+	end
+	
 	function define.f.GetCurrentHouse()
 		local p = u4[mmv(0x4D50C4, 0x507A40, 0x519328)]
 		if p ~= 0 then
@@ -731,6 +1055,8 @@ end]=]
 			return a[i], i, kind
 		elseif ... then
 			return FromArray(p, ...)
+		-- else
+		-- 	error(('NPC not found: 0x%X'):format(p), 3)
 		end
 	end
 	local NPCFromPtr = |p| FromArray(p, 'NPC', Game.NPC, 'StreetNPC', Game.StreetNPC, mmver < 8 and 'HiredNPC', mmver < 8 and Party.HiredNPC)
@@ -896,6 +1222,7 @@ function structs.f.GameParty(define)
 	if mmver < 8 then
 		define
 		[mmv(0x908F34, 0xACD804)].array(4).struct(structs.Player)  'PlayersArray'
+		 .Info "Array of all players"
 		[mmv(0x944C68, 0xA74F48)].array(4).CustomType('Players', 4, function(o, obj, _, val)
 			if val then
 				i4[obj["?ptr"] + o] = val["?ptr"]  -- to be used at your own risk!
@@ -904,16 +1231,19 @@ function structs.f.GameParty(define)
 				return a[(i4[obj["?ptr"] + o] - a["?ptr"])/structs.Player["?size"]]
 			end
 		end)
+		 .Info "Array of players corresponding to each player slot"
 		[mmv(0x90E7A4, 0xAD44F4)].array(1, 2).struct(structs.NPC)  'HiredNPC'
+		[mmv(0x91886E, 0xAE2EAC)].array(1, 2).string(100)  'HiredNPCName'
 	else
 		define
 		[0xB20E90 + 2540].array(50).struct(structs.Player)  'PlayersArray'
-		[0xB20E90 + 375740].array(5).i4  'PlayersIndexes'
-		[0xB20E90 + 375740].array{5, lenA = i4, lenP = 0xB7CA60}.CustomType('Players', 4, function(o, obj, _, val)
+		[0xB20E90 + 375740].alt.array(5).i4  'PlayersIndexes'
+		 .Info "Array of players indexes in #PlayersArray:structs.GameParty.PlayersArray# corresponding to each player slot"
+		.array{5, lenA = i4, lenP = 0xB7CA60}.CustomType('Players', 4, function(o, obj, _, val)
 			local a = Party.PlayersArray
 			if val then
 				local i = (val["?ptr"] - a["?ptr"])/structs.Player["?size"]
-				i4[obj["?ptr"] + o] = a[i] and val
+				i4[obj["?ptr"] + o] = a[i] and i
 			else
 				local i = i4[obj["?ptr"] + o]
 				return a[i < 0 and 0 or i]
@@ -984,13 +1314,7 @@ function structs.f.GameParty(define)
 		 .Info 'E.g. set date 1:!Lua[[\nevt.Add("SpecialDate1", 0)]]\nUse date 1: "%51" in any NPC message'
 		[mm78(0xACD5DD, 0xB2164F)].array(mm78(108, 107), mm78(108, 107) + 15).b1  'ArcomageWins'
 	end
-	define[offsets.CurrentPlayer].CustomType('CurrentPlayer', 4, function(o, obj, name, val)
-		if val == nil then
-			return u4[o] - 1
-		else
-			u4[o] = val + 1
-		end
-	end)	
+	define[offsets.CurrentPlayer].CustomType('CurrentPlayer', 4, i4_CurrentPlayer)	
 	[mmv(0x90E838, 0xAD45B0, 0xB7CA88)].alt.i4  'StateBits'
 	.bit ('NeedRender', 2)
 	.bit ('Drowning', 4)
@@ -1030,7 +1354,10 @@ function structs.f.GameParty(define)
 	if mmver < 8 then
 		define.func{name = "HasNPCProfession", p = mmv(0x467F30, 0x476399, nil), cc = 1, must = 1, ret = true}
 	else
-		define.method{p = 0x4903C0, name = "ResetStartingPlayer", false, false}
+		function define.f.ResetStartingPlayer(ClearClass, AutoFill)
+			call(0x4903C0, 1, 0xB20E90, ClearClass, AutoFill)
+		end
+		define.Info{Sig = "ClearClass, AutoFill"}
 	end
 	function define.f.CountItems(items)
 		local t = PrepareCountItems(items)
@@ -1050,7 +1377,6 @@ end
 
 --[[
 	const.BonusStat
-	-- stditems, spcitems
 	
 Character_FindFreeItemSlot
 SimpleEquipItem
@@ -1070,8 +1396,11 @@ function structs.f.Player(define)
 		define.method{p = mm78(0x490139, 0x48F5CE), name = "GetSex"; mm78(nil, false)}
 		 .Info{Sig = "BasedOnVoice[MM8] = false"; "Determines sex based on Face or Voice"}
 	end
-	for name, i in pairs(const.Condition) do
-		define[mmv(0x1380, 0x0, 0x0) + 8*i].i8 (name)
+	do
+		local cname = table.invert(const.Condition)
+		for i = 0, const.Condition.Good do
+			define[mmv(0x1380, 0x0, 0x0) + 8*i].i8 (cname[i])
+		end
 	end
 	define
 	[mmv(0x1380, 0x0, 0x0)].array(mmv(17, 20, 20)).i8  'Conditions'
@@ -1184,7 +1513,10 @@ function structs.f.Player(define)
 	.i4  'ItemHelm'
 	.i4  'ItemBelt'
 	.i4  'ItemCloak'
-	.i4  'ItemGountlets'
+	.alt.i4  'ItemGountlets'
+	 .Info(false)
+	.i4  'ItemGauntlets'
+	 .Info "Was called 'ItemGountlets' before MMExtension v2.3, old name is supported for backward compatibility"
 	.i4  'ItemBoots'
 	.i4  'ItemAmulet'
 	.i4  'ItemRing1'
@@ -1206,8 +1538,8 @@ function structs.f.Player(define)
 		[mmv(0x1576, 0x1A96)].i1  'RangedDamageBonus'
 		[mmv(0x1578, 0x1A98)].i1  'FullHPBonus'
 		[mmv(0x1578, 0x1A98)].i1  'FullHitPointsBonus'
-		[mmv(0x157A, 0x159A)].i1  'FullSPBonus'
-		[mmv(0x157A, 0x159A)].i1  'FullSpellPointsBonus'
+		[mmv(0x157A, 0x1A9A)].i1  'FullSPBonus'
+		[mmv(0x157A, 0x1A9A)].i1  'FullSpellPointsBonus'
 	else
 		define[0x1BF0].i2  'RosterBitIndex'
 	end
@@ -1219,12 +1551,11 @@ function structs.f.Player(define)
 	[mmv(0x1618, 0x1B38, 0x1D24)].u1  'DevineInterventionCasts'
 	[mmv(0x1619, 0x1B39, 0x1D25)].u1  'ArmageddonCasts'
 	.size = mmv(0x161C, 0x1B3C, 0x1D28)
-	if mmver > 6 then
-		define[mm78(0x1B3A, 0x1D26)].u1  'FireSpikeCasts'
-	end
 	if mmver == 7 then
-		define[0x1924].i4  'FaceBeforeZombie'
-		.i4  'VoiceBeforeZombie'
+		define[0x1924].alt.i4  'FaceBeforeZombie'
+		.i4  'OriginalFace'
+		.alt.i4  'VoiceBeforeZombie'
+		.i4  'OriginalVoice'
 	end
 
 	define
@@ -1281,7 +1612,7 @@ function structs.f.Player(define)
 		.method{p = mm78(0x48E7C8, 0x48DD6B), name = "GetResistance", must = 1}
 		 .Info{Sig = "Res:const.Damage"}
 		.method{p = mm78(0x48D6B6, 0x48CF8A), name = "HasItemBonus", must = 1}
-		 .Info{Sig = "Bonus2";  "Checks whether the player is wearing an item with specified Bonus2:structs.Item.Bonus2. of items See SPCITEMS.TXT for "}
+		 .Info{Sig = "Bonus2";  "Checks whether the player is wearing an item with specified Bonus2:structs.Item.Bonus2. See SPCITEMS.TXT for more info about each bonus."}
 		.method{p = mm78(0x48D6EF, 0x48CFC3), name = "WearsItem", must = 1, ret = true; 0, 16}
 		 .Info{Sig = "ItemNum, Slot:const.ItemSlot = 16"; "If 'Slot' isn't specified, searches all slots for the item"}
 	else
@@ -1416,6 +1747,15 @@ function structs.f.Player(define)
 			return i
 		end
 	end
+	define.Info "Returns player index in #Party.PlayersArray:structs.GameParty.PlayersArray#"
+	function define.m:GetSlot()
+		for i, a in Party do
+			if a == self then
+				return i
+			end
+		end
+	end
+	define.Info "Returns player slot index. Returns 'nil' in MM8 if the player is not in the active party."
 end
 
 local DrawStyles = {
@@ -1423,6 +1763,11 @@ local DrawStyles = {
 	transparent = mmv(0x40A680, 0x4A6204, 0x4A419B),
 	red = mmv(0x40A760, 0x4A6706, 0x4A4784),
 	green = mmv(0x40A880, 0x4A687F, 0x4A4A1E),
+	popaque = -mmv(0x40B000, 0x4A5E42, 0x4A3CD5),
+	p = -mmv(0x40B180, 0x4A6204, 0x4A419B),  -- same as ptransparent
+	ptransparent = -mmv(0x40B180, 0x4A6204, 0x4A419B),
+	pred = mm78(-0x4A6706, -0x4A4784),
+	pgreen = mm78(-0x4A687F, -0x4A4A1E),
 }
 
 function structs.f.GameScreen(define)
@@ -1446,20 +1791,35 @@ function structs.f.GameScreen(define)
 	.u4  'RedMask'
 	.u4  'GreenMask'
 	.u4  'BlueMask'
-	.method{p = mmv(0x48D130, 0x49F14C, 0x49C7C0), name = "SaveToPcx", must = 1; '', unpack(mmver == 6 and {0, 0, 640, 480} or {})}
+	if mmver > 6 then
+		define
+		[0x400F0].i4  'Pitch2'
+		.i4  'ClipTop'
+		.i4  'ClipLeft'
+		.i4  'ClipBottom'
+		.i4  'ClipRight'
+	end
+	define.method{p = mmv(0x48D130, 0x49F14C, 0x49C7C0), name = "SaveToPcx", must = 1; '', unpack(mmver == 6 and {0, 0, 640, 480} or {})}
 	 .Info{Sig = "name, x = 0, y = 0, width = 640, height = 480"; "'x', 'y', 'width', 'height' can only be specified in MM6. MM7 and MM8 save a shot of whole screen area."}
 	if mmver > 6 then
-		define.method{p = mm78(0x49F845, 0x49CEB9), name = "SaveBufferToPcx", must = 2; '', 0, 640, 480}
+		define
+		.method{p = mm78(0x49F845, 0x49CEB9), name = "SaveBufferToPcx", must = 2; '', 0, 640, 480}
 		 .Info{Sig = "name, buf, width = 640, height = 480"}
+		.method{p = mm78(0x4A5B11, 0x4A39A2), name = "SetClipRect"; 0, 0, 640, 480}
+		 .Info{Sig = "left = 0, top = 0, right = 640, bottom = 480"}
 	end
 	
 	function define.m:Draw(x, y, pic, style, rotate, EnglishD)
-		pic = type(pic) == "number" and pic or Game.IconsLod:LoadBitmap(pic, EnglishD)
-		local f = DrawStyles[style == true and 'opaque' or style or 'transparent']
+		local ptr = pic['?ptr']
+		if ptr then
+			style = style == true and 'popaque' or style and style:gsub('^(p?)', 'p') or 'p'
+		end
+		pic = ptr or type(pic) == "number" and pic or Game.IconsLod:LoadBitmap(pic, EnglishD)
+		local f = assert(DrawStyles[style == true and 'opaque' or style or 'transparent'], 'unknown drawing style')
 		if mmver == 6 then
-			mem.call(f, 2, self.Buffer + (self.Width*y + x)*2, pic, 0)
+			mem.call(abs(f), 2, self.Buffer + (self.Width*y + x)*2, pic, f < 0 and u4[pic + 64] or 0)
 		else
-			mem.call(f, 1, self['?ptr'], x, y, Game.IconsLod.Bitmaps[pic], rotate or 0)
+			mem.call(abs(f), 1, self['?ptr'], x, y, f < 0 and pic or Game.IconsLod.Bitmaps['?ptr'] + pic*0x48, rotate or 0)
 		end
 	end
 	define.Info{Sig = "x, y, pic, style, rotate, EnglishD"; [[
@@ -1468,6 +1828,7 @@ function structs.f.GameScreen(define)
   "opaque", 'true' - draw without transparency
   "red" - draw broken item
   "green" - draw unidentified item
+	Adding "p" in the beginning of 'style' string signals that 'pic' is a pointer to an image rather than its index. Note that "pred" and "pgreen" aren't supported in MM6.
 ]]}
 
 	function define.m:DrawItemEffect(x, y, shapePic, efPic, palShift, palFrom, palTo, rotate, EnglishD, efEnglishD)
@@ -1479,14 +1840,78 @@ function structs.f.GameScreen(define)
 	define.Info{Sig = "x, y, shapePic, effectPic, palShift, palAnimateFrom, palAnimateTo, rotate, EnglishD, effectEnglishD"}
 	
 	function define.m:DrawToObjectByPixel(x, y, pic, index, rotate, EnglishD)
-		pic = type(pic) == "number" and pic or Game.IconsLod:LoadBitmap(pic, EnglishD)
+		local picPtr = pic['?ptr']
+		pic = picPtr or type(pic) == "number" and pic or Game.IconsLod:LoadBitmap(pic, EnglishD)
 		if mmver == 6 then
+			assert(not picPtr)
 			mem.call(0x40A990, 2, self.ObjectByPixel + (self.Width*y + x)*4, pic, index)
 		else
-			mem.call(mm78(0x4A60BA, 0x4A3F4D), 1, self['?ptr'], x, y, Game.IconsLod.Bitmaps[pic], index, rotate or 0)
+			mem.call(mm78(0x4A60BA, 0x4A3F4D), 1, self['?ptr'], x, y, picPtr or Game.IconsLod.Bitmaps[pic], index, rotate or 0)
 		end
 	end	
 	define.Info{Sig = "x, y, pic, index, rotate, EnglishD"}
+
+	if mmver > 6 then
+		function define.m:DrawToObjectByPixelOpaque(x, y, pic, index, EnglishD)
+			local picPtr = pic['?ptr']
+			pic = type(pic) == "number" and pic or Game.IconsLod:LoadBitmap(pic, EnglishD)
+			mem.call(mm78(0x4A5FAE, 0x4A3E41), 1, self['?ptr'], x, y, picPtr or Game.IconsLod.Bitmaps[pic], index)
+		end	
+		define.Info{Sig = "x, y, pic, index, EnglishD"}
+	end
+
+	function define.m:DrawPcx(x, y, pcx)
+		pcx = assert(pcx['?ptr'] or tonumber(pcx))
+		if mmver > 6 then
+			call(mm78(0x4A5B73, 0x4A3A04), 1, self['?ptr'], x, y, pcx)
+		else
+			call(0x4092B0, 1, pcx, self.Buffer + (self.Width*y + x)*2, i2[pcx + 20], i2[pcx + 22])
+		end
+	end
+	define.Info{Sig = "x, y, LoadedPcx"}
+	
+	local MsgText
+	function define.m:DrawMessageBox(t, text, SnapToViewBox)
+		local p, isTable = structs.aux.TableToDlg(t, text)
+		if text then
+			MsgText = tostring(text)
+			text, u4[p + 0x48] = u4[p + 0x48], mem.topointer(MsgText)
+		end
+		call(mmv(0x40FAE0, 0x41555C, 0x414A61), 1, p, SnapToViewBox)
+		if text then
+			u4[p + 0x48], MsgText = text, nil
+		end
+		if t and isTable then
+			for i = 0, 3 do
+				t[i + 1] = i4[p + i*4]
+			end
+		end
+	end
+	define.Info{Sig = "Dialog, Text = nil, SnapToViewBox = false"; "Draws a message box border with optional text inside.\nIn place of 'Dialog' you can pass a table in form of !Lua[[{Left, Top, Width, Height}]].\nThe function modifies the dialog position to make it fit on the screen. If you pass a table with box position and size, it's modified accordingly.\nIf 'Text' is specified or #Dialog.StrParamPtr:structs.Dlg.StrParamPtr# is not '0', the text is drawn in the middle of the dialog and dialog box is drawn with appropriate height, but dialog height is not modified to reflect that."}
+
+	function define.m:DrawMessageBoxBorder(x, y, w, h)
+		call(mmv(0x40F710, 0x4151E4, 0x41468F), 2, x, y, w, h)
+	end
+	define.Info{Sig = "Left, Top, Width, Height"; "Draws a message box border.\nMinimal dimensions for proper display are '64'."}
+
+	function define.m:DrawInfoBox(caption, text, t)
+		caption = caption == nil and '' or tostring(caption)
+		text = text == nil and '' or tostring(text)
+		t = t or {}
+		local fnt = Game.FontSmallnum
+		local fntCap = Game.FontCreate
+		local luc = Game.FontLucida.Height
+		t[3] = t[3] or 384
+		t[1] = t[1] or (640 - t[3]):div(2)
+		t[2] = t[2] or 40
+		t[4] = t[4] or 256
+		t[4] = fnt:GetTextHeight(text, t, 24) + luc*2 + 24
+		self:DrawMessageBox(t)
+		local t1 = {t[1] + 12, t[2] + 12, t[3] - 24, t[4] - 12}
+		fntCap:DrawCentered(StrColor(255,255,150)..caption, t1)
+		fnt:Draw(text, t1, 1, luc)
+	end
+	define.Info{Sig = "Caption, Text, Box = nil"; "Draws a message box with caption and text.\nAs 'Box' you can pass a table in form of !Lua[[{Left, Top, Width, Height}]]. The table gets updated with proper dialog dimensions as a result of running the function."}
 end
 
 function structs.f.PatchOptions(define)
@@ -1547,8 +1972,8 @@ function structs.f.PatchOptions(define)
 	uint  'HDWTRDelay'  Info "[MM7+]"
 	int  'HorsemanSpeakTime'
 	int  'BoatmanSpeakTime'
-	single  'PaletteSMul'  Info "[MM7+]"
-	single  'PaletteVMul'  Info "[MM7+]"
+	single  'RawPaletteSMul'  Info "[MM7+]"
+	single  'RawPaletteVMul'  Info "[MM7+]"
 	bool  'NoBitmapsHwl'  Info "[MM7+]"
 	bool  'PlayMP3'
 	int  'MusicLoopsCount'
@@ -1621,6 +2046,25 @@ function structs.f.PatchOptions(define)
 	bool  'FixItemDuplicates'
 	bool  'FixClubsGeneration'  Info "[MM8]"
 	bool  'FixAcidBurst'  Info "[MM7+]"
+	bool  'EnchantMayFail'
+	bool  'TownPortalMayFail'
+	bool  'RegenerationIcon'  Info "[MM7+] In MM8 it's used for \"SeparateBuffIcons\" setting."
+	int  'SubDirection'
+	int  'SubLookAngle'
+	int  'TownPortalCost'  Info "Gets set before opening Town Portal dialog, retrieved when the town is chosen."
+	int  'MouseFlyKey'
+	bool  'ModernStrafe'
+	single  'ExtraSMulD3D'  Info "[MM7+]"
+	single  'ExtraVMulD3D'  Info "[MM7+]"
+	pchar  'DataFilesDir'
+	bool  'ProperSkyD3D'  Info "[MM7+]"
+	single  'SkyHeight'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkyDistance'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkyScale'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkySpeedX'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkySpeedY'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkyOffsetX'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
+	single  'SkyOffsetY'  Info "[MM7+] Parameter of 'ProperSkyD3D'"
 	
 	function define.f.Present(name)
 		return not not addr[name]
@@ -1634,6 +2078,32 @@ function structs.f.PatchOptions(define)
 		return (Game.PatchOptions.UILayout or "") ~= "" and Game.Windowed ~= 0
 	end
 	 define.Info{"Returns 'true' if UILayout mode is currently active"}
+	
+	if addr.ExtraVMulD3D then
+		-- remove legacy support multipliers
+		r4[addr.ExtraSMulD3D] = 1
+		r4[addr.ExtraVMulD3D] = 1
+	end
+	if addr.RawPaletteVMul then
+		local function PalField(name, mul)
+			local p = addr["Raw"..name]
+			addr[name] = p
+			if addr.ExtraVMulD3D or mmver == 6 or i4[mm78(0xDF1A68, 0xEC1980)] == 0 then
+				define[p - PatchOptionsPtr].r4(name)
+			else
+				define[p - PatchOptionsPtr].CustomType(name, 4, function(o, obj, name, val)
+					if val == nil then
+						return r4[p]*mul
+					else
+						r4[p] = val/mul
+					end
+				end)
+			end
+			Info "[MM7+]"
+		end
+		PalField("PaletteSMul", 1.025)
+		PalField("PaletteVMul", 246/255)
+	end
 end
 
 if mmver == 7 then

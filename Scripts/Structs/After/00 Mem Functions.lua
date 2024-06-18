@@ -6,7 +6,7 @@ local function mmv(...)
 	return (select(mmver - 5, ...))
 end
 
-local function BatchAdd(t, d)
+local BatchAdd = |t, d| if d ~= 0 then
 	prot(true)
 	local moved = mem.MovedCode
 	for _, p in ipairs(t) do
@@ -17,32 +17,49 @@ local function BatchAdd(t, d)
 end
 mem.BatchAdd = BatchAdd
 
-local function ChangeGameArray(name, p, count, lenP)
+local function ChangeGameArray(name, p, count, lenP, stru)
+	stru = stru or Game
 	if p then
-		structs.o.GameStructure[name] = p
-		internal.SetArrayUpval(Game[name], 'o', p)
+		structs.o[structs.name(stru)][name] = p
+		internal.SetArrayUpval(stru[name], 'o', p)
 	end
 	if count then
-		internal.SetArrayUpval(Game[name], 'count', count)
+		internal.SetArrayUpval(stru[name], 'count', count)
 	end
 	if lenP then
-		internal.SetArrayUpval(Game[name], 'lenP', lenP)
+		internal.SetArrayUpval(stru[name], 'lenP', lenP)
 	end
 end
 mem.ChangeGameArray = ChangeGameArray
 
-local ItemSize = |t| t[t.low]['?size']
+local function ReallocAligned(p, OldSize, NewSize, align, calign, NoFree)
+	local new = mem.allocMM(NewSize + align - 1)
+	local nalign = (p - new)%align
+	new = new + nalign
+	if OldSize < NewSize then
+		mem.copy(new, p, OldSize)
+		mem.fill(new + OldSize, NewSize - OldSize, 0)
+	else
+		mem.copy(new, p, NewSize)
+	end
+	if not NoFree then
+		mem.freeMM(p - calign)
+	end
+	return new, nalign
+end
 
 local function Extend(t)
-	local name, size, endSize, start, before = t[1], t.Size or ItemSize(Game[t[1]]), t.EndSize or 0, t.StartSize or 0, t.StartBefore or 0
+	local stru = t.BaseStruct or Game
+	local name, size, endSize, start, before = t[1], t.Size or stru[t[1]].ItemSize, t.EndSize or 0, t.StartSize or 0, t.StartBefore or 0
 	start = start + before
 	local esize = endSize + start
+	local align, calign = t.Align or 1, 0
 	local ptr, count, limit
 	if not size then
 		error('size unspecified: '..(name or ('%X'):format(t.Struct['?ptr'])))
 	end
 	local function Resize(newCount, canShrink)
-		local a = name and Game[name] or t.Struct
+		local a = name and stru[name] or t.Struct
 		local OldCount = count or t.UseDynCount and a.count or t.Limit or a.limit
 		if newCount == OldCount or newCount < OldCount and not canShrink then
 			return
@@ -51,7 +68,7 @@ local function Extend(t)
 		local dp, dlim, dnum, old = 0, 0, count - OldCount, ptr or (t.Ptr or a['?ptr']) - before
 		if count > limit then
 			dlim = count - limit
-			ptr = mem.reallocMM(old, limit*size + esize, count*size + esize, not ptr)
+			ptr, calign = ReallocAligned(old, limit*size + esize, count*size + esize, align, calign, not ptr)
 			if endSize ~= 0 then
 				mem.copy(ptr + start + count*size, ptr + start + limit*size, endSize)
 			end
@@ -94,25 +111,25 @@ local function Extend(t)
 			-- If lenP is set, 'count' acts as a limit and should be set only if dp ~= 0
 			-- If lenP is inside the relocated area, correct it.
 			-- If it's at the end of it, also move it by 'dlim*size'.
-			local lenP = internal.GetArrayUpval(Game[s], 'lenP')
+			local lenP = internal.GetArrayUpval(stru[s], 'lenP')
 			local n = (not lenP or dp ~= 0) and count or nil
 			if lenP and n and lenP >= old and lenP < old + (limit - dlim)*size + esize then
 				lenP = lenP + dp + (lenP < old + start and 0 or dlim*size)
 			else
 				lenP = nil
 			end
-			ChangeGameArray(s, structs.o.GameStructure[s] + dp, n, lenP)
+			ChangeGameArray(s, structs.o[structs.name(stru)][s] + dp, n, lenP, stru)
 		end
 		for _, f in ipairs(t.Custom or {}) do
 			f(count, OldCount, dp, ptr or old, size, t, dlim)
 		end
 	end
 	local function SetHigh(newMax, canShrink)
-		Resize(newMax - Game[name].low + 1, canShrink)
+		Resize(newMax - stru[name].low + 1, canShrink)
 	end
 	for _, s in ipairs(t) do
-		rawset(Game[s], 'Resize', Resize)
-		rawset(Game[s], 'SetHigh', SetHigh)
+		rawset(stru[s], 'Resize', Resize)
+		rawset(stru[s], 'SetHigh', SetHigh)
 	end
 	return Resize, SetHigh
 end
@@ -162,11 +179,12 @@ internal.BitArrayBaseSizes = sizes
 internal.BitArrayLimits = lims
 
 local function NeedBitHooks()
+	local dk = mmv(1, 0, 0)
 	local function handler(d)
 		local p = d.ecx
 		local n = sizes[p]
 		local k = n and d.dx
-		if n and k >= n then
+		if n and k + dk > n then
 			d.ecx = ptrs[p]
 			d.edx = k - n
 		end

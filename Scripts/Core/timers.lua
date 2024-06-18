@@ -66,7 +66,7 @@ end
 --!(f, Period = const.Minute, [Start,] [PastAware,] [Exact])
 -- 'f' = !LUA[[function(TriggerTime, Period, LastTick, Tick)]]:
 --   Function to call when the timer is triggered.
--- 'Start' defaults to !LUA[[Game.Time + Period]] if not specified (unless 'PastAware' = 'true', in which case it deafults to !LUA[[Game.Time]]).
+-- 'Start' defaults to !LUA[[Game.Time + Period]] if not specified (unless 'PastAware' = 'true', in which case it deafults to #Game.Time:#).
 -- 'PastAware' = remember last visit time and fire right away if timer condition was met in the period of your absence.
 --   Defaults to 'true' if 'Start' is specified and 'false' otherwise.
 -- Possible 'Exact' values:
@@ -146,11 +146,13 @@ local function DoSleep(c, time, realtime, screens)
 	table.insert(sleeps, {c, time, realtime, screens})--, FunctionFile(2)})
 end
 
-function Sleep(time, realtime, screens)
+function Sleep(time, realtime, screens, NoYield)
 	local c = coroutine.running()
 	if c then
 		DoSleep(c, time, realtime, screens)
-		return coroutine.yield(c)
+		if not NoYield then
+			return coroutine.yield()
+		end
 	elseif realtime then
 		mem.dll.kernel32.Sleep(time)
 	end

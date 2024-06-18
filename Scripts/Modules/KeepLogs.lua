@@ -31,7 +31,9 @@ function internal.DebugConsole(s, _, branch, ...)
 		return DebugConsole(s, _, branch, ...)
 	end
 	backup()
-	pcall(myprint, s)
+	if s ~= "" then
+		pcall(myprint, s:match'(.-)\r?\n?$')
+	end
 	s = DebugConsole(s, _, branch, ...) or ""
 	local last = s
 	if s ~= "" then
@@ -44,6 +46,63 @@ function internal.DebugConsole(s, _, branch, ...)
 	end
 	return s
 end
+
+local function ShowLogInConsole(s, name)
+	local timestate = internal.PauseGame()
+	local s = DebugConsole(s, (internal.IsTopmost or internal.IsFullScreen)(), name) or ""
+	DebugConsole(nil, false, name)
+	internal.ResumeGame(timestate)
+	if s ~= '' then
+		-- internal.DebugConsoleAnswer(s, 1)
+		pcall(myprint, "> "..s)
+		internal.DebugDll.DebugDialogMoveLastInput('')
+		return (loadstring("return "..s) or assert(loadstring(s, "@<console>")))()
+	else
+		internal.DebugDll.DebugDialogMoveLastInput(0)  -- remove "> " if it's there
+	end
+end
+
+local OutputLogs = {}
+
+local function ViewOutputLog()
+	local ok, name = internal.LogFileInfo()
+	if not ok then
+		return 'log file is empty'
+	end
+	local n = OutputLogs[name]
+	local s = n and "" or '['..name..']\n'..("—"):rep(internal.DebugConsoleCharsInLine()).."\n"
+	local f = io.open(name, 'rb')
+	if f then
+		f:seek('set', n or 0)
+		s = s..f:read('*a'):gsub('\r\n', '\n')
+		OutputLogs[name] = f:seek()
+		f:close()
+	else
+		OutputLogs[name] = 0
+	end
+	return ShowLogInConsole(s, name)
+end
+
+local GotLogs = {}
+
+-- Shows contents of console log from previous run of the game.
+-- 'n' is the log index or '0' to show current output log.
+function ViewLog(n)
+	if (n or 2) <= 1 then
+		return ViewOutputLog()
+	end
+	backup()
+	local name = "consoleLog"..(n or 2)..'.txt'
+	local s = GotLogs[name] or path.FindFirst(LogPath..name) and '['..name..']\n'..io.load(LogPath..name)
+	if not s then
+		return name..' not found'
+	end
+	GotLogs[name] = ""
+	return ShowLogInConsole(s, name)
+end
+
+-- short name for 'ViewLog'
+VL = ViewLog
 
 for s in path.find(LastPath) do
 	local ok, s = pcall(io.load, LastPath, true)

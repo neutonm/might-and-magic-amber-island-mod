@@ -20,11 +20,18 @@ function Editor.AddUnique(state, SingleModel)
 	local facs = {}
 	local starting = true
 	
+	-- Blender doesn't preserve exact coordinates
+	local function R(x)
+		x = x + 1/16
+		return x - x%(1/8)
+	end
+	
 	local function UniqueVertex(x, y, z, v)
-		local list = verts[x]
+		local list = verts[R(x)]
 		if list then
+			local y1, z1 = R(y), R(z)
 			for v1 in pairs(list) do
-				if y == v1.Y and z == v1.Z and (not v or v1.Shift == v.Shift) then
+				if R(v1.Y) == y1 and R(v1.Z) == z1 and (not v or v1.Shift == v.Shift) then
 					if starting then
 						ids[v] = ids[v1]
 					end
@@ -76,6 +83,16 @@ function Editor.AddUnique(state, SingleModel)
 			UniqueFacet(a.Vertexes, a)
 		end
 	end
+	-- update VertexIds
+	local t = {}
+	for v, id in pairs(state.VertexIds or {}) do
+		local v1 = UniqueVertex(v.X, v.Y, v.Z, v)
+		t[v1] = id
+		if v1 ~= v then
+			state.VertexIds = t
+		end
+	end
+	
 	starting = false
 	
 	return UniqueVertex, UniqueFacet
@@ -520,11 +537,11 @@ function Editor.MatchesOrientation(p, rfacets)
 end
 
 -----------------------------------------------------
--- Editor.EdgeFacets
+-- Editor.PrepareEdgeFacets
 -----------------------------------------------------
 
-function Editor.EdgeFacets(rooms)
-	local t = setmetatable({}, {__index = function(t, k)
+function Editor.PrepareEdgeFacets(rooms)
+	local list = setmetatable({}, {__index = function(t, k)
 		local q = {}
 		t[k] = q
 		return q
@@ -537,34 +554,99 @@ function Editor.EdgeFacets(rooms)
 		return n
 	end})
 	
-	local function get(v, v2, f)
-		local i, j = ids[v], ids[v2]
-		if i > j then
-			i, j = j, i
+	local get = |v, v2| list[ids[v]*0x100000 + ids[v2]]
+	
+	local MakeEnumer = |rev||t, i| do
+		i = i + 1
+		local v = t[i]
+		local v2 = v and t[i % #t + 1]
+		if v2 == v then
+			return
+		elseif rev then
+			return i, get(v, v2)
+		else
+			return i, get(v2, v)
 		end
-		if not f then
-			return t[i*0x100000 + j]
+	end
+	local enumer = MakeEnumer()
+	local enumerR = MakeEnumer(true)
+	
+	local function enum(f, reverse)
+		return reverse and enumerR or enumer, f.Vertexes, 0
+	end
+	
+	local add = |f| for _, t in enum(f, true) do
+		t[#t + 1] = f
+	end
+	
+	local O = {get = get, enum = enum, add = add}
+	
+	O.remove = |f| for _, t in enum(f, true) do
+		local i = table.find(t, f)
+		if i then
+			table.remove(t, i)
 		end
-		local r, n = nil, 0
-		for a in pairs(t[i*0x100000 + j]) do
-			n = n + 1
-			if a ~= f then
-				r = a
-			end
-		end
-		return r, n
 	end
 	
 	for _, r in ipairs(rooms or Editor.State.Rooms) do
-		for a in pairs(r.Facets) do
-			local vert = a.Vertexes
-			local n = #vert
-			for i, v in ipairs(vert) do
-				get(v, vert[i % n + 1])[a] = true
-			end
+		for f in pairs(r.Facets) do
+			add(f)
 		end
 	end
-	return get
+	
+	return O
+end
+
+-----------------------------------------------------
+-- Editor.Solve3x4
+-----------------------------------------------------
+
+-- Example: (4th column is right side)
+-- local m = {
+-- 	0, 0, 0, 0,
+-- 	0, 0, 0, 0,
+-- 	0, 0, 0, 0,
+-- }
+function Editor.Solve3x4(m)
+	local WasInf = false
+	local function DivNoInf(v1, v2)  -- replaces Inf and NaN with 0
+		local v = v1/v2
+		if v*0 ~= 0 then
+			WasInf = WasInf or v1 ~= 0
+			return 0
+		end
+		return v
+	end
+	local q = {[0] = 0, 1, 2}
+	local function order(x, y)
+		if abs(m[q[x]*4 + x + 1]) < abs(m[q[y]*4 + x + 1]) then
+			q[x], q[y] = q[y], q[x]
+		end
+	end
+	local function sub(y, base, x)
+		y, base = q[y], q[base]
+		local d = (base - y)*4
+		y = y*4 + 1
+		local mul = DivNoInf(m[y + x], m[y + d + x])
+		for i = y, y + 3 do
+			m[i] = m[i] - mul*m[i + d]
+		end
+	end
+	local function res(x)
+		local y = q[x]*4 + 1
+		return DivNoInf(m[y + 3], m[y + x])
+	end
+	order(0, 1)
+	order(0, 2)
+	sub(1, 0, 0)
+	sub(2, 0, 0)
+	order(1, 2)
+	sub(2, 1, 1)
+	sub(1, 2, 2)
+	sub(0, 2, 2)
+	sub(0, 1, 1)
+	local a, b, c = res(0), res(1), res(2)
+	return a, b, c, WasInf
 end
 
 -----------------------------------------------------
