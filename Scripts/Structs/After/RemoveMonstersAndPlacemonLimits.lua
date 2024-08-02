@@ -71,12 +71,12 @@ if mmver > 6 then
 
 
 			SimpleReplacePtr(
-				{0x4bbbcb, 0x4bbc02, 0x4bd1ec, 0x4bd223, 0x40690e},
+				{0x4bbbcb, 0x4bbc02, 0x4bd1ec, 0x4bd223},
 				2, 0x5cccc0, NewStartPos)
 
 
 			SimpleReplacePtr(
-				{0x4012f6},
+				{0x4012f6, 0x40690e},
 				3, 0x5cccc0, NewStartPos)
 
 			mem.u4[0x4bc316 + 2] = NewStartPos + NewMonCount * 88
@@ -174,7 +174,7 @@ if mmver > 6 then
 
 		end
 		mem.IgnoreProtection(false)
-		ChangeGameArray("MonstersTxt", NewStartPos, NewMonCount)
+		ChangeGameArray("MonstersTxt", NewStartPos, NewMonCount + 1)
 
 	end)
 end
