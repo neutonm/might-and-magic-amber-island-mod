@@ -174,7 +174,7 @@ if mmver > 6 then
 
 		end
 		mem.IgnoreProtection(false)
-		ChangeGameArray("MonstersTxt", NewStartPos, NewMonCount + 1)
+		ChangeGameArray("MonstersTxt", NewStartPos, NewMonCount + 1) -- NewMonCount + 1: Game.MonstersTxt[<MaxMonsters>] won't work due to Lua indicies starting from 1
 
 	end)
 end
