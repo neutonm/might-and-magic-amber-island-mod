@@ -1888,6 +1888,7 @@ Quest{
 							evt.Add("NPCs", 516)
 							ShowQuestEffect(true, t.TakeQuestOperation)
 							vars.MyQuests.QVarRansom = 3
+							vars.MyQuests.QVarRansomTaken = true
 							Game.NeedRedraw = true
 						end
 }
@@ -1956,6 +1957,7 @@ Quest{
 							evt.Add("NPCs", 516)
 							ShowQuestEffect(true, t.TakeQuestOperation)
 							vars.MyQuests.QVarRansom = 3
+							vars.MyQuests.QVarRansomTaken = true
 						end
 }
 

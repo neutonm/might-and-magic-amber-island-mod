@@ -40,7 +40,7 @@ function events.LoadMap()
 
     for _, mon in Map.Monsters do
         if mon.NPC_ID  == 516 then
-            if vars.MyQuests.QVarRansom == 3 then
+            if vars.MyQuests.QVarRansomTaken == true then
                 RemoveMonster(mon)
             end
         elseif mon.NPC_ID  == 518 then

@@ -112,12 +112,13 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 
         -- Quest Variables
         vars.MyQuests = {
-            QVar1       = false,            -- Quest: The Fog
-            QVarEndGame = false,            -- Game End
-            QVarRitual  = false,            -- Quest: Ritual, summon bool
-            QVarRansom  = 0,                -- Quest: Ransom, state
-            QVarRevenge = 0,                -- Quest: Revenge, state: given (1), duel (2), killed (3), 
-                                            -- reporting (4), repotred (5), released (6), rewarded (7)
+            QVar1           = false,            -- Quest: The Fog
+            QVarEndGame     = false,            -- Game End
+            QVarRitual      = false,            -- Quest: Ritual, summon bool
+            QVarRansom      = 0,                -- Quest: Ransom, state
+            QVarRansomTaken = false,            -- Quest: Ransom, NPC taken 
+            QVarRevenge     = 0,                -- Quest: Revenge, state: given (1), duel (2), killed (3), 
+                                                -- reporting (4), repotred (5), released (6), rewarded (7)
         }
         vars.MyMisc = {
             FirstTimePlaying        = 0,    -- for "Sir Henry" message at startup
