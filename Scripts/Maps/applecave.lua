@@ -38,6 +38,15 @@ Game.MapEvtLines.Count = 0
 
 function events.LoadMap()
 
+    -- Set gold vein textures to depleted ones after save/load
+    for i = 0, 9, 1 do
+        local mapVarStr = "MapVar"..tostring(25 + i)
+        if evt.Cmp(mapVarStr, 1) then
+            evt.SetTexture(100 + i, "Cwb1")
+        end
+    end
+
+    -- Recheck NPC monsters
     for _, mon in Map.Monsters do
         if mon.NPC_ID  == 516 then
             if vars.MyQuests.QVarRansomTaken == true then

@@ -34,6 +34,16 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+function events.LoadMap()
+
+    -- Set gold vein textures to depleted ones after save/load
+    for i = 0, 8, 1 do
+        local mapVarStr = "MapVar"..tostring(21 + i)
+        if evt.Cmp(mapVarStr, 1) then
+            evt.SetTexture(75 + i, "Cwb1")
+        end
+    end    
+end
 
 -- MapVar0: Teleportation Pedestal
 -- MapVar1: Bookcase -> Scroll

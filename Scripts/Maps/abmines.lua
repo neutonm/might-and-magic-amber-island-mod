@@ -36,6 +36,17 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+function events.LoadMap()
+
+    -- Set gold vein textures to depleted ones after save/load
+    for i = 0, 3, 1 do
+        local mapVarStr = "MapVar"..tostring(25 + i)
+        if evt.Cmp(mapVarStr, 1) then
+            evt.SetTexture(21 + i, "Cwb1")
+        end
+    end    
+end
+
 
 -- ****************************************************************************
 
