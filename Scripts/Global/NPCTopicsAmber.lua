@@ -985,6 +985,9 @@ Quest{
 
 		Quest 		= 	"\"Worrying Mother\"\nJulia Greene, Amber Island, Port Island\n\nDeliver a stash of goods to Julia's son, Robert, who is stationed at the swamp camp.",
 	},
+	Give			= 	function(t)
+							evt.Add("Gold",500)
+						end,
 	GivenItem 		= 	783,
 	CheckDone 		= 	false,  -- the quest can't be completed here
 }
@@ -2139,18 +2142,18 @@ Greeting{
 	"What's up?"
 }
 
-
 Quest{
 	Slot 			= 	A,
 	Texts 			= 
 	{		
-		Topic 		= 	"Lure Bunny",
+		Topic 		= 	"Quest: Missing Pet",
 		Give 		= 	"Sir Hoppington sent you? I do miss my warm bed... But why should I trust you?",
 		Done 		= 	"Back to Sir Hoppington, huh? Alright, lead the way, but keep the carrots coming!",
 		Undone 		= 	"Hey, what's the big idea? I'm not just some toy to be picked up. Where's the trust, huh?",
 		GreetDone 	= 	"What's up, folks? Do you have more carrots? I really could use a bite you know.",
 		TopicDone 	= 	false,
 	},
+	CanShow 		= 	|| Q.AmberQuest10 == "Given",
 	QuestItem 		= 	793,
 	Done			=	function(t)
 							evt.MoveNPC{NPC = 524, HouseId = 0}
