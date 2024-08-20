@@ -160,6 +160,8 @@ evt.map[26] = function()
     else
         evt.StatusText(23)         -- "Refreshing!"
     end
+
+    AddAutonote'amberDungeonFountain5'
 end
 
 -- Fountain: Teleportation Pedestal

@@ -566,6 +566,7 @@ evt.hint[84] = evt.str[20]
 evt.map[84] = function()
     evt.Add("SP", 10)
 	evt.StatusText(21)         -- "+10 Spell points restored"
+	AddAutonote'amberDungeonFountain6'
 end
 
 evt.hint[85] = evt.str[20]
@@ -579,6 +580,7 @@ evt.map[85] = function()
     evt.Add("ArmorClassBonus", 15)
     evt.Add("PlayerBits", 1)
 	evt.StatusText(22)         -- "+15 AC (Temporary)"
+	AddAutonote'amberDungeonFountain7'
 end
 
 RefillTimer(function()

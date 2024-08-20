@@ -796,6 +796,8 @@ evt.map[84] = function()
     else
         evt.StatusText(23)         -- "Refreshing!"
     end
+
+    AddAutonote'amberDungeonFountain4'
 end
 
 -- Fountain: Eastern Hall

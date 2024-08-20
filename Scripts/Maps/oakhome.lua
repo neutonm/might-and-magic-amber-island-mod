@@ -28,7 +28,8 @@ local TXT = Localize{
     [21] = "+10 Spell points restored",
     [22] = "+5 AC (Temporary)",
     [23] = "Refreshing",
-    [24] = "You need teleportation stone."
+    [24] = "You need teleportation stone.",
+    [25] = "Leave Dungeon",
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -392,6 +393,7 @@ evt.map[75] = function()
     evt.Add("ArmorClassBonus", 5)
     evt.Add("PlayerBits", 2)
 	evt.StatusText(22)         -- "+5 AC (Temporary)"
+    AddAutonote'amberDungeonFountain1'
 end
 
 RefillTimer(function()
@@ -400,7 +402,7 @@ RefillTimer(function()
 end, const.Day)
 
 -- Main Door Entrance
-evt.hint[76] = evt.str[2]
+evt.hint[76] = evt.str[25]
 evt.map[76] = function()
     evt.MoveToMap{X = -20248, Y = -13457, Z = 48, Direction = 1312, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 4, Name = "amber.odm"}
 end

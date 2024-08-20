@@ -114,6 +114,7 @@ evt.map[22] = function()
     evt.Add("ArmorClassBonus", 5)
     evt.Set("PlayerBits", 3)
 	evt.StatusText(45)         -- "+5 AC (Temporary)"
+    AddAutonote'amberWell1'
 end
 
 RefillTimer(function()
@@ -142,9 +143,10 @@ evt.map[24] = function()
 		return
 	end
 
-    evt.Add("MightBonus", 5)
+    evt.Add("MightBonus", 10)
     evt.Set("PlayerBits", 4)
 	evt.StatusText(47)         -- "+ 10 Might (Temporary)"
+    AddAutonote'amberWell2'
 end
 
 RefillTimer(function()
@@ -166,6 +168,7 @@ evt.map[25] = function()
     evt.Add("EarthResBonus", 5)
     evt.Set("PlayerBits", 5)
 	evt.StatusText(51)         -- "+5 Elemental Resistance (Temporary)"
+    AddAutonote'amberWell3'
 end
 
 RefillTimer(function()
@@ -184,6 +187,7 @@ evt.map[27] = function()
     evt.Add("HP", 10)
     evt.Add("SP", 10)
     evt.StatusText(50) -- "+ 10 Hit and Spell points"
+    AddAutonote'amberFountain1'
 end
 
 -- Fountain: Amber Town

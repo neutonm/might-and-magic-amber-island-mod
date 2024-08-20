@@ -682,6 +682,8 @@ evt.map[93] = function()
 		evt.Set("PlayerBits", 10)
 		evt.StatusText(26)         -- "+ 20 Luck (Temporary)"
 	end
+
+    AddAutonote'amberDungeonFountain2'
 end
 
 RefillTimer(function()
@@ -737,6 +739,7 @@ evt.map[99] = function()
     else
         evt.StatusText(23)         -- "Refreshing!"
     end
+    AddAutonote'amberDungeonFountain3'
 end
 -- ****************************************************************************
 -- Gold Vein
