@@ -112,44 +112,34 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 
         -- Quest Variables
         vars.MyQuests = {
-            QVar1           = false,            -- Quest: The Fog
-            QVarEndGame     = false,            -- Game End
-            QVarRitual      = false,            -- Quest: Ritual, summon bool
-            QVarRansom      = 0,                -- Quest: Ransom, state
-            QVarRansomTaken = false,            -- Quest: Ransom, NPC taken 
-            QVarRevenge     = 0,                -- Quest: Revenge, state: given (1), duel (2), killed (3), 
-                                                -- reporting (4), repotred (5), released (6), rewarded (7)
+            QVar1                   = false,    -- Quest: The Fog
+            QVarEndGame             = false,    -- Game End
+            QVarRitual              = false,    -- Quest: Ritual, summon bool
+            QVarRansom              = 0,        -- Quest: Ransom, state
+            QVarRansomTaken         = false,    -- Quest: Ransom, NPC taken 
+            QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
+                                                -- reporting (4), reported (5), released (6), rewarded (7)
         }
         vars.MyMisc = {
-            FirstTimePlaying        = 0,    -- for "Sir Henry" message at startup
-            OnDeathLocation         = 0,    -- Variable for resurrection locations
-            AmberBulkCurePotionSale = true, -- Jane Goodwin, 8x cure potion for 500g
-            AmberBulkManaPotionSale = true, -- Jane Goodwin, 8x mana potion for 500g
-            AmberArenaCounterStarted= false,-- Arena cooldown (Cedrik Boyce) (0 = ready)
+            FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
+            OnDeathLocation         = 0,        -- Variable for resurrection locations
+            AmberBulkCurePotionSale = true,     -- Jane Goodwin, 8x cure potion for 500g
+            AmberBulkManaPotionSale = true,     -- Jane Goodwin, 8x mana potion for 500g
+            AmberArenaCounterStarted= false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
         }
         vars.MyTriggers = {
-            LuckyCoinSpawn          = false,
-            ArchmageEscapedHideout  = 0,
-            AttackOnCastleAmber     = 0,
-        }
-        vars.MercNPCUnlockedList = {}
-        vars.MercNPCLostList = {}
-        -- vars.ModMapArray = {
-        --     {Map = "amber.odm", HostileFlag = false},
-        --     {Map = "amber-east.odm", HostileFlag = false},
-        -- }
-        if (vars.Mercs) then
-            table.clear(vars.Mercs)
-        end
-        vars.Mercs = {
-            Warder = NewMerc("Warder", 525, 207),
-            Ratman = NewMerc("Ratman", 526, 270, false, 
-                            "Passive Ability:\n\nRatman's special ability prevents him from dying. Instead, when he would normally die, one summoner charge is consumed. \n\nHe will return to the party upon death.", 
-                            {2,4,6,8}, {60, 82, 104, 135}, {0,5,10,15}, {3,7,12,18}, 
-                            {"2D2", "2D3+1", "2D4+2", "2D5+2"} )
+            LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
+            ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
+            AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
         }
 
         ArcomageRequireDeck(false)
+
+        -- Debug mode essentials
+        if Game.Debug == true then
+            evt.Add("Gold",99999)
+            god()
+        end
     end
     if path.ext(Game.Map.Name):lower() == ".odm" then 
         LocalFile(Game.DecListBin)
@@ -157,53 +147,13 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     end
 end
 
-function events.AfterMonsterAttacked(t, attacker)
-
-    if t == nil then return end
-    if attacker == nil then return end
-
-    if t.Attacker.Player ~= nil then -- Player
-        if t.Monster.NPC_ID > 0 then
-            if ContainsNumber(MercNPCList, t.Monster.NPC_ID) then
-                t.Monster.Ally = 9999
-                t.Monster.Hostile = false
-                MercDecCharge(vars.Mercs.Ratman)
-            end
-        end
-    end
-end
-
 function events.MonsterKilled(mon, monIndex, defaultHandler)
     if mon.NPC_ID == 498 then
-        vars.MyQuests.QVarRevenge = 3 -- Michael Cassion is Killed
-    -- @todo refactor 
-    elseif mon.NPC_ID == 525 then -- Merc: Warder
-        evt.Add("NPCs",525)
-        vars.Mercs.Warder.Release = false
-        vars.Mercs.Warder.Dead = true
-        vars.Mercs.Warder.FightsLeft = 0
-        mon.NPC_ID = 0
-    elseif mon.NPC_ID == 526 then -- Merc: Ratman; Exception: Ratman Merc won't die
-        evt.Add("NPCs",526)
-        vars.Mercs.Ratman.Release = false
-        mon.NPC_ID = 0
+        vars.MyQuests.QVarRevenge = 3 -- Michael Cassio is Killed
     end
 end
 
 function events.AfterLoadMap(WasInGame)
-
-    if vars then
-        if #vars.MercNPCLostList > 0 then
-            for _, mon in Map.Monsters do
-                if mon.NPC_ID > 0 and mon.Group == 35 then
-                    if ContainsNumber(vars.MercNPCLostList, mon.NPC_ID) then
-                        TableRemoveByValue(vars.MercNPCLostList, mon.NPC_ID)
-                        RemoveMonster(mon)
-                    end
-                end
-            end
-        end
-    end
 
     -- Temporary: Hostiles
     local MakeHostile = function(idStart, idEnd)
@@ -361,9 +311,6 @@ function events.AfterLoadMap(WasInGame)
             end
         end
     end
-
-    -- Bushes
-
 end
 
 function events.BeforeNewGameAutosave()
@@ -380,7 +327,6 @@ function events.BeforeNewGameAutosave()
     -- Bow and repair for everyone
     -- PartySetSkill(const.Skills.Bow, 1, const.Novice)
     -- PartySetSkill(const.Skills.Repair, 10, const.GM)
-
 
     -- DEBUG: ID Monster / Item for everyone
     -- PartySetSkill(const.Skills.IdentifyItem, 10, const.GM)
