@@ -55,6 +55,9 @@ function events.LoadMap()
         elseif mon.NPC_ID  == 518 then
             mon.Hostile = false -- Buster Squeaky
             mon.Ally = 1
+            if Merc_IsAvailableForHire(526) then
+                RemoveMonster(mon)
+            end
         end
     end
 end
