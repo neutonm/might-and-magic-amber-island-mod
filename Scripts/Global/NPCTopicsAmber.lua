@@ -1541,92 +1541,6 @@ Quest{
 	QuestGold 		= 	1500,
 	Exp				=	1000
 }
-------------------------------------------------------------------------------
--- Derick McBane
-QuestNPC 			= 	505
-
-GuildMasterNotEnoughGoldStr = "It seems your pockets aren't deep enough for my services. Come back when you've got the coin. Quality defense doesn't come cheap, after all."
-
-Greeting{
-	"Welcome to the Mercenary Guild, adventurers. You're in the right place if you seek skilled companions for your journey. How can I assist you today?",
-}
-
-NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Mercenaries",
-	Text 			= 	"Mercenaries, like tools in your kit, can turn the tide of your quests. Each one is unique, with their own strengths and quirks. For a fee, you can enhance their abilities and summon them to your side a few times each day. Should they fall or wander off, come back to me. I'll sort it out."
-}
-
-NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"About: Warder",
-	Text 			= 	"The Warder can cover you in combat, great at taking hits but not so strong in offense. He's there to protect you while you destroy your enemies."
-}
-
-Quest{
-	Slot 			= 	C,
-	Texts 			= 	{
-		Topic 		= 	"Hire: Warder (2000g)",
-		Done		=	"The Warder is now at your beck and call. He'll stand as a bulwark between you and your foes. Use him wisely.",
-		Undone		=	GuildMasterNotEnoughGoldStr,
-	},
-	NeverGiven		=	true,
-	QuestGold		=	2000,
-	CanShow			=	function(t) return IsMercUnlocked(vars.Mercs.Warder) == false end,
-	Done			=	function(t)
-							local Merc = vars.Mercs.Warder
-							UnlockMerc(Merc)
-							evt.Add("NPCs", Merc.NPC_ID)
-						end
-}
-
-Quest{
-	Slot 			= 	D,
-	Texts 			= 	{
-		Topic 		= 	"Resurrect: Warder (500g)",
-		Done		=	"Lost the Warder, have you? No matter. With a bit of magic and the right price, I can have him standing, ready for battle once again, right here, right now.",
-		Undone		=	GuildMasterNotEnoughGoldStr
-	},
-	QuestGold		=	500,
-	CanShow			=	function(t) return evt.Cmp("NPCs", vars.Mercs.Warder.NPC_ID) and IsMercUnlocked(vars.Mercs.Warder) and vars.Mercs.Warder.Dead == true end,
-    NeverDone       =   true,
-    NeverGiven      =   true,
-	Done			= 	function(t) vars.Mercs.Warder.Dead = false end,
-}
-
-Quest{
-	Slot 			= 	E,
-	Texts 			= 	{
-		Topic 		= 	"Find and Return Mercenaries (100g)",
-		Done		=	"If any of your mercenaries are missing, just let me know. I'll ensure they're found and returned to your side promptly, no matter their specialty.",
-		Undone		=	GuildMasterNotEnoughGoldStr
-	},
-	NeverDone       =   true,
-	NeverGiven      =   true,
-	QuestGold		=	100,
-	CanShow			=	function(t) 
-							return #vars.MercNPCUnlockedList > 0
-						end,
-	Done			= 	function(t) 
-							
-							table.clear(vars.MercNPCLostList)
-							for _, npc in ipairs(vars.MercNPCUnlockedList) do
-								if not evt.Cmp("NPCs", npc) then
-									evt.Add("NPCs", npc)
-									table.insert(vars.MercNPCLostList, npc)
-								end
-							end
-
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID > 0 and mon.Group == 35 then
-									if ContainsNumber(vars.MercNPCLostList, mon.NPC_ID) then
-										TableRemoveByValue(vars.MercNPCLostList, mon.NPC_ID)
-										RemoveMonster(mon)
-									end
-								end
-							end
-						end,
-}
 
 ------------------------------------------------------------------------------
 -- Ella Borg
@@ -2022,10 +1936,13 @@ Quest{
 		Undone		=	GuildMasterNotEnoughGoldStr,
 	},
 	NeverGiven		=	true,
-	CanShow			=	function(t) return IsMercUnlocked(vars.Mercs.Ratman) == false end,
+	CanShow			=	function(t) 
+							local Merc = Merc_GetByID(526)
+							return Merc_IsHired(Merc) == false end,
 	Done			=	function(t)
-							local Merc = vars.Mercs.Ratman
-							UnlockMerc(Merc)
+							local Merc = Merc_GetByID(526)
+							Merc_Hire(Merc)
+							Merc_MakeAvailableForHire(Merc.NPC_ID)
 							evt.Add("NPCs", Merc.NPC_ID)
 							
 							for _, mon in Map.Monsters do
