@@ -5,7 +5,6 @@ Author: Henrik Chukhran, 2022 - 2024
 
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
 local Q = vars.Quests
---evt.MoveNPC(452,525)
 
 local function SetBranch(t)
 	QuestBranch(t.NewBranch)
