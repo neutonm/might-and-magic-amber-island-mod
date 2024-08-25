@@ -12,24 +12,31 @@ ToDo:
     
 ]]
 
--- Enums
-EMercUpgradeType    = {
-    Null            = 0,
-    HP              = 1,
-    Level           = 2,
-    Charges         = 3,
-    AC              = 4,
-    MageRes         = 5,
-    MeleeDamage     = 6,
-    RangeDamage     = 7,
-    Spell           = 8
+-- Const 
+const.Mercenary     = {
+    UpgradeType     = {
+        Null        = 0,
+        HP          = 1,
+        Level       = 2,
+        Charges     = 3,
+        AC          = 4,
+        MageRes     = 5,
+        MeleeDamage = 6,
+        RangeDamage = 7,
+        Spell       = 8
+    },
+    UpgradeLimit    = 3,
+    Special         = {
+        Null        = "",
+        Undying     = "undying"
+    }
 }
 
 -- Structs
 SMercUpgrade        = {
     Level           = 0,
     Price           = { 1000,2500,4000 },
-    EMercUpgradeType= EMercUpgradeType.Null
+    UpgradeType     = const.Mercenary.UpgradeType.Null
 }
 
 -- Holds mutable data shared across save files
@@ -76,15 +83,6 @@ SMerc               = {
 -- Tables
 MercsDB             = {}
 MercNPCList         = {}
-
--- Const 
-const.Mercenary     = {
-    UpgradeLimit    = 3,
-    Special         = {
-        Null        = "",
-        Undying     = "undying"
-    }
-}
 
 -- Functions
 function Merc_NewGenericTable(t)
@@ -151,7 +149,7 @@ function Merc_GetUpgrade(Merc, MercUpgradeType)
 
     local MercUpgrades = Merc_GetSaveDataByID(Merc.NPC_ID)
     for _, upgrade in ipairs(MercUpgrades) do
-        if upgrade.EMercUpgradeType == MercUpgradeType then
+        if upgrade.UpgradeType == MercUpgradeType then
             return upgrade
         end
     end
@@ -165,7 +163,7 @@ function Merc_GetUpgradeLevel(Merc, MercUpgradeType)
     local MercUpgrades = Merc_GetSaveDataByID(Merc.NPC_ID)
     
     for _, upgrade in ipairs(MercUpgrades) do
-        if upgrade.EMercUpgradeType == MercUpgradeType then
+        if upgrade.UpgradeType == MercUpgradeType then
             Level = upgrade.Level or 1
             break
         end
@@ -176,14 +174,14 @@ end
 
 function Merc_Upgrade(Merc, MercUpgradeType)
     
-    local MercSaveData  = Merc_GetSaveDataByID(Merc.NPC_ID)
-    local Upgrade       = Merc_GetUpgrade(Merc, MercUpgradeType)
+    local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+    local Upgrade           = Merc_GetUpgrade(Merc, MercUpgradeType)
 
     if Upgrade == nil then
-        local NewUpgrade = {
-            Level            = 1,
-            Price            = { 1000,2000,3000 },
-            EMercUpgradeType = MercUpgradeType
+        local NewUpgrade    = {
+            Level           = 1,
+            Price           = { 1000,2000,3000 },
+            UpgradeType     = MercUpgradeType
         }
         
         table.insert(MercSaveData, NewUpgrade)
@@ -196,7 +194,7 @@ function Merc_Upgrade(Merc, MercUpgradeType)
     end
 
     -- Exception for Summmons: Reset on upgrade
-    if MercUpgradeType == EMercUpgradeType.Charges then
+    if MercUpgradeType == const.Mercenary.UpgradeType.Charges then
         MercSaveData.FightsLeft = Merc.FightsMax[Upgrade.Level + 1]
     end
 
@@ -213,11 +211,11 @@ function Merc_Fight(Merc, t)
     MercSaveData.Released       = true
     MercSaveData.ReleaseMap     = Game.Map.Name
     
-    local UpgradeMonLevel       = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.Level) + 1
-    local UpgradeHPLevel        = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.HP) + 1
-    local UpgradeACLevel        = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.AC) + 1
-    local UpgradeDmg1Level      = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.MeleeDamage) + 1
-    --local UpgradeDmg1Level      = GetUpgradeLevel(Merc, EMercUpgradeType.MageRes)
+    local UpgradeMonLevel       = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Level) + 1
+    local UpgradeHPLevel        = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.HP) + 1
+    local UpgradeACLevel        = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.AC) + 1
+    local UpgradeDmg1Level      = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.MeleeDamage) + 1
+    --local UpgradeDmg1Level      = GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.MageRes)
 
     -- Monster
     local mon                   = SummonMonster(Merc.MonsterID, Party.X, Party.Y, Party.Z, false)
@@ -265,7 +263,7 @@ function Merc_Dismiss(Merc, t)
     -- Reset
     Timer(
         function()
-            local UpgradeUseLevel   = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.Charges) or 1
+            local UpgradeUseLevel   = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Charges) or 1
             local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
             MercSaveData.FightsLeft = Merc.FightsMax[UpgradeUseLevel+1] or 1
         end, 
@@ -331,12 +329,12 @@ function Merc_ShowInfo(Merc)
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
     
     local UpgMax            = const.Mercenary.UpgradeLimit
-    local UpgradeHPLevel    = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.HP)
-    local UpgradeACLevel    = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.AC)
-    local UpgradeMonLevel   = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.Level)
-    local UpgradeDmg1Level  = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.MeleeDamage)
-    local UpgradeDmg2Level  = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.RangeDamage)
-    local UpgradeSumLevel   = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.Charges)
+    local UpgradeHPLevel    = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.HP)
+    local UpgradeACLevel    = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.AC)
+    local UpgradeMonLevel   = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Level)
+    local UpgradeDmg1Level  = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.MeleeDamage)
+    local UpgradeDmg2Level  = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.RangeDamage)
+    local UpgradeSumLevel   = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Charges)
 
     local hp                = Merc.FullHP[UpgradeHPLevel+1]       or Merc.FullHP[1]
     local ac                = Merc.AC[UpgradeACLevel+1]           or Merc.AC[1]
@@ -403,7 +401,7 @@ end
 function Merc_ResetChargesForAllMercs()
 
     for _, Merc in ipairs(MercsDB) do
-        local UpgradeUseLevel   = Merc_GetUpgradeLevel(Merc, EMercUpgradeType.Charges) or 1
+        local UpgradeUseLevel   = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Charges) or 1
         local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
 
         MercSaveData.FightsLeft = Merc.FightsMax[UpgradeUseLevel+1] or 1

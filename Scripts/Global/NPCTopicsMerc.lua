@@ -4,7 +4,6 @@ Author: Henrik Chukhran, 2022 - 2024
 ]]
 
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
-local Q = vars.Quests
 
 -- Functionality
 local function SetBranch(t)
@@ -107,7 +106,7 @@ local function NPCMercDeclare(Merc)
         Done			= 	function(t) Merc_NPCTopicUpgradeDone(Merc, t) end,
         CheckDone       =   function(t) return Merc_NPCTopicUpgradeCheckDone(Merc, t) end,
         QuestGold       =   1000,
-        UpgradeType     =   EMercUpgradeType.Null,
+        UpgradeType     =   const.Mercenary.UpgradeType.Null,
         UpgradeName     =   "Untitled",
         UpgradeFunction =   function(t) end
     }
@@ -344,15 +343,15 @@ local function NPCMercDeclare(Merc)
     }
 
     -- Actual Upgrades
-    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = EMercUpgradeType.HP, UpgradeName = "Hit Points", Slot = A }
-    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = EMercUpgradeType.Level, UpgradeName = "Level" }
-    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = EMercUpgradeType.Charges, UpgradeName = "Summons" }
+    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = const.Mercenary.UpgradeType.HP, UpgradeName = "Hit Points", Slot = A }
+    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = const.Mercenary.UpgradeType.Level, UpgradeName = "Level" }
+    NPCTopicUpgradeConfirm{Branch = "UpgradeCommon", UpgradeType = const.Mercenary.UpgradeType.Charges, UpgradeName = "Summons" }
     NPCTopicUpgradeBack{Branch = "UpgradeCommon" }
 
-    NPCTopicUpgradeConfirm{Branch = "UpgradeOffense", UpgradeType = EMercUpgradeType.MeleeDamage, UpgradeName = "Damage", Slot = A }
+    NPCTopicUpgradeConfirm{Branch = "UpgradeOffense", UpgradeType = const.Mercenary.UpgradeType.MeleeDamage, UpgradeName = "Damage", Slot = A }
     NPCTopicUpgradeBack{Branch = "UpgradeOffense" }
 
-    NPCTopicUpgradeConfirm{Branch = "UpgradeDefense", UpgradeType = EMercUpgradeType.AC, UpgradeName = "Armor", Slot = A }
+    NPCTopicUpgradeConfirm{Branch = "UpgradeDefense", UpgradeType = const.Mercenary.UpgradeType.AC, UpgradeName = "Armor", Slot = A }
     NPCTopicUpgradeBack{Branch = "UpgradeDefense" }
 end
 
