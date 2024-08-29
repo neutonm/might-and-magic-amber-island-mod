@@ -319,9 +319,9 @@ end
 evt.hint[52] = evt.str[2]
 evt.map[52] = function()
 	--if not evt.Cmp("QBits",7) then
-	if not vars.MyQuests.QVar1 then
+	if not vars.QuestsAmberIsland.QVar1 then
 		--evt.Set("QBits",7)
-		vars.MyQuests.QVar1 = true
+		vars.QuestsAmberIsland.QVar1 = true
 	    evt.SetDoorState{Id = 46, State = 1}
 	    evt.ForPlayer("All")
 	    ShowQuestEffect(false,"Add")

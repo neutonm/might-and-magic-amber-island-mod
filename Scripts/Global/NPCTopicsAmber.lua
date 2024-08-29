@@ -5,6 +5,7 @@ Author: Henrik Chukhran, 2022 - 2024
 
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
 local Q = vars.Quests
+local QA = vars.QuestsAmberIsland
 
 local function SetBranch(t)
 	QuestBranch(t.NewBranch)
@@ -94,7 +95,7 @@ KillMonstersQuest{
 	{Map 			= 	"testlevel.blv", MonsterIndex = 4},
 	CheckDone 		= 	function()
 							--return evt.Cmp("QBits",7)
-							return vars.MyQuests.QVar1
+							return QA.QVar1
 						end,
 	CanShow			= 	(|| vars.Quests.StoryQuest3 == "Done"),
 	Exp 			= 	5000,
@@ -147,9 +148,9 @@ Quest{
 	},
 	Gold 			= 	500,
 	Exp				=	1000,
-	CanShow 		= 	(|| (vars.MyQuests.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498))),
+	CanShow 		= 	(|| (QA.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498))),
 	Done			= 	function(t)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.REPORTED
+							QA.QVarRevenge = QVarRevengeState.REPORTED
 							evt.Subtract("NPCs", 498)
 							evt.Subtract("Reputation", 10)
 							evt.MoveNPC{NPC = 498, HouseId = 577}
@@ -1097,7 +1098,7 @@ KillMonstersQuest{
 	},
 	Gold 			= 	2500,
 	Exp 			= 	2500, 
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+	Done			=	function(t) evt.Subtract("Reputation", 5) end,
 }
 ------------------------------------------------------------------------------
 -- Harvey Yap
@@ -1205,7 +1206,7 @@ Quest{
 								evt.Subtract("Reputation", 5)
 								evt.MoveNPC{NPC = 516, HouseId = 552}
 								ShowQuestEffect(true, t.TakeQuestOperation)
-								vars.MyQuests.QVarRansom = 5
+								QA.QVarRansom = 5
 							end
 						end,
 	CheckDone 		= 	(|| evt.Cmp("NPCs", 516) == true),
@@ -1220,9 +1221,9 @@ Quest{
 		Topic 		= 	"There's a problem...",
 		Done 		= 	"*Upon hearing the kidnappers' new demands, Martha's face crumples in despair. Clutching a bag of gold tightly in her trembling hands, she thrusts it towards you.*\n\n This is all I have, every last coin. Please, take it. Maybe it is enough to hire some help? I beg you, Laurier is all I've got. You must bring her back to me!\n\n*Her eyes brim with tears.*",
 	},
-	CanShow			=	(|| vars.MyQuests.QVarRansom == 1 and not evt.Cmp("NPCs", 516)),
+	CanShow			=	(|| QA.QVarRansom == 1 and not evt.Cmp("NPCs", 516)),
 	Done			= 	function(t)
-							vars.MyQuests.QVarRansom = 2
+							QA.QVarRansom = 2
 						end,
 	Gold			= 	1678,
 	NeverGiven 		= 	true,
@@ -1240,7 +1241,7 @@ QuestNPC 			= 	496
 
 local function MoveOthoBackToHome()
 	evt.MoveNPC{NPC = 496, HouseId = 568}
-	vars.MyQuests.QVarRevenge = QVarRevengeState.TRANSFERED
+	QA.QVarRevenge = QVarRevengeState.TRANSFERED
 end
 
 Quest{
@@ -1262,25 +1263,25 @@ Quest{
 	GivenItem 		= 	791,
 	Exp				=	2500,
 	Give			= 	function(t)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.GIVEN
+							QA.QVarRevenge = QVarRevengeState.GIVEN
 						end,
 	Done			= 	function(t)
 							evt.Add("Reputation", 10)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.RELEASED
+							QA.QVarRevenge = QVarRevengeState.RELEASED
 							evt.ForPlayer("All")
 							ShowQuestEffect(false,"Add")
 							Timer(
 								MoveOthoBackToHome, const.Hour, const.Hour + const.Minute, true)
 						end,
-	CanShow			=	(|| vars.MyQuests.QVarRevenge and vars.MyQuests.QVarRevenge < QVarRevengeState.TRANSFERED and vars.MyQuests.QVarRevenge ~= QVarRevengeState.REPORTED),
-	CheckDone		= 	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.KILLED)
+	CanShow			=	(|| QA.QVarRevenge and QA.QVarRevenge < QVarRevengeState.TRANSFERED and QA.QVarRevenge ~= QVarRevengeState.REPORTED),
+	CheckDone		= 	(|| QA.QVarRevenge == QVarRevengeState.KILLED)
 }
 
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Failed: Revenge",
 	Text 			= 	"You think you're clever, siding with Michael against me? You will regret this. Mark my words, you have not seen the last of me!",
-	CanShow			= 	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTED)
 }
 
 NPCTopic{
@@ -1288,7 +1289,7 @@ NPCTopic{
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I look forward to collaborating with you again in the future.",
 
-	CanShow			= 	(|| vars.MyQuests.QVarRevenge >= QVarRevengeState.TRANSFERED)
+	CanShow			= 	(|| QA.QVarRevenge >= QVarRevengeState.TRANSFERED)
 }
 
 Quest{
@@ -1307,9 +1308,9 @@ Quest{
 								rewardGold = rewardGold + 2500
 							end
 							evt.Add("Gold", rewardGold)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.REWARDED
+							QA.QVarRevenge = QVarRevengeState.REWARDED
 						end,
-	CanShow			=	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.TRANSFERED)
+	CanShow			=	(|| QA.QVarRevenge == QVarRevengeState.TRANSFERED)
 }
 ------------------------------------------------------------------------------
 -- Desdemona Robeson
@@ -1343,7 +1344,7 @@ Quest{
 		Ungive 		= 	"What is the meaning of this?",
 	},
 	Ungive			=	SetBranch,
-	CanShow			= 	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.GIVEN)
+	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.GIVEN)
 }
 
 Quest{
@@ -1354,7 +1355,7 @@ Quest{
 		Topic 		= 	"Well?",
 		Give 		= 	"We shouldn't loose any time, let's go see the mayor and tell him everything.",
 	},
-	CanShow			= 	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.REPORTING)
+	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTING)
 }
 
 NPCTopic{
@@ -1362,7 +1363,7 @@ NPCTopic{
 	Branch			=	"",
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"I'm glad that you've chosen the path of honor. You will always be a welcome guest at my home.",
-	CanShow			= 	(|| vars.MyQuests.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTED)
 }
 
 -- BRANCH
@@ -1376,7 +1377,7 @@ Quest{
 		Give 		= 	"What? Otho sent you? Well, he's picked the wrong person to intimidate. I won't go down without a fight, you lowlifes. You've underestimated me. I'm ready for whatever you've planned. Bring it on."
 	},
 	Give			= 	function(t)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.DUEL
+							QA.QVarRevenge = QVarRevengeState.DUEL
 							evt.MoveNPC{NPC = 498, HouseId = 0}
 							local mon = SummonMonster(207, 16809, 9292, 96, true)
 							mon.NPC_ID = 498
@@ -1396,7 +1397,7 @@ Quest{
 	},
 	CheckGive		=	(|| evt.All.Cmp("Inventory", 791)),
 	Give			= 	function(t)
-							vars.MyQuests.QVarRevenge = QVarRevengeState.REPORTING
+							QA.QVarRevenge = QVarRevengeState.REPORTING
 							evt.MoveNPC{NPC = 498, HouseId = 0}
 							evt.Add("NPCs", 498)
 							evt.Subtract("Inventory", 791)
@@ -1480,7 +1481,7 @@ KillMonstersQuest{
 								end
 							end
 
-							return vars.MyQuests.QVarRitual == true
+							return QA.QVarRitual == true
 						end,
 	Gold 			= 	2500,
 	Exp 			= 	1500,
@@ -1595,18 +1596,18 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MyMisc.AmberBulkCurePotionSale == true),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == true),
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
 	Done 			= 	function(t)
-							vars.MyMisc.AmberBulkCurePotionSale = false
+							vars.MiscAmberIsland.BulkCurePotionSale = false
 							for i = 0, 8, 1 do
 								evt.GiveItem(1, const.ItemType.Potion_, 222)
 							end
 							Timer(
 								function()
-									vars.MyMisc.AmberBulkCurePotionSale = true
+									vars.MiscAmberIsland.BulkCurePotionSale = true
 								end, const.Week, const.Hour, true)
 						end
 }
@@ -1614,7 +1615,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Buy more! (Cure Potion)",
-	CanShow			= 	(|| vars.MyMisc.AmberBulkCurePotionSale == false),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == false),
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a week to prepare a fresh batch, and I'll have them ready for you."
 }
 
@@ -1626,18 +1627,18 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MyMisc.AmberBulkManaPotionSale == true),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == true),
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
 	Done 			= 	function(t)
-							vars.MyMisc.AmberBulkManaPotionSale = false
+							vars.MiscAmberIsland.BulkManaPotionSale = false
 							for i = 0, 8, 1 do
 								evt.GiveItem(2, const.ItemType.Potion_, 223)
 							end
 							Timer(
 								function()
-									vars.MyMisc.AmberBulkManaPotionSale = true
+									vars.MiscAmberIsland.BulkManaPotionSale = true
 								end, const.Week, const.Hour, true)
 						end
 }
@@ -1645,7 +1646,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	D,
 	Topic 			= 	"Buy more! (Mana Potion)",
-	CanShow			= 	(|| vars.MyMisc.AmberBulkManaPotionSale == false),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == false),
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a week to prepare a fresh batch, and I'll have them ready for you."
 }
 ------------------------------------------------------------------------------
@@ -1812,7 +1813,7 @@ Quest{
 		Topic 		= 	"Rescue!",
 		Done 		= 	"You do not look like those dreadful ratmen pirates. Are you here to rescue me?",
 	},
-	CanShow			=	(|| evt.Cmp("NPCs", 516) == false and vars.MyQuests.QVarRansom ~= 5 ),
+	CanShow			=	(|| evt.Cmp("NPCs", 516) == false and QA.QVarRansom ~= 5 ),
 	NeverGiven 		= 	true,
 	Done			= 	function(t) 
 							for _, mon in Map.Monsters do
@@ -1824,8 +1825,8 @@ Quest{
 							evt.Subtract("Reputation", 5)
 							evt.Add("Awards", 106) -- "Rescued Laurie Blaine"
 							ShowQuestEffect(true, t.TakeQuestOperation)
-							vars.MyQuests.QVarRansom = 3
-							vars.MyQuests.QVarRansomTaken = true
+							QA.QVarRansom = 3
+							QA.QVarRansomTaken = true
 							Game.NeedRedraw = true
 						end
 }
@@ -1854,7 +1855,7 @@ NPCTopic{
     Slot            =   A,  
     Topic           =   "Laurie Blaine",
     Text            =   "The lass is safe and sound, snug as a bug in a rug! But she's itching to see home. Just make sure you bring the gold, all of it. We wouldn't want to prolong her stay, now would we?",
-    CanShow         =   (|| Q.AmberQuest5 and vars.MyQuests.QVarRansom ~= 3)
+    CanShow         =   (|| Q.AmberQuest5 and QA.QVarRansom ~= 3)
 }
 
 NPCTopic{
@@ -1865,7 +1866,7 @@ NPCTopic{
 
 Quest{
 	Slot 			= 	C,
-	CanShow			= 	(|| Q.AmberQuest5 ~= nil and vars.MyQuests.QVarRansom == 0),
+	CanShow			= 	(|| Q.AmberQuest5 ~= nil and QA.QVarRansom == 0),
 	Texts 			=
 	{
 		Topic 		= 	"Pay: Ransom (1000g)",
@@ -1873,7 +1874,7 @@ Quest{
 		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
 	},
 	Done			= 	function(t)
-							vars.MyQuests.QVarRansom = 1
+							QA.QVarRansom = 1
 						end,
 	NeverGiven 		= 	true,
 	QuestGold		= 	1000
@@ -1887,14 +1888,14 @@ Quest{
 		Done 		= 	"Nice doing business with you, friend. Here's the gal, now get lost.",
 		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
 	},
-	CanShow			=	(|| vars.MyQuests.QVarRansom == 1 or vars.MyQuests.QVarRansom == 2),
+	CanShow			=	(|| QA.QVarRansom == 1 or QA.QVarRansom == 2),
 	NeverGiven 		= 	true,
 	QuestGold 		= 	5000,
 	Done			= 	function(t) 
 							evt.Add("NPCs", 516)
 							ShowQuestEffect(true, t.TakeQuestOperation)
-							vars.MyQuests.QVarRansom = 3
-							vars.MyQuests.QVarRansomTaken = true
+							QA.QVarRansom = 3
+							QA.QVarRansomTaken = true
 						end
 }
 
@@ -1914,8 +1915,8 @@ Quest{
 	NeverGiven		=	true,
 	Done			=	function(t)
 
-							if vars.MyQuests.QVarRansom ~= 3 then
-								vars.MyQuests.QVarRansom = 4
+							if QA.QVarRansom ~= 3 then
+								QA.QVarRansom = 4
 							end
 
 							for _, mon in Map.Monsters do
@@ -2200,9 +2201,9 @@ NPCTopic{
 	Topic 			= 	"Travel: Arena",
 	NeverGiven		= 	true,
 	NeverDone		=	true,
-	CanShow			=	function(t) return vars.MyMisc.AmberArenaCounterStarted == false or evt.Cmp("Counter1", 24 * 5) == true end,
+	CanShow			=	function(t) return vars.MiscAmberIsland.ArenaCounterStarted == false or evt.Cmp("Counter1", 24 * 5) == true end,
 	Done			=	function(t) 
-							vars.MyMisc.AmberArenaCounterStarted = true
+							vars.MiscAmberIsland.ArenaCounterStarted = true
 							evt.Set("Counter1", 0)
 							evt.MoveToMap{
 								X = 3840, Y = 2880, Z = 192, 
@@ -2215,7 +2216,7 @@ NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Travel: Arena",
 	Text 			= 	"Sorry, but the arena is currently closed and will reopen in 24 hours. Please come back later.",
-	CanShow			=	function(t) return vars.MyMisc.AmberArenaCounterStarted == true and evt.Cmp("Counter1", 24 * 5) == false end,
+	CanShow			=	function(t) return vars.MiscAmberIsland.ArenaCounterStarted == true and evt.Cmp("Counter1", 24 * 5) == false end,
 }
 
 NPCTopic{
@@ -2227,9 +2228,9 @@ NPCTopic{
 	Done			=	function(t) 
 
 							-- Launch attack
-							if vars.MyTriggers.AttackOnCastleAmber == 0 then
+							if vars.MiscAmberIsland.AttackOnCastleAmber == 0 then
 
-								vars.MyTriggers.AttackOnCastleAmber = 1
+								vars.MiscAmberIsland.AttackOnCastleAmber = 1
 							
 							end
 
@@ -2269,10 +2270,10 @@ NPCTopic{
 	Slot 	= 	B,
 	Topic 	= 	"The End (Victory!)",
 	Text 	= 	"Good job!",
-	CanShow = 	function(t) return vars.MyQuests.QVarEndGame == false end,
+	CanShow = 	function(t) return QA.QVarEndGame == false end,
 	Ungive 	= 	function(t)
-					if vars.MyQuests.QVarEndGame == false then
-						vars.MyQuests.QVarEndGame = 1   
+					if QA.QVarEndGame == false then
+						QA.QVarEndGame = 1   
 						--evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
 						Party.QBits[99] = true
 						SuppressSound(true)

@@ -177,8 +177,8 @@ end
 evt.hint[501] = evt.str[2]  -- "Leave the Arena"
 evt.map[501] = function()
 	
-	if vars.MyMisc.AmberArenaIsReady == 1 then
-		vars.MyMisc.AmberArenaIsReady = 2
+	if vars.MiscAmberIsland.AmberArenaIsReady == 1 then
+		vars.MiscAmberIsland.AmberArenaIsReady = 2
 	end
 
 	evt.MoveToMap{

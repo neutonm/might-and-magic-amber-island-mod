@@ -3,7 +3,6 @@ Map: Amber Island
 Author: Henrik Chukhran, 2022 - 2024
 ]]
 
-
 local TXT = Localize{
 	[0] = " ",
     [1] = "House",
@@ -267,8 +266,8 @@ end
 evt.hint[41] = evt.str[10] -- Altar
 evt.hint[42] = evt.str[21]
 evt.map[42] = function()
-    if evt.All.Cmp("Inventory", 785) and vars.MyQuests.QVarRitual == false then
-        vars.MyQuests.QVarRitual = true
+    if evt.All.Cmp("Inventory", 785) and vars.QuestsAmberIsland.QVarRitual == false then
+        vars.QuestsAmberIsland.QVarRitual = true
         evt.Subtract("Inventory", 785)
         evt.PlaySound(14050,Party.X,Party.Y)
         evt.All.Add("Exp",0)
@@ -311,8 +310,8 @@ evt.HouseDoor(67, 91)
 -- Temple: Saint Nourville Cathedral
 evt.map[69] = function()
 
-    if vars.MyMisc.OnDeathLocation == 0 then
-        vars.MyMisc.OnDeathLocation = 1
+    if vars.MiscGlobal.OnDeathLocation == 0 then
+        vars.MiscGlobal.OnDeathLocation = 1
     end
     evt.EnterHouse(246)
 end
@@ -475,8 +474,8 @@ end
 
 -- Sir Henry
 evt.map[164] = function()
-    if Game and Game.Debug == false and vars.MyMisc.FirstTimePlaying == 0 then
-        vars.MyMisc.FirstTimePlaying = 1
+    if Game and Game.Debug == false and vars.MiscGlobal.FirstTimePlaying == 0 then
+        vars.MiscGlobal.FirstTimePlaying = 1
         evt.SpeakNPC(449)
     end
 end

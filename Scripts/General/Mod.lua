@@ -15,7 +15,7 @@ Author: Henrik Chukhran, 2022 - 2024
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug = false
+Game.Debug = true
 
 -- Helpers
 -- @todo this sucks, figure out the way to properly delete monsters
@@ -76,7 +76,7 @@ end
 
 function events.DeathMap(t)
 
-    local loc = vars.MyMisc.OnDeathLocation
+    local loc = vars.MiscGlobal.OnDeathLocation
 
     if loc == 0 then -- New Game Start Location
         t.Name = "amber.odm"
@@ -108,10 +108,9 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     --     Game.MonstersTxt[i].HostileType = 2 
     -- end
 
-    if not WasInGame and not WasLoaded then
-
-        -- Quest Variables
-        vars.MyQuests = {
+    -- Quest Variables
+    if vars.QuestsAmberIsland == nil then
+        vars.QuestsAmberIsland = {
             QVar1                   = false,    -- Quest: The Fog
             QVarEndGame             = false,    -- Game End
             QVarRitual              = false,    -- Quest: Ritual, summon bool
@@ -120,27 +119,37 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
             QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
                                                 -- reporting (4), reported (5), released (6), rewarded (7)
         }
-        vars.MyMisc = {
-            FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
-            OnDeathLocation         = 0,        -- Variable for resurrection locations
-            AmberBulkCurePotionSale = true,     -- Jane Goodwin, 8x cure potion for 500g
-            AmberBulkManaPotionSale = true,     -- Jane Goodwin, 8x mana potion for 500g
-            AmberArenaCounterStarted= false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
-        }
-        vars.MyTriggers = {
+    end
+    if vars.MiscAmberIsland == nil then
+        vars.MiscAmberIsland = {
+            BulkCurePotionSale      = true,     -- Jane Goodwin, 8x cure potion for 500g
+            BulkManaPotionSale      = true,     -- Jane Goodwin, 8x mana potion for 500g
+            ArenaCounterStarted     = false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
             LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
             ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
             AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
         }
-
-        ArcomageRequireDeck(false)
-
-        -- Debug mode essentials
-        if Game.Debug == true then
-            evt.Add("Gold",99999)
-            god()
-        end
     end
+
+    -- Global
+    if vars.QuestsGlobal == nil then
+        vars.QuestsGlobal = {}
+    end
+    if vars.MiscGlobal == nil then
+        vars.MiscGlobal = {
+            FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
+            OnDeathLocation         = 0,        -- Variable for resurrection locations
+        }
+    end
+
+    ArcomageRequireDeck(false)
+
+    -- Debug mode essentials
+    if Game.Debug == true then
+        evt.Add("Gold",99999)
+        god()
+    end
+
     if path.ext(Game.Map.Name):lower() == ".odm" then 
         LocalFile(Game.DecListBin)
         Game.DecListBin[34].SoundId = 0
@@ -149,7 +158,7 @@ end
 
 function events.MonsterKilled(mon, monIndex, defaultHandler)
     if mon.NPC_ID == 498 then
-        vars.MyQuests.QVarRevenge = 3 -- Michael Cassio is Killed
+        vars.QuestsAmberIsland.QVarRevenge = 3 -- Michael Cassio is Killed
     end
 end
 
@@ -166,9 +175,9 @@ function events.AfterLoadMap(WasInGame)
 
     if Game.Map.Name == "out02.odm" then
 
-        if vars.MyQuests.QVarEndGame == 1 then
+        if vars.QuestsAmberIsland.QVarEndGame == 1 then
             -- @todo change endgame start location and clear this workaround
-            vars.MyQuests.QVarEndGame = 2
+            vars.QuestsAmberIsland.QVarEndGame = 2
             Timer(function()
                 evt.MoveToMap{
                     X = 3684, Y = 8941, Z = 120, 
@@ -199,7 +208,7 @@ function events.AfterLoadMap(WasInGame)
         -- Remove blaine
         for _, mon in Map.Monsters do
             if mon.NPC_ID  == 516 then
-                if vars.MyQuests.QVarRansom == 3 then
+                if vars.QuestsAmberIsland.QVarRansom == 3 then
                     RemoveMonster(mon)
                 end
             elseif mon.NPC_ID  == 518 then
@@ -223,22 +232,22 @@ function events.AfterLoadMap(WasInGame)
 
     -- Amber Map: Anti-fall through-roof bug workaround
     if Game.Map.Name == "amber.odm" then 
-        if vars.MyTriggers.LuckyCoinSpawn == true then
+        if vars.MiscAmberIsland.LuckyCoinSpawn == true then
             for _, obj in Map.Objects do
                 if obj.Item.Number == 782 then
                     XYZ(obj, -3676, 6053, 456, 0)
                 end
             end
         else
-            vars.MyTriggers.LuckyCoinSpawn = true
+            vars.MiscAmberIsland.LuckyCoinSpawn = true
             SummonItem(782,-3676, 6053, 456, 0)
         end
     end
 
     -- Comment about missing boat after completing Secret Hideout
     if Game.Map.Name == "amber-east.odm" then
-        if vars.MyTriggers.ArchmageEscapedHideout == 1 then
-            vars.MyTriggers.ArchmageEscapedHideout = 2
+        if vars.MiscAmberIsland.ArchmageEscapedHideout == 1 then
+            vars.MiscAmberIsland.ArchmageEscapedHideout = 2
             evt.SetFacetBit(1338,const.FacetBits.Invisible,true)
 	        evt.SetFacetBit(1338,const.FacetBits.Untouchable,true)
             Message("As you leave the secret hideout, a cool wind touches your face, hinting at urgency. You notice the boat that was once nearby is now missing. Far off, you see it near Castle Amber's Island, revealing the Archmage's escape route."..
@@ -247,16 +256,16 @@ function events.AfterLoadMap(WasInGame)
         end
 
         -- Make back entrance to castle amber visible
-        if vars.MyTriggers.AttackOnCastleAmber == 0 then
+        if vars.MiscAmberIsland.AttackOnCastleAmber == 0 then
             evt.SetFacetBit(1337,const.FacetBits.Invisible,true)
         else
             evt.SetFacetBit(1337,const.FacetBits.Invisible,false)
         end
 
         -- Launch attack
-        if vars.MyTriggers.AttackOnCastleAmber == 1 then
+        if vars.MiscAmberIsland.AttackOnCastleAmber == 1 then
 
-            vars.MyTriggers.AttackOnCastleAmber = 2
+            vars.MiscAmberIsland.AttackOnCastleAmber = 2
             
             GuardArray = {
                 {X = -15953, Y = 9799, Z = 155},

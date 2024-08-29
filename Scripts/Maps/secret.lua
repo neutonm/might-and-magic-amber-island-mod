@@ -209,8 +209,8 @@ end
 evt.hint[32] = evt.str[0]
 evt.map[32] = function()
 
-    if vars.MyTriggers.ArchmageEscapedHideout == 0 then
-        vars.MyTriggers.ArchmageEscapedHideout = 1
+    if vars.MiscAmberIsland.ArchmageEscapedHideout == 0 then
+        vars.MiscAmberIsland.ArchmageEscapedHideout = 1
     end
 
     evt.SetDoorState{Id = 1, State = 2}
@@ -232,8 +232,8 @@ end
 evt.hint[34] = evt.str[4]
 evt.map[34] = function()
     
-    if vars.MyTriggers.ArchmageEscapedHideout == 0 then
-        vars.MyTriggers.ArchmageEscapedHideout = 1
+    if vars.MiscAmberIsland.ArchmageEscapedHideout == 0 then
+        vars.MiscAmberIsland.ArchmageEscapedHideout = 1
     end
 
     evt.SetDoorState{Id = 1, State = 2}
