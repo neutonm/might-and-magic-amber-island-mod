@@ -18,15 +18,10 @@ Author: Henrik Chukhran, 2022 - 2024
 Game.Debug = false
 
 -- Helpers
--- @todo this sucks, figure out the way to properly delete monsters
 function RemoveMonster(mon)
     if mon then
-        mon.HP = 0
         mon.NPC_ID = 0
-        mon.Invisible = true
-        mon.X = -9999
-        mon.Y = -9999
-        mon.Z = -9999
+        mon.AIState = const.AIState.Removed
     end
 end
 
