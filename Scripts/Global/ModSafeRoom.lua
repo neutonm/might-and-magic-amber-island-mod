@@ -6,10 +6,6 @@ Author: Henrik Chukhran, 2022 - 2024
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
 local Q = vars.Quests
 
-Greeting{
-	"The safe room is an abandoned, old, and dusty space with a sturdy door that can be securely locked to keep monsters at bay. Despite its condition, it offers a brief respite for heroes to rest and heal.",
-}
-
 local function GetSafeRoomHealFoodPrice()
 
     local activePlayerNumber = 0
@@ -47,6 +43,10 @@ local function SafeRoomHealParty()
 end
 
 QuestNPC        =   534
+
+Greeting{
+	"The safe room is an abandoned, old, and dusty space with a sturdy door that can be securely locked to keep monsters at bay. Despite its condition, it offers a brief respite for heroes to rest and heal.",
+}
 
 NPCTopic{
     Slot        =   A,
