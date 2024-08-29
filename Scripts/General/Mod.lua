@@ -103,40 +103,6 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     --     Game.MonstersTxt[i].HostileType = 2 
     -- end
 
-    -- Quest Variables
-    if vars.QuestsAmberIsland == nil then
-        vars.QuestsAmberIsland = {
-            QVar1                   = false,    -- Quest: The Fog
-            QVarEndGame             = false,    -- Game End
-            QVarRitual              = false,    -- Quest: Ritual, summon bool
-            QVarRansom              = 0,        -- Quest: Ransom, state
-            QVarRansomTaken         = false,    -- Quest: Ransom, NPC taken 
-            QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
-                                                -- reporting (4), reported (5), released (6), rewarded (7)
-        }
-    end
-    if vars.MiscAmberIsland == nil then
-        vars.MiscAmberIsland = {
-            BulkCurePotionSale      = true,     -- Jane Goodwin, 8x cure potion for 500g
-            BulkManaPotionSale      = true,     -- Jane Goodwin, 8x mana potion for 500g
-            ArenaCounterStarted     = false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
-            LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
-            ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
-            AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
-        }
-    end
-
-    -- Global
-    if vars.QuestsGlobal == nil then
-        vars.QuestsGlobal = {}
-    end
-    if vars.MiscGlobal == nil then
-        vars.MiscGlobal = {
-            FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
-            OnDeathLocation         = 0,        -- Variable for resurrection locations
-        }
-    end
-
     ArcomageRequireDeck(false)
 
     -- Debug mode essentials
@@ -318,6 +284,40 @@ function events.AfterLoadMap(WasInGame)
 end
 
 function events.BeforeNewGameAutosave()
+
+    -- Amber Island Variables
+    if vars.QuestsAmberIsland == nil then
+        vars.QuestsAmberIsland = {
+            QVar1                   = false,    -- Quest: The Fog
+            QVarEndGame             = false,    -- Game End
+            QVarRitual              = false,    -- Quest: Ritual, summon bool
+            QVarRansom              = 0,        -- Quest: Ransom, state
+            QVarRansomTaken         = false,    -- Quest: Ransom, NPC taken 
+            QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
+                                                -- reporting (4), reported (5), released (6), rewarded (7)
+        }
+    end
+    if vars.MiscAmberIsland == nil then
+        vars.MiscAmberIsland = {
+            BulkCurePotionSale      = true,     -- Jane Goodwin, 8x cure potion for 500g
+            BulkManaPotionSale      = true,     -- Jane Goodwin, 8x mana potion for 500g
+            ArenaCounterStarted     = false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
+            LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
+            ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
+            AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
+        }
+    end
+
+    -- Global variables
+    if vars.QuestsGlobal == nil then
+        vars.QuestsGlobal = {}
+    end
+    if vars.MiscGlobal == nil then
+        vars.MiscGlobal = {
+            FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
+            OnDeathLocation         = 0,        -- Variable for resurrection locations
+        }
+    end
 
     -- Clear inventory
     for id = 0, 1024 do
