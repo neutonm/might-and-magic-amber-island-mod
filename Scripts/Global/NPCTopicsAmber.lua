@@ -64,7 +64,8 @@ Quest{
 	CanShow			= 	(|| vars.Quests.StoryQuest1 == "Done" and vars.Quests.StoryQuest2 ~= "Done"),
 	Exp				=	1000,
 	Gold			=	1000,
-	QuestItem		=	798
+	QuestItem		=	798,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 Quest{
@@ -83,7 +84,8 @@ Quest{
 	CanShow			= 	(|| vars.Quests.StoryQuest2 == "Done" and vars.Quests.StoryQuest3 ~= "Done"),
 	Exp				=	2000,
 	Gold			=	2000,
-	QuestItem		=	797
+	QuestItem		=	797,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 KillMonstersQuest{
@@ -114,7 +116,10 @@ KillMonstersQuest{
 	TopicDone 		= 	"Thanks: The Mist",
 	After			=	"Thank you once again, my heroes. Amber island will never forget your heroic deeds.",
 	Quest 			= 	"Story: The Mist\nMayor Maximus, Amber Island, Town Hall\n\nContact boatmaster Cedrick Boyce to secure passage to Castle Amber's back entrance. Infiltrate the castle, eliminate Archmage Magnus, and destroy his mist machine.",
-	Award 			= 	"Saved Amber Island from Magnus the Archmage",
+	Done			=	function(t) 
+							evt.Add("Awards", 105) -- "Saved Amber Island from Magnus the Archmage"
+							evt.Subtract("Reputation", 10) 
+						end
 }
 
 NPCTopic{
@@ -146,6 +151,7 @@ Quest{
 	Done			= 	function(t)
 							vars.MyQuests.QVarRevenge = QVarRevengeState.REPORTED
 							evt.Subtract("NPCs", 498)
+							evt.Subtract("Reputation", 10)
 							evt.MoveNPC{NPC = 498, HouseId = 577}
 						end
 }
@@ -723,6 +729,7 @@ Quest{
 	},
 	NeverGiven 		= 	true,
 	Done			=	function(t)
+							evt.Subtract("Reputation", 5)
 							evt.All.Add("BaseMight", 5)
 							evt.All.Add("BaseSpeed", 5)					
 						end,
@@ -1057,6 +1064,10 @@ Quest{
 	QuestItem 		= 	784,
 	Gold 			= 	2000,
 	Exp 			= 	1000,
+	Done			=	function(t) 
+							evt.Add("Awards", 107) -- "Found and returned Family Sword to Thomas Beck"
+							evt.Subtract("Reputation", 5) 
+						end
 }
 ------------------------------------------------------------------------------
 -- Urist Alesworth
@@ -1086,6 +1097,7 @@ KillMonstersQuest{
 	},
 	Gold 			= 	2500,
 	Exp 			= 	2500, 
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 ------------------------------------------------------------------------------
 -- Harvey Yap
@@ -1123,6 +1135,7 @@ Quest{
 	QuestItem 		= 	782,
 	Gold 			= 	1000,
 	Exp 			= 	1500,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 ------------------------------------------------------------------------------
@@ -1189,6 +1202,7 @@ Quest{
 	Done			= 	function(t) 
 							if evt.Cmp("NPCs", 516) then
 								evt.Subtract("NPCs", 516)
+								evt.Subtract("Reputation", 5)
 								evt.MoveNPC{NPC = 516, HouseId = 552}
 								ShowQuestEffect(true, t.TakeQuestOperation)
 								vars.MyQuests.QVarRansom = 5
@@ -1251,6 +1265,7 @@ Quest{
 							vars.MyQuests.QVarRevenge = QVarRevengeState.GIVEN
 						end,
 	Done			= 	function(t)
+							evt.Add("Reputation", 10)
 							vars.MyQuests.QVarRevenge = QVarRevengeState.RELEASED
 							evt.ForPlayer("All")
 							ShowQuestEffect(false,"Add")
@@ -1428,6 +1443,7 @@ KillMonstersQuest{
 	},
 	Gold 			= 	2000,  -- reward: gold
 	Exp 			= 	1500,  -- reward: experience
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 ------------------------------------------------------------------------------
 -- John Constantine
@@ -1468,6 +1484,7 @@ KillMonstersQuest{
 						end,
 	Gold 			= 	2500,
 	Exp 			= 	1500,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 NPCTopic{
@@ -1764,7 +1781,8 @@ Quest{
 	RewardItem		=	795,
 	QuestItem 		= 	794,
 	Exp				=	250,
-	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given")
+	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given"),
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 Quest{
@@ -1781,6 +1799,7 @@ Quest{
 	Exp 			= 	1000,
 	Gold 			= 	500,
 	QuestItem 		= 	783,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 ------------------------------------------------------------------------------
 -- Laurie Blaine
@@ -1802,6 +1821,8 @@ Quest{
 								end
 							end
 							evt.Add("NPCs", 516)
+							evt.Subtract("Reputation", 5)
+							evt.Add("Awards", 106) -- "Rescued Laurie Blaine"
 							ShowQuestEffect(true, t.TakeQuestOperation)
 							vars.MyQuests.QVarRansom = 3
 							vars.MyQuests.QVarRansomTaken = true
@@ -2037,6 +2058,7 @@ Quest{
 	Exp				=	1000,
 	CheckDone		=	(|| evt.Cmp("NPCs", 524) == true),
 	Done			= 	function(t) 
+							evt.Subtract("Reputation", 5)
 							evt.Subtract("NPCs", 524)
 							evt.MoveNPC{NPC = 524, HouseId = 605}
 						end
