@@ -36,6 +36,28 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    MakeHostile(277,279) -- Animalists
+    --MakeHostile(268,270) -- Ratmen
+    --MakeHostile(271,273) -- Pirates
+    MakeHostile(19,21) -- Priest of the sun
+    
+    -- Remove blaine
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID  == 516 then
+            if vars.QuestsAmberIsland.QVarRansom == 3 then
+                RemoveMonster(mon)
+            end
+        elseif mon.NPC_ID  == 518 then
+            mon.Hostile = false -- Buster Squeaky
+            mon.Ally = 1
+        end
+    end
+end
+
 function events.LoadMap()
 
     -- Set gold vein textures to depleted ones after save/load

@@ -34,6 +34,13 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    --MakeHostile(268,270) -- Ratmen
+    MakeHostile(79,81) -- Golems
+end
 
 -- ****************************************************************************
 

@@ -3,57 +3,12 @@ Global Mod Script
 Author: Henrik Chukhran, 2022 - 2024
 ]]
 
--- Game.NewGameMap = "testlevel.blv"
--- function events.NewGameMap()
--- 	XYZ(Party, 395, 343, 192)
--- 	Party.Direction    = 1262
--- 	Party.LookAngle    = 14
--- 	Party.Gold         = 0
--- 	Party.Food         = 2
--- end 
-
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug = false
+Game.Debug      = true
 
--- Helpers
-function RemoveMonster(mon)
-    if mon then
-        mon.NPC_ID = 0
-        mon.AIState = const.AIState.Removed
-    end
-end
-
-function ContainsNumber(myArray, myValue)
-
-    if myArray == nil then
-        return false
-    end
-    
-    for _, v in ipairs(myArray) do
-        if v == myValue then
-            return true
-        end
-    end
-    return false
-end
-
-function TableRemoveByValue(t, value)
-
-    if t == nil then
-        return false
-    end
-
-    for i, v in ipairs(t) do
-        if v == value then
-            table.remove(t, i)
-            return true
-        end
-    end
-    return false
-end
-
+-- New Game
 Game.NewGameMap = Game.Debug and "hub.blv" or "amber.odm"
 Game.TitleTrack = 22
 
@@ -108,6 +63,7 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     -- Debug mode essentials
     if Game.Debug == true then
         evt.Add("Gold",99999)
+        Party.Food = 100
         god()
     end
 
@@ -118,22 +74,12 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 end
 
 function events.MonsterKilled(mon, monIndex, defaultHandler)
-    if mon.NPC_ID == 498 then
-        vars.QuestsAmberIsland.QVarRevenge = 3 -- Michael Cassio is Killed
-    end
+    
 end
 
 function events.AfterLoadMap(WasInGame)
 
     -- Temporary: Hostiles
-    local MakeHostile = function(idStart, idEnd)
-        for _, mon in Map.Monsters do
-            if mon.Id >= idStart and mon.Id <= idEnd then
-                mon.Hostile = true
-            end
-        end
-    end
-
     if Game.Map.Name == "out02.odm" then
 
         if vars.QuestsAmberIsland.QVarEndGame == 1 then
@@ -146,139 +92,6 @@ function events.AfterLoadMap(WasInGame)
                     HouseId = 0, Icon = 0, Name = "amber.odm"}
             end, const.Second, Game.Time + const.Second, false)
             
-        end
-    elseif Game.Map.Name == "testlevel.blv" then 
-        MakeHostile(79,81) -- Golems
-        evt.SetNPCGroupNews(37, 41)
-    elseif Game.Map.Name == "amber.odm" then 
-
-        --MakeHostile(265,267) -- Lizards
-        evt.SetNPCGroupNews(36, 40)
-        evt.SetNPCGroupNews(38, 42)
-    elseif Game.Map.Name == "amber-east.odm" then 
-        --MakeHostile(265,267) -- Lizards
-        evt.SetNPCGroupNews(38, 42)
-    elseif Game.Map.Name == "oakhome.blv" then 
-        --MakeHostile(268,270) -- Ratmen
-        MakeHostile(79,81) -- Golems
-    elseif Game.Map.Name == "applecave.blv" then 
-        MakeHostile(277,279) -- Animalists
-        --MakeHostile(268,270) -- Ratmen
-        --MakeHostile(271,273) -- Pirates
-        MakeHostile(19,21) -- Priest of the sun
-        -- Remove blaine
-        for _, mon in Map.Monsters do
-            if mon.NPC_ID  == 516 then
-                if vars.QuestsAmberIsland.QVarRansom == 3 then
-                    RemoveMonster(mon)
-                end
-            elseif mon.NPC_ID  == 518 then
-                mon.Hostile = false -- Buster Squeaky
-                mon.Ally = 1
-            end
-        end
-    elseif Game.Map.Name == "archmageres.blv" then
-
-        -- Missing minotaurs, find and kill
-        -- @todo find through editor and remove
-        for _, mon in Map.Monsters do
-            if mon.Id == 103 then
-                RemoveMonster(mon)
-            end
-        end
-    elseif Game.Map.Name == "secret.blv" then
-        MakeHostile(64,66) -- Gargoyle
-        MakeHostile(79,81) -- Golems
-    end
-
-    -- Amber Map: Anti-fall through-roof bug workaround
-    if Game.Map.Name == "amber.odm" then 
-        if vars.MiscAmberIsland.LuckyCoinSpawn == true then
-            for _, obj in Map.Objects do
-                if obj.Item.Number == 782 then
-                    XYZ(obj, -3676, 6053, 456, 0)
-                end
-            end
-        else
-            vars.MiscAmberIsland.LuckyCoinSpawn = true
-            SummonItem(782,-3676, 6053, 456, 0)
-        end
-    end
-
-    -- Comment about missing boat after completing Secret Hideout
-    if Game.Map.Name == "amber-east.odm" then
-        if vars.MiscAmberIsland.ArchmageEscapedHideout == 1 then
-            vars.MiscAmberIsland.ArchmageEscapedHideout = 2
-            evt.SetFacetBit(1338,const.FacetBits.Invisible,true)
-	        evt.SetFacetBit(1338,const.FacetBits.Untouchable,true)
-            Message("As you leave the secret hideout, a cool wind touches your face, hinting at urgency. You notice the boat that was once nearby is now missing. Far off, you see it near Castle Amber's Island, revealing the Archmage's escape route."..
-                    "The chase isn't over yet, but now that you've pinpointed the Archmage's location, it's time to head back to town and report to the mayor."..
-                    "The letter he left behind could serve as evidence of your encounter with the Archmage.")
-        end
-
-        -- Make back entrance to castle amber visible
-        if vars.MiscAmberIsland.AttackOnCastleAmber == 0 then
-            evt.SetFacetBit(1337,const.FacetBits.Invisible,true)
-        else
-            evt.SetFacetBit(1337,const.FacetBits.Invisible,false)
-        end
-
-        -- Launch attack
-        if vars.MiscAmberIsland.AttackOnCastleAmber == 1 then
-
-            vars.MiscAmberIsland.AttackOnCastleAmber = 2
-            
-            GuardArray = {
-                {X = -15953, Y = 9799, Z = 155},
-                {X = -14107, Y = 8989, Z = 128},
-                {X = 21002, Y = 21545, Z = 59},
-                {X = 19590, Y = 21634, Z = 78},
-                {X = 19727, Y = 21769, Z = 62},
-                {X = -15366, Y = 8330, Z = 183},
-                {X = -15908, Y = 9105, Z = 160},
-                {X = -14458, Y = 10169, Z = 128},
-                {X = -15310, Y = 11232, Z = 198},
-                {X = 20636, Y = 14904, Z = 1529},
-                {X = 20279, Y = 14213, Z = 1676},
-                {X = 17567, Y = 14430, Z = 1818},
-                {X = 17417, Y = 10712, Z = 1855},
-                {X = 17115, Y = 10075, Z = 1847},
-                {X = 14769, Y = 9061, Z = 1946},
-                {X = 14661, Y = 8659, Z = 1931},
-                {X = 17224, Y = 6578, Z = 1824},
-                {X = 19283, Y = 7179, Z = 1824},
-                {X = 13134, Y = 10866, Z = 2112},
-                {X = 11594, Y = 10737, Z = 2016},
-                {X = 11089, Y = 10278, Z = 2016},
-                {X = 6270, Y = 10156, Z = 2048},
-                {X = 5569, Y = 10386, Z = 2048},
-                {X = 5482, Y = 10882, Z = 2048},
-                {X = 6075, Y = 11284, Z = 2048},
-                {X = 9727, Y = 13896, Z = 1888},
-                {X = 9903, Y = 14164, Z = 1888},
-                {X = 13942, Y = 13668, Z = 1824},
-                {X = 16660, Y = 15011, Z = 1845},
-                {X = 15245, Y = 21249, Z = 767},
-                {X = 13915, Y = 21480, Z = 712},
-                {X = 13626, Y = 19743, Z = 814},
-                {X = 11491, Y = 19058, Z = 878},
-                {X = 11864, Y = 17922, Z = 864},
-                {X = 9707, Y = 19366, Z = 916},
-                {X = 8159, Y = 20732, Z = 832},
-                {X = 9923, Y = 21615, Z = 787},
-                {X = 11843, Y = 3246, Z = 1408},
-                {X = 5759, Y = 2991, Z = 768},
-                {X = 5167, Y = 6789, Z = 768},
-                {X = 4513, Y = 7202, Z = 768},
-                {X = 1282, Y = 11611, Z = 768},
-                {X = 1024, Y = 12162, Z = 768},
-                {X = 499, Y = 12187, Z = 768},
-            }
-
-            for i, guard in ipairs(GuardArray) do
-                local mon = SummonMonster(206, guard.X , guard.Y, guard.Z, true)
-                mon.Group = 39
-            end
         end
     end
 end
@@ -346,42 +159,5 @@ function events.BeforeNewGameAutosave()
     -- Clear emerald island quests
     for i = 1, 6 do
         Party.QBits[i] = false 
-    end
-end
-
---Game.NewGameMap = "test.odm"
---function events.NewGameMap()
---	XYZ(Party, 13131, 2869, 192)
---	Party.Direction = 1174
---	Party.LookAngle = -51
---end 
-
--- Helper Functions
-function CheckInventoryForItem(id)
-	for i = 0, Party.Count - 1 do
-		if evt[i].Cmp("Inventory", id) then
-			return true
-		end
-	end
-	return false
-end
-
-function PlayerSetSkill(player, skillID, points, mastery)
-    pl = Party[player]
-    local mySkill, myMastery = SplitSkill(pl.Skills[skillID])
-    pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points), 
-        math.max(myMastery, mastery))
-end
-
-function PlayerHasSkill(player, skillID)
-    pl = Party[player]
-    return pl.Skills[skillID] > 0
-end
-
-function PartySetSkill(skillID, points, mastery)
-    for _, pl in Party do
-        local mySkill, myMastery = SplitSkill(pl.Skills[skillID])
-        pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points), 
-            math.max(myMastery, mastery))
     end
 end

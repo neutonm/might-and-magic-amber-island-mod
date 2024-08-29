@@ -47,6 +47,19 @@ function OpenWorkshopDoor()
     end
 end
 
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    -- Missing minotaurs, find and kill
+    -- @todo find through editor and remove
+    for _, mon in Map.Monsters do
+        if mon.Id == 103 then
+            RemoveMonster(mon)
+        end
+    end
+end
+
 function events.LoadMap()
 
     -- Workshop door keyhole lighs reset

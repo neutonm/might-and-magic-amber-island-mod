@@ -85,6 +85,14 @@ Game.MapEvtLines.Count = 0
 -- Teleport     32              Temple of the Moon
 -- Exit         33              Exit
 
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    MakeHostile(64,66) -- Gargoyle
+    MakeHostile(79,81) -- Golems
+end
+
 -- ****************************************************************************
 -- Chests
 for i = 0, 19, 1 do

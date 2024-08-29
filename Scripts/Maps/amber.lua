@@ -61,6 +61,34 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+-- EVENTS
+------------------------------------------------------------------------------
+function events.MonsterKilled(mon, monIndex, defaultHandler)
+    
+    if mon.NPC_ID == 498 then
+        vars.QuestsAmberIsland.QVarRevenge = 3 -- Michael Cassio is Killed
+    end
+end
+
+function events.AfterLoadMap(WasInGame)
+
+    --MakeHostile(265,267) -- Lizards
+    evt.SetNPCGroupNews(36, 40)
+    evt.SetNPCGroupNews(38, 42)
+
+    -- Amber Map: Anti-fall through-roof bug workaround
+    if vars.MiscAmberIsland.LuckyCoinSpawn == true then
+        for _, obj in Map.Objects do
+            if obj.Item.Number == 782 then
+                XYZ(obj, -3676, 6053, 456, 0)
+            end
+        end
+    else
+        vars.MiscAmberIsland.LuckyCoinSpawn = true
+        SummonItem(782,-3676, 6053, 456, 0)
+    end
+end
+
 -- CHESTS
 ------------------------------------------------------------------------------
 for i = 0, 19, 1 do
