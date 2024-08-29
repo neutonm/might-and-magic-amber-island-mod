@@ -5,7 +5,6 @@ Author: Henrik Chukhran, 2022 - 2024
 
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
 local Q = vars.Quests
-local QA = vars.QuestsAmberIsland
 
 local function SetBranch(t)
 	QuestBranch(t.NewBranch)
@@ -95,13 +94,13 @@ KillMonstersQuest{
 	{Map 			= 	"testlevel.blv", MonsterIndex = 4},
 	CheckDone 		= 	function()
 							--return evt.Cmp("QBits",7)
-							return QA.QVar1
+							return vars.QuestsAmberIsland.QVar1
 						end,
 	CanShow			= 	(|| vars.Quests.StoryQuest3 == "Done"),
 	Exp 			= 	5000,
 	Gold 			= 	5000,
 	Done			=	function(t) 
-							evt.MoveNPC(529,248)
+							evt.MoveNPC(529,102)
 
 						end
 }
@@ -148,9 +147,9 @@ Quest{
 	},
 	Gold 			= 	500,
 	Exp				=	1000,
-	CanShow 		= 	(|| (QA.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498))),
+	CanShow 		= 	(|| (vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498))),
 	Done			= 	function(t)
-							QA.QVarRevenge = QVarRevengeState.REPORTED
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTED
 							evt.Subtract("NPCs", 498)
 							evt.Subtract("Reputation", 10)
 							evt.MoveNPC{NPC = 498, HouseId = 577}
@@ -1206,7 +1205,7 @@ Quest{
 								evt.Subtract("Reputation", 5)
 								evt.MoveNPC{NPC = 516, HouseId = 552}
 								ShowQuestEffect(true, t.TakeQuestOperation)
-								QA.QVarRansom = 5
+								vars.QuestsAmberIsland.QVarRansom = 5
 							end
 						end,
 	CheckDone 		= 	(|| evt.Cmp("NPCs", 516) == true),
@@ -1221,9 +1220,9 @@ Quest{
 		Topic 		= 	"There's a problem...",
 		Done 		= 	"*Upon hearing the kidnappers' new demands, Martha's face crumples in despair. Clutching a bag of gold tightly in her trembling hands, she thrusts it towards you.*\n\n This is all I have, every last coin. Please, take it. Maybe it is enough to hire some help? I beg you, Laurier is all I've got. You must bring her back to me!\n\n*Her eyes brim with tears.*",
 	},
-	CanShow			=	(|| QA.QVarRansom == 1 and not evt.Cmp("NPCs", 516)),
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarRansom == 1 and not evt.Cmp("NPCs", 516)),
 	Done			= 	function(t)
-							QA.QVarRansom = 2
+							vars.QuestsAmberIsland.QVarRansom = 2
 						end,
 	Gold			= 	1678,
 	NeverGiven 		= 	true,
@@ -1241,7 +1240,7 @@ QuestNPC 			= 	496
 
 local function MoveOthoBackToHome()
 	evt.MoveNPC{NPC = 496, HouseId = 568}
-	QA.QVarRevenge = QVarRevengeState.TRANSFERED
+	vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.TRANSFERED
 end
 
 Quest{
@@ -1263,25 +1262,25 @@ Quest{
 	GivenItem 		= 	791,
 	Exp				=	2500,
 	Give			= 	function(t)
-							QA.QVarRevenge = QVarRevengeState.GIVEN
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.GIVEN
 						end,
 	Done			= 	function(t)
 							evt.Add("Reputation", 10)
-							QA.QVarRevenge = QVarRevengeState.RELEASED
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.RELEASED
 							evt.ForPlayer("All")
 							ShowQuestEffect(false,"Add")
 							Timer(
 								MoveOthoBackToHome, const.Hour, const.Hour + const.Minute, true)
 						end,
-	CanShow			=	(|| QA.QVarRevenge and QA.QVarRevenge < QVarRevengeState.TRANSFERED and QA.QVarRevenge ~= QVarRevengeState.REPORTED),
-	CheckDone		= 	(|| QA.QVarRevenge == QVarRevengeState.KILLED)
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarRevenge and vars.QuestsAmberIsland.QVarRevenge < QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.REPORTED),
+	CheckDone		= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.KILLED)
 }
 
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Failed: Revenge",
 	Text 			= 	"You think you're clever, siding with Michael against me? You will regret this. Mark my words, you have not seen the last of me!",
-	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED)
 }
 
 NPCTopic{
@@ -1289,7 +1288,7 @@ NPCTopic{
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I look forward to collaborating with you again in the future.",
 
-	CanShow			= 	(|| QA.QVarRevenge >= QVarRevengeState.TRANSFERED)
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED)
 }
 
 Quest{
@@ -1308,9 +1307,9 @@ Quest{
 								rewardGold = rewardGold + 2500
 							end
 							evt.Add("Gold", rewardGold)
-							QA.QVarRevenge = QVarRevengeState.REWARDED
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REWARDED
 						end,
-	CanShow			=	(|| QA.QVarRevenge == QVarRevengeState.TRANSFERED)
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.TRANSFERED)
 }
 ------------------------------------------------------------------------------
 -- Desdemona Robeson
@@ -1344,7 +1343,7 @@ Quest{
 		Ungive 		= 	"What is the meaning of this?",
 	},
 	Ungive			=	SetBranch,
-	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.GIVEN)
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.GIVEN)
 }
 
 Quest{
@@ -1355,7 +1354,7 @@ Quest{
 		Topic 		= 	"Well?",
 		Give 		= 	"We shouldn't loose any time, let's go see the mayor and tell him everything.",
 	},
-	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTING)
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING)
 }
 
 NPCTopic{
@@ -1363,7 +1362,7 @@ NPCTopic{
 	Branch			=	"",
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"I'm glad that you've chosen the path of honor. You will always be a welcome guest at my home.",
-	CanShow			= 	(|| QA.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED)
 }
 
 -- BRANCH
@@ -1377,7 +1376,7 @@ Quest{
 		Give 		= 	"What? Otho sent you? Well, he's picked the wrong person to intimidate. I won't go down without a fight, you lowlifes. You've underestimated me. I'm ready for whatever you've planned. Bring it on."
 	},
 	Give			= 	function(t)
-							QA.QVarRevenge = QVarRevengeState.DUEL
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.DUEL
 							evt.MoveNPC{NPC = 498, HouseId = 0}
 							local mon = SummonMonster(207, 16809, 9292, 96, true)
 							mon.NPC_ID = 498
@@ -1397,7 +1396,7 @@ Quest{
 	},
 	CheckGive		=	(|| evt.All.Cmp("Inventory", 791)),
 	Give			= 	function(t)
-							QA.QVarRevenge = QVarRevengeState.REPORTING
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
 							evt.MoveNPC{NPC = 498, HouseId = 0}
 							evt.Add("NPCs", 498)
 							evt.Subtract("Inventory", 791)
@@ -1481,7 +1480,7 @@ KillMonstersQuest{
 								end
 							end
 
-							return QA.QVarRitual == true
+							return vars.QuestsAmberIsland.QVarRitual == true
 						end,
 	Gold 			= 	2500,
 	Exp 			= 	1500,
@@ -1813,7 +1812,7 @@ Quest{
 		Topic 		= 	"Rescue!",
 		Done 		= 	"You do not look like those dreadful ratmen pirates. Are you here to rescue me?",
 	},
-	CanShow			=	(|| evt.Cmp("NPCs", 516) == false and QA.QVarRansom ~= 5 ),
+	CanShow			=	(|| evt.Cmp("NPCs", 516) == false and vars.QuestsAmberIsland.QVarRansom ~= 5 ),
 	NeverGiven 		= 	true,
 	Done			= 	function(t) 
 							for _, mon in Map.Monsters do
@@ -1825,8 +1824,8 @@ Quest{
 							evt.Subtract("Reputation", 5)
 							evt.Add("Awards", 106) -- "Rescued Laurie Blaine"
 							ShowQuestEffect(true, t.TakeQuestOperation)
-							QA.QVarRansom = 3
-							QA.QVarRansomTaken = true
+							vars.QuestsAmberIsland.QVarRansom = 3
+							vars.QuestsAmberIsland.QVarRansomTaken = true
 							Game.NeedRedraw = true
 						end
 }
@@ -1855,7 +1854,7 @@ NPCTopic{
     Slot            =   A,  
     Topic           =   "Laurie Blaine",
     Text            =   "The lass is safe and sound, snug as a bug in a rug! But she's itching to see home. Just make sure you bring the gold, all of it. We wouldn't want to prolong her stay, now would we?",
-    CanShow         =   (|| Q.AmberQuest5 and QA.QVarRansom ~= 3)
+    CanShow         =   (|| Q.AmberQuest5 and vars.QuestsAmberIsland.QVarRansom ~= 3)
 }
 
 NPCTopic{
@@ -1866,7 +1865,7 @@ NPCTopic{
 
 Quest{
 	Slot 			= 	C,
-	CanShow			= 	(|| Q.AmberQuest5 ~= nil and QA.QVarRansom == 0),
+	CanShow			= 	(|| Q.AmberQuest5 ~= nil and vars.QuestsAmberIsland.QVarRansom == 0),
 	Texts 			=
 	{
 		Topic 		= 	"Pay: Ransom (1000g)",
@@ -1874,7 +1873,7 @@ Quest{
 		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
 	},
 	Done			= 	function(t)
-							QA.QVarRansom = 1
+							vars.QuestsAmberIsland.QVarRansom = 1
 						end,
 	NeverGiven 		= 	true,
 	QuestGold		= 	1000
@@ -1888,14 +1887,14 @@ Quest{
 		Done 		= 	"Nice doing business with you, friend. Here's the gal, now get lost.",
 		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
 	},
-	CanShow			=	(|| QA.QVarRansom == 1 or QA.QVarRansom == 2),
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarRansom == 1 or vars.QuestsAmberIsland.QVarRansom == 2),
 	NeverGiven 		= 	true,
 	QuestGold 		= 	5000,
 	Done			= 	function(t) 
 							evt.Add("NPCs", 516)
 							ShowQuestEffect(true, t.TakeQuestOperation)
-							QA.QVarRansom = 3
-							QA.QVarRansomTaken = true
+							vars.QuestsAmberIsland.QVarRansom = 3
+							vars.QuestsAmberIsland.QVarRansomTaken = true
 						end
 }
 
@@ -1915,8 +1914,8 @@ Quest{
 	NeverGiven		=	true,
 	Done			=	function(t)
 
-							if QA.QVarRansom ~= 3 then
-								QA.QVarRansom = 4
+							if vars.QuestsAmberIsland.QVarRansom ~= 3 then
+								vars.QuestsAmberIsland.QVarRansom = 4
 							end
 
 							for _, mon in Map.Monsters do
@@ -2270,10 +2269,10 @@ NPCTopic{
 	Slot 	= 	B,
 	Topic 	= 	"The End (Victory!)",
 	Text 	= 	"Good job!",
-	CanShow = 	function(t) return QA.QVarEndGame == false end,
+	CanShow = 	function(t) return vars.QuestsAmberIsland.QVarEndGame == false end,
 	Ungive 	= 	function(t)
-					if QA.QVarEndGame == false then
-						QA.QVarEndGame = 1   
+					if vars.QuestsAmberIsland.QVarEndGame == false then
+						vars.QuestsAmberIsland.QVarEndGame = 1   
 						--evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
 						Party.QBits[99] = true
 						SuppressSound(true)
