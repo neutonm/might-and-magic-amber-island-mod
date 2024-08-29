@@ -15,7 +15,7 @@ Author: Henrik Chukhran, 2022 - 2024
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug = true
+Game.Debug = false
 
 -- Helpers
 -- @todo this sucks, figure out the way to properly delete monsters
