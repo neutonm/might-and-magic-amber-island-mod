@@ -346,23 +346,23 @@ function Merc_ShowInfo(Merc)
     local meleeStr          = ""
     local meleeUpdStr       = ""
     if (attack1 and string.len(attack1) > 0) then
-        meleeStr            = string.format("With my trusty weapons, I deliver a formidable melee assault, capable of inflicting %s damage.\n\n", attack1)
-        meleeUpdStr         = string.format("Melee: %d/3\n", UpgradeDmg1Level)
+        meleeStr            = string.format("With my trusty weapons, I deliver a formidable melee assault, capable of inflicting \01265523%s\01200000 damage.\n\n", attack1)
+        meleeUpdStr         = string.format("	008* Melee:	160%d/3\n", UpgradeDmg1Level)
     end
 
     local rangedStr         = ""
     local rangedUpdStr      = ""
     if (attack2 and string.len(attack2) > 0) then
-        rangedStr           = string.format("I can perform a ranged attack, dealing %s damage to your target.\n\n", attack2)
-        rangedUpdStr        = string.format("Ranged: %d/3\n", UpgradeDmg2Level)
+        rangedStr           = string.format("I can perform a ranged attack, dealing \01265523%s\01200000 damage to your target.\n\n", attack2)
+        rangedUpdStr        = string.format("	008* Ranged:	160%d/3\n", UpgradeDmg2Level)
     end
 
-    local Output = string.format("Greetings!\n\nI am known as %s, a mercenary combatant of Level %d.\n\n"..
-                            "My have a robust health pool of %d and an armor class of %d.\n\n"..
+    local Output = string.format("Greetings!\n\nI am known as \01265523%s\01200000, a mercenary combatant of Level \01265523%d\01200000.\n\n"..
+                            "My have a robust health pool of \01265523%d\01200000 and an armor class of \01265523%d\01200000.\n\n"..
                             "%s"..
                             "%s"..
-                            "You have my allegiance for %d summons each day, ready to stand by your side!\n\n"..
-                            "Upgrades: \nHit Points: %d/3\nArmor Class: %d/3\nLevel: %d/3\n%s%sSummons: %d/3",
+                            "You have my allegiance for \01265523%s\01200000 summons each day, ready to stand by your side!\n\n"..
+                            "Upgrades: \n	008* Hit Points:	160%d/3\n	008* Armor Class:	160%d/3\n	008* Level:	160%d/3\n%s%s	008* Summons:	160%d/3",
                             Merc.Name, level, hp, ac, meleeStr, rangedStr, fightsLeft,
                             UpgradeHPLevel, UpgradeACLevel, UpgradeMonLevel, meleeUpdStr, rangedUpdStr, UpgradeSumLevel)
 
@@ -626,7 +626,11 @@ function ParseMercTables(Table)
 
     -- Process escape sequences
     local function procEsc(str)
-        str = str:gsub("\\n", "\n")    -- Convert \n to newline
+        -- Convert \n to newline
+        str = str:gsub("\\n", "\n")    
+        -- Convert color symbol
+        str = str:gsub("\\012", "\012")
+
         return str
     end
 

@@ -222,14 +222,14 @@ end
 QuestNPC 			= 	505
 
 Greeting{
-	"Welcome to the Mercenary Guild, adventurers. You're in the right place if you seek skilled companions for your journey. How can I assist you today?",
+	"Welcome to the \01265523Mercenary Guild\01200000, adventurers. You're in the right place if you seek skilled companions for your journey. How can I assist you today?",
 }
 
 NPCTopic{
 	Slot 			= 	A,
 	Branch			=	"",
 	Topic 			= 	"Mercenaries",
-	Text 			= 	"Mercenaries, like tools in your kit, can turn the tide of your quests. Each one is unique, with their own strengths and quirks. For a fee, you can enhance their abilities and summon them to your side a few times each day. Should they fall or wander off, come back to me. I'll sort it out."
+	Text 			= 	"Mercenaries, like tools in your kit, can turn the tide of your quests. Each one is unique, with their own strengths and quirks. For a fee, you can \01265523enhance\01200000 their abilities and \01265523summon\01200000 them to your side a few times each \01265523day\01200000. Should they fall or wander off, come back to me. I'll sort it out."
 }
 
 Merc_NPCTopicGuildmasterDeclare()

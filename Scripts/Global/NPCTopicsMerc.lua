@@ -30,7 +30,7 @@ local function Merc_NPCTopicGetUpgrade(Merc, t)
         
     end
 
-    return string.format("%s (%d/3) (%s)", t.UpgradeName, Level, Price) 
+    return string.format("%s (%d/3) \01265523(%s)", t.UpgradeName, Level, Price) 
 end
 
 local function Merc_NPCTopicUpgradeDone(Merc, t)
@@ -140,7 +140,7 @@ local function NPCMercDeclare(Merc)
         Branch      =   "",
         GetTopic    =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
-                            return string.format("Fight (%d)", MercSaveData.FightsLeft) 
+                            return string.format("Fight \01265523(%d)", MercSaveData.FightsLeft) 
                         end,
         CanShow     =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
@@ -183,7 +183,7 @@ local function NPCMercDeclare(Merc)
                             return IsQuestNPCActive() and MercSaveData.Dead == true
                         end,
         "Dead",
-        "Apparently, this mercenary is dead. Seek help from Guildmaster. ",
+        "Apparently, this mercenary is \01264105dead\01200000. Seek help from Guildmaster.",
     }
 
     NPCTopic{

@@ -138,9 +138,9 @@ NPCTopicTeachSkillBase = {
     QuestGold		=	400,
     SkillType       =   const.Skills.Staff,
     SkillTxtDone    =   "Well done! You've taken the first step towards mastering the skill. Keep honing your abilities, and you'll soon become a true expert!",
-    SkillTxtHasIt   =   "Ah, I see you're already proficient in the skill! Your prowess is evident. If there's anything else you need to refine your skills, let me know.",
-    SkillTxtDoesnt  =   "It appears you don't have enough gold to learn the skill at the moment. Return when you have the required amount, and I'll be happy to share my knowledge with you.",
-    SkillTxtBadClass=   "Unfortunately, your current class prevents you from learning this skill. Each class has its own strengths and limitations. Seek skills that align with your chosen profession."
+    SkillTxtHasIt   =   "Ah, I see you're \01265523already proficient\01200000 in the skill! Your prowess is evident. If there's anything else you need to refine your skills, let me know.",
+    SkillTxtDoesnt  =   "It appears you \01265523don't have enough gold\01200000 to learn the skill at the moment. Return when you have the required amount, and I'll be happy to share my knowledge with you.",
+    SkillTxtBadClass=   "Unfortunately, \01265523your current class prevents you from learning this skill\01200000. Each class has its own strengths and limitations. Seek skills that align with your chosen profession."
 }
 
 function NPCTopicTeachSkill(t)
