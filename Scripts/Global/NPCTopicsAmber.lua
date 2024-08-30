@@ -1595,7 +1595,7 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == true),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == true or evt.Cmp("Counter2", 24 * 5) == true),
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
@@ -1604,6 +1604,7 @@ Quest{
 							for i = 0, 8, 1 do
 								evt.GiveItem(1, const.ItemType.Potion_, 222)
 							end
+							evt.Set("Counter2", 0)
 							Timer(
 								function()
 									vars.MiscAmberIsland.BulkCurePotionSale = true
@@ -1614,7 +1615,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Buy more! (Cure Potion)",
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == false),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == false and evt.Cmp("Counter2", 24 * 5) == false ),
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
 }
 
@@ -1626,7 +1627,7 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == true),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == true or evt.Cmp("Counter3", 24 * 5) == true),
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
@@ -1635,6 +1636,7 @@ Quest{
 							for i = 0, 8, 1 do
 								evt.GiveItem(2, const.ItemType.Potion_, 223)
 							end
+							evt.Set("Counter3", 0)
 							Timer(
 								function()
 									vars.MiscAmberIsland.BulkManaPotionSale = true
@@ -1645,7 +1647,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	D,
 	Topic 			= 	"Buy more! (Mana Potion)",
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == false),
+	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == false and evt.Cmp("Counter3", 24 * 5) == false),
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
 }
 ------------------------------------------------------------------------------

@@ -6,7 +6,7 @@ Author: Henrik Chukhran, 2022 - 2024
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug      = true
+Game.Debug      = false
 
 -- New Game
 Game.NewGameMap = Game.Debug and "hub.blv" or "amber.odm"
@@ -22,6 +22,12 @@ function events.NewGameMap()
     Party.LookAngle    = 1
     Party.Gold         = 0
     Party.Food         = 2
+
+    -- Debug mode essentials
+    if Game.Debug == true then
+        Party.Gold = 99999
+        Party.Food = 100
+    end
 end 
 
 function events.DeathMap(t)
@@ -60,10 +66,8 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 
     ArcomageRequireDeck(false)
 
-    -- Debug mode essentials
+    -- God mode for debugging
     if Game.Debug == true then
-        evt.Add("Gold",99999)
-        Party.Food = 100
         god()
     end
 

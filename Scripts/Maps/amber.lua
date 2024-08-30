@@ -87,6 +87,12 @@ function events.AfterLoadMap(WasInGame)
         vars.MiscAmberIsland.LuckyCoinSpawn = true
         SummonItem(782,-3676, 6053, 456, 0)
     end
+
+    -- Just-in-case fix for Otho Robeson (transfering from prison)
+    if vars.QuestsAmberIsland.QVarRevenge == 6 then
+        evt.MoveNPC{NPC = 496, HouseId = 568}
+        vars.QuestsAmberIsland.QVarRevenge = 7
+    end
 end
 
 -- CHESTS
