@@ -29,7 +29,7 @@ STownHall               = {
     BountyScaleBonus    = 1.0,
     BountyStatus        = const.TownHall.BountyStatus.Vacant,
     BountyTimeStart     = 0,
-    BountyTimeRefill    = 1     -- days
+    BountyTimeRefill    = 2     -- days
 }
 
 -- Events
