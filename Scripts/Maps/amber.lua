@@ -93,6 +93,7 @@ function events.AfterLoadMap(WasInGame)
         evt.MoveNPC{NPC = 496, HouseId = 568}
         vars.QuestsAmberIsland.QVarRevenge = 7
     end
+
 end
 
 -- CHESTS
@@ -336,7 +337,7 @@ end
 -- SHOPS
 ------------------------------------------------------------------------------
 -- Tavern: Powder Keg Inn
-evt.HouseDoor(65, 249)
+evt.HouseDoor(65, 120)
 
 -- Training: Amber Training Grounds
 evt.HouseDoor(67, 91)
@@ -354,7 +355,7 @@ end
 evt.HouseDoor(71, 251)
 
 -- Tavern: Crusty Eagle Inn
-evt.HouseDoor(73, 250)
+evt.HouseDoor(73, 117)
 
 -- Smith: Razorsharp
 evt.HouseDoor(77, 3)

@@ -1025,7 +1025,7 @@ Quest{
 	QuestGold 		= 	500,
 	Done			=	function(t)
 							evt.MoveNPC{NPC = 491, HouseId = 0}
-							evt.MoveNPC{NPC = 477, HouseId = 250}
+							evt.MoveNPC{NPC = 477, HouseId = 117}
 						end,
 	CanShow			=	(|| vars.Quests.AmberQuest11 ~= "Done")
 }
