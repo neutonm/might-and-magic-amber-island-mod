@@ -3,6 +3,34 @@ Utility & Helpers
 Author: Henrik Chukhran, 2022 - 2024
 ]]
 
+function GetDifficulty()
+    if vars.Difficulty == nil then
+        debug.Message("Shouldn't be null")
+    end
+
+    return vars.Difficulty
+end
+
+function IsWarrior()
+    return GetDifficulty() == 1
+end
+
+function DoGameAction(a, p1, p2, now)
+    mem.u4[0x50CA50] = 1
+
+    local function act(t)
+        t.Action = a  or 0
+        t.Param  = p1 or 0
+        t.Param2 = p2 or 0
+        events.Remove("Action", act)
+    end
+    events.Action = act
+
+    if now then
+        mem.call(0x4304D6)
+    end
+end
+
 function RemoveMonster(mon)
 
     if mon then

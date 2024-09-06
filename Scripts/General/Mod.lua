@@ -15,19 +15,6 @@ Game.TitleTrack = 22
 function events.NewGameMap()
     
     XYZ(Party,-17116,-21798,449)
-
-    --XYZ(Party, -148,3,0)
-    --XYZ(Party, -15484, -21868, 256)
-    Party.Direction    = 354 --2044 --649
-    Party.LookAngle    = 1
-    Party.Gold         = 0
-    Party.Food         = 2
-
-    -- Debug mode essentials
-    if Game.Debug == true then
-        Party.Gold = 99999
-        Party.Food = 100
-    end
 end 
 
 function events.DeathMap(t)
@@ -66,8 +53,10 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 
     ArcomageRequireDeck(false)
 
-    -- God mode for debugging
+    -- Debug mode essentials
     if Game.Debug == true then
+        evt.Add("Gold",99999)
+        Party.Food = 100
         god()
     end
 
@@ -101,6 +90,11 @@ function events.AfterLoadMap(WasInGame)
 end
 
 function events.BeforeNewGameAutosave()
+
+    -- Difficulty
+    if vars.Difficulty == nil then
+        vars.Difficulty = Game.SelectedDifficulty
+    end
 
     -- Amber Island Variables
     if vars.QuestsAmberIsland == nil then
@@ -136,13 +130,27 @@ function events.BeforeNewGameAutosave()
         }
     end
 
-    -- Clear inventory
-    for id = 0, 1024 do
-        for p = 0, Party.Count - 1 do
-            if evt[p].Cmp("Inventory", id) then
-               evt[p].Sub("Inventory", id)
+    -- Warrior mode startup adjustments
+    if IsWarrior() then
+
+        -- No stuff
+        Party.Gold         = 0
+        Party.Food         = 2
+        
+        -- Clear inventory
+        for id = 0, 1024 do
+            for p = 0, Party.Count - 1 do
+                if evt[p].Cmp("Inventory", id) then
+                evt[p].Sub("Inventory", id)
+                end
             end
         end
+    end
+
+    -- Debug mode essentials
+    if Game.Debug == true then
+        Party.Gold = 99999
+        Party.Food = 100
     end
 
     -- Bow and repair for everyone
