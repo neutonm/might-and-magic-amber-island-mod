@@ -2665,3 +2665,13 @@ pirate_warrior Attack	8012	swap	-
 pirate_warrior Death	8013	swap	-
 pirate_warrior Wince	8014	swap	-
 pirate_warrior Aware	8015	0	-
+ambientSwamp	8016	0	x
+ambientForest	8017	0	x
+ambientWind	8018	0	x
+	0	system	-
+	0	system	-
+	0	system	-
+	0	system	-
+	0	system	-
+	0	system	-
+	0	system	-
