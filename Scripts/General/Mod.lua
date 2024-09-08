@@ -66,6 +66,13 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     end
 end
 
+-- Disable intro movie
+function events.ShowMovie(t)
+    if t.Name:lower() == "intro post" then
+        t.Allow = false
+    end
+end
+
 function events.MonsterKilled(mon, monIndex, defaultHandler)
     
 end
