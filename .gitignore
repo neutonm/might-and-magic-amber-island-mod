@@ -21,10 +21,11 @@
 !/Data/new.lod
 !/DataFiles/
 !/ExeMods/
-!/Language/
 !/Misc/
 !/Scripts/
 !/Tests/
+!/SOUNDS/
+!/SOUNDS/new.Audio.snd
 
 # Allow all subdirectories and their contents
 !/Data/Tables/**
