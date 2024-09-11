@@ -16,7 +16,7 @@ function CallDifficultySelector()
             Pause2      =   true, 
             MimicScreen =   7 and nil, 
             CloseSound  =   true, 
-            Localize    =   {Text_Back = ""},
+            Localize    =   {Text_Back = "Background"},
             OnActivate  =   |t| t.NoDraw = false,
     }
     dlg:Add{
@@ -27,7 +27,8 @@ function CallDifficultySelector()
             Right       =   0, 
             Bottom      =   0, 
             Icons       =   {Normal="bgdiff.pcx" }, 
-            DrawStyle   =   true},
+            DrawStyle   =   true
+        },
         {
             Left        =   640/2-80,
             Top         =   16, 
