@@ -31,6 +31,12 @@
 !/Tests/
 !/SOUNDS/
 !/SOUNDS/new.Audio.snd
+!/Music/21.mp3
+!/Music/22.mp3
+!/Music/23.mp3
+!/Music/24.mp3
+!/Music/25.mp3
+!/Music/26.mp3
 
 # Allow all subdirectories and their contents
 !/Data/Tables/**
