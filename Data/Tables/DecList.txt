@@ -227,6 +227,3 @@
 225	tree44	tree	0	256	165	0	tree44	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
 226	tree45	tree	0	256	165	0	tree45	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
 227	tree46	tree	0	256	165	0	tree46	-	-	-	-	-	-	-	-	-	-	-	0	0	0	0
-228	Snd_Swamp	test	0	0	0	0	null	-	x	-	-	-	-	-	-	-	-	-	8016	0	0	0
-229	Snd_Forest	test	0	0	0	0	null	-	x	-	-	-	-	-	-	-	-	-	8017	0	0	0
-230	Snd_Wind	test	0	0	0	0	null	-	x	-	-	-	-	-	-	-	-	-	8018	0	0	0

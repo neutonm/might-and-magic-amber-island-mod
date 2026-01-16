@@ -125,11 +125,25 @@ local function LoadHardcoreStuff()
     -- ReloadDataTables()
 end
 
+local function UnloadHardcoreStuff()
+
+    -- unload lods
+
+    for p in pairs(CurLods) do
+        Game.Dll.FreeCustomLod(p)
+        CurLods[p] = nil
+    end
+
+    ReloadDataTables()
+end
+
 -- Events
 function events.BeforeLoadMap(WasInGame, WasLoaded)
     if not WasInGame then
         if IsWarrior() then
             LoadHardcoreStuff()
+        else
+            UnloadHardcoreStuff()
         end
     end
 end

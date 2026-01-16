@@ -56,10 +56,34 @@ local TXT = Localize{
     [49] = "You probably shouldn't do that.",
     [50] = "+ 10 hit and spell points",
     [51] = "+5 Elemental Resistance (Temporary)",
-    [52] = "Skull"
+    [52] = "Skull",
+    [53] = "The Door is Locked"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
+
+function evt.ShopDoor(evtId, houseId)
+	evt.house[evtId] = houseId
+	evt.map[evtId] = function()
+
+        if IsWarrior() and vars.MiscAmberIsland.ClosedShops == true then
+            evt.FaceAnimation{Player = "Current", Animation = 18}
+            evt.StatusText(53) -- "The Door is Locked"
+
+            -- Notify about wtf is happening in 10sec
+            if evt.Cmp("MapVar41", 1) == false then
+                evt.Add("MapVar41", 1)
+                Timer(function()
+                    evt.SpeakNPC(541)
+                end, 10*const.Minute, false)
+                return
+            end
+
+            return
+        end
+		evt.EnterHouse(houseId)
+	end
+end
 
 -- EVENTS
 ------------------------------------------------------------------------------
@@ -76,16 +100,20 @@ function events.AfterLoadMap(WasInGame)
     evt.SetNPCGroupNews(36, 40)
     evt.SetNPCGroupNews(38, 42)
 
+    local X = IsWarrior() and -3935 or -3676
+    local Y = IsWarrior() and 4758  or 6053
+    local Z = IsWarrior() and 704   or 456
+
     -- Amber Map: Anti-fall through-roof bug workaround
     if vars.MiscAmberIsland.LuckyCoinSpawn == true then
         for _, obj in Map.Objects do
             if obj.Item.Number == 782 then
-                XYZ(obj, -3676, 6053, 456, 0)
+                XYZ(obj, X, Y, Z, 0)
             end
         end
     else
         vars.MiscAmberIsland.LuckyCoinSpawn = true
-        SummonItem(782,-3676, 6053, 456, 0)
+        SummonItem(782, X, Y, Z, 0)
     end
 
     -- Just-in-case fix for Otho Robeson (transfering from prison)
@@ -227,7 +255,7 @@ end
 -- Fountain: Amber Town
 evt.map[28] = function()
     
-    if evt.Cmp("Gold", 0) and evt.Cmp("MapVar1", 1) == false then
+    if evt.Cmp("MapVar1", 1) == false and not IsWarrior() then
         evt.Add("Gold", 500)
         evt.Set("MapVar1", 1)
     else
@@ -358,16 +386,16 @@ evt.HouseDoor(71, 251)
 evt.HouseDoor(73, 117)
 
 -- Smith: Razorsharp
-evt.HouseDoor(77, 3)
+evt.ShopDoor(77, 3)
 
 -- Armorer: Steel Bucket
-evt.HouseDoor(75, 17)
+evt.ShopDoor(75, 17)
 
 -- Magician: Odds and Ends
-evt.HouseDoor(81, 41)
+evt.ShopDoor(81, 41)
 
 -- Alchemist: Potions of Payne
-evt.HouseDoor(79, 53)
+evt.ShopDoor(79, 53)
 
 -- Guild: Fire
 evt.HouseDoor(89, 140)
@@ -518,6 +546,56 @@ end
 -- North town basin
 evt.map[165] = function()
     evt.StatusText(4) -- Refreshing
+end
+
+-- Goblin Ambush
+evt.map[166] = function()
+
+    if not IsWarrior() or evt.Cmp("MapVar40", 1) == true then
+        return
+    end
+
+    evt.Set("MapVar40", 1)
+    GoblinArray = {
+        
+        {X = -17828,  Y = -39,  Z = 0},
+        {X = -17571,  Y = -44,  Z = 0},
+        {X = -17294,  Y = -87, Z = 0},
+        {X = -16890,  Y = -304, Z = 0},
+        {X = -17198,  Y = -3289, Z = 0},
+        {X = -17416,  Y = -3737, Z = 0},
+        {X = -17887,  Y = -3952, Z = 0},
+        {X = -18353,  Y = -3591, Z = 0},
+    }
+
+    for i, goblin in ipairs(GoblinArray) do
+        local mon = SummonMonster(73, goblin.X , goblin.Y, goblin.Z, true)
+    end
+
+    evt.SetFacetBit(123,const.FacetBits.Untouchable,true)
+
+    evt.SpeakNPC(536) -- Goblin Raider
+end
+
+-- Tower Cellar mini-dungeon
+evt.hint[167] = evt.str[11]
+evt.hint[168] = evt.str[15]
+evt.map[168] = function()
+    
+    evt.MoveToMap(-41,369,0,2,1,1,193,1,"towercellar.blv")
+end
+
+-- Swamp Tree Stump (south-eastern part of archmage residence island, near small pool)
+evt.map[169] = function()
+
+    if not IsWarrior() then return end
+
+    if evt.Cmp("MapVar42", 1) == false then
+        evt.Set("MapVar42", 1)
+        evt.Add("Inventory", 781)
+        evt.FaceAnimation{Player = "Current", Animation = 14}
+        evt.Add("Experience", 0)
+    end
 end
 
 ------------------------------------------------------------------------------

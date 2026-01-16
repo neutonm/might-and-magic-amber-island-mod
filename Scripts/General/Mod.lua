@@ -99,9 +99,7 @@ end
 function events.BeforeNewGameAutosave()
 
     -- Difficulty
-    if vars.Difficulty == nil then
-        vars.Difficulty = Game.SelectedDifficulty
-    end
+    vars.Difficulty = Game.SelectedDifficulty
 
     -- Amber Island Variables
     if vars.QuestsAmberIsland == nil then
@@ -123,6 +121,7 @@ function events.BeforeNewGameAutosave()
             LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
             ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
             AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
+            ClosedShops             = false,    -- Warrior Mode: Shops are closed until merchant guild fee is payed
         }
     end
 
@@ -152,6 +151,11 @@ function events.BeforeNewGameAutosave()
                 end
             end
         end
+
+        -- Whoops, shop owners are discriminating against adventurers
+        vars.MiscAmberIsland.ClosedShops = true
+
+        evt.MoveNPC(540,251) -- Thomas Guilden 
     end
 
     -- Debug mode essentials

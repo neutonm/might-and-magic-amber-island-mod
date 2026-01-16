@@ -25,6 +25,8 @@ local QVarRevengeState =
 -- Maximus (Mayor)
 QuestNPC = 447
 
+local BlackPotionRequiredIngredients = IsWarrior() and 6 or 3
+
 Greeting{
 	"Greetings adventurers! I wasn't sure you would show up, but here you are.",
 	"Ah, adventurers, you're back. Any good news?",
@@ -232,17 +234,17 @@ Quest{
 	Slot 			= 	C,
 	QuestItem 		= 
 	{
-		{200,201,202,203,204, Count = 3}, -- Red 
-		{205,206,207,208,209, Count = 3}, -- Blue
-		{210,211,212,213,214, Count = 3}, -- Yellow
+		{200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red 
+		{205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
+		{210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
 	},
 	Texts 			= 
 	{		
 		Topic 		= 	"Make: Black Potion (Personality)",
 		Done 		= 	"Perfect, this looks like everything. Give me a moment to mix them together...\n\n*After a short wait, she returns with a shimmering, \01265523black potion of profound Personality.\01200000*",
 		TopicDone 	= 	false,
-		Give 		= 	"As an expert alchemist, I specialize in crafting the finest potions, including the renowned \01265523Potion of Personality\01200000. Provide me with the necessary ingredients, and I'll prepare one for you.\n\nI require \01265523three\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.",
-		Undone 		= 	"Don't forget, I need \01265523three\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.",
+		Give 		= 	string.format("As an expert alchemist, I specialize in crafting the finest potions, including the renowned \01265523Potion of Personality\01200000. Provide me with the necessary ingredients, and I'll prepare one for you.\n\nI require \01265523%d\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
+		Undone 		= 	string.format("Don't forget, I need \01265523%d\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
 	},
 	Exp 			= 	500,
 	RewardItem 		= 	268, -- Pure Personality
@@ -949,17 +951,17 @@ Quest{
 	Slot 			= 	C,
 	QuestItem 		= 
 	{
-		{200,201,202,203,204, Count = 3}, -- Red 
-		{205,206,207,208,209, Count = 3}, -- Blue
-		{210,211,212,213,214, Count = 3}, -- Yellow
+		{200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red 
+		{205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
+		{210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
 	},
 	Texts 			= 
 	{		
 		Topic 		= 	"Make: Black Potion (Intelligence)",
 		Done 		= 	"You've already gathered all the ingredients? Excellent. Allow me a moment to prepare the potion...\n\n*After a brief period, she returns and presents you with a dark, swirling \01265523Potion of Pure Intelligence\01200000.*",
 		TopicDone 	= 	false,
-		Give 		= 	"I'm not exactly a master alchemist, but I do know how to concoct the \"specialty of the house\": the \01265523Potion of Pure Intelligence\01200000. If you provide the necessary ingredients, I'll be able to brew one for you.\n\nI require \01265523three\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.",
-		Undone 		= 	"Remember, I need \01265523three\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.",
+		Give 		= 	string.format("I'm not exactly a master alchemist, but I do know how to concoct the \"specialty of the house\": the \01265523Potion of Pure Intelligence\01200000. If you provide the necessary ingredients, I'll be able to brew one for you.\n\nI require \01265523%d\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
+		Undone 		= 	string.format("Remember, I need \01265523%d\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
 	},
 	Exp 			= 	500,
 	RewardItem 		= 	266, -- Pure Intellect
@@ -1099,6 +1101,15 @@ KillMonstersQuest{
 	Exp 			= 	2500, 
 	Done			=	function(t) evt.Subtract("Reputation", 5) end,
 }
+
+NPCTopic{
+	Slot 			= 	C,
+	Topic 			= 	"Traps",
+	CanShow			= 	(|| IsWarrior() ),
+	Text 			= 	"Traps, you ask? Well, me and my brother tried to deal with the rat problem ourselves. Built traps, baited them just right, and thought we had it all handled. Problem is, these rats are smarter and meaner than we expected. They broke free of most of our traps or outright ignored them.\n\n" ..
+						"The traps are still there, though, and they will catch more than rats if you are not careful. Watch your step down there. Last thing we need is you getting caught in one of our contraptions on top of everything else."
+}
+
 ------------------------------------------------------------------------------
 -- Harvey Yap
 
@@ -2133,6 +2144,13 @@ NPCTopic{
 	Text 			= 	"The Archmage's Residence is a grand house in the \01265523southwestern part of Swamp Island\01200000. Inside, it's quite lavish, but don't let that fool you: it's teeming with elemental guards. Tough ones, and oddly, they seem at odds with each other. We tried to locate the Archmage but couldn't find him, only this blasted \01265523teleport stone\01200000. Our best guess was he's holed up in the \01265523central workshop.\01200000"
 }
 
+NPCTopic{
+	Slot 			= 	C,
+	Topic			=	"Quest: Investigation?",
+	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished. But when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
+	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil and IsWarrior())
+}
+
 Quest{
 	Slot 			= 	C,
 	Texts 			= 
@@ -2144,7 +2162,7 @@ Quest{
 	NeverGiven		=	true,
 	RewardItem 		= 	781,
 	Exp				=	100,
-	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil)
+	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil and not IsWarrior())
 }
 
 NPCTopic{
@@ -2342,3 +2360,72 @@ NPCTopic{
 	Topic 			= 	"Trade and Mist",
 	Text 			= 	"This island, smack in the center of the vast ocean, serves as a pivotal point between the two continents. Most ships on intercontinental voyages make a stop here to resupply. However, the recent mist crisis has made it quite a challenge to reach. Navigating these waters has become a task only the bravest dare tackle. Lucky for me, the crew of the Black Betty don't lack for courage."
 }
+
+------------------------------------------------------------------------------
+-- Goblin Raider
+QuestNPC 			= 	536
+
+Greeting{
+	"Well, hello there!\n\nCongratulations, you've won a prize - a special dinner with the \01265523Troll Warchief\01200000 himself! And guess what? You're the main course! Hahaha! Alright, boys, let's show them to their seats!\n\nGet 'em!"
+}
+
+Quest{
+	Slot 			= 	A,
+	Texts 			=
+	{
+		Topic 		= 	"Yikes!",
+	},
+	NeverGiven		=	true,
+	Done			=	function(t) ExitScreen() end
+}
+
+------------------------------------------------------------------------------
+-- Thomas Guilden
+QuestNPC 			= 	540
+
+Greeting{
+	"Greetings, travelers. Thomas Guilden, clerk of the bank and occasional runner of errands. If you've come seeking assistance, you're in capable hands. How may I help you today?"
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			=	"Thieves",
+	Text			=	"Adventurers have flooded Amber Island lately, all chasing the same thing - riches and fame by solving the archmage crisis. But when the work runs dry and the coin runs out, desperation kicks in. A lot of them start resorting to theft, smuggling, or worse.\n\n"..
+						"That's why we recommend purchasing the \01265523Merchant Guild's Seal of Approval\01200000 - it shows you're trustworthy and have the means to pay."
+}
+
+Quest{
+	Slot 			= 	B,
+	Texts 			= 
+	{
+		Topic 		= 	"Buy: Seal of Approval for 1600g",
+		Done 		= 	"Well done. With this, the merchants will see you as trustworthy customers. Carry it with you, and you'll find doors opening where they were once shut. Best of luck out there.",
+		Undone 		= 	"I'm afraid you don't have enough to cover the cost. Come back when you've gathered the required funds. Until then, the merchants likely won't take any chances.",
+		After 		= 	"Ah, it's good to see the seal is in capable hands. I trust it's been useful in easing your dealings with the locals. Anything else I can assist with?"
+	},
+	NeverGiven 		= 	true,
+	QuestGold 		= 	1600,
+	Exp				=	250,
+	Done			=	function(t) vars.MiscAmberIsland.ClosedShops = false end
+}
+
+------------------------------------------------------------------------------
+-- Thomas Guilden (Outside)
+QuestNPC 			= 	541
+
+Greeting{
+	"*Thomas Guilden steps forward, adjusting his well-worn satchel with a polite smile.*\n\n"..
+	"Ah, I couldn't help but notice the door shutting in your faces. Amber Island is overrun with adventurers these days - most of them broke and turning to theft. It's no wonder shopkeepers have grown wary.\n\n"..
+	"But if you're not like the rest, prove it. Head to the \01265523bank\01200000 and purchase the \01265523Merchant Guild's Seal of Approval\01200000. It's the only way to show the locals you're here to trade, not steal. What do you say?"
+}
+
+Quest{
+	Slot 			= 	A,
+	Texts 			=
+	{
+		Topic 		= 	"Ok...",
+	},
+	NeverGiven		=	true,
+	Done			=	function(t) ExitScreen() end
+}
+
