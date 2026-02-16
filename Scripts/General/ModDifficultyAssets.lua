@@ -87,23 +87,23 @@ local function LoadHardcoreStuff()
     mem.call(0x4763E4, 0)  -- awards
 
     -- Custom MONSTERS.txt
-    local hdr           = NameHeader({[-1] = 'Monster'}, Game.MonstersTxt)
-    local f             = StructsArray(Game.MonstersTxt, nil, 
-    {
-        Resisable       = true,
-        RowHeaders      = hdr, 
-        IgnoreFields    = {Name = true, Picture = true}
-    })
-    ReadWriteDataTable(AppPath..[[Data\Tables\MonstersHard.txt]], f)
+    -- local hdr           = NameHeader({[-1] = 'Monster'}, Game.MonstersTxt)
+    -- local f             = StructsArray(Game.MonstersTxt, nil, 
+    -- {
+    --     Resisable       = true,
+    --     RowHeaders      = hdr, 
+    --     IgnoreFields    = {Name = true, Picture = true}
+    -- })
+    -- ReadWriteDataTable(AppPath..[[Data\Tables\MonstersHard.txt]], f)
 
     -- Custom MAPSTATS.txt
-    local hdr           = NameHeader({[-1] = 'Map'}, Game.MapStats)
-    local f             = StructsArray(Game.MapStats, nil, 
-    {
-        Resisable       = false,
-        RowHeaders      = hdr, 
-    })
-    ReadWriteDataTable(AppPath..[[Data\Tables\MapstatsHard.txt]], f)
+    -- local hdr           = NameHeader({[-1] = 'Map'}, Game.MapStats)
+    -- local f             = StructsArray(Game.MapStats, nil, 
+    -- {
+    --     Resisable       = false,
+    --     RowHeaders      = hdr, 
+    -- })
+    -- ReadWriteDataTable(AppPath..[[Data\Tables\MapstatsHard.txt]], f)
 
     -- WIP:
     -- table.copy({

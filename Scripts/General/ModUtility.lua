@@ -39,6 +39,34 @@ function RemoveMonster(mon)
     end
 end
 
+function GetDistanceBetweenPoints(a, b)
+
+	local diff = {
+        X = b[0] - a[0],
+        Y = b[1] - a[1],
+        Z = b[2] - a[2]
+    }
+
+    return math.sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z)
+end
+
+function GetDistanceBetweenObjects(a, b)
+
+	if a.Pos == nil then
+        
+        print("GetDistanceBetweenObjects Error: a isn't object\n")
+        return 0
+    end
+
+    if b.Pos == nil then
+        
+        print("GetDistanceBetweenObjects Error: b isn't object\n")
+        return 0
+    end
+
+    return GetDistanceBetweenPoints(a.Pos, b.Pos)
+end
+
 function MakeHostile(idStart, idEnd)
 
     idEnd = idEnd or idStart

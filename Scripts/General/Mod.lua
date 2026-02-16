@@ -111,6 +111,7 @@ function events.BeforeNewGameAutosave()
             QVarRansomTaken         = false,    -- Quest: Ransom, NPC taken 
             QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
                                                 -- reporting (4), reported (5), released (6), rewarded (7)
+            QVarGreeneRescued       = false,    -- Quest (Warrior): 
         }
     end
     if vars.MiscAmberIsland == nil then
@@ -155,7 +156,8 @@ function events.BeforeNewGameAutosave()
         -- Whoops, shop owners are discriminating against adventurers
         vars.MiscAmberIsland.ClosedShops = true
 
-        evt.MoveNPC(540,251) -- Thomas Guilden 
+        evt.MoveNPC(540,251)    -- Thomas Guilden
+        evt.MoveNPC(515,0)      -- Robert Greene (Out of swamp camp)
     end
 
     -- Debug mode essentials

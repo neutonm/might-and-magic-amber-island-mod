@@ -39,7 +39,7 @@ Quest{
 	{		
 		Topic 		= 	"Story Quest: Legate",
 		Give		=	"Many have stood where you stand, seeking to prove themselves. I need more than just willingness; I need proof of capability. I'll give you a chance to prove you're different."..
-						"\n\nYour first task will be a simple yet vital one. Travel to the knight's camp located in the \01265523southeastern swamp of Amber Island\01200000. There, you will find \01265523Sir Greene\01200000. Deliver this letter to him and return with his response."..
+						"\n\nYour first task will be a simple yet vital one. Travel to the knight's camp located in the \01265523southeastern swamp of Amber Island\01200000.\n\nThere, you will find \01265523Sir Greene\01200000. Deliver this letter to him and return with his response."..
 						"Consider this a test of your reliability. Succeed, and perhaps you'll prove yourselves worthy of more substantial undertakings.",
 		Done 		= 	"*Maximus takes the letter and reads it carefully.*\n\nWell done. Delivering a message to Sir Greene may be a small task, but you've proven your worthiness for more significant challenges.\n\nFor now, \01265523our payment is my trust.\01200000",
 		Undone 		= 	"Well? Sir Greene awaits your arrival in the \01265523southeastern swamp\01200000. I expect you to bring me his response. Off you go!",
@@ -48,7 +48,8 @@ Quest{
 	Exp				=	500,
 	QuestItem		=	795,
 	CanShow			= 	(|| vars.Quests.StoryQuest1 ~= "Done"),
-	Give			=	function(t) evt.Add("Inventory", 794) end
+	Give			=	function(t) evt.Add("Inventory", 794) end,
+	Done			=	function(t) evt.Subtract("Inventory", 794) end -- just in case, remove mayor letter
 }
 
 Quest{
@@ -268,6 +269,15 @@ NPCTopicTeachSkill(
 	-- SkillTxtDoesnt 	= "Not enough gold",
 	-- SkillTxtBadClass= "Wrong class!"
 })
+
+NPCTopic{
+	Slot 			= 	D,
+	Topic 			= 	"Story Quest: Legate?",
+	Text			=	"Sir Robert? He had more wine than sense last night...\n\n"..
+						"Mumbled something about stepping out to relieve himself and wandered toward the old ruined tower.\n\n"..
+						"He never came back.",
+	CanShow			= 	(|| vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior())
+}
 
 ------------------------------------------------------------------------------
 -- Woodrow Marley  (Axe Expert)
@@ -704,6 +714,15 @@ NPCTopicTeachSkill(
 	-- SkillTxtDoesnt 	= "Not enough gold",
 	-- SkillTxtBadClass= "Wrong class!"
 })
+
+NPCTopic{
+	Slot 			= 	D,
+	Topic 			= 	"Sir Greene",
+	Text 			= 	"Sir Greene? A decent captain and a proud one.Sharp mind, steady blade.\n\n"..
+						"But give him enough wine and the campfire tales grow louder by the minute. Never a dull night when he's celebrating."
+
+}
+
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (inn; Unarmed Expert)
@@ -1774,18 +1793,21 @@ NPCTopic{
 -- Robert Greene
 QuestNPC 			= 	515
 
+Greeting{
+	IsWarrior() and "Ah, you again. The ankle mends, and the camp stands firm. I trust your duties progress as they should." or ""
+}
+
 NPCTopic{
 	Slot 			= 	A,
 	Topic 			= 	"Lizards",
 	Text 			= 	"These swamp lizards are the real deal when it comes to local predators. Surprisingly, they're \01265523missing\01200000 the \01265523petrifying ability\01200000 of their mainland cousins.",
 }
 
-
 Quest{
 	Slot 			= 	B,
 	Texts 			= 
 	{		
-		Topic 		= 	"Quest: Legate",
+		Topic 		= 	"Story Quest: Legate",
 		TopicDone 	= 	false,
 		Done 		= 	"Upon receiving the letter, Sir Greene's expression is focused and serious. Without uttering a single word, he begins to pen a response, the quill scratching quickly across the parchment. Moments later, he finishes, folds the letter, and seals it before handing it back to the heroes.\n\nThen, breaking his silence, he says, \"Hurry, bring this back to the mayor as soon as possible.\"",
 		Undone 		= 	"If the Mayor tasked you to deliver a letter to me, where is the letter?",
@@ -1794,13 +1816,36 @@ Quest{
 	RewardItem		=	795,
 	QuestItem 		= 	794,
 	Exp				=	250,
-	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given"),
+	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given" and not IsWarrior()),
+	Done			=	function(t)
+							evt.Subtract("Reputation", 5) 
+						end
+}
+
+Quest{
+	Slot 			= 	C,
+	Texts 			= 
+	{		
+		Topic 		= 	"Story Quest: Legate",
+		TopicDone 	= 	false,
+		Done 		= 	"Upon receiving the letter, Sir Greene's expression is focused and serious. "..
+						"Without uttering a single word, he begins to pen a response, the quill scratching quickly across the parchment. "..
+						"Moments later, he finishes, folds the letter, and seals it before handing it back to the heroes.\n\n"..
+						"Then, breaking his silence, he says, \"Hurry, bring this back to the mayor as soon as possible.\"\n\n"..
+						"He pauses, then adds in a lower voice, \"And spare the Mayor the \01265523unnecessary details\01200000 of where you found me. Tell him I was inspecting the ruins.\"",
+		Undone 		= 	"If the Mayor tasked you to deliver a letter to me, where is the letter?",
+	},
+	NeverGiven		=	true,
+	RewardItem		=	795,
+	QuestItem 		= 	794,
+	Exp				=	250,
+	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given" and IsWarrior()),
 	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
 Quest{
 	BaseName 		= 	"AmberQuest3",
-	Slot 			= 	C,
+	Slot 			= 	D,
 	Texts 			= 
 	{		
 		TopicGiven 	= 	"Quest: Worrying Mother",
@@ -1814,6 +1859,134 @@ Quest{
 	QuestItem 		= 	783,
 	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
+
+NPCTopic{
+	Slot 			= 	E,
+	Topic 			= 	"Rescued!",
+	Text 			= 	"You have my thanks. Your actions today reflect well upon you - and upon the camp. I will not forget the service you have done here.",
+	CanShow			=	function(t) return IsWarrior() end
+}
+
+-- Robert Greene #2: Trapped inside Watchtower Cellar dungeon (Warrior)
+QuestNPC 			= 	538
+
+local function _IsRobertGreeneNearby()
+
+	for _, mon in Map.Monsters do
+		if mon.NPC_ID == 538 then
+			local range = GetDistanceBetweenObjects(mon, Party)
+			if range < 450.0 then
+				return true
+			end
+		end
+	end
+
+	return false
+end
+
+Greeting{
+	"Ho there! You - by the rubble! Yes, you!\n\n" ..
+	"*He leans against the wall; spider corpses surround him.*\n\n" ..
+	"Good. Reinforcements. I expected as much.\n\n" ..
+	"Before you ask... no, I am not \01265523trapped\01200000. I am... temporarily delayed. " ..
+	"During reconnaissance, I met resistance. The matter is handled.\n\n"..
+	"I have severely dislocated my ankle. I require assistance to withdraw.",
+
+	"Ah, my rescuers... I'm glad to see you. Let's get the hell out of here and back to my tent in the south-eastern part of the swamp island camp."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Story Quest: Legate?",
+	Text 			= 	"Report? What report... ah. The Mayor.\n\n" ..
+						"*A faint scent of wine lingers.*\n\n" ..
+						"Very well. Assist me back to the camp and you shall have it. ",
+	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given")
+}
+
+NPCTopic{
+	Slot 			= 	B,
+	Topic 			= 	"Rescue?",
+	Text 			=   "Follow my route. I entered through the dwarven hideout behind the grated door, inside tower area.\n\n" ..
+						"Press the stud on the \01265523eighth step\01200000 from the ground. The grate will open in upper section of the tower.\n\n" ..
+						"Move carefully. The caves are infested.",
+	Ungive			=	function(t)
+
+							-- Hightlight button on 8th step
+							if Game.Map.Name == "watchtower.blv" then
+								evt.SetFacetBit(1,const.FacetBits.IsSecret, true)
+							end
+						end,
+	CanShow			= 	function(t)
+
+							if evt.Cmp("NPCs", 538) then
+								return false
+							end
+
+							return not _IsRobertGreeneNearby()
+						end
+}
+
+NPCTopic{
+	Slot 			= 	C,
+	Topic 			= 	"What are you doing here?",
+	Text 			= 	"How did I get here?\n\n" ..
+						"Oh, I went for... um, a bottle of dwarven wine. You see, dwarves build hidden holdouts to endure sieges for months. And what sustains morale in such times? Precisely. Wine!\n" ..
+						"So I inspected dwarven hideout.\n\n" ..
+						"While examining the racks, I noticed a crack in the wall.  Naturally, I investigated it with a pickaxe. " ..
+						"Behind it was a chest - and a concealed pit full of spiders. The floor gave way beneath me...\n\n" ..
+						"I killed several creatures, though the fall severely dislocated my ankle.\n\n" ..
+						"I then executed a tactical withdrawal into this barracks. Thank all the gods you arrived.",
+	CanShow			= 	function(t)
+
+							if evt.Cmp("NPCs", 538) then
+								return true
+							end
+
+							return _IsRobertGreeneNearby()
+						end,
+}
+
+NPCTopic{
+	Slot 			= 	D,
+	Topic 			= 	"Spiders",
+	Text 			= 	"These caves are swarming with enormous spiders. Fortunately, my armor spared me their poison.\n\n" ..
+						"The only path out leads straight through their nest ahead. " ..
+						"I would clear it myself, but my ankle limits my effectiveness.\n\n" ..
+						"You will have to fight through.",
+	CanShow			= 	function(t)
+
+							if evt.Cmp("NPCs", 538) then
+								return true
+							end
+
+							return _IsRobertGreeneNearby()
+						end,
+}
+
+NPCTopic{
+	Slot 			= 	E,
+	Topic 			= 	"Let's go!",
+	Ungive      	=   function(t)
+
+							evt.Add("NPCs", 538)
+							for _, mon in Map.Monsters do
+								if mon.NPC_ID == 538 then
+									RemoveMonster(mon)
+								end
+							end
+							ExitScreen()
+                        end,
+	CanShow			= 	function(t)
+
+							if evt.Cmp("NPCs", 538) then
+								return false
+							end
+
+							return _IsRobertGreeneNearby()
+						end,
+}
+
 ------------------------------------------------------------------------------
 -- Laurie Blaine
 QuestNPC 			= 	516
@@ -2146,8 +2319,8 @@ NPCTopic{
 
 NPCTopic{
 	Slot 			= 	C,
-	Topic			=	"Quest: Investigation?",
-	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished. But when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
+	Topic			=	"Story Quest: Investigation?",
+	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished.\n\nBut when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
 	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil and IsWarrior())
 }
 
@@ -2155,7 +2328,7 @@ Quest{
 	Slot 			= 	C,
 	Texts 			= 
 	{		
-		Topic 		= 	"Quest: Investigation",
+		Topic 		= 	"Story Quest: Investigation?",
 		Done 		= 	"So, you're treading the path we did? You'll need all the luck you can get. Here, take this \01265523teleportation stone\01200000. We used it in the residence's western chamber. One of our team went through and vanished. Perhaps you'll have more success, maybe even find our lost companion.",
 		TopicDone 	= 	false,
 	},
@@ -2190,7 +2363,7 @@ Quest{
 	Slot 			= 	B,
 	Texts 			= 
 	{		
-		Topic 		= 	"Quest: Investigation",
+		Topic 		= 	"Story Quest: Investigation?",
 		Done 		= 	"Fine, fine. Magnus does have a \01265523secret hideout\01200000. It's less a home and more a magical lab, where he dabbles in teleportation and other things that involve bending reality. He could be in his bedroom or lost in one of those twisted realities he's so fond of. He's been spending more and more time outside our world."..
 						"\n\nHere, take this \01265523medallion.\01200000 It may look insignificant, but it's imbued with magic. With it, you can use the \01265523teleportation platform\01200000 near the \01265523knights' camp in the swamp's southeastern region\01200000 to reach his hideout.",
 		TopicDone 	= 	false,
@@ -2283,7 +2456,6 @@ Quest{
 	},
 	CheckDone 		= 	false,  -- the quest can't be completed here
 }
-
 
 NPCTopic{
 	Slot 	= 	B,

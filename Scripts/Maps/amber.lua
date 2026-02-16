@@ -122,6 +122,14 @@ function events.AfterLoadMap(WasInGame)
         vars.QuestsAmberIsland.QVarRevenge = 7
     end
 
+    -- Difficulty differences
+    if IsWarrior() then
+        --
+    else
+
+        -- hide watchtower cellar
+        evt.SetFacetBit(42,const.FacetBits.Invisible,true)
+    end
 end
 
 -- CHESTS
@@ -276,7 +284,16 @@ end
 evt.hint[31] = evt.str[12]
 evt.hint[32] = evt.str[16]
 evt.map[32] = function()
-    evt.MoveToMap{X = -4, Y = -2, Z = 1, Direction = 512, LookAngle = 0, SpeedZ = 0, HouseId = 195, Icon = 1, Name = "archmageEX.blv"}
+    evt.MoveToMap{
+        X = -4, 
+        Y = -2, 
+        Z = 1, 
+        Direction = 512, 
+        LookAngle = 0, 
+        SpeedZ = 0, 
+        HouseId = 195, 
+        Icon = 1, 
+        Name = "archmageEX.blv"}
 end
 
 -- Dungeon: Apple Cave
@@ -503,10 +520,19 @@ evt.HouseDoor(148, 571) -- rich house: duplex west
 evt.HouseDoor(149, 572) -- Boatman's House
 
 -- Swamp Island
-evt.HouseDoor(150, 573) -- Knight Camp: North Tent
+evt.house[150] = 573    -- Knight Camp: North Tent
+evt.map[150] = function()
+    if evt.Cmp("NPCs", 538) then
+        evt.Subtract("NPCs", 538)
+        evt.All.Add("Exp",500)
+        vars.QuestsAmberIsland.QVarGreeneRescued = true
+        evt.MoveNPC(515,573)  -- Old Robert Greene
+    end
+	evt.EnterHouse(573)
+end
 evt.HouseDoor(151, 574) -- Knight Camp: East Tent
 evt.HouseDoor(152, 575) -- Knight Camp: West Tent
-evt.HouseDoor(153, 576) -- Lighthouse
+evt.HouseDoor(153, 576) -- Lighthouse5
 evt.HouseDoor(154, 577) -- Big House at East
 evt.HouseDoor(155, 578) -- Witch Hut
 
@@ -577,12 +603,21 @@ evt.map[166] = function()
     evt.SpeakNPC(536) -- Goblin Raider
 end
 
--- Tower Cellar mini-dungeon
+-- Warrior: Watchtower dungeon
 evt.hint[167] = evt.str[11]
 evt.hint[168] = evt.str[15]
 evt.map[168] = function()
-    
-    evt.MoveToMap(-41,369,0,2,1,1,193,1,"towercellar.blv")
+    evt.MoveToMap{
+        X           = -23,
+        Y           = 127,
+        Z           = 1,
+        Direction   = 1024,
+        LookAngle   = 1,
+        SpeedZ      = 1,
+        HouseId     = 199,
+        Icon        = 1,
+        Name        = "watchtower.blv"
+    }
 end
 
 -- Swamp Tree Stump (south-eastern part of archmage residence island, near small pool)
