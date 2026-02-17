@@ -76,6 +76,18 @@ function events.AfterLoadMap(WasInGame)
     end
 end
 
+function events.LoadMap()
+
+    -- In case dungeon resets
+    if vars.QuestsAmberIsland.QVarGreeneRescued then
+        for _, mon in Map.Monsters do
+            if mon.NPC_ID  == SIRGREENE_NPC_ID then
+                RemoveMonster(mon)
+            end
+        end
+    end
+end
+
 function events.AfterMonsterAttacked(t, attacker)
 
     if t == nil then return end
