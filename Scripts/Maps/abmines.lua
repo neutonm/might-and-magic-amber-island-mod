@@ -20,7 +20,7 @@ local TXT = Localize{
     [13] = "Refreshing",
     [14] = "Teleportation Pedestal",
     [15] = "Keyhole",
-    [16] = "The Door Is Locked",
+    [16] = "The Chest Is Locked",
     [17] = "Portal Is Activated",
     [18] = "Gold Vein",
     [19] = "Wine Rack",
@@ -36,6 +36,8 @@ local TXT = Localize{
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
+BehemothKeyItemID = 665
+
 function events.LoadMap()
 
     -- Set gold vein textures to depleted ones after save/load
@@ -47,17 +49,16 @@ function events.LoadMap()
     end    
 end
 
-
 -- ****************************************************************************
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
-
+-- 21-23        Gold Veins
 
 -- VARIABLES
 -- ID           DESCRIPTION
--- MapVar1      xx
-
+-- MapVar1      Behemoth Chest is unlocked
+-- MapVar25-28  Gold veins
 
 -- MONSTERS
 -- GROUP 1: Skeleton Warrior
@@ -74,7 +75,7 @@ end
 
 -- MISC TRIGGERS
 -- TYPE         TRIGGER ID      DESCRIPTION
--- Gold         0              xxx
+-- Gold         21-23           Gold veins
 
 -- ****************************************************************************
 -- Chests
@@ -84,7 +85,24 @@ for i = 0, 19, 1 do
         hintStr = hintStr .. " #"..tostring(i)
     end
 	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function() 
+	evt.map[1 + i] = function()
+        
+        -- Behemoth Chest exception
+        if IsWarrior() then
+            if i == 2 then
+                if not evt.Cmp("MapVar1", 1) then
+                    if evt.All.Cmp("Inventory", BehemothKeyItemID) then
+                        evt.Set("MapVar1", 1)
+                        evt.Sub("Inventory", BehemothKeyItemID)
+                    else
+                        evt.FaceAnimation{Player = "Current", Animation = 18}
+                        evt.StatusText(16)  -- "The Chest is Locked"
+                        return
+                    end
+                end
+            end
+        end
+
 	    evt.OpenChest(i)
 	end
 end 
@@ -105,8 +123,23 @@ for i = 0, 3, 1 do
 	end
 end
 
+-- SAFE ROOM
+evt.hint[25] = evt.str[4]
+evt.map[25] = function()
+    evt.EnterHouse(581)
+end
+
 -- EXIT DOOR
 evt.hint[100] = evt.str[25]
 evt.map[100] = function()
-    evt.MoveToMap{X = 19510, Y = 19396, Z = 192, Direction = 1794, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 4, Name = "amber.odm"}
+    evt.MoveToMap{
+        X = 19510,
+        Y = 19396,
+        Z = 192,
+        Direction = 1794,
+        LookAngle = 0,
+        SpeedZ = 0,
+        HouseId = 0,
+        Icon = 4,
+        Name = "amber.odm"}
 end
