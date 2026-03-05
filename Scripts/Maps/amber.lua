@@ -72,10 +72,11 @@ function evt.ShopDoor(evtId, houseId)
 
             -- Notify about wtf is happening in 10sec
             if evt.Cmp("MapVar41", 1) == false then
-                evt.Add("MapVar41", 1)
+                evt.Set("MapVar41", 1)
                 Timer(function()
                     evt.SpeakNPC(541)
-                end, 10*const.Minute, false)
+                    RemoveTimer()
+                end, 5*const.Minute, false)
                 return
             end
 
