@@ -17,6 +17,7 @@ local TXT = Localize{
     [15]    = "+2 Air Resistance (Permanent)",
     [16]    = "+2 Water Resistance (Permanent)",
     [17]    = "+2 Earth Resistance (Permanent)",
+    [18]    = "Through the telescope, you observe a distant celestial body in the sky."
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -74,8 +75,18 @@ CatKeyItemID = 666 -- infernal cat key :)
 -- Door         47              Rest Room (Entrance)
 -- Door         48              Locked Door (Entrance)
 -- Door         49              Exit
+-- Fire (Sprite)50              Ignore Picking Fires (rings and sheit)
 
 -- ****************************************************************************
+
+------------------------------------------------------------------------------
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    MakeHostile(79,81) -- Golems
+end
+
 ------------------------------------------------------------------------------
 -- CHESTS
 ------------------------------------------------------------------------------
@@ -339,4 +350,15 @@ evt.map[49]     = function()
         Direction = 2038, LookAngle = 0,
         SpeedZ = 0, HouseId = 0,
         Icon = 4, Name = "amber.odm"}
+end
+
+-- Fires
+evt.hint[50]    = evt.str[0]
+evt.map[50]     = function() end
+
+-- Telescope small lense (blacK)
+evt.hint[51]    = evt.str[0]
+evt.map[51]     = function()
+    -- "Through the telescope, you observe a distant celestial body in the sky."
+    evt.StatusText(18)
 end
