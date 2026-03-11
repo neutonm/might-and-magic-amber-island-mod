@@ -872,5 +872,16 @@ end
 -- EXIT DOOR
 evt.hint[92] = evt.str[25]
 evt.map[92] = function()
-    evt.MoveToMap{X = 1, Y = 2196, Z = 128, Direction = 1536, LookAngle = 0, SpeedZ = 0, HouseId = 198, Icon = 1, Name = "archmageEX.blv"}
+
+
+    local bWAR  = IsWarrior()
+    local MX    = bWAR and 1794 or 1
+    local MY    = bWAR and 2709 or 2196
+    local MZ    = bWAR and 65   or 128
+    local MDIR  = bWAR and 512  or 1536
+
+    evt.MoveToMap{
+        X = MX, Y = MY, Z = MZ, 
+        Direction = MDIR, LookAngle = 0, SpeedZ = 0, 
+        HouseId = 198, Icon = 1, Name = "archmageEX.blv"}
 end
