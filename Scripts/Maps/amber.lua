@@ -92,6 +92,9 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
     
     if mon.NPC_ID == 498 then
         vars.QuestsAmberIsland.QVarRevenge = 3 -- Michael Cassio is Killed
+    elseif mon.NPC_ID == 539 then
+        vars.QuestsAmberIsland.QVarButlerEscaped = 3 -- Butler is killed
+        vars.Quests.StoryQuest4 = "Done"
     end
 end
 
@@ -301,23 +304,76 @@ end
 evt.hint[34] = evt.str[17] -- Apple Cave
 evt.hint[33] = evt.str[13] -- Enter the Cave
 evt.map[34] = function()
+
+    -- Barnaby found new home! #2
+    if evt.Cmp("NPCs", 539) then
+        evt.Subtract("NPCs", 539)
+        evt.MoveNPC{NPC = 539, HouseId = 583}
+        evt.SpeakNPC(543)
+        vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 583
+        return
+    end
+
     for _, mon in Map.Monsters do
         if mon.NPC_ID  == 517 then
             if mon.Hostile == false and mon.HP > 0 then
-                evt.SpeakNPC(521)  
+                evt.SpeakNPC(521)
                 return
             end
         end
     end
-    
-    evt.MoveToMap(-148,3,0,2044,1,1,194,1,"applecave.blv")
+
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 583 then
+        evt.EnterHouse(583)
+        return
+    end
+
+    evt.MoveToMap{
+        X           = -148,
+        Y           = 3,
+        Z           = 0,
+        Direction   = 2048,
+        LookAngle   = 1,
+        SpeedZ      = 1,
+        HouseId     = 194,
+        Icon        = 1,
+        Name        = "applecave.blv"
+    }
 end
 
 -- Dungeon: Abandoned Mines
 evt.hint[35] = evt.str[14] -- Abandoned Mines
 evt.hint[36] = evt.str[18] -- Enter the Abandoned Mines
 evt.map[36] = function()
-    evt.MoveToMap{X = 190, Y = 140, Z = 33, Direction = 512, LookAngle = 0, SpeedZ = 0, HouseId = 196, Icon = 1, Name = "abmines.blv"}
+
+    -- Barnaby found new home! #3
+    if evt.Cmp("NPCs", 539) then
+        evt.Subtract("NPCs", 539)
+        evt.MoveNPC{NPC = 539, HouseId = 584}
+        evt.SpeakNPC(543)
+        vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 584
+        return true
+    end
+
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 then
+        
+        evt.EnterHouse(584)
+        return true
+    end
+
+    evt.MoveToMap{
+        X           = 190,
+        Y           = 140,
+        Z           = 33,
+        Direction   = 512,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 196,
+        Icon        = 1,
+        Name        = "abmines.blv"
+    }
 end
 
 -- MISC
@@ -475,9 +531,18 @@ evt.HouseDoor(108, 531)
 -- Beck Residence
 evt.HouseDoor(109, 532)
 
--- Amber Tower
--- Tower
-evt.HouseDoor(110, 533)
+-- Amber Tower (Prison)
+evt.house[110]  = 533
+evt.map[110]    = function()
+
+    -- StoryQuest3: Butler escapes prison (warrior)
+    if IsWarrior() then
+        
+        -- Message
+    end
+
+    evt.EnterHouse(533)
+end
 
 -- Residental Houses of Amber Town (Entrance Area)
 evt.HouseDoor(111, 534) -- first town rocky house
@@ -525,9 +590,9 @@ evt.house[150] = 573    -- Knight Camp: North Tent
 evt.map[150] = function()
     if evt.Cmp("NPCs", 538) then
         evt.Subtract("NPCs", 538)
-        evt.All.Add("Exp",500)
         vars.QuestsAmberIsland.QVarGreeneRescued = true
         evt.MoveNPC(515,573)  -- Old Robert Greene
+        evt.Add("Exp",500)
     end
 	evt.EnterHouse(573)
 end
@@ -608,6 +673,23 @@ end
 evt.hint[167] = evt.str[11]
 evt.hint[168] = evt.str[15]
 evt.map[168] = function()
+
+    -- Barnaby found new home! #1
+    if evt.Cmp("NPCs", 539) then
+        evt.Subtract("NPCs", 539)
+        evt.MoveNPC{NPC = 539, HouseId = 582}
+        evt.SpeakNPC(543)
+        vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 582
+        return true
+    end
+
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 582 then
+        
+        evt.EnterHouse(582)
+        return true
+    end
+
     evt.MoveToMap{
         X           = -23,
         Y           = 127,

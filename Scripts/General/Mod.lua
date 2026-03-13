@@ -111,7 +111,10 @@ function events.BeforeNewGameAutosave()
             QVarRansomTaken         = false,    -- Quest: Ransom, NPC taken 
             QVarRevenge             = 0,        -- Quest: Revenge, state: given (1), duel (2), killed (3), 
                                                 -- reporting (4), reported (5), released (6), rewarded (7)
-            QVarGreeneRescued       = false,    -- Quest (Warrior): 
+            QVarGreeneRescued       = false,    -- Quest (Warrior): Legate
+            QVarButlerEscaped       = 0,        -- Quest (Warrior): Investigation, state:
+                                                -- escaped (1), taken (2), killed (3), hidden (4), imprisoned (5)
+            QVarButlerHideHouseID   = 0         -- House ID where butler was hidden by heroes
         }
     end
     if vars.MiscAmberIsland == nil then

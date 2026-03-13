@@ -22,6 +22,15 @@ local QVarRevengeState =
 	REWARDED	= 8
 }
 
+local QVarButlerEscapedState = 
+{
+	ESCAPED		= 1,
+	TAKEN		= 2,
+	KILLED		= 3,
+	HIDDEN		= 4,
+	IMPRISONED	= 5
+}
+
 -- Maximus (Mayor)
 QuestNPC = 447
 
@@ -77,7 +86,7 @@ Quest{
 	Texts 			= 
 	{		
 		Topic 		= 	"Story Quest: Secret Hideout",
-		Give		=	"Excellent work uncovering this letter and confirming the Archmage's absence from his residence. This is significant progress. We must press our advantage. The butler, already in our custody, could hold the key to Magnus's hideout. \01265523Interrogate him\01200000. He may reveal the information we need to advance our pursuit. You can find him in the town \01265523jail\01200000.",
+		Give		=	"Excellent work uncovering this letter and confirming the Archmage's absence from his residence. This is significant progress.\n\nWe must press our advantage. The butler, already in our custody, could hold the key to Magnus's hideout. \01265523Interrogate him\01200000. He may reveal the information we need to advance our pursuit. You can find him in the town \01265523jail\01200000.",
 		Done 		= 	"You were so close to capturing him. It's unfortunate he escaped at the last moment."..
 						"\n\nNevertheless, you've outdone all others in this pursuit, and now we have a definitive lead. He's taken refuge in \01265523Castle Amber!\01200000"..
 						"\n\nThe pieces are falling into place. We weren't sure why the goblins were so concentrated around Castle Amber, but now it just seems obvious. We must prepare for the next move.",
@@ -88,6 +97,19 @@ Quest{
 	Exp				=	2000,
 	Gold			=	2000,
 	QuestItem		=	797,
+	Give			=	function(t)
+
+							-- Buttler escapes (warrior)
+							if IsWarrior() and vars.QuestsAmberIsland.QVarButlerEscaped == 0 then
+								-- Summon Peasant on small island with chest not far from tower
+								local mon   = SummonMonster(175, -7528 , -1890, 37, true)
+								mon.NPC_ID  = 539
+								mon.Item    = 796 -- Amulet
+
+								evt.MoveNPC{NPC = 528, HouseId = 0}
+								vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.ESCAPED
+							end
+						end,
 	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
@@ -1271,6 +1293,7 @@ QuestNPC 			= 	496
 local function MoveOthoBackToHome()
 	evt.MoveNPC{NPC = 496, HouseId = 568}
 	vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.TRANSFERED
+	RemoveTimer()
 end
 
 Quest{
@@ -2363,9 +2386,9 @@ Quest{
 	Slot 			= 	B,
 	Texts 			= 
 	{		
-		Topic 		= 	"Story Quest: Investigation?",
+		Topic 		= 	"Story Quest: Secret Hideout?",
 		Done 		= 	"Fine, fine. Magnus does have a \01265523secret hideout\01200000. It's less a home and more a magical lab, where he dabbles in teleportation and other things that involve bending reality. He could be in his bedroom or lost in one of those twisted realities he's so fond of. He's been spending more and more time outside our world."..
-						"\n\nHere, take this \01265523medallion.\01200000 It may look insignificant, but it's imbued with magic. With it, you can use the \01265523teleportation platform\01200000 near the \01265523knights' camp in the swamp's southeastern region\01200000 to reach his hideout.",
+						"\n\nHere, take this \01265523medallion.\01200000 It may look insignificant, but it's imbued with magic. With it, you can use the \01265523teleportation platform\01200000 near the \01265523knights' camp in the swamp's southeastern region\01200000 to reach his hideout.\n\nI do hope you have \01265523key\01200000 to his secret hideout - should be somewhere in Archmage's Workshop.",
 		TopicDone 	= 	false,
 	},
 	NeverGiven		=	true,
@@ -2601,3 +2624,222 @@ Quest{
 	Done			=	function(t) ExitScreen() end
 }
 
+------------------------------------------------------------------------------
+-- Barnaby Whitfield (Warrior)
+QuestNPC 			= 	539
+
+Greeting{
+	"*As you approach the soaked, weak-looking Archmage's butler, the man lifts his head miserably. His eyes hold little hope.*\n\n"..
+	"So... I suppose you've come to drag me back.\n\nPlease, I beg you... I'm innocent! I have no wish to return to that dreadful prison cell. At least hear me out before you decide my fate.",
+	"I can only pray you will show mercy upon my soul, adventurers."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Magnus",
+	Text 			= 	"Magnus is a complicated man. He is not evil by nature, though I understand his actions may suggest otherwise. His passion for the study of magical realities slowly consumed him, and in time that passion turned into an unhealthy obsession. It drove him to pursue his research at any cost, and thus all this trouble began.\n\n"..
+						"He is a wealthy man, and given enough time and patience he could have gathered more than enough gold to fund his work. Yet patience was never his strength. He desired the means to continue his research immediately... and so here we are."
+}
+
+Quest{
+	Slot 			= 	B,
+	BaseName		=	"StoryQuest4",
+	Texts 			= 
+	{		
+		Topic 		= 	"Story Quest: Fugitive Butler",
+		Give 		= 	"Indeed, I served Magnus as his butler. I kept the house and followed his orders, nothing more. I took no part in his schemes, though the mayor refuses to believe it. Before the gods, my conscience is clear.\n\n"..
+						"If you would help me, I ask for \01265523some food (5 units), a little gold (500g), and escort to a hiding place\01200000 - far from people and far from where anyone would think to search.\n\nAs a token of my gratitude, I'll tell you where you may find Magnus.",
+		Done		=	"You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
+						"Take this \01265523amulet\01200000. With it, you can activate the \01265523teleporter near the knight camp on the swamp island\01200000 and reach Magnus's \01265523secret hideout\01200000.\n\n"..
+						"It is less a home and more a magical laboratory, where he experiments with teleportation and other ways of bending reality. If you seek him, that is where you must go.\n\n"..
+						"But be warned - if you mean to reach his hideout, you will need the \01265523key from his workshop\01200000.",
+		Undone		= 	"I still need \01265523some food (5 units), a little gold (500g), and a safe place to hide\01200000 - somewhere far from people and where no one would think to search.\n\nIf you help me - I'll tell you where you may find Magnus.",
+		TopicDone 	= 	"Thanks: Fugitive Butler",
+		After		=	"You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
+						"Use the \01265523amulet\01200000 I gave you to activate the \01265523teleporter near the knight camp on the swamp island\01200000 and reach the secret hideout.\n\n"..
+						"But be warned - if you mean to reach his hideout, you will need the \01265523key from his workshop\01200000.",
+		Quest 		= 	"\"Story: Fugitive Butler\"\nBring Barnaby some food (5 units) and gold (500g), then escort him to a secluded hiding place far from towns and obvious locations.",
+	},
+	Give			= 	function(t)
+							evt.Add("NPCs", 539)
+							for _, mon in Map.Monsters do
+								if mon.NPC_ID == 539 then
+									RemoveMonster(mon)
+								end
+							end
+							vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.TAKEN
+						end,
+	CheckDone 		= 	function(t)
+							
+							local needs 		= 0
+							local requiredNeeds = 3
+
+							if evt.All.Cmp("Gold", 500) then
+								needs = needs + 1
+							end
+
+							if evt.All.Cmp("Food", 5) then
+								needs = needs + 1
+							end
+
+							if vars.QuestsAmberIsland.QVarButlerEscaped == QVarButlerEscapedState.HIDDEN then
+								needs = needs + 1
+							end
+
+							if needs >= requiredNeeds then
+								
+								evt.Subtract("Gold", 500)
+								evt.Subtract("Food", 5)
+								return true
+							end
+
+							return false
+						end,
+	Exp				=	750,
+	RewardItem 		= 	796
+}
+
+NPCTopic{
+	Slot 			= 	C,
+	Topic 			= 	"How's life?",
+	Text 			= 	"This place is surprisingly livable. I even found an old dwarven siege hideout - there's a bed, some wine, and a few supplies. I should manage well enough here.",
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 582)
+}
+
+NPCTopic{
+	Slot 			= 	D,
+	Topic 			= 	"How's life?",
+	Text 			= 	"Well... pirate caves aren't the friendliest of places. Still, as long as I keep away from the local vermin, I should be fine.",
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 583)
+}
+
+NPCTopic{
+	Slot 			= 	E,
+	Topic 			= 	"How's life?",
+	Text 			= 	"Quite a creepy place. I've heard stories about a Behemoth lurking in these mines, and something tells me they may be true.\n\nStill, I found a small building with a bed and some old furniture. I think I can manage here for a while.",
+	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 584)
+}
+
+------------------------------------------------------------------------------
+-- Aaron Calegan
+QuestNPC 			= 	542
+
+Greeting
+{
+	"Name's Aaron. I keep watch over the prison.\n\nYou'd better not cause any trouble here. If you're looking to bail someone out, speak with Guardmaster \01265523James Halloran\01200000. You'll find him near the bridge on the western part of the island."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Mainland",
+	Text 			= 	"I used to fight as a mercenary on the mainland - kings and lords were always feuding with one another, so there was never a shortage of work.\n\nThese days I serve as a prison guard here on Amber Island. The pay is good, and most days I can take it easy since crime is low - though lately things have been busier than usual."
+}
+
+NPCTopic{
+	Slot 			= 	B,
+	Topic 			= 	"Story Quest: Secret Hideout?",
+	Text			=	"That butler, Barnaby? Pulled the oldest trick in the book. Pretended to be sick, then slipped past the guard and jumped into the sea, \01265523swimming towards port island\01200000. Haven't seen him since.\n\n"..
+						"But I'm not worried. This is an island - he's got nowhere to run. Sooner or later someone will spot him.\n\n"..
+						"If you happen to bring him back, there might be a little reward waiting for you.",
+	CanShow			= 	(|| vars.QuestsAmberIsland.QVarButlerEscaped > 0 and vars.QuestsAmberIsland.QVarButlerEscaped < 3)
+}
+
+Quest{
+	Slot 			= 	C,
+	Texts 			= 
+	{		
+		Topic 		= 	"Hand Barnaby back...",
+		Done 		= 	"Well, look at that! You actually found the runaway. Good work. We'll take him back to his cell.\n\nHere's your reward for bringing him in.",
+		TopicDone 	= 	false,
+	},
+	NeverGiven		=	true,
+	Gold 			= 	500,
+	Exp				=	200,
+	Done			=	function(t)
+							evt.Subtract("NPCs", 539)
+							evt.MoveNPC{NPC = 528, HouseId = 533}
+							vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.IMPRISONED
+							Q.StoryQuest4 = "Done"
+						end,
+	CanShow			=	(|| evt.Cmp("NPCs", 539))
+}
+
+------------------------------------------------------------------------------
+-- Barnaby Whitfield (Warrior) (Found Hideout)
+QuestNPC 			= 	543
+
+Greeting
+{
+	"This place... yes, it should serve well as a hiding place. Remote and far from prying eyes.\n\nYou have my gratitude, adventurers!"
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Great!",
+	Ungive      	=   function(t)
+							ExitScreen()
+							--evt.SpeakNPC(539)
+						end,
+}
+
+------------------------------------------------------------------------------
+-- Watchtower & Apple Cave & Abandoned Mines Dungeon Entrances (for butler)
+QuestNPC 			= 	544
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Enter the Watchtower Cellar",
+	Ungive      	=   function(t)
+							evt.MoveToMap{
+								X           = -23,
+								Y           = 127,
+								Z           = 1,
+								Direction   = 1024,
+								LookAngle   = 1,
+								SpeedZ      = 1,
+								HouseId     = 199,
+								Icon        = 1,
+								Name        = "watchtower.blv"
+							}
+						end
+}
+
+QuestNPC 			= 	545
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Enter the Apple Cave",
+	Ungive      	=   function(t)
+							evt.MoveToMap{
+								X           = -148,
+								Y           = 3,
+								Z           = 0,
+								Direction   = 2048,
+								LookAngle   = 1,
+								SpeedZ      = 1,
+								HouseId     = 194,
+								Icon        = 1,
+								Name        = "applecave.blv"
+							}
+						end
+}
+
+QuestNPC 			= 	546
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Enter the Abandoned Mines",
+	Ungive      	=   function(t)
+							evt.MoveToMap{
+								X           = 190,
+								Y           = 140,
+								Z           = 33,
+								Direction   = 512,
+								LookAngle   = 0,
+								SpeedZ      = 0,
+								HouseId     = 196,
+								Icon        = 1,
+								Name        = "abmines.blv"
+							}
+						end
+}
