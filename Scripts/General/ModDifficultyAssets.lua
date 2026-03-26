@@ -1,6 +1,6 @@
 --[[
-Load assets based on difficulty (assuming "Warrior")
-Author: Henrik Chukhran, 2022 - 2024
+Description:    Load assets based on difficulty (assuming "Warrior")
+Author:         Henrik Chukhran, 2022 - 2026
 ]]
 
 -- Utility functions
@@ -8,12 +8,18 @@ CurLods = {}
 
 local function LoadLods(kind)
     local LoadCustomLod = mem.dll["mm7patch"].LoadCustomLod
-    local p             = Game[kind..'Lod']['?ptr']
-    local pathStr       = AppPath..'Data\\Warrior\\new.'..kind..'.hard.lod'
+    local p       = Game[kind..'Lod']['?ptr']
+    local baseDir = AppPath .. 'Data\\Warrior\\'
 
-    for s in path.find(pathStr) do
-        if path.ext(s):lower():match'l[ow]d' then
-            CurLods[LoadCustomLod(p, 'Data\\Warrior\\'..path.name(s))] = true
+    for s in path.find(baseDir .. '*') do
+        local ext = path.ext(s):lower()
+
+        if ext:match('l[ow]d') then
+            local name = path.name(s):lower()
+
+            if name:find(kind:lower()) then
+                CurLods[LoadCustomLod(p, 'Data\\Warrior\\' .. path.name(s))] = true
+            end
         end
     end
 end
