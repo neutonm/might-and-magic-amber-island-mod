@@ -114,7 +114,8 @@ function events.BeforeNewGameAutosave()
             QVarGreeneRescued       = false,    -- Quest (Warrior): Legate
             QVarButlerEscaped       = 0,        -- Quest (Warrior): Investigation, state:
                                                 -- escaped (1), taken (2), killed (3), hidden (4), imprisoned (5)
-            QVarButlerHideHouseID   = 0         -- House ID where butler was hidden by heroes
+            QVarButlerHideHouseID   = 0,        -- House ID where butler was hidden by heroes
+            QVarPirateWarrior       = 0,        -- Robert Stevenson Quest - Tree reached (warrior)
         }
     end
     if vars.MiscAmberIsland == nil then
@@ -126,6 +127,7 @@ function events.BeforeNewGameAutosave()
             ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
             AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
             ClosedShops             = false,    -- Warrior Mode: Shops are closed until merchant guild fee is payed
+            SecretHideoutClosed     = true,     -- Secret Hideout dungeon - closed without key (ID: 667)
         }
     end
 
