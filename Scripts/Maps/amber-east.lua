@@ -19,7 +19,8 @@ local TXT = Localize{
             "Far off, you see it near Castle Amber's Island, revealing the Archmage's escape route.\n\n"..
             "The chase isn't over yet, but now that you've pinpointed the Archmage's location, "..
             "it's time to \01265523head back to town and report to the mayor.\01200000\n\n"..
-            "The \01265523letter\01200000 he left behind could serve as \01265523evidence\01200000 of your encounter with the Archmage."
+            "The \01265523letter\01200000 he left behind could serve as \01265523evidence\01200000 of your encounter with the Archmage.",
+    [11]=   "Robert narrows his eyes, then points into the thick foliage behind the tree.\n\n'There... do you see it? That's the boat.'"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -66,11 +67,11 @@ function events.AfterLoadMap(WasInGame)
     end
 
     -- Robert Stevenson's Boat (Warrior)
-    evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   false)
-    evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, false)
+    evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   true)
+    evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, true)
     if vars.QuestsAmberIsland.QVarPirateWarrior > 0 then
-        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   true)
-        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, true)
+        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   false)
+        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, false)
     end
 
     -- Make back entrance to castle amber visible
@@ -245,6 +246,23 @@ end
 -- Pirate Treasure Tree
 evt.hint[27] = evt.str[8]
 evt.map[27] = function()
+
+    if IsWarrior() then
+
+        if vars.QuestsAmberIsland.QVarPirateWarrior > 0 then
+            return
+        end
+
+        vars.QuestsAmberIsland.QVarPirateWarrior = 1
+
+        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   false)
+        evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, false)
+
+        Message(evt.str[11])
+
+        return
+    end
+
     if evt.Cmp("NPCs", 494) then
 
         vars.Quests.AmberQuest7 = "Done"
@@ -296,17 +314,28 @@ end
 -- Robert Stevenson's Boat
 evt.hint[29] = evt.str[5]
 evt.map[29] = function()
-    
+
+    local mX = -4606
+    local mY = 10731
+    local mD = 1576
+
+    -- Returning back after quest is done? (Broken boat on deadman's island)
+    if vars.Quests.AmberQuest7W == "Done" then
+        mX = -10371
+        mY = -3226
+        mD = 202
+    end
+
     evt.MoveToMap{
-        X           = 22064,
-        Y           = 9465,
+        X           = mX,
+        Y           = mY,
         Z           = 1,
-        Direction   = 1024,
+        Direction   = mD,
         LookAngle   = 0,
         SpeedZ      = 0,
         HouseId     = 0,
         Icon        = 1,
-        Name        = "amber.odm"
+        Name        = "deadmanisle.odm"
     }
 end
 

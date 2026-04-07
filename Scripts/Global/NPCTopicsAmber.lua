@@ -1204,11 +1204,10 @@ Quest{
 		Topic 		= 	"Quest: Old Sea Dog",
 		TopicDone 	= 	"Thanks: Old Sea Dog",
 		GreetDone 	= 	"Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
-		-- From Editor DM Staley: I'm under the impression the above line never displays, since Stevenson is killed and disappears. Maybe the 
 		Give 		= 	"Hail to you! If you don't mind, I really could use some muscle here. You see, some time ago I was attacked by a sea monster. My ship crashed into the island and I fled."..
 						"\n\nCan you \01265523help me retrieve some of the goods?\01200000 They should be on the \01265523east side of Amber Island\01200000, at an \01265523unusual looking tree\01200000. I could do it by myself if it wasn't for dangers that inhabit the island.",
-		Undone 		= 	"Set your course straight for the treasure on the \01265523east side of Amber Island\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
-		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near a unique tree on Amber Island's east side.",
+		Undone 		= 	"Set your course straight for the treasure on the \01265523east side of Amber Island, near the castle Amber island\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
+		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near a unique tree on Amber Island's east side, near the castle Amber island.",
 		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
 	},
 	Give			= 	function(t)
@@ -1217,17 +1216,53 @@ Quest{
 							ShowQuestEffect(true, t.TakeQuestOperation)
 						end,
 	CheckDone 		= 	false,  -- the quest can't be completed here
-	--CanShow			=	(|| vars.Quests.AmberQuest7 ~= "Done")
+	CanShow			=	(|| not IsWarrior())
 }
 
-NPCTopic{
+Quest{
+	Name 			= 	"AmberQuest7W",
 	Slot 			= 	B,
 	Texts 			= 
 	{
-		Topic 		= 	"What the...",
-		Ungive 		= 	"Ye've walked the plank right into me \01265523trap\01200000, landlubbers! There be no sea monster here, only the consequences of crossing paths with a pirate. Now, let's see if ye can fight men as well as beasts."
+		Topic 		= 	"Quest: Old Sea Dog",
+		TopicDone 	= 	"Thanks: Old Sea Dog",
+		GreetDone 	= 	"Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
+		Give 		= 	"Hail to you! If you don't mind, I could really use some muscle here. "..
+						"You see, some time ago, a sea monster attacked my ship. "..
+						"It crashed upon \01265523Deadman's Island\01200000, and I barely escaped "..
+						"by boat to \01265523Amber Island\01200000.\n\n"..
+
+						"Can you \01265523help me retrieve some of the goods?\01200000 "..
+						"They are buried in a cave at the center of "..
+						"\01265523Deadman's Island\01200000.\n\n"..
+
+						"First, we must head to the \01265523eastern part of Amber Island\01200000 "..
+						"and find the \01265523hidden boat\01200000 near that "..
+						"\01265523unusual tree\01200000.\n\n"..
+
+						"I would go myself, but I am no match for the "..
+						"\01265523monstrosities\01200000 along the way.",
+		Undone 		= 	"Set your course for the \01265523hidden boat\01200000 near the \01265523unusual tree\01200000 on Amber Island's east side, near the castle Amber island, then sail to \01265523Deadman's Island\01200000 and claim the goods.",
+		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the hidden boat near the unusual tree on Amber Island's east side, near the castle Amber island, then travel to Deadman's Island and recover the goods from a central cave.",
+		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
 	},
-	CanShow			= 	(|| vars.Quests.AmberQuest7 == "Done")
+	Give			= 	function(t)
+							evt.MoveNPC{NPC = 494, HouseId = 0}
+							evt.Add("NPCs", 494)
+							ShowQuestEffect(true, t.TakeQuestOperation)
+						end,
+	CheckDone 		= 	false,  -- the quest can't be completed here
+	CanShow			=	(|| IsWarrior())
+}
+
+NPCTopic{
+	Slot 			= 	C,
+	Texts 			= 
+	{
+		Topic 		= 	"What the...",
+		Ungive 		= 	"Ye've walked the plank right into me \01265523trap\01200000, landlubbers!\n\nThere be no sea monster here, only the consequences of crossing paths with a pirate. Now, let's see if ye can fight men as well as beasts."
+	},
+	CanShow			= 	(|| vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done")
 }
 ------------------------------------------------------------------------------
 -- Martha Blaine
@@ -2228,7 +2263,7 @@ Quest{
 		Done 		= 	"With a creaking sound, the chest's lid swings open to reveal its contents: a gleaming hoard of \012655231208 gold pieces\01200000, piled neatly inside, waiting to be claimed.",
 		Undone 		= 	"The chest is securely \01265523locked\01200000, its heavy lid refusing to budge. A distinct pirate insignia marks the lock, indicating a specific \01265523key\01200000 is needed to open it.",
 	},
-	CanShow			=	(|| vars.Quests.AmberQuest7 == "Done"),
+	CanShow			=	(|| vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done"),
 	NeverGiven 		= 	true,
 	Gold 			= 	1208,
 	QuestItem		=	792,
