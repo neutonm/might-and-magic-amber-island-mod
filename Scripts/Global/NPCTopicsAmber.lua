@@ -237,24 +237,12 @@ NPCTopic{
 -- Harley Payne (Alchemy Expert)
 QuestNPC 			= 	453
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Alchemy,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	--SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 Quest{  
 	Name 			= 	"AmberMisc2",
-	Slot 			= 	C,
+	Branch			=	"",
+	Slot 			= 	D,
 	QuestItem 		= 
 	{
 		{200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red 
@@ -277,23 +265,11 @@ Quest{
 -- Bellona Kemp  (Armsmaster Expert)
 QuestNPC 			= 	454
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Armsmaster,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 NPCTopic{
 	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Story Quest: Legate?",
 	Text			=	"Sir Robert? He had more wine than sense last night...\n\n"..
 						"Mumbled something about stepping out to relieve himself and wandered toward the old ruined tower.\n\n"..
@@ -305,45 +281,20 @@ NPCTopic{
 -- Woodrow Marley  (Axe Expert)
 QuestNPC 			= 	455
 
--- Greeting{
--- 	"Greeting message",
--- }
+NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Sour Apples",
 	Text 			= 	"You'll find the apples on this island to be almost punishingly sour. Even biting into one is like a test of endurance!\n\nHowever, they do have one saving grace: these apples make for an excellent cider. In fact, the apple cider brewed here is hailed as some of the best in the world. It seems even the sourest fruits can produce remarkable results."
 }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	C,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Axe,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
 
 ------------------------------------------------------------------------------
 -- Trevor Gully  (Body Building Expert)
 QuestNPC 			= 	456
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Bodybuilding,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Robin Stringer (Bow Expert)
@@ -353,398 +304,150 @@ Greeting{
 	"Welcome, traveler! I'm Robin Stringer, a bowyer and a master archer. Are you here to learn the fine art of shooting a bow?",
 }
 
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	SkillTxtDone	= "Excellent! You've got a keen eye and steady hand now. Keep practicing, and soon you'll be as swift as the wind!",
-	SkillType       = const.Skills.Bow,
-	SkillTxtHasIt 	= "Ah, I see \01265523you're already an archer!\01200000 Your stance and the way you carry your quiver told me as much. It's always a pleasure to meet a fellow enthusiast. How can I help you hone your skills further?",
-	SkillTxtDoesnt 	= "Ah, it seems \01265523you're a bit short on gold\01200000. Return when you've gathered enough, and I'll teach you the secrets of the bow."
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Raymond Hoggard  (Chain Expert)
 QuestNPC 			= 	458
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Chain,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Hector Messer (Dagger Expert)
 QuestNPC 			= 	459
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Dagger,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Wright (Disarm Expert)
 QuestNPC 			= 	460
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.DisarmTraps,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Hazel Quick (Dodging Expert)
 QuestNPC 			= 	461
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Dodging,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Rana Winter (ID Item Expert)
 QuestNPC 			= 	462
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.IdentifyItem,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Sullivan Winter (ID Monster Expert)
 QuestNPC 			= 	463
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.IdentifyMonster,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Sophia Shirley (Learning Expert)
 QuestNPC 			= 	464
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Learning,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Valeria Timar (Leather Expert)
 QuestNPC 			= 	465
 
--- Greeting{
--- 	"Greeting message",
--- }
+NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Robert Stevenson",
 	Text 			= 	"Have you heard whispers about Robert Stevenson? Some say that old sea dog might've been a pirate in his past, and let's be honest, there's no such thing as an ex-pirate. Keep your wits about you around him."
 }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	C,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Leather,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
 
 ------------------------------------------------------------------------------
 -- Oswald of Umbria (Mace Expert)
 QuestNPC 			= 	466
 
--- Greeting{
--- 	"Greeting message",
--- }
+NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Apple Cave",
 	Text 			= 	"Apple Island, \01265523located northwest of Amber Island\01200000, is home to the notorious Apple Cave. Despite the charming name, thanks to the abundant apple trees that grow there, it has been a haven for bandits and pirates for decades. Locals have tried several times to cleanse the area of its lawless residents, but like a bad weed, they keep coming back. It's a place best avoided unless you're looking for trouble, or perhaps an adventure."
 }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	C,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Mace,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
 
 ------------------------------------------------------------------------------
 -- Hugo Barnes (Meditation Expert)
 QuestNPC 			= 	467
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Meditation,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Edith Chapman (Merchant Expert)
 QuestNPC 			= 	468
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Merchant,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Ophelia Sage (Perception Expert)
 QuestNPC 			= 	469
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Perception,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Ethan Armstrong (Plate Expert)
 QuestNPC 			= 	470
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Plate,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
-
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Craig 
 QuestNPC 			= 	471
 
+NPCTeacher(QuestNPC)
+
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Craig's Story",
 	Text 			= 	"I'm Craig, just a goblin trying to make ends meet in this bustling town. Found work at the smithy, fixing up whatever comes my way. Can't complain. Keeps the coin flowing, and it's better than working for Magnus."
 }
-
-NPCTopicTeachSkill({
-	Slot 			= 	C,
-	QuestGold		= 	400,
-	SkillType       = 	const.Skills.Repair,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
 
 ------------------------------------------------------------------------------
 -- Aldren Ryder (Shield Expert)
 QuestNPC 			= 	472
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Shield,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Brigid Ryder (Spear Expert)
 QuestNPC 			= 	473
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Spear,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Audrey Boyce (Staff Expert)
 QuestNPC 			= 	474
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Staff,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Bradan Colby (Stealing Expert)
 QuestNPC 			= 	475
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Stealing,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Elmar Mitchell  (Sword Expert)
 QuestNPC 			= 	476
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Sword,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 NPCTopic{
 	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Sir Greene",
 	Text 			= 	"Sir Greene? A decent captain and a proud one.Sharp mind, steady blade.\n\n"..
 						"But give him enough wine and the campfire tales grow louder by the minute. Never a dull night when he's celebrating."
-
 }
-
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (inn; Unarmed Expert)
@@ -754,16 +457,18 @@ Greeting{
 	"Ah, my favourite people! What can I do for you today?"
 }
 
+NPCTeacher(QuestNPC)
+
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"Brawling!",
 	Text 			= 	"Ah, brawling, there's nothing quite like it. You see, there's a certain art to landing the perfect punch, especially when it's someone's nose at the tavern on a lively evening. The thrill, the adrenaline rush... it's just how I like to unwind."
 }
 
-
 -- @todo	for future mm8-like experience, give bonus exlusively to available party heroes. Allow re-usage. Adjust price per person.
 Quest{
-	Slot 			= 	C,
+	Slot 			= 	E,
 	Texts 			= 
 	{
 		Topic 		= 	"Reward: Might/Speed +5",
@@ -779,155 +484,54 @@ Quest{
 	CanShow			=	(|| vars.Quests.AmberQuest11 == "Done")
 }
 
-NPCTopicTeachSkill(
-{
-	Slot 			= 	D,
-	QuestGold		= 400,
-	SkillType       = const.Skills.Unarmed,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
-
 ------------------------------------------------------------------------------
 -- Alfred Brand  (Fire Magic Expert)
 QuestNPC 			= 	478
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Fire,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Avira Lightfeather (Air Magic Expert)
 QuestNPC 			= 	479
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Air,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Magee Wells (Water Magic Expert)
 QuestNPC 			= 	480
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Water,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- John Aarden (Earth Magic Expert)
 QuestNPC 			= 	481
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Earth,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
--- Asgerd Lund (Earth Magic Expert)
+-- Asgerd Lund (Spirit Magic Expert)
 QuestNPC 			= 	482
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Spirit,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Timothy Leary (Mind Magic Expert)
 QuestNPC 			= 	483
 
--- Greeting{
--- 	"Greeting message",
--- }
+NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	B,
+	Slot 			= 	D,
+	Branch			=	"",
 	Topic 			= 	"The Doors of Perception",
 	Text 			= 	"Welcome, seeker of the arcane! Interested in expanding your mind with some mind magic? It's like navigating a labyrinth where each turn reveals not walls, but windows into new dimensions. Imagine, if you will, tickling the very fabric of reality until it giggles back at you. That's mind magic! It's not just about bending thoughts, but about stretching them until they yawn and show you their secrets. Oh, and it can all be done in a fun way, too. I know a magical spell that'll make you perceive walls breathing and colors changing. So are you ready to open some doors in your mind, or perhaps slip through a few windows?"
 }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	C,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Mind,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
 
 ------------------------------------------------------------------------------
 -- Andreas Vesalius (Body Magic Expert)
 QuestNPC 			= 	484
 
--- Greeting{
--- 	"Greeting message",
--- }
-
-NPCTopicTeachSkill(
-{
-	Slot 			= 	B,
-	QuestGold		= 800,
-	SkillType       = const.Skills.Body,
-	-- SkillTxtDone		= "Skill learned!",
-	-- SkillTxtHasIt 	= "Skill already learned!",
-	-- SkillTxtDoesnt 	= "Not enough gold",
-	-- SkillTxtBadClass= "Wrong class!"
-})
+NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (prison)
