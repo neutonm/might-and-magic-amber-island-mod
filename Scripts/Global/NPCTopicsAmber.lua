@@ -1456,8 +1456,15 @@ NPCTopic{
 QuestNPC 			= 	515
 
 Greeting{
-	IsWarrior() and "Ah, you again. The ankle mends, and the camp stands firm. I trust your duties progress as they should." or ""
+	"We made it!\n\nNext time I go \"relic\" hunting... remind me to stay sober.",
+	"Ah, you again. The ankle mends, and the camp stands firm. I trust your duties progress as they should.",
 }
+
+if not IsWarrior() then
+	Greeting{
+		"",
+	}
+end
 
 NPCTopic{
 	Slot 			= 	A,
