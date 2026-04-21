@@ -47,7 +47,6 @@ Game.MapEvtLines.Count = 0
 -- ID           DESCRIPTION
 -- MapVar1      xx
 
-
 -- MONSTERS
 -- GROUP 1: ???
 -- BOSS 1: ???
@@ -158,31 +157,13 @@ end
 -- FOUNTAINS
 
 -- Fountain: Entrance
-evt.hint[26] = evt.str[20]
-evt.map[26] = function()
-    if evt.Cmp("MapVar40", 20) == false then
-        evt.Add("MapVar40", 1)
-        evt.Add("HP", 10)
-        evt.Add("SP", 10)
-        evt.StatusText(21)         -- "+10 Hit & Spell points restored"
-    else
-        evt.StatusText(23)         -- "Refreshing!"
-    end
-
-    AddAutonote'amberDungeonFountain5'
-end
+Fountain(26, 100, "amberSecret1")
 
 -- Fountain: Teleportation Pedestal
-evt.hint[27] = evt.str[20]
-evt.map[27] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(27, 101, "amberSecret2")
 
 -- Fountain: Castle Harmondale, Main Hall
-evt.hint[28] = evt.str[20]
-evt.map[28] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(28, 102, "amberSecret3")
 
 -- ****************************************************************************
 -- MISC

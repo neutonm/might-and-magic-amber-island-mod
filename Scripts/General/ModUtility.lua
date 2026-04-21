@@ -138,3 +138,9 @@ function PartySetSkill(skillID, points, mastery)
             math.max(myMastery, mastery))
     end
 end
+
+function KillAllMonsters()
+    for _, mon in Map.Monsters do
+        mon.HP = 0
+    end
+end

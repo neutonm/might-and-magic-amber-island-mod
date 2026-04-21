@@ -171,109 +171,33 @@ end
 
 -- WELLS
 ------------------------------------------------------------------------------
-evt.hint[21] = evt.str[6] -- Well (title)
-evt.hint[22] = evt.str[7] -- Drink From The Well
 evt.hint[23] = evt.str[7]
 evt.hint[24] = evt.str[7]
 evt.hint[25] = evt.str[7]
 
 -- Well: Port Island
-evt.map[22] = function()
-
-    if evt.Cmp("PlayerBits", 3) then
-		evt.StatusText(4)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("ArmorClassBonus", 5)
-    evt.Set("PlayerBits", 3)
-	evt.StatusText(45)         -- "+5 AC (Temporary)"
-    AddAutonote'amberWell1'
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 3)
-end, const.Day)
+Fountain(22, 200, "amberWell1")
 
 -- Well: Before Amber Town Bridge
-evt.map[23] = function()
-
-    if evt.Cmp("MapVar2", 5) then
-		evt.StatusText(4)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("MapVar2", 1)
-    evt.Add("BaseAccuracy", 2)
-	evt.StatusText(46)         -- "+2 Accuracy (Permanent)"
-end
+Fountain(23, 201, "amberWell2")
 
 -- Well: Inside Amber Town
-evt.map[24] = function()
-
-    if evt.Cmp("PlayerBits", 4) then
-		evt.StatusText(4)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("MightBonus", 10)
-    evt.Set("PlayerBits", 4)
-	evt.StatusText(47)         -- "+ 10 Might (Temporary)"
-    AddAutonote'amberWell2'
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 4)
-end, const.Day)
+Fountain(24, 202, "amberWell3")
 
 -- Well: Swamp Island
-evt.map[25] = function()
-
-    if evt.Cmp("PlayerBits", 5) then
-		evt.StatusText(4)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("FireResBonus", 5)
-    evt.Add("AirResBonus", 5)
-    evt.Add("WaterResBonus", 5)
-    evt.Add("EarthResBonus", 5)
-    evt.Set("PlayerBits", 5)
-	evt.StatusText(51)         -- "+5 Elemental Resistance (Temporary)"
-    AddAutonote'amberWell3'
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 5)
-end, const.Day)
+Fountain(25, 203, "amberWell4")
 
 -- FOUNTAINS
 ------------------------------------------------------------------------------
-evt.hint[26] = evt.str[3] -- Fountain
-evt.hint[27] = evt.str[5] -- Drink from the Fountain
-evt.hint[28] = evt.str[5]
 
 -- Fountain: Port Island
-evt.map[27] = function()
-    evt.Add("HP", 10)
-    evt.Add("SP", 10)
-    evt.StatusText(50) -- "+ 10 Hit and Spell points"
-    AddAutonote'amberFountain1'
-end
+Fountain(27, 26, "amberFountain1")
 
 -- Fountain: Amber Town
-evt.map[28] = function()
-    
-    if evt.Cmp("MapVar1", 1) == false and not IsWarrior() then
-        evt.Add("Gold", 500)
-        evt.Set("MapVar1", 1)
-    else
-        evt.StatusText(4)
-    end
-end
+Fountain(28, 204, "amberFountain2")
+
+-- North town basin
+Fountain(165, 205, "amberFountain3")
 
 -- DUNGEONS
 ------------------------------------------------------------------------------
@@ -633,11 +557,6 @@ evt.map[164] = function()
         vars.MiscGlobal.FirstTimePlaying = 1
         evt.SpeakNPC(449)
     end
-end
-
--- North town basin
-evt.map[165] = function()
-    evt.StatusText(4) -- Refreshing
 end
 
 -- Goblin Ambush

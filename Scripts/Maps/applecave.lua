@@ -707,74 +707,26 @@ end
 -- FOUNTAINS
 
 -- Fountain: Main Hall Fountain
-evt.hint[93] = evt.str[20]
-evt.map[93] = function()
-    if evt.Cmp("PlayerBits", 10) then
-		evt.StatusText(23)         -- "Refreshing!"
-	else
-		evt.Add("LuckBonus", 20)
-		evt.Set("PlayerBits", 10)
-		evt.StatusText(26)         -- "+ 20 Luck (Temporary)"
-	end
-
-    AddAutonote'amberDungeonFountain2'
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 10)
-end, const.Day)
+Fountain(93, 113,   "amberApplecaveSpring1")
 
 -- Fountain: Well
-evt.hint[94] = evt.str[20]
-evt.map[94] = function()
-    
-    if evt.Cmp("MapVar40", 8) == false then
-        evt.Add("MapVar40", 1)
-        evt.Add("BaseLuck", 2)
-        evt.StatusText(27)         -- "+2 Luck permanent"
-        return
-    else
-        evt.StatusText(23)         -- "Refreshing!"
-    end
-end
+Fountain(94, 112,   "amberApplecaveWell1")
 
 -- Fountain: Throne Room, NE
-evt.hint[95] = evt.str[20]
-evt.map[95] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(95, 114,   "amberApplecaveSpring2")
 
 -- Fountain: Throne Room, SE
-evt.hint[96] = evt.str[20]
-evt.map[96] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(96, 115,   "amberApplecaveSpring3")
 
 -- Fountain: Throne Room, SW
-evt.hint[97] = evt.str[20]
-evt.map[97] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(97, 116,   "amberApplecaveSpring4")
 
 -- Fountain: Throne Room, NW
-evt.hint[98] = evt.str[20]
-evt.map[98] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(98, 117,   "amberApplecaveSpring5")
 
 -- Fountain: Temple, Higher Floor
-evt.hint[99] = evt.str[20]
-evt.map[99] = function()
-    if evt.Cmp("MapVar41", 10) == false then
-        evt.Add("MapVar41", 1)
-        evt.Add("SP", 10)
-        evt.StatusText(21)         -- "+10 Spell points restored"
-    else
-        evt.StatusText(23)         -- "Refreshing!"
-    end
-    AddAutonote'amberDungeonFountain3'
-end
+Fountain(99, 118,   "amberApplecaveFountain1")
+
 -- ****************************************************************************
 -- Gold Vein
 for i = 0, 9, 1 do
@@ -791,7 +743,6 @@ for i = 0, 9, 1 do
 		evt.SetTexture(100 + i, "Cwb1")
 	end
 end
-
 
 -- Main Door Entrance
 evt.hint[110] = evt.str[25]

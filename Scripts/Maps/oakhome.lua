@@ -390,23 +390,7 @@ end
 
 -- Misc
 -- Main Hall Fountain
-evt.hint[75] = evt.str[12]
-evt.map[75] = function()
-    if evt.Cmp("PlayerBits", 2) then
-		evt.StatusText(23)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("ArmorClassBonus", 5)
-    evt.Add("PlayerBits", 2)
-	evt.StatusText(22)         -- "+5 AC (Temporary)"
-    AddAutonote'amberDungeonFountain1'
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 2)
-end, const.Day)
+Fountain(75, 78, "amberOakhomeFountain1")
 
 -- Main Door Entrance
 evt.hint[76] = evt.str[25]

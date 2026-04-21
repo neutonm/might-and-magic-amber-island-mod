@@ -50,7 +50,7 @@ function events.LoadMap()
         if evt.Cmp(mapVarStr, 1) then
             evt.SetTexture(75 + i, "Cwb1")
         end
-    end    
+    end
 end
 
 -- MapVar0: Teleportation Pedestal
@@ -580,31 +580,36 @@ for i = 0, 8, 1 do
 end
 
 -- Fountain
-evt.hint[84] = evt.str[20]
-evt.map[84] = function()
-    evt.Add("SP", 10)
-	evt.StatusText(21)         -- "+10 Spell points restored"
-	AddAutonote'amberDungeonFountain6'
-end
 
-evt.hint[85] = evt.str[20]
-evt.map[85] = function()
+-- Upper Corridor, Entrance
+Fountain(84, 100, "amberCastle1")
 
-	if evt.Cmp("PlayerBits", 1) then
-		evt.StatusText(23)         -- "Refreshing!"
-		return
-	end
+-- Upper Corridor
+Fountain(85, 101, "amberCastle2")
 
-    evt.Add("ArmorClassBonus", 15)
-    evt.Add("PlayerBits", 1)
-	evt.StatusText(22)         -- "+15 AC (Temporary)"
-	AddAutonote'amberDungeonFountain7'
-end
+-- Pedestal Chamber
+Fountain(103, 102, "amberCastle3")
 
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 1)
-end, const.Day)
+-- Stairs to basement
+Fountain(105, 104, "amberCastle4")
+
+-- Teleport Room
+Fountain(107, 106, "amberCastle5")
+
+-- Archmage Room
+Fountain(109, 108, "amberCastle6")
+
+-- Basement tunnels entrace
+Fountain(109, 108, "amberCastle7")
+
+-- Apple Tree Chamber
+Fountain(111, 110, "amberCastle8")
+
+-- Basement Tunnels
+Fountain(113, 112, "amberCastle9")
+
+-- Basement Tunnels, South Passage
+Fountain(115, 114, "amberCastle10")
 
 -- EXIT DOOR
 -- @todo trigger not set

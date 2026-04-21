@@ -67,7 +67,7 @@ CatKeyItemID = 666 -- infernal cat key :)
 -- TYPE         TRIGGER ID      DESCRIPTION
 -- Teleport     40              Lab: From South to West
 -- Teleport     41              Lab: From West to South
--- Fountain     42              All fountains in the level
+-- -            42              
 -- Trigger      43              Cat Bed (key)
 -- Trigger      44              Main Hall: Keyhole near Grated Door
 -- Decoration   45              Apple Tree
@@ -76,6 +76,9 @@ CatKeyItemID = 666 -- infernal cat key :)
 -- Door         48              Locked Door (Entrance)
 -- Door         49              Exit
 -- Fire (Sprite)50              Ignore Picking Fires (rings and sheit)
+-- Fountain     51              Surrounding the statue
+-- Fountain     53              Apple Tree
+-- Fountain     55              Behind the Apple Tree
 
 -- ****************************************************************************
 
@@ -278,10 +281,10 @@ evt.map[41]     = function()
 end
 
 -- Fountains
-evt.hint[42]    = evt.str[5]
-evt.map[42]     = function()
-    evt.StatusText(6)         -- "Refreshing!"
-end
+-- evt.hint[42]    = evt.str[5]
+-- evt.map[42]     = function()
+--     evt.StatusText(6)         -- "Refreshing!"
+-- end
 
 -- Cat Bed
 evt.hint[43]    = evt.str[0]
@@ -362,3 +365,16 @@ evt.map[51]     = function()
     -- "Through the telescope, you observe a distant celestial body in the sky."
     evt.StatusText(18)
 end
+
+------------------------------------------------------------------------------
+-- FOUNTAINS
+------------------------------------------------------------------------------
+
+-- Fountain: Statue
+Fountain(51, 50, "amberArchmageresFountain1")
+
+-- Fountain: Apple Tree
+Fountain(53, 52, "amberArchmageresFountain2")
+
+-- Fountain: Behind the tree
+Fountain(55, 54, "amberArchmageresFountain3")

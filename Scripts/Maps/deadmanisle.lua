@@ -9,9 +9,7 @@ local TXT = Localize{
     [2] =   "Chest",
     [3] =   "Boat",
     [4] =   "Broken Boat",
-    [5] =   "+25 Max HP (Temporary)",
-    [6] =   "Refreshing",
-    [7] =   "As you return, you find your boat half-submerged in the shallows, \01265523sabotaged beyond repair.\01200000\n\n"..
+    [5] =   "As you return, you find your boat half-submerged in the shallows, \01265523sabotaged beyond repair.\01200000\n\n"..
             "You'll need to find another way off the island."
 }
 table.copy(TXT, evt.str, true)
@@ -178,24 +176,8 @@ end
 -- Broken Boat
 evt.hint[24] = evt.str[4]
 evt.map[24] = function()
-    Message(evt.str[7])
+    Message(evt.str[5])
 end
 
 -- Well
-evt.hint[25] = evt.str[4]
-evt.map[25] = function()
-
-    if evt.Cmp("PlayerBits", 6) then
-		evt.StatusText(6)         -- "Refreshing!"
-		return
-	end
-
-    evt.Add("FullHitPointsBonus", 25)
-    evt.Set("PlayerBits", 6)
-	evt.StatusText(5)         -- "+25 Max HP (Temporary)"
-end
-
-RefillTimer(function()
-	evt.ForPlayer("All")
-	evt.Subtract("PlayerBits", 6)
-end, const.Day)
+Fountain(25, 26, "deadmanisleWell1")

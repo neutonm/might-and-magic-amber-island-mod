@@ -799,48 +799,16 @@ end
 -- FOUNTAINS
 
 -- Fountain: Fountain Chamber
-evt.hint[84] = evt.str[20]
-evt.map[84] = function()
-    if evt.Cmp("MapVar40", 20) == false then
-        evt.Add("MapVar40", 1)
-        evt.Add("HP", 10)
-        evt.Add("SP", 10)
-        evt.StatusText(21)         -- "+10 Hit & Spell points restored"
-    else
-        evt.StatusText(23)         -- "Refreshing!"
-    end
-
-    AddAutonote'amberDungeonFountain4'
-end
+Fountain(84, 100, "amberArchmageresFountain4")
 
 -- Fountain: Eastern Hall
-evt.hint[85] = evt.str[20]
-evt.map[85] = function()
-
-    if evt.Cmp("MapVar41", 6) == false then
-        evt.Add("MapVar41", 1)
-        evt.Add("FireResistance", 1)
-        evt.Add("AirResistance", 1)
-        evt.Add("WaterResistance", 1)
-        evt.Add("EarthResistance", 1)
-        evt.StatusText(28)         -- "+1 Elemental Resistance permanent"
-        return
-    else
-        evt.StatusText(23)         -- "Refreshing!"
-    end
-end
+Fountain(85, 101, "amberArchmageresFountain5")
 
 -- Fountain: Western Teleport Room
-evt.hint[86] = evt.str[20]
-evt.map[86] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(86, 102, "amberArchmageresFountain6")
 
 -- Fountain: Eastern Teleport Room
-evt.hint[87] = evt.str[20]
-evt.map[87] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(87, 103, "amberArchmageresFountain7")
 
 -- ****************************************************************************
 -- Potential Triggers
@@ -858,10 +826,7 @@ evt.map[89] = function()
 end
 
 -- Fountain: Guest Room, Secret (Button)
-evt.hint[90] = evt.str[20]
-evt.map[90] = function()
-    evt.StatusText(23)         -- "Refreshing!"
-end
+Fountain(90, 104, "amberArchmageresFountain8")
 
 -- Button: Guest Room, Secret
 evt.hint[91] = evt.str[6]
