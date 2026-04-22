@@ -100,7 +100,7 @@ local function NPCMercDeclare(Merc)
             Done        =   "Upgrade successful!",
             Undone      =   "Not enough gold or you've reached maximum level of allowed upgrades.",
         },
-        CanShow         =   (|| IsQuestNPCActive() ),
+        CanShow         =   function(t) return IsQuestNPCActive() end,
         NeverDone       =   true,
         NeverGiven      =   true,
         Done			= 	function(t) Merc_NPCTopicUpgradeDone(Merc, t) end,
@@ -115,7 +115,7 @@ local function NPCMercDeclare(Merc)
         Slot            =   F,
         Branch          =   "Upgrade",
         NewBranch       =   "UpgradeSelect",
-        CanShow         =   (|| IsQuestNPCActive() ),
+        CanShow         =   function(t) return IsQuestNPCActive() end,
         Texts 		    = 
         {		
             Topic 	    = 	"Back"
@@ -266,7 +266,7 @@ local function NPCMercDeclare(Merc)
         Slot        =   A,
         Branch      =   "ConfirmFire",
         NewBranch   =   "void",
-        CanShow     =   (|| IsQuestNPCActive() ),
+        CanShow     =   function(t) return IsQuestNPCActive() end,
         Texts 		= 
         {		
             Topic 	= 	"Good bye!",
@@ -283,7 +283,7 @@ local function NPCMercDeclare(Merc)
         Slot        =   B,
         Branch      =   "ConfirmFire",
         NewBranch   =   "",
-        CanShow     =   (|| IsQuestNPCActive() ),
+        CanShow     =   function(t) return IsQuestNPCActive() end,
         Texts 		= 
         {		
             Topic 	= 	"On second thought...",
@@ -299,7 +299,7 @@ local function NPCMercDeclare(Merc)
         Slot        =   A,
         Branch      =   "UpgradeSelect",
         NewBranch   =   "UpgradeCommon",
-        CanShow     =   (|| IsQuestNPCActive() ),
+        CanShow     =   function(t) return IsQuestNPCActive() end,
         Texts 		= 
         {		
             Topic 	= 	"Category: Common",
@@ -311,7 +311,7 @@ local function NPCMercDeclare(Merc)
         Slot        =   B,
         Branch      =   "UpgradeSelect",
         NewBranch   =   "UpgradeOffense",
-        CanShow     =   (|| IsQuestNPCActive() ),
+        CanShow     =   function(t) return IsQuestNPCActive() end,
         Texts 		= 
         {		
             Topic 	= 	"Category: Offense",
@@ -323,7 +323,7 @@ local function NPCMercDeclare(Merc)
         Slot        =   C,
         Branch      =   "UpgradeSelect",
         NewBranch   =   "UpgradeDefense",
-        CanShow     =   (|| IsQuestNPCActive() ),
+        CanShow     =   function(t) return IsQuestNPCActive() end,
         Texts 		= 
         {		
             Topic 	= 	"Category: Defense",

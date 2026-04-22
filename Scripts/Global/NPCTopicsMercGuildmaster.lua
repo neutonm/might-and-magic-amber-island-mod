@@ -199,7 +199,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
 			NewBranch   	=   PTopic,
 			GetTopic		=	function(t) return "Previous" end,
 			Ungive      	=   SetBranch,
-			CanShow			=	(|| Index > 1)
+			CanShow			=	function(t) return Index > 1 end
 		}
 
 		MercBrowseTopic{
@@ -208,7 +208,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
 			NewBranch   	=   NTopic,
 			GetTopic		=	function(t) return "Next" end,
 			Ungive      	=   SetBranch,
-			CanShow			=	(|| Index < #vars.MercNPCAvailableList )
+			CanShow			=	function(t) return Index < #vars.MercNPCAvailableList end
 		}
 		
 		-- inc

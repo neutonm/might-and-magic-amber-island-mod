@@ -56,7 +56,7 @@ Quest{
 	},
 	Exp				=	500,
 	QuestItem		=	795,
-	CanShow			= 	(|| vars.Quests.StoryQuest1 ~= "Done"),
+	CanShow			= 	function(t) return vars.Quests.StoryQuest1 ~= "Done" end,
 	Give			=	function(t) evt.Add("Inventory", 794) end,
 	Done			=	function(t) evt.Subtract("Inventory", 794) end -- just in case, remove mayor letter
 }
@@ -73,7 +73,7 @@ Quest{
 		Undone 		= 	"Why are you here? Have you located the Archmage? You aren't taking this as seriously as you should. If Magnus is not brought to justice, we will all suffer.\n\n\01265523Don't forget to consult with that adventurer at the Crusty Eagle Inn.\01200000",
 		Quest 		= 	"\"Story: Investigation\"\nMayor Maximus, Amber Island, Town Hall\n\nSearch for Archmage Magnus on the island by investigating his residence for clues to his whereabouts.",
 	},
-	CanShow			= 	(|| vars.Quests.StoryQuest1 == "Done" and vars.Quests.StoryQuest2 ~= "Done"),
+	CanShow			= 	function(t) return vars.Quests.StoryQuest1 == "Done" and vars.Quests.StoryQuest2 ~= "Done" end,
 	Exp				=	1000,
 	Gold			=	1000,
 	QuestItem		=	798,
@@ -93,7 +93,7 @@ Quest{
 		Undone 		= 	"Time is of the essence. With the information we have on Magnus's location, we must act swiftly and \01265523capture him\01200000 before he slips away again.",
 		Quest 		= 	"\"Story: Secret Hideout\"\nMayor Maximus, Amber Island, Town Hall\n\nHunt down Magnus in his secret hideout. Use the teleportation platform near the knight's camp in the swamp to get there.",
 	},
-	CanShow			= 	(|| vars.Quests.StoryQuest2 == "Done" and vars.Quests.StoryQuest3 ~= "Done"),
+	CanShow			= 	function(t) return  vars.Quests.StoryQuest2 == "Done" and vars.Quests.StoryQuest3 ~= "Done" end,
 	Exp				=	2000,
 	Gold			=	2000,
 	QuestItem		=	797,
@@ -121,7 +121,7 @@ KillMonstersQuest{
 							--return evt.Cmp("QBits",7)
 							return vars.QuestsAmberIsland.QVar1
 						end,
-	CanShow			= 	(|| vars.Quests.StoryQuest3 == "Done"),
+	CanShow			= 	function(t) return vars.Quests.StoryQuest3 == "Done" end,
 	Exp 			= 	5000,
 	Gold 			= 	5000,
 	Done			=	function(t) 
@@ -151,14 +151,14 @@ NPCTopic{
 	Slot 			= 	B,
 	"Archmage Crisis",
 	"We've been ensnared in an extortion racket by one of our own, Magnus the Archmage. He's created a remarkable weather machine that produces thick fog around Amber Island, complicating navigation for ships at sea.\n\nMagnus only shuts it off when we pay him a hefty sum of gold. As the fog grows more widespread by the day, so does the price for his \"services.\" If we don't put an end to his actions, our island faces disaster. It's not just financial trouble if the ships stop coming. We can only grow so much of our own food.",
-	CanShow			=	(|| vars.Quests.CoreQuest ~= "Done")
+	CanShow			=	function(t) return vars.Quests.CoreQuest ~= "Done" end
 }
 
 NPCTopic{
 	Slot 			= 	C,
 	"Invaders",
 	"A horde of goblins has taken over Castle Amber, and it's astonishing to see them following a swamp troll as their leader. Trolls are known cannibals. Have the goblins considered that once the troll runs out of human prey, they will be the next on the menu?",
-	CanShow			=	(|| vars.Quests.CoreQuest ~= "Done")
+	CanShow			=	function(t) return vars.Quests.CoreQuest ~= "Done" end
 }
 
 Quest{
@@ -172,7 +172,7 @@ Quest{
 	},
 	Gold 			= 	500,
 	Exp				=	1000,
-	CanShow 		= 	(|| (vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498))),
+	CanShow 		= 	function(t) return (vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498)) end,
 	Done			= 	function(t)
 							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTED
 							evt.Subtract("NPCs", 498)
@@ -274,7 +274,7 @@ NPCTopic{
 	Text			=	"Sir Robert? He had more wine than sense last night...\n\n"..
 						"Mumbled something about stepping out to relieve himself and wandered toward the old ruined tower.\n\n"..
 						"He never came back.",
-	CanShow			= 	(|| vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior())
+	CanShow			= 	function(t) return vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior() end
 }
 
 ------------------------------------------------------------------------------
@@ -481,7 +481,7 @@ Quest{
 							evt.All.Add("BaseMight", 5)
 							evt.All.Add("BaseSpeed", 5)					
 						end,
-	CanShow			=	(|| vars.Quests.AmberQuest11 == "Done")
+	CanShow			=	function(t) return vars.Quests.AmberQuest11 == "Done" end
 }
 
 ------------------------------------------------------------------------------
@@ -674,7 +674,7 @@ Quest{
 							evt.MoveNPC{NPC = 491, HouseId = 0}
 							evt.MoveNPC{NPC = 477, HouseId = 117}
 						end,
-	CanShow			=	(|| vars.Quests.AmberQuest11 ~= "Done")
+	CanShow			=	function(t) return vars.Quests.AmberQuest11 ~= "Done" end
 }
 ------------------------------------------------------------------------------
 -- Thomas Beck
@@ -696,7 +696,7 @@ NPCTopic{
 Quest{
 	Name 			= 	"AmberQuest4",
 	Slot 			= 	C,
-	CanShow			= 	(|| evt.All.Cmp("Inventory", 784) or Q.AmberQuest4 == "Done"),
+	CanShow			= 	function(t) return evt.All.Cmp("Inventory", 784) or Q.AmberQuest4 == "Done" end,
 	Texts 			= 
 	{		
 		Topic 		= 	"Quest: Family Sword",
@@ -750,7 +750,7 @@ KillMonstersQuest{
 NPCTopic{
 	Slot 			= 	C,
 	Topic 			= 	"Traps",
-	CanShow			= 	(|| IsWarrior() ),
+	CanShow			= 	function(t) return IsWarrior() end,
 	Text 			= 	"Traps, you ask? Well, me and my brother tried to deal with the rat problem ourselves. Built traps, baited them just right, and thought we had it all handled. Problem is, these rats are smarter and meaner than we expected. They broke free of most of our traps or outright ignored them.\n\n" ..
 						"The traps are still there, though, and they will catch more than rats if you are not careful. Watch your step down there. Last thing we need is you getting caught in one of our contraptions on top of everything else."
 }
@@ -820,7 +820,7 @@ Quest{
 							ShowQuestEffect(true, t.TakeQuestOperation)
 						end,
 	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	(|| not IsWarrior())
+	CanShow			=	function(t) return not IsWarrior() end
 }
 
 Quest{
@@ -856,7 +856,7 @@ Quest{
 							ShowQuestEffect(true, t.TakeQuestOperation)
 						end,
 	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	(|| IsWarrior())
+	CanShow			=	function(t) return not IsWarrior() end
 }
 
 NPCTopic{
@@ -866,7 +866,7 @@ NPCTopic{
 		Topic 		= 	"What the...",
 		Ungive 		= 	"Ye've walked the plank right into me \01265523trap\01200000, landlubbers!\n\nThere be no sea monster here, only the consequences of crossing paths with a pirate. Now, let's see if ye can fight men as well as beasts."
 	},
-	CanShow			= 	(|| vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done")
+	CanShow			= 	function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end
 }
 ------------------------------------------------------------------------------
 -- Martha Blaine
@@ -899,7 +899,7 @@ Quest{
 								vars.QuestsAmberIsland.QVarRansom = 5
 							end
 						end,
-	CheckDone 		= 	(|| evt.Cmp("NPCs", 516) == true),
+	CheckDone 		= 	function(t) return evt.Cmp("NPCs", 516) == true end,
 	RewardItem 		= 	196,
 	Exp				=	2500,
 }
@@ -911,7 +911,7 @@ Quest{
 		Topic 		= 	"There's a problem...",
 		Done 		= 	"*Upon hearing the kidnappers' new demands, Martha's face crumples in despair. Clutching a bag of gold tightly in her trembling hands, she thrusts it towards you.*\n\n This is all I have, every last coin. Please, take it. Maybe it is enough to hire some help? I beg you, Laurier is all I've got. You must bring her back to me!\n\n*Her eyes brim with tears.*",
 	},
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarRansom == 1 and not evt.Cmp("NPCs", 516)),
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRansom == 1 and not evt.Cmp("NPCs", 516) end,
 	Done			= 	function(t)
 							vars.QuestsAmberIsland.QVarRansom = 2
 						end,
@@ -964,15 +964,15 @@ Quest{
 							Timer(
 								MoveOthoBackToHome, const.Hour, const.Hour + const.Minute, true)
 						end,
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarRevenge and vars.QuestsAmberIsland.QVarRevenge < QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.REPORTED),
-	CheckDone		= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.KILLED)
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRevenge and vars.QuestsAmberIsland.QVarRevenge < QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.REPORTED end,
+	CheckDone		= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.KILLED end
 }
 
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Failed: Revenge",
 	Text 			= 	"You think you're clever, siding with Michael against me? You will \01265523regret\01200000 this. Mark my words, you have not seen the last of me!",
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
 }
 
 NPCTopic{
@@ -980,7 +980,7 @@ NPCTopic{
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I look forward to \01265523collaborating\01200000 with you again in the future.",
 
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED end
 }
 
 Quest{
@@ -1001,7 +1001,7 @@ Quest{
 							evt.Add("Gold", rewardGold)
 							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REWARDED
 						end,
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.TRANSFERED)
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.TRANSFERED end
 }
 ------------------------------------------------------------------------------
 -- Desdemona Robeson
@@ -1035,7 +1035,7 @@ Quest{
 		Ungive 		= 	"What is the meaning of this?",
 	},
 	Ungive			=	SetBranch,
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.GIVEN)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.GIVEN end
 }
 
 Quest{
@@ -1046,7 +1046,7 @@ Quest{
 		Topic 		= 	"Well?",
 		Give 		= 	"We shouldn't loose any time, let's go \01265523see the mayor\01200000 and tell him everything.",
 	},
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING end
 }
 
 NPCTopic{
@@ -1054,7 +1054,7 @@ NPCTopic{
 	Branch			=	"",
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"I'm glad that you've chosen the path of honor. You will always be a welcome guest at my home.",
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
 }
 
 -- BRANCH
@@ -1086,7 +1086,7 @@ Quest{
 		Give 		= 	"Thank you for choosing the path of honor. With the \01265523ring\01200000 as evidence of Otho's dark intentions, we have a chance to bring the truth to light. Let's get to the mayor as quickly as possible.",
 		Ungive		=	"*You can't approach Michael with this option without a proof - you need that \01265523ring\01200000 Otho gave you.*",
 	},
-	CheckGive		=	(|| evt.All.Cmp("Inventory", 791)),
+	CheckGive		=	function(t) return evt.All.Cmp("Inventory", 791) end,
 	Give			= 	function(t)
 							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
 							evt.MoveNPC{NPC = 498, HouseId = 0}
@@ -1287,7 +1287,7 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == true or evt.Cmp("Counter2", 24 * 5) == true),
+	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkCurePotionSale == true or evt.Cmp("Counter2", 24 * 5) == true end,
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
@@ -1307,7 +1307,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	B,
 	Topic 			= 	"Buy more! (Cure Potion)",
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkCurePotionSale == false and evt.Cmp("Counter2", 24 * 5) == false ),
+	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkCurePotionSale == false and evt.Cmp("Counter2", 24 * 5) == false end,
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
 }
 
@@ -1319,7 +1319,7 @@ Quest{
 		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
 		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
 	},
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == true or evt.Cmp("Counter3", 24 * 5) == true),
+	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkManaPotionSale == true or evt.Cmp("Counter3", 24 * 5) == true end,
 	NeverGiven 		= 	true,
 	NeverDone 		= 	true,
 	QuestGold 		= 	500,
@@ -1339,7 +1339,7 @@ Quest{
 NPCTopic{
 	Slot 			= 	D,
 	Topic 			= 	"Buy more! (Mana Potion)",
-	CanShow			= 	(|| vars.MiscAmberIsland.BulkManaPotionSale == false and evt.Cmp("Counter3", 24 * 5) == false),
+	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkManaPotionSale == false and evt.Cmp("Counter3", 24 * 5) == false end,
 	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
 }
 ------------------------------------------------------------------------------
@@ -1485,7 +1485,7 @@ Quest{
 	RewardItem		=	795,
 	QuestItem 		= 	794,
 	Exp				=	250,
-	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given" and not IsWarrior()),
+	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" and not IsWarrior() end,
 	Done			=	function(t)
 							evt.Subtract("Reputation", 5) 
 						end
@@ -1508,7 +1508,7 @@ Quest{
 	RewardItem		=	795,
 	QuestItem 		= 	794,
 	Exp				=	250,
-	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given" and IsWarrior()),
+	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" and IsWarrior() end,
 	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
 
@@ -1570,7 +1570,7 @@ NPCTopic{
 	Text 			= 	"Report? What report... ah. The Mayor.\n\n" ..
 						"*A faint scent of wine lingers.*\n\n" ..
 						"Very well. Assist me back to the camp and you shall have it. ",
-	CanShow			=	(|| vars.Quests.StoryQuest1 == "Given")
+	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" end
 }
 
 NPCTopic{
@@ -1667,7 +1667,7 @@ Quest{
 		Topic 		= 	"Rescue!",
 		Done 		= 	"You do not look like those dreadful ratmen pirates. Are you here to rescue me?",
 	},
-	CanShow			=	(|| evt.Cmp("NPCs", 516) == false and vars.QuestsAmberIsland.QVarRansom ~= 5 ),
+	CanShow			=	function(t) return evt.Cmp("NPCs", 516) == false and vars.QuestsAmberIsland.QVarRansom ~= 5 end,
 	NeverGiven 		= 	true,
 	Done			= 	function(t) 
 							for _, mon in Map.Monsters do
@@ -1702,14 +1702,14 @@ NPCTopic{
 	Slot 			= 	A,
 	Topic 			= 	"Favor",
 	Text 			= 	"Do me a favor, will you? Locate the \01265523Blaine residence\01200000 in Amber Town and deliver a message for me. Tell them to think faster if they wish to see their daughter again. \n\nMaybe we'll share the loot together, friend.",
-	CanShow			= 	(|| Q.AmberQuest5 == nil)
+	CanShow			= 	function(t) return Q.AmberQuest5 == nil end
 }
 
 NPCTopic{
     Slot            =   A,  
     Topic           =   "Laurie Blaine",
     Text            =   "The lass is safe and sound, snug as a bug in a rug! But she's itching to see home. Just make sure you \01265523bring the gold\01200000, all of it. We wouldn't want to prolong her stay, now would we?",
-    CanShow         =   (|| Q.AmberQuest5 and vars.QuestsAmberIsland.QVarRansom ~= 3)
+    CanShow         =   function(t) return Q.AmberQuest5 and vars.QuestsAmberIsland.QVarRansom ~= 3 end
 }
 
 NPCTopic{
@@ -1720,7 +1720,7 @@ NPCTopic{
 
 Quest{
 	Slot 			= 	C,
-	CanShow			= 	(|| Q.AmberQuest5 ~= nil and vars.QuestsAmberIsland.QVarRansom == 0),
+	CanShow			= 	function(t) return Q.AmberQuest5 ~= nil and vars.QuestsAmberIsland.QVarRansom == 0 end,
 	Texts 			=
 	{
 		Topic 		= 	"Pay: Ransom (1000g)",
@@ -1742,7 +1742,7 @@ Quest{
 		Done 		= 	"Nice doing business with you, friend. Here's the gal, now get lost.",
 		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
 	},
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarRansom == 1 or vars.QuestsAmberIsland.QVarRansom == 2),
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRansom == 1 or vars.QuestsAmberIsland.QVarRansom == 2 end,
 	NeverGiven 		= 	true,
 	QuestGold 		= 	5000,
 	Done			= 	function(t) 
@@ -1874,7 +1874,7 @@ Quest{
 		Done 		= 	"With a creaking sound, the chest's lid swings open to reveal its contents: a gleaming hoard of \012655231208 gold pieces\01200000, piled neatly inside, waiting to be claimed.",
 		Undone 		= 	"The chest is securely \01265523locked\01200000, its heavy lid refusing to budge. A distinct pirate insignia marks the lock, indicating a specific \01265523key\01200000 is needed to open it.",
 	},
-	CanShow			=	(|| vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done"),
+	CanShow			=	function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end,
 	NeverGiven 		= 	true,
 	Gold 			= 	1208,
 	QuestItem		=	792,
@@ -1911,7 +1911,7 @@ Quest{
 	},
 	Gold 			= 	1000,
 	Exp				=	1000,
-	CheckDone		=	(|| evt.Cmp("NPCs", 524) == true),
+	CheckDone		=	function(t) return evt.Cmp("NPCs", 524) == true end,
 	Done			= 	function(t) 
 							evt.Subtract("Reputation", 5)
 							evt.Subtract("NPCs", 524)
@@ -1946,7 +1946,7 @@ Quest{
 		GreetDone 	= 	"What's up, folks? Do you have more carrots? I really could use a bite you know.",
 		TopicDone 	= 	false,
 	},
-	CanShow 		= 	|| Q.AmberQuest10 == "Given",
+	CanShow 		= 	function(t) return Q.AmberQuest10 == "Given" end,
 	QuestItem 		= 	793,
 	Done			=	function(t)
 							evt.MoveNPC{NPC = 524, HouseId = 0}
@@ -1990,7 +1990,7 @@ NPCTopic{
 	Slot 			= 	C,
 	Topic			=	"Story Quest: Investigation?",
 	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished.\n\nBut when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
-	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil and IsWarrior())
+	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and IsWarrior() end
 }
 
 Quest{
@@ -2004,14 +2004,14 @@ Quest{
 	NeverGiven		=	true,
 	RewardItem 		= 	781,
 	Exp				=	100,
-	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil and not IsWarrior())
+	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and not IsWarrior() end
 }
 
 NPCTopic{
 	Slot 			= 	D,
 	Topic 			= 	"Teleportation Stone",
 	Text 			= 	"We found this magical stone in a \01265523very weird place.\01200000 It was an eerie location where \01265523furniture floated\01200000 in space, defying all logic. Keep your eyes open for places that feel out of the ordinary; you never know what you might find.",
-	CanShow			=	(|| vars.Quests.StoryQuest2 ~= nil)
+	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil end
 }
 
 ------------------------------------------------------------------------------
@@ -2040,7 +2040,7 @@ Quest{
 	NeverGiven		=	true,
 	RewardItem 		= 	796,
 	Exp				=	100,
-	CanShow			=	(|| vars.Quests.StoryQuest3 ~= nil)
+	CanShow			=	function(t) return vars.Quests.StoryQuest3 ~= nil end
 }
 
 ------------------------------------------------------------------------------
@@ -2085,7 +2085,7 @@ NPCTopic{
 	Topic 			= 	"Travel: Castle Amber",
 	NeverGiven		= 	true,
 	NeverDone		=	true,
-	CanShow			=	(|| vars.Quests.CoreQuest ~= nil),
+	CanShow			=	function(t) return vars.Quests.CoreQuest ~= nil end,
 	Done			=	function(t) 
 
 							-- Launch attack
@@ -2349,21 +2349,21 @@ NPCTopic{
 	Slot 			= 	C,
 	Topic 			= 	"How's life?",
 	Text 			= 	"This place is surprisingly livable. I even found an old dwarven siege hideout - there's a bed, some wine, and a few supplies. I should manage well enough here.",
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 582)
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 582 end
 }
 
 NPCTopic{
 	Slot 			= 	D,
 	Topic 			= 	"How's life?",
 	Text 			= 	"Well... pirate caves aren't the friendliest of places. Still, as long as I keep away from the local vermin, I should be fine.",
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 583)
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 583 end
 }
 
 NPCTopic{
 	Slot 			= 	E,
 	Topic 			= 	"How's life?",
 	Text 			= 	"Quite a creepy place. I've heard stories about a Behemoth lurking in these mines, and something tells me they may be true.\n\nStill, I found a small building with a bed and some old furniture. I think I can manage here for a while.",
-	CanShow			=	(|| vars.QuestsAmberIsland.QVarButlerHideHouseID == 584)
+	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 end
 }
 
 ------------------------------------------------------------------------------
@@ -2387,7 +2387,7 @@ NPCTopic{
 	Text			=	"That butler, Barnaby? Pulled the oldest trick in the book. Pretended to be sick, then slipped past the guard and jumped into the sea, \01265523swimming towards port island\01200000. Haven't seen him since.\n\n"..
 						"But I'm not worried. This is an island - he's got nowhere to run. Sooner or later someone will spot him.\n\n"..
 						"If you happen to bring him back, there might be a little reward waiting for you.",
-	CanShow			= 	(|| vars.QuestsAmberIsland.QVarButlerEscaped > 0 and vars.QuestsAmberIsland.QVarButlerEscaped < 3)
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarButlerEscaped > 0 and vars.QuestsAmberIsland.QVarButlerEscaped < 3 end
 }
 
 Quest{
@@ -2407,7 +2407,7 @@ Quest{
 							vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.IMPRISONED
 							Q.StoryQuest4 = "Done"
 						end,
-	CanShow			=	(|| evt.Cmp("NPCs", 539))
+	CanShow			=	function(t) return evt.Cmp("NPCs", 539) end
 }
 
 ------------------------------------------------------------------------------
