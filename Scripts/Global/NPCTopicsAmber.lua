@@ -1990,7 +1990,7 @@ NPCTopic{
 	Slot 			= 	C,
 	Topic			=	"Story Quest: Investigation?",
 	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished.\n\nBut when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
-	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and IsWarrior() end
+	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and IsWarrior() end
 }
 
 Quest{
@@ -2004,7 +2004,7 @@ Quest{
 	NeverGiven		=	true,
 	RewardItem 		= 	781,
 	Exp				=	100,
-	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and not IsWarrior() end
+	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and not IsWarrior() end
 }
 
 NPCTopic{
