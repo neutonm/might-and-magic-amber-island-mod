@@ -55,6 +55,7 @@ SMercCredentials    = {
     PriceHire       = 2000,
     PriceReHire     = 500,
     PriceResurrect  = 500,
+
     TextAbout       = "I'm tough and rough.",
     TextHired       = "Hired!",
     TextGreeting    = "Greetings!",
@@ -64,6 +65,21 @@ SMercCredentials    = {
     TextFireCancel  = "Phew, that was close!"
 }
 
+SMercCredentialsSchema = {
+    Name            = { type = "string", required = true },
+    PriceHire       = { type = "number" },
+    PriceReHire     = { type = "number" },
+    PriceResurrect  = { type = "number" },
+
+    TextAbout       = { type = "string", escaped = true },
+    TextHired       = { type = "string", escaped = true },
+    TextGreeting    = { type = "string", escaped = true },
+    TextFightTired  = { type = "string", escaped = true },
+    TextSpecial     = { type = "string", escaped = true },
+    TextFireAttempt = { type = "string", escaped = true },
+    TextFireCancel  = { type = "string", escaped = true },
+}
+
 -- Holds non-mutable data for mercs
 SMerc               = {
     StringID        = "none",
@@ -71,13 +87,29 @@ SMerc               = {
     NPC_ID          = 525,
     MonsterID       = 0,
     Ability         = "",
-    FullHP          = { [1] = 100, [2] = 125, [3] = 150, [4] = 180 },
-    AC              = { [1] = 3, [2] = 8, [3] = 15, [4] = 20 },
-    Level           = { [1] = 5, [2] = 10, [3] = 15, [4] = 20 },
+
+    FullHP          = { [1] = 100, [2] = 125, [3] = 150, [4] = 180  },
+    AC              = { [1] = 3, [2] = 8, [3] = 15, [4] = 20        },
+    Level           = { [1] = 5, [2] = 10, [3] = 15, [4] = 20       },
     Attack1         = { [1] = "1D2", [2] = "2D3+1", [3] = "3D4+2", [4] = "4D4+3" },
     Attack2         = nil,
-    FightsMax       = { [1] = 1, [2] = 2, [3] = 3, [4] = 4 },
+    FightsMax       = { [1] = 1, [2] = 2, [3] = 3, [4] = 4          },
     Credentials     = table.copy(SMercCredentials),
+}
+
+SMercSchema = {
+    StringID        = { column = "ID",      type = "string", required = true    },
+    Name            = { type = "string"                                         },
+    NPC_ID          = { type = "number"                                         },
+    MonsterID       = { column = "MON_ID",  type = "number"                     },
+    Ability         = { type = "string"                                         },
+
+    FullHP          = { parse = TableLoader.ParseIndexedColumns("FullHP",    "number", 0, 3) },
+    AC              = { parse = TableLoader.ParseIndexedColumns("AC",        "number", 0, 3) },
+    Level           = { parse = TableLoader.ParseIndexedColumns("Level",     "number", 0, 3) },
+    Attack1         = { parse = TableLoader.ParseIndexedColumns("Attack1",   "string", 0, 3) },
+    Attack2         = { parse = TableLoader.ParseIndexedColumns("Attack2",   "string", 0, 3) },
+    FightsMax       = { parse = TableLoader.ParseIndexedColumns("FightsMax", "number", 0, 3) },
 }
 
 -- Tables
@@ -408,7 +440,65 @@ function Merc_ResetChargesForAllMercs()
     end
 end
 
--- Game Events
+-- Data Table
+function Merc_ParseTables(Table)
+
+    return TableLoader.ParseFile{
+        Path             = "Data/Tables/Mercs.txt",
+        Schema           = SMercSchema,
+        Defaults         = SMerc,
+        Out              = Table,
+        KeyField         = "StringID",
+        DetectDuplicates = true,
+    }
+end
+
+function Merc_ParseCredentials(Table)
+
+    local CredentialsTable = {}
+
+    local ok = TableLoader.ParseFile{
+        Path             = "Data/Tables/MercCredentials.txt",
+        Schema           = SMercCredentialsSchema,
+        Defaults         = SMercCredentials,
+        Out              = CredentialsTable,
+        KeyField         = "Name",
+        DetectDuplicates = true,
+    }
+
+    if not ok then
+        return
+    end
+
+    for i = 1, #CredentialsTable do
+        local cred = CredentialsTable[i]
+
+        for j = 1, #Table do
+            if Table[j] ~= nil and Table[j].Name == cred.Name then
+                Table[j].Credentials = table.copy(SMercCredentials)
+
+                Table[j].Credentials.PriceHire       = cred.PriceHire       or SMercCredentials.PriceHire
+                Table[j].Credentials.PriceReHire     = cred.PriceReHire     or SMercCredentials.PriceReHire
+                Table[j].Credentials.PriceResurrect  = cred.PriceResurrect  or SMercCredentials.PriceResurrect
+
+                Table[j].Credentials.TextAbout       = cred.TextAbout       or SMercCredentials.TextAbout
+                Table[j].Credentials.TextHired       = cred.TextHired       or SMercCredentials.TextHired
+                Table[j].Credentials.TextGreeting    = cred.TextGreeting    or SMercCredentials.TextGreeting
+                Table[j].Credentials.TextFightTired  = cred.TextFightTired  or SMercCredentials.TextFightTired
+                Table[j].Credentials.TextSpecial     = cred.TextSpecial     or SMercCredentials.TextSpecial
+                Table[j].Credentials.TextFireAttempt = cred.TextFireAttempt or SMercCredentials.TextFireAttempt
+                Table[j].Credentials.TextFireCancel  = cred.TextFireCancel  or SMercCredentials.TextFireCancel
+
+                break
+            end
+        end
+    end
+end
+
+------------------------------------------------------------------------------
+-- EVENTS
+------------------------------------------------------------------------------
+
 function events.BeforeLoadMap(WasInGame, WasLoaded)
 
     -- Note: Such way of declaring stuff fixes newgame/autosave bug
@@ -441,7 +531,7 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
             table.insert(vars.MercSaveDataList, SaveData) 
         end
 
-        -- Default avaiable mercs
+        -- Default available mercs
         if Game.Debug == true then
             for _, v in pairs(MercsDB) do
                 Merc_MakeAvailableForHire(v.NPC_ID) -- all of them
@@ -523,167 +613,24 @@ function events.AfterLoadMap(WasInGame)
         const.Day, const.Hour, false)
 end
 
--- Data Table
-function ParseMercTables(Table)
+function events.GameInitialized2()
 
-    -- Core data
-    local FilePath = "Data/Tables/Mercs.txt"
-	local File	= io.open(FilePath)
-	if not File then
-		return
-	end
+    Merc_ParseTables(MercsDB)
+    Merc_ParseCredentials(MercsDB)
 
-	local LineIt = File:lines()
-	LineIt()
-
-    local Counter = 1
-	for line in LineIt do
-		local Words = string.split(line, "\9")
-		if string.len(Words[1]) == 0 then
-			break
-		end
-
-		Table[Counter] = table.copy(SMerc)
-
-		if string.len(Words[2]) > 0 then
-			Table[Counter].StringID     = tostring(Words[2])
-		end
-
-		if string.len(Words[3]) > 0 then
-			Table[Counter].Name 	    = tostring(Words[3])
-		end
-
-        if string.len(Words[4]) > 0 then
-			Table[Counter].NPC_ID 	    = tonumber(Words[4])
-		end
-
-        if string.len(Words[5]) > 0 then
-			Table[Counter].MonsterID    = tonumber(Words[5])
-		end
-        
-        if string.len(Words[6]) > 0 then
-			Table[Counter].Ability      = tostring(Words[6])
-		end
-        
-        Table[Counter].FullHP = {}
-        for i = 0, 3 do
-            if string.len(Words[i+7]) > 0 then
-                Table[Counter].FullHP[i+1] = tonumber(Words[i+7])
-            end
+    for i = 1, #MercsDB do
+        if MercsDB[i].Ability == nil then
+            MercsDB[i].Ability = ""
         end
-
-        Table[Counter].AC = {}
-        for i = 0, 3 do
-            if string.len(Words[i+11]) > 0 then
-                Table[Counter].AC[i+1] = tonumber(Words[i+11])
-            end
+    
+        if MercsDB[i].Credentials == nil then
+            MercsDB[i].Credentials = table.copy(SMercCredentials)
         end
-        
-        Table[Counter].Level = {}
-        for i = 0, 3 do
-            if string.len(Words[i+15]) > 0 then
-                Table[Counter].Level[i+1] = tonumber(Words[i+15])
-            end
-        end
-
-        Table[Counter].Attack1 = {}
-        for i = 0, 3 do
-            if string.len(Words[i+19]) > 0 then
-                Table[Counter].Attack1[i+1] = tostring(Words[i+19])
-            end
-        end
-
-        Table[Counter].Attack2 = {}
-        for i = 0, 3 do
-            if string.len(Words[i+23]) > 0 then
-                Table[Counter].Attack2[i+1] = tostring(Words[i+23])
-            end
-        end
-
-        Table[Counter].FightsMax = {}
-        for i = 0, 3 do
-            if string.len(Words[i+27]) > 0 then
-                Table[Counter].FightsMax[i+1] = tonumber(Words[i+27])
-            end
-        end
-
-        Counter = Counter + 1
-	end
-
-	io.close(File)
-
-    -- Credentials
-    FilePath    = "Data/Tables/MercCredentials.txt"
-	File	    = io.open(FilePath)
-	if not File then
-		return
-	end
-
-	LineIt = File:lines()
-	LineIt()
-
-    Counter = 1
-
-    -- Process escape sequences
-    local function procEsc(str)
-        -- Convert \n to newline
-        str = str:gsub("\\n", "\n")    
-        -- Convert color symbol
-        str = str:gsub("\\012", "\012")
-
-        return str
     end
 
-	for line in LineIt do
-        
-        local Words = string.split(line, "\9")
-		if string.len(Words[1]) == 0 then
-			break
-		end
-
-		Table[Counter].Credentials = table.copy(SMercCredentials)
-
-		if string.len(Words[3]) > 0 then
-			Table[Counter].Credentials.PriceHire = tonumber(Words[3])
-		end
-        if string.len(Words[4]) > 0 then
-			Table[Counter].Credentials.PriceReHire = tonumber(Words[4])
-		end
-        if string.len(Words[5]) > 0 then
-			Table[Counter].Credentials.PriceResurrect = tonumber(Words[5])
-		end
-        if string.len(Words[6]) > 0 then
-			Table[Counter].Credentials.TextAbout = procEsc(tostring(Words[6]))
-		end
-        if string.len(Words[7]) > 0 then
-			Table[Counter].Credentials.TextHired = procEsc(tostring(Words[7]))
-		end
-        if string.len(Words[8]) > 0 then
-			Table[Counter].Credentials.TextGreeting = procEsc(tostring(Words[8]))
-		end
-        if string.len(Words[9]) > 0 then
-			Table[Counter].Credentials.TextFightTired = procEsc(tostring(Words[9]))
-		end
-        if string.len(Words[10]) > 0 then
-			Table[Counter].Credentials.TextSpecial = procEsc(tostring(Words[10]))
-		end
-        if string.len(Words[11]) > 0 then
-			Table[Counter].Credentials.TextFireAttempt = procEsc(tostring(Words[11]))
-		end
-        if string.len(Words[12]) > 0 then
-			Table[Counter].Credentials.TextFireCancel = procEsc(tostring(Words[12]))
-		end
-
-        Counter = Counter + 1
+    for i, Merc in ipairs(MercsDB) do
+        MercNPCList[i] = Merc.NPC_ID
     end
-
-    io.close(File)
-end
-
--- Mercenaries
-ParseMercTables(MercsDB) -- load from Datatable at "Data/Tables/<>.txt"
-for i, Merc in ipairs(MercsDB) do
-    MercNPCList[i] = Merc.NPC_ID
 end
 
 -- EXAMPLE DECLARATION

@@ -46,14 +46,16 @@ TeachersDB          = {}
 -- Teacher Structure
 STeacher            = {
     ID              = "default",
-    Name            = "Unknown",
     NPC_ID          = 0,
+    Name            = "Unknown",
     Map             = "amber.odt",
     X               = 0,
     Y               = 0,
     Z               = 0,
+
     Skill           = const.Skills.Staff,
     Mastery         = const.Expert,
+
     Gold            = 500,
     GoldW           = 100,
     GoldBuySkill    = 400,
@@ -61,13 +63,47 @@ STeacher            = {
     SkillPointsW    = 5,
     AllowSkillBuy   = 1,
     RecommendNPC    = 0,
+
     TxtMasterDes    = 0,
     TxtRecommendDes = 0,
+
     Autonote        = "",
+
     TxtSkillLearned = "",
     TxtSkillKnown   = "",
     TxtNoGold       = "",
     TxtWrongClass   = "",
+}
+
+STeacherSchema = {
+    ID              = { type = "string", required = true },
+    NPC_ID          = { type = "number" },
+    Name            = { type = "string" },
+    Map             = { type = "string" },
+    X               = { type = "number" },
+    Y               = { type = "number" },
+    Z               = { type = "number" },
+
+    Skill           = { type = "number_or_string" },
+    Mastery         = { type = "number_or_string" },
+
+    Gold            = { type = "number" },
+    GoldW           = { type = "number" },
+    GoldBuySkill    = { type = "number" },
+    SkillPoints     = { type = "number" },
+    SkillPointsW    = { type = "number" },
+    AllowSkillBuy   = { type = "number" },
+    RecommendNPC    = { type = "number" },
+
+    TxtMasterDes    = { type = "number_or_string" },
+    TxtRecommendDes = { type = "number_or_string" },
+
+    Autonote        = { type = "string" },
+
+    TxtSkillLearned = { column = "TextSkillLearned",         type = "string" },
+    TxtSkillKnown   = { column = "TextSkillAlreadyKnown",    type = "string" },
+    TxtNoGold       = { column = "TextNotEnoughGold",        type = "string" },
+    TxtWrongClass   = { column = "TextWrongClass",           type = "string" },
 }
 
 function Teacher_FindByNPC(npcId)
@@ -147,122 +183,24 @@ end
 -- Data Table
 function Teacher_ParseTables(Table)
 
-    -- Core data
-    local FilePath = "Data/Tables/Teachers.txt"
-	local File	= io.open(FilePath)
-	if not File then
-		return
-	end
+    local ok, result = TableLoader.ParseFile{
+        Path             = "Data/Tables/Teachers.txt",
+        Schema           = STeacherSchema,
+        Defaults         = STeacher,
+        Out              = Table,
+        KeyField         = "ID",
+        DetectDuplicates = true,
+    }
 
-	local LineIt = File:lines()
-	LineIt()
+    if not ok then
+        return
+    end
 
-    local Counter = 1
-
-	for line in LineIt do
-		local Words = string.split(line, "\9")
-		if string.len(Words[1]) == 0 then
-			break
-		end
-
-		Table[Counter] = table.copy(STeacher)
-
-		if string.len(Words[2]) > 0 then
-			Table[Counter].ID               = tostring(Words[2])
-		end
-
-        if string.len(Words[3]) > 0 then
-			Table[Counter].NPC_ID           = tonumber(Words[3])
-		end
-
-		if string.len(Words[4]) > 0 then
-			Table[Counter].Name 	        = tostring(Words[4])
-		end
-
-        if string.len(Words[5]) > 0 then
-			Table[Counter].Map 	            = tostring(Words[5])
-		end
-
-        if string.len(Words[6]) > 0 then
-			Table[Counter].X                = tonumber(Words[6])
-		end
-        
-        if string.len(Words[7]) > 0 then
-			Table[Counter].Y                = tonumber(Words[7])
-		end
-
-        if string.len(Words[8]) > 0 then
-			Table[Counter].Z                = tonumber(Words[8])
-		end
-
-        if string.len(Words[9]) > 0 then
-			Table[Counter].Skill            = ResolveSkill(Words[9])
-		end
-
-        if string.len(Words[10]) > 0 then
-			Table[Counter].Mastery          = ResolveMastery(Words[10])
-		end
-
-        if string.len(Words[11]) > 0 then
-			Table[Counter].Gold             = tonumber(Words[11])
-		end
-
-        if string.len(Words[12]) > 0 then
-			Table[Counter].GoldW            = tonumber(Words[12])
-		end
-
-        if string.len(Words[13]) > 0 then
-			Table[Counter].GoldBuySkill     = tonumber(Words[13])
-		end
-
-        if string.len(Words[14]) > 0 then
-			Table[Counter].SkillPoints      = tonumber(Words[14])
-		end
-
-        if string.len(Words[15]) > 0 then
-			Table[Counter].SkillPointsW     = tonumber(Words[15])
-		end
-
-        if string.len(Words[16]) > 0 then
-			Table[Counter].AllowSkillBuy    = tonumber(Words[16])
-		end
-
-        if string.len(Words[17]) > 0 then
-			Table[Counter].RecommendNPC     = tonumber(Words[17])
-		end
-
-        if string.len(Words[18]) > 0 then
-			Table[Counter].TxtMasterDes     = tostring(Words[18])
-		end
-
-        if string.len(Words[19]) > 0 then
-			Table[Counter].TxtRecommendDes  = tostring(Words[19])
-		end
-
-        if string.len(Words[20]) > 0 then
-			Table[Counter].Autonote         = tostring(ProcessEscapes(Words[20]))
-		end
-
-        if string.len(Words[21]) > 0 then
-			Table[Counter].TxtSkillLearned  = tostring(Words[21])
-		end
-
-        if string.len(Words[22]) > 0 then
-			Table[Counter].TxtSkillKnown    = tostring(Words[22])
-		end
-
-        if string.len(Words[23]) > 0 then
-			Table[Counter].TxtNoGold        = tostring(Words[23])
-		end
-
-        if string.len(Words[24]) > 0 then
-			Table[Counter].TxtWrongClass    = tostring(Words[24])
-		end
-
-        Counter = Counter + 1
-	end
-
-	io.close(File)
+    for i = 1, #Table do
+        Table[i].Skill       = ResolveSkill(Table[i].Skill)         or STeacher.Skill
+        Table[i].Mastery     = ResolveMastery(Table[i].Mastery)     or STeacher.Mastery
+        Table[i].Autonote    = ProcessEscapes(Table[i].Autonote or "")
+    end
 end
 
 function NPCTeacher(teacherID)

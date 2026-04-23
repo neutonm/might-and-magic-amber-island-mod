@@ -78,6 +78,47 @@ SFountain = {
     OnUseLuaW           = INHERIT_MARKER,
 }
 
+SFountainSchema         = {
+    ID                  = { type = "string", required = true },
+    Map                 = { type = "string" },
+    X                   = { type = "number" },
+    Y                   = { type = "number" },
+    Z                   = { type = "number" },
+    Type                = { type = "string" },
+
+    MaxUses             = { type = "number_or_string" },
+    MaxUsesW            = { type = "number_or_string" },
+
+    Effect1             = { type = "string" },
+    Bonus1              = { type = "number_or_string" },
+    Effect2             = { type = "string" },
+    Bonus2              = { type = "number_or_string" },
+    Effect3             = { type = "string" },
+    Bonus3              = { type = "number_or_string" },
+    Effect4             = { type = "string" },
+    Bonus4              = { type = "number_or_string" },
+
+    Effect1W            = { type = "string" },
+    Bonus1W             = { type = "number_or_string" },
+    Effect2W            = { type = "string" },
+    Bonus2W             = { type = "number_or_string" },
+    Effect3W            = { type = "string" },
+    Bonus3W             = { type = "number_or_string" },
+    Effect4W            = { type = "string" },
+    Bonus4W             = { type = "number_or_string" },
+
+    UserStatusMsg       = { type = "string" },
+    UserStatusMsgW      = { type = "string" },
+    Autonote            = { type = "string" },
+
+    RequiredCondition   = { type = "string" },
+    RequiredConditionW  = { type = "string" },
+    OnCheckLua          = { type = "string" },
+    OnCheckLuaW         = { type = "string" },
+    OnUseLua            = { type = "string" },
+    OnUseLuaW           = { type = "string" },
+}
+
 -------------------------------------------------------------------------------
 
 function Fountain_FindByID(id)
@@ -119,163 +160,14 @@ end
 
 function Fountain_ParseTables(Table)
 
-    local FilePath  = "Data/Tables/FountainsAndAltars.txt"
-    local File      = io.open(FilePath)
-    if not File then
-        return
-    end
-
-    local LineIt = File:lines()
-    LineIt()
-
-    local Counter = 1
-
-    for line in LineIt do
-        local Words = string.split(line, "\9")
-        if string.len(Words[1]) == 0 then
-            break
-        end
-
-        if string.len(Words[2]) == 0 then
-            goto continue
-        end
-
-        Table[Counter]      = table.copy(SFountain)
-        Table[Counter].ID   = tostring(Words[2])
-
-        if string.len(Words[3]) > 0 then
-            Table[Counter].Map = tostring(Words[3])
-        end
-
-        if string.len(Words[4]) > 0 then
-            Table[Counter].X = tonumber(Words[4])
-        end
-
-        if string.len(Words[5]) > 0 then
-            Table[Counter].Y = tonumber(Words[5])
-        end
-
-        if string.len(Words[6]) > 0 then
-            Table[Counter].Z = tonumber(Words[6])
-        end
-
-        if string.len(Words[7]) > 0 then
-            Table[Counter].Type = tostring(Words[7])
-        end
-
-        if string.len(Words[8]) > 0 then
-            Table[Counter].MaxUses = tonumber(Words[8]) or tostring(Words[8])
-        end
-
-        if string.len(Words[9]) > 0 then
-            Table[Counter].Effect1 = tostring(Words[9])
-        end
-
-        if string.len(Words[10]) > 0 then
-            Table[Counter].Bonus1 = tonumber(Words[10]) or tostring(Words[10])
-        end
-
-        if string.len(Words[11]) > 0 then
-            Table[Counter].Effect2 = tostring(Words[11])
-        end
-
-        if string.len(Words[12]) > 0 then
-            Table[Counter].Bonus2 = tonumber(Words[12]) or tostring(Words[12])
-        end
-
-        if string.len(Words[13]) > 0 then
-            Table[Counter].Effect3 = tostring(Words[13])
-        end
-
-        if string.len(Words[14]) > 0 then
-            Table[Counter].Bonus3 = tonumber(Words[14]) or tostring(Words[14])
-        end
-
-        if string.len(Words[15]) > 0 then
-            Table[Counter].Effect4 = tostring(Words[15])
-        end
-
-        if string.len(Words[16]) > 0 then
-            Table[Counter].Bonus4 = tonumber(Words[16]) or tostring(Words[16])
-        end
-
-        if string.len(Words[17]) > 0 then
-            Table[Counter].MaxUsesW = tonumber(Words[17]) or tostring(Words[17])
-        end
-
-        if string.len(Words[18]) > 0 then
-            Table[Counter].Effect1W = tostring(Words[18])
-        end
-
-        if string.len(Words[19]) > 0 then
-            Table[Counter].Bonus1W = tonumber(Words[19]) or tostring(Words[19])
-        end
-
-        if string.len(Words[20]) > 0 then
-            Table[Counter].Effect2W = tostring(Words[20])
-        end
-
-        if string.len(Words[21]) > 0 then
-            Table[Counter].Bonus2W = tonumber(Words[21]) or tostring(Words[21])
-        end
-
-        if string.len(Words[22]) > 0 then
-            Table[Counter].Effect3W = tostring(Words[22])
-        end
-
-        if string.len(Words[23]) > 0 then
-            Table[Counter].Bonus3W = tonumber(Words[23]) or tostring(Words[23])
-        end
-
-        if string.len(Words[24]) > 0 then
-            Table[Counter].Effect4W = tostring(Words[24])
-        end
-
-        if string.len(Words[25]) > 0 then
-            Table[Counter].Bonus4W = tonumber(Words[25]) or tostring(Words[25])
-        end
-
-        if string.len(Words[26]) > 0 then
-            Table[Counter].UserStatusMsg = tostring(Words[26])
-        end
-
-        if string.len(Words[27]) > 0 then
-            Table[Counter].UserStatusMsgW = tostring(Words[27])
-        end
-
-        if string.len(Words[28]) > 0 then
-            Table[Counter].Autonote = tostring(Words[28])
-        end
-
-        if string.len(Words[29]) > 0 then
-            Table[Counter].RequiredCondition = tostring(Words[29])
-        end
-
-        if string.len(Words[30]) > 0 then
-            Table[Counter].RequiredConditionW = tostring(Words[30])
-        end
-
-        if string.len(Words[31]) > 0 then
-            Table[Counter].OnCheckLua = tostring(Words[31])
-        end
-
-        if string.len(Words[32]) > 0 then
-            Table[Counter].OnCheckLuaW = tostring(Words[32])
-        end
-
-        if string.len(Words[33]) > 0 then
-            Table[Counter].OnUseLua = tostring(Words[33])
-        end
-
-        if string.len(Words[34]) > 0 then
-            Table[Counter].OnUseLuaW = tostring(Words[34])
-        end
-
-        Counter = Counter + 1
-        ::continue::
-    end
-
-    io.close(File)
+    return TableLoader.ParseFile{
+        Path            = "Data/Tables/FountainsAndAltars.txt",
+        Schema          = SFountainSchema,
+        Defaults        = SFountain,
+        Out             = Table,
+        KeyField        = "ID",
+        DetectDuplicates= true,
+    }
 end
 
 ------------------------------------------------------------------------------
