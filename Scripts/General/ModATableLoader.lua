@@ -319,6 +319,64 @@ function TableLoader.ParseFile(opts)
     return true, out
 end
 
+function TableLoader.ParseCSV(valueType, separator)
+
+    local sep = separator or ","
+
+    local conv
+
+    if valueType == "number" then
+        conv = tonumber
+    elseif valueType == "string" then
+        conv = tostring
+    else
+        conv = function(v) return v end
+    end
+
+    return function(raw)
+
+        local out = {}
+
+        raw = tostring(raw or ""):match("^%s*(.-)%s*$")
+        if raw == "" then
+            return nil
+        end
+
+        for part in raw:gmatch("([^" .. sep .. "]+)") do
+            local v = part:match("^%s*(.-)%s*$")
+
+            if v ~= "" then
+                local val = conv(v)
+                if val ~= nil then
+                    out[#out + 1] = val
+                end
+            end
+        end
+
+        return #out > 0 and out or nil
+    end
+end
+
+function TableLoader.ParseCSVOrInherit(valueType, inheritMarker, separator)
+
+    local csvParser = TableLoader.ParseCSV(valueType, separator)
+    local marker    = inheritMarker or "$" -- @todo use Global variable instead of '$'
+
+    return function(raw)
+        raw = tostring(raw or ""):match("^%s*(.-)%s*$")
+
+        if raw == "" then
+            return nil
+        end
+
+        if raw == marker then
+            return marker
+        end
+
+        return csvParser(raw)
+    end
+end
+
 function TableLoader.ParseIndexedColumns(prefix, valueType, startIndex, endIndex)
 
     local conv
@@ -401,3 +459,8 @@ function TableLoader.MergeSchema(baseSchema, extraSchema)
 
     return out
 end
+
+TableLoader.CSVNumber           = TableLoader.ParseCSV("number")
+TableLoader.CSVString           = TableLoader.ParseCSV("string")
+TableLoader.CSVNumberOrInherit  = TableLoader.ParseCSVOrInherit("number", "$")
+TableLoader.CSVStringOrInherit  = TableLoader.ParseCSVOrInherit("string", "$")

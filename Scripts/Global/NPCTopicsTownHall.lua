@@ -14,33 +14,44 @@ end
 --! @note   Requires QuestNPC to be set
 function TownHall_NPCTopicDeclare()
 
-    local function GetBountyMessage(Town, ShowTimeLeft)
-        local timeDifference = (Town.BountyTimeStart + (Town.BountyTimeRefill * const.Day)) - Game.Time
-        local timeStr = ""
+    local function GetBountyMessage(Town, state, ShowTimeLeft)
 
+        local refill            = TownHall_ResolveWarriorValue(Town.BountyTimeRefill, Town.BountyTimeRefillW)
+        local timeDifference    = (state.BountyTimeStart + (refill * const.Day)) - Game.Time
+    
+        local timeStr = ""
+    
         if ShowTimeLeft then
-            local timeStrLeft = timeDifference > const.Day and string.format("%d days", timeDifference / const.Day) or string.format("%d hours", timeDifference / const.Hour)
-            timeStr = string.format("\n\nYou have \01265523%s\01200000 to complete the hunt.", timeStrLeft)
+            local timeStrLeft =
+                timeDifference > const.Day and
+                string.format(TownHallTxt.TComeBackDays, timeDifference / const.Day) or
+                string.format(TownHallTxt.TComeBackHours, timeDifference / const.Hour)
+    
+            timeStr = string.format(TownHallTxt.TTimeLeft, timeStrLeft)
         end
-        
-        return string.format(   "This month's bounty is on a \01265523%s\01200000."..
-                                "Kill it before the deadline and return to collect \01265523%d\01200000 gold reward."..
-                                "%s",Town.TargetMonster_Name, Town.Bounty, timeStr)
+    
+        return string.format(
+            (TownHallTxt.TBountyStart.."\n%s"),
+            state.TargetMonster_Name,
+            state.Bounty,
+            timeStr
+        )
     end
+
     NPCTopic{
         Slot        =   A,
         Branch      =   "",
         GetTopic    =   function(t)
-                            return "Bounty Hunt: Participate!"
+                            return TownHallTxt.TParticipateTopic
                         end,
         CanShow     =   function(t)
-                            local Town = TownHall_GetByID(QuestNPC)
-                            return Town.BountyStatus == const.TownHall.BountyStatus.Vacant
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            return state.BountyStatus == const.TownHall.BountyStatus.Vacant
                         end,
         Ungive      =   function(t)
-                            local Town = TownHall_GetByID(QuestNPC)
+                            local Town, state = TownHall_GetContext(QuestNPC)
                             TownHall_GenerateBountyTarget(Town)
-                            Message(GetBountyMessage(Town, false))
+                            Message(GetBountyMessage(Town, state, true))
                             evt.ForPlayer("All")
 	                        ShowQuestEffect(false,"Add")
                         end
@@ -49,36 +60,50 @@ function TownHall_NPCTopicDeclare()
         Slot        =   A,
         Branch      =   "",
         GetTopic    =   function(t)
-                            return "Bounty Hunt: Status"
+                            return TownHallTxt.TStatusTopic
                         end,
         CanShow     =   function(t)
-                            local Town = TownHall_GetByID(QuestNPC)
-                            return Town.BountyStatus == const.TownHall.BountyStatus.Pending
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            return state.BountyStatus == const.TownHall.BountyStatus.Pending
                         end,
         Ungive      =   function(t)
-                            local Town = TownHall_GetByID(QuestNPC)
-                            Message(GetBountyMessage(Town, true))
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            Message(GetBountyMessage(Town, state, true))
                         end
     }
     NPCTopic{
         Slot        =   A,
         Branch      =   "",
         GetTopic    =   function(t)
-                            return "Bounty Hunt: n\\a"
+                            return TownHallTxt.TBountyHuntNATopic
                         end,
         CanShow     =   function(t)
-                            local Town = TownHall_GetByID(QuestNPC)
-                            return Town.BountyStatus == const.TownHall.BountyStatus.Success
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            return state.BountyStatus == const.TownHall.BountyStatus.Success
                         end,
         Ungive      =   function(t)
-                            Message("No bounty for this month")
+
+                            local Town      = TownHall_FindByNPC(QuestNPC)
+                            local timeLeft  = TownHall_GetCooldownTimeLeft(Town)
+                            local msg
+
+                            if timeLeft <= const.Hour then
+                                Message(TownHallTxt.TComeBackSoon)
+                                return
+                            elseif timeLeft > const.Day then
+                                msg = string.format(TownHallTxt.TComeBackDays, math.floor(timeLeft / const.Day))
+                            else
+                                msg = string.format(TownHallTxt.TComeBackHours, math.floor(timeLeft / const.Hour))
+                            end
+
+                            Message(string.format(TownHallTxt.TComeBackLater, msg))
                         end
     } 
     NPCTopic{
         Slot        =   B,
         Branch      =   "",
         GetTopic    =   function(t)
-                            return string.format("Collect Bounty \01265523(%dg)", vars.TownHallAccumulatedBounty)
+                            return string.format(TownHallTxt.TCollectBountyTopic, vars.TownHallAccumulatedBounty)
                         end,
         CanShow     =   function(t)
                             return vars.TownHallAccumulatedBounty > 0
@@ -91,7 +116,7 @@ function TownHall_NPCTopicDeclare()
         Slot        =   C,
         Branch      =   "",
         GetTopic    =   function(t)
-                            return string.format("Pay Fine \01265523(%dg)", Party.Fine)
+                            return string.format(TownHallTxt.TPayFineTopic, Party.Fine)
                         end,
         CanShow     =   function(t)
                             return Party.Fine > 0

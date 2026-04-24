@@ -8,6 +8,14 @@ Author: Henrik Chukhran, 2022 - 2024
         - Register Town Halls through data table at /Data/Tables
 ]]
 
+local INHERIT_MARKER    = "$"
+
+------------------------------------------------------------------------------
+-- GLOBAL
+------------------------------------------------------------------------------
+
+TownHallDB = {}
+
 -- Const
 const.TownHall          = {
     BountyStatus        = {
@@ -20,83 +28,116 @@ const.TownHall          = {
 
 -- Structures
 STownHall               = {
+    ID                  = "default",
     NPC_ID              = 0,
-    TargetMonster_ID    = 0,
-    TargetMonster_Name  = "<unknown>",
-    MonsterList         = {},
-    Bounty              = 0,
+    Map                 = "amber.odt",
+    X                   = 0,
+    Y                   = 0,
+    Z                   = 0,
+
     BountyFlatBonus     = 100,
+    BountyFlatBonusW    = INHERIT_MARKER,
+
     BountyScaleBonus    = 1.0,
-    BountyStatus        = const.TownHall.BountyStatus.Vacant,
-    BountyTimeStart     = 0,
-    BountyTimeRefill    = 2     -- days
+    BountyScaleBonusW   = INHERIT_MARKER,
+
+    BountyTimeRefill    = 2,    -- days
+    BountyTimeRefillW   = INHERIT_MARKER,
+
+    BountyCooldown      = 30,   -- days after completed bounty
+    BountyCooldownW     = INHERIT_MARKER,
+
+    MonsterList         = {},
+    MonsterListW        = INHERIT_MARKER,
 }
 
--- Events
-function events.BeforeLoadMap(WasInGame, WasLoaded)
+STownHallSchema         = {
+    ID                  = { type = "string", required = true },
+    NPC_ID              = { type = "number", required = true },
 
-    if vars.TownHallList == nil then
-        vars.TownHallList = {}
+    Map                 = { type = "string" },
+    X                   = { type = "number" },
+    Y                   = { type = "number" },
+    Z                   = { type = "number" },
 
-        -- Default Amber Island Town Hall
-        --! @todo Put it into data table in future
-        Town = TownHall_NewTable({
-            BountyFlatBonus = 250,
-            BountyScaleBonus = 1.1,
-            MonsterList = {
-            34,35,36,37,38,39,40,41,42,46,47,48,64,
-            65,66,67,68,69,
-            73,74,75,
-            79,80,81,
-            199,200,201,
-            214,215,216,250,
-            265,266,267,268,269,270,277,278,279,}})
-        TownHall_Register(Town, 535)
-    end
+    BountyFlatBonus     = { type = "number" },
+    BountyFlatBonusW    = { type = "number_or_string" },
 
-    if vars.TownHallAccumulatedBounty == nil then
-        vars.TownHallAccumulatedBounty = 0
-    end
-end
+    BountyScaleBonus    = { type = "number" },
+    BountyScaleBonusW   = { type = "number_or_string" },
 
-function events.PopulateNPCDialog(t, npc)
+    BountyTimeRefill    = { type = "number" },
+    BountyTimeRefillW   = { type = "number_or_string" },
 
-    -- Reset bounty if bounty is outdated
-    for k, v in pairs(vars.TownHallList) do
-        if t.Kind == "NPC" and t.Index == v.NPC_ID then
-            if TownHall_IsBountyOutdated(v) then 
-                TownHall_ResetBounty(v)
-                Game.UpdateDialogTopics()
-            end
+    BountyCooldown      = { type = "number" },
+    BountyCooldownW     = { type = "number_or_string" },
+
+    MonsterList         = { parse = TableLoader.CSVNumber },
+    MonsterListW        = { parse = TableLoader.CSVNumberOrInherit },
+}
+
+-- Save file structure
+STownHallState          = {
+    ID                  = "default",
+    TargetMonster_ID    = 0,
+    TargetMonster_Name  = "<unknown>",
+    Bounty              = 0,
+    BountyStatus        = const.TownHall.BountyStatus.Vacant,
+    BountyTimeStart     = 0,
+    BountyTimeCompleted = 0
+}
+
+TownHallTxt             = LocalizeAll{
+
+    TParticipateTopic   = "Bounty Hunt: Participate!",
+    TStatusTopic        = "Bounty Hunt: Status",
+    TBountyHuntNATopic  = "Bounty Hunt: n\\a",
+    TCollectBountyTopic = "Collect Bounty \01265523(%dg)",
+    TPayFineTopic       = "Pay Fine \01265523(%dg)",
+
+    TBountyStart        = "This month's bounty is on a \01265523%s\01200000. \n\nKill it before the deadline and return to collect \01265523%d\01200000 gold reward.",
+    TTimeLeft           = "You have \01265523%s\01200000 to complete the hunt.",
+    TComeBackLater      = "No new bounty is available right now.\n\nCome back in \01265523%s\01200000 for another bounty.",
+    TComeBackSoon       = "A new bounty will be available soon.",
+    TComeBackDays       = "%d days",
+    TComeBackHours      = "%d hours",
+}
+
+------------------------------------------------------------------------------
+-- LOCALS
+------------------------------------------------------------------------------
+
+local function TownHall_ResolveWarriorList(normalValue, warriorValue)
+
+    if IsWarrior() then
+        if warriorValue == INHERIT_MARKER then
+            return normalValue
+        end
+
+        if warriorValue ~= nil then
+            return warriorValue
         end
     end
+
+    return normalValue
 end
 
-function events.MonsterKilled(mon, monIndex, defaultHandler)
-    
-    if mon == nil then return end
+------------------------------------------------------------------------------
+-- GLOBAL
+------------------------------------------------------------------------------
 
-    -- Confirm bounty kill
-    for k, v in pairs(vars.TownHallList) do
-        if v.BountyStatus == const.TownHall.BountyStatus.Pending and v.TargetMonster_ID == mon.Id then
+-- @todo resolvers needs to be global and not struct related
+function TownHall_ResolveWarriorValue(normalValue, warriorValue)
 
-            if TownHall_IsBountyOutdated(v) then
-                v.BountyStatus                  = const.TownHall.BountyStatus.Fail
-            else
-                vars.TownHallAccumulatedBounty  = vars.TownHallAccumulatedBounty + v.Bounty 
-                v.BountyStatus                  = const.TownHall.BountyStatus.Success
-
-                if v.BountyTimeRefill == 0 then
-                    TownHall_Refill(v)
-                end
-
-                break
-            end
+    if IsWarrior() then
+        if warriorValue == INHERIT_MARKER then
+            return normalValue
         end
+        return warriorValue
     end
-end
 
--- Functions
+    return normalValue
+end
 
 --! @brief      Returns copy of STownHall
 --! @param  t   Table modifications
@@ -113,24 +154,12 @@ function TownHall_NewTable(t)
     return TownHall
 end
 
---! @brief  Retrieve TownHall from database via NPC ID
-function TownHall_GetByID(NPC_ID)
-
-    for _, v in pairs(vars.TownHallList) do
-        if v.NPC_ID == NPC_ID then
-            return v
-        end
-    end
-
-    return nil
-end
-
 --! @brief Generate bounty and enlists party for the hunt
 function TownHall_GenerateBountyTarget(TownHall)
 
     local approvedMonList = {}
 
-    if TownHall == nil and TownHall.NPC_ID == nil then
+    if TownHall == nil or TownHall.NPC_ID == nil then
         if Game.Debug then
             debug.Message("Invalid \'TownHall\'")
         end
@@ -139,12 +168,13 @@ function TownHall_GenerateBountyTarget(TownHall)
 
     -- Validate monster list
     local targetMon
+    local monsterList = TownHall_ResolveWarriorList(TownHall.MonsterList, TownHall.MonsterListW)
 
-    if #TownHall.MonsterList > 0 then
+    if monsterList ~= nil and #monsterList > 0 then
 
         -- Retrieve monsters from datatable
         for j, monTxt in Game.MonstersTxt do
-            if ContainsNumber(TownHall.MonsterList, monTxt.Id) then
+            if ContainsNumber(monsterList, monTxt.Id) then
                 table.insert( approvedMonList, monTxt )
             end
         end
@@ -173,72 +203,81 @@ function TownHall_GenerateBountyTarget(TownHall)
     end
 
     -- Apply
-    TownHall.TargetMonster_ID   = targetMon.Id
-    TownHall.TargetMonster_Name = targetMon.Name
-    TownHall.BountyStatus       = const.TownHall.BountyStatus.Pending
+    local state                 = TownHall_GetState(TownHall)
+    state.TargetMonster_ID      = targetMon.Id
+    state.TargetMonster_Name    = targetMon.Name
+    state.BountyStatus          = const.TownHall.BountyStatus.Pending
     
     -- Generate bounty
     local function interpolateNumber(x, k)
         return x / (1 + k * x)
     end
-    local filteredBounty = math.floor(interpolateNumber(targetMon.Experience, 0.0001))
-    TownHall.Bounty = TownHall.BountyFlatBonus + filteredBounty + (targetMon.Level * 10)
-    TownHall.Bounty = TownHall.Bounty * TownHall.BountyScaleBonus
+    local filteredBounty        = math.floor(interpolateNumber(targetMon.Experience, 0.0001))
+    local flatBonus             = TownHall_ResolveWarriorValue(TownHall.BountyFlatBonus,  TownHall.BountyFlatBonusW)
+    local scaleBonus            = TownHall_ResolveWarriorValue(TownHall.BountyScaleBonus, TownHall.BountyScaleBonusW)
+    state.Bounty                = flatBonus + filteredBounty + (targetMon.Level * 10)
+    state.Bounty                = math.floor(state.Bounty * scaleBonus)
 
     -- Fixate current date
-    TownHall.BountyTimeStart = Game.Time
-
+    state.BountyTimeStart       = Game.Time
 end
 
 --! @brief Registers Town Hall (Clerk NPC) into town hall database
 function TownHall_Register(TownHall, NPC_ID)
 
-    if TownHall == nil and TownHall.NPC_ID == nil then
+    if TownHall == nil then
         if Game.Debug then
-            debug.Message("Invalid \'TownHall\'")
+            debug.Message("Invalid 'TownHall'")
         end
         return
     end
 
-    TownHall.NPC_ID = NPC_ID
-    if vars.TownHallList ~= nil then
-        table.insert(vars.TownHallList, TownHall)
+    TownHall.NPC_ID = NPC_ID or TownHall.NPC_ID
+
+    if TownHall.NPC_ID == nil or TownHall.NPC_ID == 0 then
+        if Game.Debug then
+            debug.Message("Invalid 'TownHall.NPC_ID'")
+        end
+        return
     end
+
+    table.insert(TownHallDB, TownHall)
 end
 
 --! @brief  Resets current bounty, makes it available for participation once again
 function TownHall_ResetBounty(TownHall)
 
-    if TownHall == nil and TownHall.NPC_ID == nil then
+    if TownHall == nil or TownHall.NPC_ID == nil then
         if Game.Debug then
             debug.Message("Invalid \'TownHall\'")
         end
         return false
     end
 
-    TownHall.TargetMonster_ID   = 0
-    TownHall.TargetMonster_Name = "<unknown>"
-    TownHall.Bounty             = 0
-    TownHall.BountyStatus       = const.TownHall.BountyStatus.Vacant
+    local state                 = TownHall_GetState(TownHall)
+    state.TargetMonster_ID      = 0
+    state.TargetMonster_Name    = "<unknown>"
+    state.Bounty                = 0
+    state.BountyStatus          = const.TownHall.BountyStatus.Vacant
 end
 
 --! @brief  Checks deadline status for current bounty
 --! @return true if outdated
 function TownHall_IsBountyOutdated(TownHall)
 
-    if TownHall == nil and TownHall.NPC_ID == nil then
+    if TownHall == nil or TownHall.NPC_ID == nil then
         if Game.Debug then
-            debug.Message("Invalid \'TownHall\'")
+            debug.Message("Invalid 'TownHall'")
         end
         return false
     end
 
-    if TownHall.BountyStatus ~= const.TownHall.BountyStatus.Vacant and TownHall.BountyTimeRefill > 0 then
+    local state             = TownHall_GetState(TownHall)
+    local bountyTimeRefill  = TownHall_ResolveWarriorValue(TownHall.BountyTimeRefill, TownHall.BountyTimeRefillW)
 
-        local timeDifference = Game.Time - TownHall.BountyTimeStart
-        if timeDifference > (TownHall.BountyTimeRefill * const.Day) then
-            return true
-        end
+    if state.BountyStatus == const.TownHall.BountyStatus.Pending and bountyTimeRefill > 0 then
+        local timeDifference = Game.Time - state.BountyTimeStart
+        return timeDifference > (bountyTimeRefill * const.Day)
     end
 
     return false
@@ -263,5 +302,159 @@ function TownHall_PayFine()
     if evt.Cmp("Gold", Party.Fine) then
         evt.Subtract("Gold", Party.Fine)
         Party.Fine = 0
+    end
+end
+
+function TownHall_FindByID(id)
+
+    for i = 1, #TownHallDB do
+        if TownHallDB[i] ~= nil and TownHallDB[i].ID == id then
+            return TownHallDB[i]
+        end
+    end
+
+    return nil
+end
+
+function TownHall_FindByNPC(NPC_ID)
+
+    for i = 1, #TownHallDB do
+        local v = TownHallDB[i]
+        if v ~= nil and v.NPC_ID == NPC_ID then
+            return v
+        end
+    end
+
+    return nil
+end
+
+function TownHall_GetState(townHall)
+
+    local id
+    local th = townHall
+
+    if type(townHall) == "string" then
+        th = TownHall_FindByID(townHall)
+    end
+
+    if th == nil then
+        return nil
+    end
+
+    id = th.ID
+
+    vars.TownHallStateList = vars.TownHallStateList or {}
+
+    if vars.TownHallStateList[id] == nil then
+        vars.TownHallStateList[id] = table.copy(STownHallState)
+        vars.TownHallStateList[id].ID = id
+    end
+
+    return vars.TownHallStateList[id]
+end
+
+function TownHall_GetBountyCooldown(TownHall)
+
+    return TownHall_ResolveWarriorValue(
+        TownHall.BountyCooldown,
+        TownHall.BountyCooldownW
+    )
+end
+
+function TownHall_GetCooldownTimeLeft(TownHall)
+
+    local state     = TownHall_GetState(TownHall)
+    local cooldown  = TownHall_GetBountyCooldown(TownHall)
+
+    if state == nil or cooldown == nil or cooldown <= 0 then
+        return 0
+    end
+
+    return (state.BountyTimeCompleted + cooldown * const.Day) - Game.Time
+end
+
+function TownHall_GetContext(npc)
+    local Town = TownHall_FindByNPC(npc)
+    if Town == nil then
+        if Game.Debug then
+            debug.Message("nil Town for %s npc.", tostring(npc))
+        end
+    end
+    return Town, TownHall_GetState(Town)
+end
+
+function TownHall_ParseTables(Table)
+    return TableLoader.ParseFile{
+        Path             = "Data/Tables/TownHalls.txt",
+        Schema           = STownHallSchema,
+        Defaults         = STownHall,
+        Out              = Table,
+        KeyField         = "ID",
+        DetectDuplicates = true,
+    }
+end
+
+------------------------------------------------------------------------------
+-- EVENTS
+------------------------------------------------------------------------------
+
+function events.GameInitialized2()
+    TownHall_ParseTables(TownHallDB)
+end
+
+function events.BeforeLoadMap(WasInGame, WasLoaded)
+
+    vars.TownHallStateList          = vars.TownHallStateList or {}
+    vars.TownHallAccumulatedBounty  = vars.TownHallAccumulatedBounty or 0
+
+    for i = 1, #TownHallDB do
+        local th = TownHallDB[i]
+        if th ~= nil and vars.TownHallStateList[th.ID] == nil then
+            vars.TownHallStateList[th.ID] = table.copy(STownHallState)
+            vars.TownHallStateList[th.ID].ID = th.ID
+        end
+    end
+end
+
+function events.PopulateNPCDialog(t, npc)
+
+    -- Reset bounty if bounty is outdated
+    for i = 1, #TownHallDB do
+        local v = TownHallDB[i]
+        if t.Kind == "NPC" and t.Index == v.NPC_ID then
+            local state = TownHall_GetState(v)
+            if TownHall_IsBountyOutdated(v) then
+                TownHall_ResetBounty(v)
+                Game.UpdateDialogTopics()
+            elseif state.BountyStatus == const.TownHall.BountyStatus.Success and TownHall_GetCooldownTimeLeft(v) <= 0 then
+                TownHall_ResetBounty(v)
+                Game.UpdateDialogTopics()
+            end
+        end
+    end
+end
+
+function events.MonsterKilled(mon, monIndex, defaultHandler)
+    
+    if mon == nil then return end
+
+    -- Confirm bounty kill
+    for i = 1, #TownHallDB do
+        local v     = TownHallDB[i]
+        local state = TownHall_GetState(v)
+
+        if state.BountyStatus == const.TownHall.BountyStatus.Pending and state.TargetMonster_ID == mon.Id then
+
+            if TownHall_IsBountyOutdated(v) then
+                state.BountyStatus              = const.TownHall.BountyStatus.Fail
+            else
+                vars.TownHallAccumulatedBounty  = vars.TownHallAccumulatedBounty + state.Bounty 
+
+                state.BountyStatus              = const.TownHall.BountyStatus.Success
+                state.BountyTimeCompleted       = Game.Time
+
+                break
+            end
+        end
     end
 end
