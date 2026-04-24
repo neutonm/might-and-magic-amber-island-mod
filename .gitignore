@@ -39,6 +39,8 @@
 !/Music/26.mp3
 
 # Allow all subdirectories and their contents
+!/Data/
+!/Data/Tables/
 !/Data/Tables/**
 !/DataFiles/**
 !/ExeMods/**
