@@ -21,7 +21,8 @@ Overview:
     - RequiredCondition supports simple named checks. Check Fountain_ResolveCondition:
     - - Null        -> For empty fountains (Just drop "Refreshing!" wuthout autonote)
     - - Warrior     -> Will workin warrior difficulty only
-
+    - Supported flags:
+    - - "Everybody" -> Effect will be applied to all party members
 Todo:
     - Find the way to localize UserStatusMsg
 
@@ -33,7 +34,7 @@ local INHERIT_MARKER    = "$"
 -- GLOBALS
 ------------------------------------------------------------------------------
 
-FountainsAndAltarsDB   = {}
+FountainsAndAltarsDB    = {}
 
 -- Fountain/Well Structure
 SFountain = {
@@ -65,6 +66,9 @@ SFountain = {
     Bonus3W             = INHERIT_MARKER,
     Effect4W            = INHERIT_MARKER,
     Bonus4W             = INHERIT_MARKER,
+
+    Flags               = "",
+    FlagsW              = INHERIT_MARKER,
 
     UserStatusMsg       = "",
     UserStatusMsgW      = INHERIT_MARKER,
@@ -106,6 +110,9 @@ SFountainSchema         = {
     Bonus3W             = { type = "number_or_string" },
     Effect4W            = { type = "string" },
     Bonus4W             = { type = "number_or_string" },
+
+    Flags               = { type = "string" },
+    FlagsW              = { type = "string" },
 
     UserStatusMsg       = { type = "string" },
     UserStatusMsgW      = { type = "string" },
@@ -200,6 +207,9 @@ local FountainTxt               = LocalizeAll{
     FtTypeShrine                = "Shrine",
     FtTypeAltar                 = "Altar",
 
+    FtTypeSphere                = "Sphere",
+    FtTypeMagicalSphere         = "Magical Sphere",
+
     FtVerbDrink                 = "Drink from the %s",
     FtVerbUse                   = "Use the %s",
     FtVerbPray                  = "Pray at the %s",
@@ -231,10 +241,10 @@ local FountainTxt               = LocalizeAll{
     FtNameLightRes              = "Light Resistance",
     FtNameDarkRes               = "Dark Resistance",
 
-    ElemRes                     = "Elemental Resistance",
-    ElemResBonus                = "Elemental Resistance",
-    SelfRes                     = "Self Resistance",
-    SelfResBonus                = "Self Resistance",
+    FtElemRes                   = "Elemental Resistance",
+    FtElemResBonus              = "Elemental Resistance",
+    FtSelfRes                   = "Self Resistance",
+    FtSelfResBonus              = "Self Resistance",
 
     FtNameGold                  = "Gold",
     FtNameExp                   = "Experience",
@@ -258,10 +268,10 @@ local EffectDisplayNames        = {
     LightResistance             = FountainTxt.FtNameLightRes,
     DarkResistance              = FountainTxt.FtNameDarkRes,
 
-    ElemRes                     = FountainTxt.ElemRes,
-    ElemResBonus                = FountainTxt.ElemResBonus,
-    SelfRes                     = FountainTxt.SelfRes,
-    SelfResBonus                = FountainTxt.SelfResBonus,
+    ElemRes                     = FountainTxt.FtElemRes,
+    ElemResBonus                = FountainTxt.FtElemResBonus,
+    SelfRes                     = FountainTxt.FtSelfRes,
+    SelfResBonus                = FountainTxt.FtSelfResBonus,
 
     FireResBonus                = FountainTxt.FtNameFireRes,
     AirResBonus                 = FountainTxt.FtNameAirRes,
@@ -288,6 +298,7 @@ local FountainTypeNames         = {
     Basin                       = FountainTxt.FtTypeBasin,
     Shrine                      = FountainTxt.FtTypeShrine,
     Altar                       = FountainTxt.FtTypeAltar,
+    Sphere                      = FountainTxt.FtTypeMagicalSphere
 }
 
 local FountainTypeVerbs = {
@@ -297,7 +308,8 @@ local FountainTypeVerbs = {
     Pool                        = FountainTxt.FtVerbDrink,
     Basin                       = FountainTxt.FtVerbDrink,
     Shrine                      = FountainTxt.FtVerbPray,
-    Altar                       = FountainTxt.FtVerbUse,
+    Altar                       = FountainTxt.FtVerbPray,
+    Sphere                      = FountainTxt.FtVerbTouch,
 }
 
 -------------------------------------------------------------------------------
@@ -599,6 +611,45 @@ local function Fountain_GetMapTempBits(mapName)
     end
 
     return bits
+end
+
+--[[
+Example:
+
+Everybody
+Everybody,SomethingElse
+Everybody;SomethingElse
+Everybody SomethingElse
+]]
+local function Fountain_HasFlag(fountain, flag)
+
+    local f = fountain
+    local flags
+
+    if type(fountain) == "string" then
+        f = Fountain_FindByID(fountain)
+    end
+
+    if f == nil or flag == nil or flag == "" then
+        return false
+    end
+
+    flags = ResolveWarriorValue(f.Flags, f.FlagsW)
+
+    if flags == nil or flags == "" or flags == INHERIT_MARKER then
+        return false
+    end
+
+    flags = tostring(flags):lower()
+    flag  = tostring(flag):lower()
+
+    for word in flags:gmatch("([^,;|%s]+)") do
+        if word == flag then
+            return true
+        end
+    end
+
+    return false
 end
 
 ------------------------------------------------------------------------------
@@ -919,27 +970,37 @@ function Fountain_Use(fountain)
         return false, false
     end
 
+    -- Flag: Apply for all or not?
+    local applyAll = Fountain_HasFlag(f, "Everybody")
+    local function ApplyEffect(effect, bonus)
+        if applyAll then
+            evt.All.Add(effect, bonus)
+        else
+            evt.Add(effect, bonus)
+        end
+    end
+
     for i = 1, #effects do
         if effects[i].Effect == "ElemResBonus" then
-            evt.Add("FireResBonus",   effects[i].Bonus)
-            evt.Add("AirResBonus",    effects[i].Bonus)
-            evt.Add("WaterResBonus",  effects[i].Bonus)
-            evt.Add("EarthResBonus",  effects[i].Bonus)
+            ApplyEffect("FireResBonus",   effects[i].Bonus)
+            ApplyEffect("AirResBonus",    effects[i].Bonus)
+            ApplyEffect("WaterResBonus",  effects[i].Bonus)
+            ApplyEffect("EarthResBonus",  effects[i].Bonus)
         elseif effects[i].Effect == "SelfResBonus" then
-            evt.Add("SpiritResBonus", effects[i].Bonus)
-            evt.Add("MindResBonus",   effects[i].Bonus)
-            evt.Add("BodyResBonus",   effects[i].Bonus)
+            ApplyEffect("SpiritResBonus", effects[i].Bonus)
+            ApplyEffect("MindResBonus",   effects[i].Bonus)
+            ApplyEffect("BodyResBonus",   effects[i].Bonus)
         elseif effects[i].Effect == "ElemRes" then
-            evt.Add("FireResistance",  effects[i].Bonus)
-            evt.Add("AirResistance",   effects[i].Bonus)
-            evt.Add("WaterResistance", effects[i].Bonus)
-            evt.Add("EarthResistance", effects[i].Bonus)
+            ApplyEffect("FireResistance",  effects[i].Bonus)
+            ApplyEffect("AirResistance",   effects[i].Bonus)
+            ApplyEffect("WaterResistance", effects[i].Bonus)
+            ApplyEffect("EarthResistance", effects[i].Bonus)
         elseif effects[i].Effect == "SelfRes" then
-            evt.Add("SpiritResistance", effects[i].Bonus)
-            evt.Add("MindResistance",   effects[i].Bonus)
-            evt.Add("BodyResistance",   effects[i].Bonus)
+            ApplyEffect("SpiritResistance", effects[i].Bonus)
+            ApplyEffect("MindResistance",   effects[i].Bonus)
+            ApplyEffect("BodyResistance",   effects[i].Bonus)
         else
-            evt.Add(effects[i].Effect, effects[i].Bonus)
+            ApplyEffect(effects[i].Effect, effects[i].Bonus)
         end
     end
 
