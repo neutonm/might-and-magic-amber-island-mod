@@ -685,6 +685,10 @@ function Fountain_GetMeshHint(fountain)
     typeName    = FountainTypeNames[NormalizeType(f.Type)] or FountainTypeNames.Fountain
     hint        = typeName
 
+    if Game.Debug then
+        hint = string.format("%s [%s]", hint, f.ID or "no-id")
+    end
+
     if not Fountain_IsExplored(f) then
         return hint
     end
