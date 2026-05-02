@@ -496,6 +496,14 @@ evt.hint[58]        = ModTxt.CSwitch
 evt.map[58]         = function()
     evt.SetDoorState{Id = 55, State = 2}
     evt.SetDoorState{Id = 64, State = 2}
+
+    -- Just in case: open bottom and top grated door
+    local point = { X = -601, Y = -1022, Z = 65}
+    local range = GetDistanceBetweenPoints(point, Party)
+    if range < 225.0 then
+        evt.SetDoorState{Id = 2, State = 2}
+        evt.SetDoorState{Id = 3, State = 2}
+    end
 end
 
 -- Elevator Switch: Prison, Guard's Room, Bottom
@@ -503,6 +511,14 @@ evt.hint[59]        = ModTxt.CSwitch
 evt.map[59]         = function()
     evt.SetDoorState{Id = 55, State = 2}
     evt.SetDoorState{Id = 65, State = 2}
+
+    -- Just in case: open bottom and top grated door
+    local point = { X = -432, Y = -1027, Z = -3007}
+    local range = GetDistanceBetweenPoints(point, Party)
+    if range < 225.0 then
+        evt.SetDoorState{Id = 2, State = 2}
+        evt.SetDoorState{Id = 3, State = 2}
+    end
 end
 
 -- Grate Door Switch: Start Location

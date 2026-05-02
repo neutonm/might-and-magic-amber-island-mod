@@ -42,9 +42,9 @@ end
 function GetDistanceBetweenPoints(a, b)
 
 	local diff = {
-        X = b[0] - a[0],
-        Y = b[1] - a[1],
-        Z = b[2] - a[2]
+        X = b.X - a.X,
+        Y = b.Y - a.Y,
+        Z = b.Z - a.Z
     }
 
     return math.sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z)
@@ -64,7 +64,13 @@ function GetDistanceBetweenObjects(a, b)
         return 0
     end
 
-    return GetDistanceBetweenPoints(a.Pos, b.Pos)
+    local diff = {
+        X = b.Pos[0] - a.Pos[0],
+        Y = b.Pos[1] - a.Pos[1],
+        Z = b.Pos[2] - a.Pos[2]
+    }
+
+    return math.sqrt(diff.X * diff.X + diff.Y * diff.Y + diff.Z * diff.Z)
 end
 
 function MakeHostile(idStart, idEnd)
