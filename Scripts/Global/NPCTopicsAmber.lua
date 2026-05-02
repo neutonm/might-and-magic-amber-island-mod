@@ -554,7 +554,7 @@ Quest{
 						"\n\n\01265523Find Guardmaster James Halloran\01200000. He's the one who can get me out of this mess. \01265523Lives near the bridge on the western part of town\01200000. Pay him the bail, and I'll owe you.",
 		Undone 		= 	"Are we done yet? I'm not one for sitting around, and this place isn't exactly lively. Hurry it up, will ya? I've got places to be and scores to settle.",
 
-		Quest 		= 	"\"Bail out\"\nConrad Hawk, Amber Island, Jail\n\nPay Guardmaster James Halloran, who resides near the bridge on the island's western part, to release Conrad Hawk.",
+		Quest 		= 	"\"Bail out\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nPay Guardmaster James Halloran, who resides near the bridge on the island's western part, to release Conrad Hawk.",
 	},
 	CheckDone 		= 	false,  -- the quest can't be completed here
 }
@@ -740,7 +740,7 @@ KillMonstersQuest{
 		TopicDone 	= 	"Thanks: Rat Problem",
 		After 		= 	"I owe you a big one, adventurers. Thanks to you, my family and I can finally take back our old home. We're truly grateful for your help.",
 
-		Quest 		= 	"\"Rat Problem\"\nUrist Alesworth, Amber Island, Powder Keg Inn\n\nGet rid of the rats from Oak Hill Cottage, situtated under the Powder Keg Inn at Port Island.",
+		Quest 		= 	"\"Rat Problem\"\nUrist Alesworth, Amber Island, Town, Powder Keg Inn\n\nGet rid of the rats from Oak Hill Cottage, situtated under the Powder Keg Inn at Port Island.",
 	},
 	Gold 			= 	2500,
 	Exp 			= 	2500, 
@@ -786,7 +786,7 @@ Quest{
 		TopicDone 	= 	"Thanks: Lucky Coin",
 		After 		= 	"I'm overjoyed to see my coin again! It's clear I need to break my tossing habit if I want to keep it safe. Thank you for your help. I won't forget this.",
 
-		Quest 		= 	"\"Lucky Coin\"\nHarvey Yap, Amber Island, Town\n\nFind the ancient golden coin and bring it to his owner.",
+		Quest 		= 	"\"Lucky Coin\"\nHarvey Yap, Amber Island, Town, Western District\n\nFind the ancient golden coin and bring it to his owner.",
 	},
 	QuestItem 		= 	782,
 	Gold 			= 	1000,
@@ -885,7 +885,7 @@ Quest{
 		Done		= 	"I cannot tell you how much it means to see Laurie safe and sound! Your bravery and kindness have brought our family back together. Here is your well-deserved reward. Thank you from the bottom of my heart.",
 		Undone 		= 	"Why are you still here? Please, my daughter's safety is at stake. Deliver the ransom and bring her back to me as soon as possible, please.",
 		After 		= 	"Thank you so much for bringing Laurie home. Our family will forever be grateful for what you've done.",
-		Quest 		= 	"\"Ransom\"\nMartha Blaine, Amber Island, Town\n\nLaurie Blaine has been kidnapped by vicious ratmen. The ransomer is awaiting the ransom at Apple Island, located in the north-west part of the islands. Deliver the ransom or rescue her, then safely escort her back home to her mother.",
+		Quest 		= 	"\"Ransom\"\nMartha Blaine, Amber Island, Town, Western District\n\nLaurie Blaine has been kidnapped by vicious ratmen. The ransomer is awaiting the ransom at Apple Island, located in the north-west part of the islands. Deliver the ransom or rescue her, then safely escort her back home to her mother.",
 	},
 	Give			= 	function(t)
 							evt.Add("Gold",1000)
@@ -949,7 +949,7 @@ Quest{
 		Done		= 	"You actually did it? You cannot imagine my relief. I'll be stuck here for a \01265523few more hours\01200000, but once I'm out, \01265523visit my house\01200000 and we will discuss your reward. Don't forget to \01265523bring the ring.\01200000",
 		Undone 		= 	"The clock is ticking. Do what you have to do. End Michael Cassio.",
 		After 		= 	"Let's discuss your reward at my home \01265523after I'm released\01200000 from this disgusting hole. Don't forget to bring the ring.",
-		Quest 		= 	"\"Revenge\"\nOtho Robeson, Amber Island, Jail\n\nLocate and eliminate Michael Cassio. He resides to the east of Amber Town, situated between the town and Castle Amber.",
+		Quest 		= 	"\"Revenge\"\nOtho Robeson, Amber Island, Town, Jail Tower\n\nLocate and eliminate Michael Cassio. He resides to the east of Amber Town, situated between the town and Castle Amber.",
 	},
 	GivenItem 		= 	791,
 	Exp				=	2500,
@@ -1131,7 +1131,7 @@ KillMonstersQuest{
 		TopicDone 	= 	"Thanks: Swamp Creatures",
 		After 		= 	"There's some fascinating stuff here in the swamp, but digging through this muck is a challenge. Your help has been invaluable in making it possible.",
 
-		Quest 		= 	"\"Swamp Creatures\"\nHoward Carter, Amber Island, Town\n\nClear out the hostile lizards in the swampy area on the southern island so Howard Carter can proceed with his archaeological work.",
+		Quest 		= 	"\"Swamp Creatures\"\nHoward Carter, Amber Island, Town, Western District\n\nClear out the hostile lizards in the swampy area on the southern island so Howard Carter can proceed with his archaeological work.",
 	},
 	Gold 			= 	2000,  -- reward: gold
 	Exp 			= 	1500,  -- reward: experience
@@ -1160,7 +1160,7 @@ KillMonstersQuest{
 		TopicDone 	= 	"Thanks: Ritual",
 		After 		= 	"Thanks to you our island is now free from demonic influence. On behalf of the entire town, I extend our deepest gratitude. You've done a great service for us all.",
 
-		Quest 		= 	"\"Ritual\"\nJohn Constantine, Amber Island, Swamp Island Forest\n\nSummon and defeat the demon at the altar in the forested area of the southern island.",
+		Quest 		= 	"\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and defeat the demon at the altar in the forested area of the southern swamp island.",
 	},
 	GivenItem 		= 	785,
 	CheckDone 		= 	function(t)
@@ -1907,7 +1907,7 @@ Quest{
 		Done 		= 	"Joyous day! My heart swells with gratitude at the sight of my dear friend returned to me. You have my deepest thanks and the eternal gratitude of Sir Hoppington the Brave!",
 		Undone 		= 	"Alas, my heart is heavy with worry, and my armor feels unusually burdensome without my little companion by my side. Have you perchance found any trace of my lost friend?",
 		GreetDone	=	"Ah, my valiant rescuers! Welcome back. Seeing my little companion frolicking once again fills me with immeasurable happiness. How may Sir Hoppington the Brave assist you today?",
-		Quest 		= 	"Missing Pet\nSir Hoppington the Brave, Amber Island, East Area\n\nFind and return Sir Hoppington's missing talking bunny.",
+		Quest 		= 	"Missing Pet\nSir Hoppington the Brave, East Amber Island\n\nFind and return Sir Hoppington's missing talking bunny.",
 	},
 	Gold 			= 	1000,
 	Exp				=	1000,
@@ -2304,7 +2304,7 @@ Quest{
 		After		=	"You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
 						"Use the \01265523amulet\01200000 I gave you to activate the \01265523teleporter near the knight camp on the swamp island\01200000 and reach the secret hideout.\n\n"..
 						"But be warned - if you mean to reach his hideout, you will need the \01265523key from his workshop\01200000.",
-		Quest 		= 	"\"Story: Fugitive Butler\"\nBring Barnaby some food (5 units) and gold (500g), then escort him to a secluded hiding place far from towns and obvious locations.",
+		Quest 		= 	"\"Story: Fugitive Butler\"\nBarnaby Whitfield, Follower\n\nBring Barnaby some food (5 units) and gold (500g), then escort him to a secluded hiding place far from towns and obvious locations.",
 	},
 	Give			= 	function(t)
 							evt.Add("NPCs", 539)
