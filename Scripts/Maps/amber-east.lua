@@ -4,35 +4,26 @@ Author: Henrik Chukhran, 2022 - 2026
 ]]
 
 local TXT = Localize{
-	[0] =   " ",
-    [1] =   "House",
-    [2] =   "Chest",
-    [3] =   "Teleportation Platform",
-    [4] =   "The Door is Locked",
-    [5] =   "Robert Stevenson's Boat",
-    [6] =   "Enter the Secret Hideout",
-    [7] =   "Enter the Castle Amber",
-    [8] =   "Weird Tree",
-    [9] =   "",
-    [10]=   "As you leave the secret hideout, a cool wind touches your face, hinting at urgency. "..
+    [1] =   "Robert Stevenson's Boat",
+    [2] =   "Enter the Secret Hideout",
+    [3] =   "Enter the Castle Amber",
+    [4] =   "Weird Tree",
+    [5] =   "As you leave the secret hideout, a cool wind touches your face, hinting at urgency. "..
             "You notice the \01265523boat\01200000 that was once nearby is now \01265523missing.\01200000 "..
             "Far off, you see it near Castle Amber's Island, revealing the Archmage's escape route.\n\n"..
             "The chase isn't over yet, but now that you've pinpointed the Archmage's location, "..
             "it's time to \01265523head back to town and report to the mayor.\01200000\n\n"..
             "The \01265523letter\01200000 he left behind could serve as \01265523evidence\01200000 of your encounter with the Archmage.",
-    [11]=   "Robert narrows his eyes, then points into the thick foliage behind the tree.\n\n'There... do you see it? That's the boat.'"
+    [6] =   "Robert narrows his eyes, then points into the thick foliage behind the tree.\n\n'There... do you see it? That's the boat.'"
 }
 table.copy(TXT, evt.str, true)
-Game.MapEvtLines.Count = 0
-
-local FaceGroup_HideoutBoat         = 1338
-local FaceGroup_EntranceToCastle    = 1337
-local FaceGroup_EntranceToCastleW   = 1339
-local FaceGroup_PirateBoatW         = 1340
-
-local SecretHideoutKeyItemID        = 667
+Game.MapEvtLines.Count              = 0
 
 -- ****************************************************************************
+
+-- MONSTER GROUPS
+-- ID           DESCRIPTION
+-- 38           Guards
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
@@ -50,20 +41,34 @@ local SecretHideoutKeyItemID        = 667
 -- 03           4               Behind Castle Amber
 -- 04           5               Under the rock bridge (secret)
 
--- ****************************************************************************
+------------------------------------------------------------------------------
+-- LOCALS
+------------------------------------------------------------------------------
+
+local FaceGroup_HideoutBoat         = 1338
+local FaceGroup_EntranceToCastle    = 1337
+local FaceGroup_EntranceToCastleW   = 1339
+local FaceGroup_PirateBoatW         = 1340
+
+local SecretHideoutKeyItemID        = 667
 
 ------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
+
 function events.AfterLoadMap(WasInGame)
 
     evt.SetNPCGroupNews(38, 42)
 
-    if vars.MiscAmberIsland.ArchmageEscapedHideout == 1 then
-        vars.MiscAmberIsland.ArchmageEscapedHideout = 2
+    if vars.MiscAmberIsland.ArchmageEscapedHideout >= 1 then
+
         evt.SetFacetBit(FaceGroup_HideoutBoat,const.FacetBits.Invisible,    true)
         evt.SetFacetBit(FaceGroup_HideoutBoat,const.FacetBits.Untouchable,  true)
-        Message(evt.str[10])
+
+        if  vars.MiscAmberIsland.ArchmageEscapedHideout == 1 then
+            vars.MiscAmberIsland.ArchmageEscapedHideout = 2
+            Message(evt.str[5])
+        end
     end
 
     -- Robert Stevenson's Boat (Warrior)
@@ -86,7 +91,7 @@ function events.AfterLoadMap(WasInGame)
     if vars.MiscAmberIsland.AttackOnCastleAmber == 1 then
 
         vars.MiscAmberIsland.AttackOnCastleAmber = 2
-        GuardArray = {
+        local GuardArray = {
             {X = -15953, Y = 9799,  Z = 155 },
             {X = -14107, Y = 8989,  Z = 128 },
             {X = 21002,  Y = 21545, Z = 59  },
@@ -143,15 +148,16 @@ end
 ------------------------------------------------------------------------------
 -- CHESTS
 ------------------------------------------------------------------------------
+
 for i = 0, 19, 1 do
-	local hintStr = evt.str[2]
+    local hintStr   = ModTxt.CChest
     if Game.Debug then
-        hintStr = hintStr .. " #"..tostring(i)
+        hintStr     = hintStr .. " #"..tostring(i)
     end
-	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function()
-	    evt.OpenChest(i)
-	end
+    evt.hint[1 + i] = hintStr
+    evt.map[1 + i]  = function()
+        evt.OpenChest(i)
+    end
 end
 
 ------------------------------------------------------------------------------
@@ -159,15 +165,14 @@ end
 ------------------------------------------------------------------------------
 
 -- Dungeon: Secret Hideout
---evt.house[29] = evt.str[11]
-evt.hint[25] = evt.str[6]
-evt.map[25] = function()
+evt.hint[25]        = evt.str[2]
+evt.map[25]         = function()
 
     if vars.MiscAmberIsland.SecretHideoutClosed == true then
         
         if not evt.All.Cmp("Inventory", SecretHideoutKeyItemID) then
             evt.FaceAnimation{Player = "Current", Animation = 18}
-            evt.StatusText(4) -- "The Door is Locked"
+            Game.ShowStatusText(ModTxt.CLockedDoor)
             return
         end
 
@@ -190,8 +195,8 @@ end
 
 -- Dungeon: Castle Amber
 --evt.hint[31] = evt.str[12]
-evt.hint[24] = evt.str[7]
-evt.map[24] = function()
+evt.hint[24]        = evt.str[3]
+evt.map[24]         = function()
     evt.MoveToMap{
         X           = 293,
         Y           = 286,
@@ -220,16 +225,16 @@ evt.HouseDoor(23, 607)
 ------------------------------------------------------------------------------
 
 -- Castle Amber Gates
-evt.hint[22] = evt.str[7]
-evt.map[22] = function()
+evt.hint[22]        = evt.str[3]
+evt.map[22]         = function()
     evt.FaceAnimation{Player = "Current", Animation = 18}
-    evt.StatusText(4)  -- "The Door is Locked"
+    Game.ShowStatusText(ModTxt.CLockedDoor)
 end
 
 -- Teleporter (Secret Hideout)
 --evt.hint[39] = evt.str[8] -- Teleportation Platform
-evt.hint[26] = evt.str[3]
-evt.map[26] = function()
+evt.hint[26]        = ModTxt.CTeleportPlatform
+evt.map[26]         = function()
     evt.MoveToMap{
         X           = 18402,
         Y           = -19783,
@@ -244,8 +249,8 @@ evt.map[26] = function()
 end
 
 -- Pirate Treasure Tree
-evt.hint[27] = evt.str[8]
-evt.map[27] = function()
+evt.hint[27]        = evt.str[4]
+evt.map[27]         = function()
 
     if IsWarrior() then
 
@@ -258,7 +263,7 @@ evt.map[27] = function()
         evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Invisible,   false)
         evt.SetFacetBit(FaceGroup_PirateBoatW, const.FacetBits.Untouchable, false)
 
-        Message(evt.str[11])
+        Message(evt.str[6])
 
         return
     end
@@ -296,8 +301,8 @@ evt.map[27] = function()
 end
 
 -- Map Exit
-evt.hint[28] = evt.str[0]
-evt.map[28] = function()
+evt.hint[28]        = ModTxt.CNull
+evt.map[28]         = function()
     evt.MoveToMap{
         X           = 22064,
         Y           = 9465,
@@ -312,8 +317,8 @@ evt.map[28] = function()
 end
 
 -- Robert Stevenson's Boat
-evt.hint[29] = evt.str[5]
-evt.map[29] = function()
+evt.hint[29]        = evt.str[1]
+evt.map[29]         = function()
 
     local mX = -4606
     local mY = 10731
@@ -321,9 +326,9 @@ evt.map[29] = function()
 
     -- Returning back after quest is done? (Broken boat on deadman's island)
     if vars.Quests.AmberQuest7W == "Done" then
-        mX = -10371
-        mY = -3226
-        mD = 202
+        mX   = -10371
+        mY   = -3226
+        mD   = 202
     end
 
     evt.MoveToMap{
@@ -338,4 +343,3 @@ evt.map[29] = function()
         Name        = "deadmanisle.odm"
     }
 end
-

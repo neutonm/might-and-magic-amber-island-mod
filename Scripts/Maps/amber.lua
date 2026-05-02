@@ -1,76 +1,208 @@
 --[[
-Map: Amber Island
-Author: Henrik Chukhran, 2022 - 2024
+Map:    Amber Island
+Author: Henrik Chukhran, 2022 - 2026
 ]]
 
-local TXT = Localize{
-	[0] = " ",
-    [1] = "House",
-    [2] = "Chest",
-    [3] = "Fountain",
-    [4] = "Refreshing",
-    [5] = "Drink from the Fountain",
-    [6] = "Well",
-    [7] = "Drink from the Well",
-    [8] = "Teleportation Platform",
-    [9] = "Statue",
-    [10] = "Altar",
-    [11] = "Oak Hill Cottage",
-    [12] = "Archmage's Residence",
-    [13] = "Apple Cave",
-    [14] = "Abandoned Mines",
-    [15] = "Enter the Oak Hill Cottage",
-    [16] = "Enter the Archmage's Residence",
-    [17] = "Enter the Cave",
-    [18] = "Enter the Abandoned Mines",
-    [19] = "Horse Statue",
-    [20] = "Tent",
-    [21] = "Pray at Altar",
-    [22] = "Black Betty", -- Ship
-    [23] = "Saint Barthelemy", -- Ship
-    [24] = "Powder Keg Inn",
-    [25] = "Amber Training Grounds",
-    [26] = "Nourville's Cathedrall",
-    [27] = "Amber Bank",
-    [28] = "Crusty Eagle Inn",
-    [29] = "Steel Bucket",
-    [30] = "Razorsharp",
-    [31] = "Magic in the Potion",
-    [32] = "Odds and Ends",
-    [33] = "Guild of Spirit Magic",
-    [34] = "Guild of Body Magic",
-    [35] = "Guild of Mind Magic",
-    [36] = "Guild of Fire Magic",
-    [37] = "Guild of Air Magic",
-    [38] = "Guild of Water Magic",
-    [39] = "Guild of Earth Magic",
-    [40] = "Amber Townhall",
-    [41] = "Tower",
-    [42] = "Residence",
-    [43] = "Apple Tree",
-    [44] = "Yuck! Apples are too sour to be consumed...",
-    [45] = "+5 AC (Temporary)",
-    [46] = "+2 Accuracy (Permanent)",
-    [47] = "+ 10 Might (Temporary)",
-    [48] = "Maybe that wasn't such a good idea.",
-    [49] = "You probably shouldn't do that.",
-    [50] = "+ 10 hit and spell points",
-    [51] = "+5 Elemental Resistance (Temporary)",
-    [52] = "Skull",
-    [53] = "The Door is Locked"
+local TXT   = Localize{
+    [1]     = "Oak Hill Cottage",
+    [2]     = "Archmage's Residence",
+    [3]     = "Apple Cave",
+    [4]     = "Abandoned Mines",
+    [5]     = "Enter the Oak Hill Cottage",
+    [6]     = "Enter the Archmage's Residence",
+    [7]     = "Enter the Cave",
+    [8]     = "Enter the Abandoned Mines",
+    [9]     = "Horse Statue",
+    [10]    = "Pray at Altar",
+    [11]    = "Black Betty",        -- Ship
+    [12]    = "Saint Barthelemy",   -- Ship
+    [13]    = "Tower",
+    [14]    = "Apple Tree",
+    [15]    = "Yuck! Apples are too sour to be consumed...",
+    [16]    = "Skull"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
-function evt.ShopDoor(evtId, houseId)
-	evt.house[evtId] = houseId
-	evt.map[evtId] = function()
+------------------------------------------------------------------------------
+
+-- FACE GROUPS
+-- ID           DESCRIPTION
+-- 42           (Warrior) Watchtower Cellarin Ruined tower
+-- 123          (Warrior) Board bridge between port island and town
+
+-- NPC GROUP
+-- IDs          DESCRIPTION
+-- 36           Peasants
+-- 38           Guards
+
+-- GOODS
+-- PLACE        TYPE            PRICE       ITEM
+-- Chapman      Buy             1500        Amber Apple Cider
+-- Chapman      Sell            3000        Coffee Beans
+-- Ferrum       Sell            300         Amber
+
+-- ***************************************************************************
+
+-- CHESTS
+-- CHEST ID     TRIGGER ID      DESCRIPTION
+-- 00           01              Port Island, near Oak Hill Cottage entrance
+-- 01           02              Port Island, behind the Bolton residence
+-- 02           03              Top of ruined tower
+-- 03           04              Apple Island, near Apple Cave dungeon
+-- 04           05              North-East part of swamp, near the ramp
+-- 05           06              Swamp island, Knight Camp, near the teleportation platform
+-- 06           07              Near the Archmage Residence
+-- 07           08              Eastern barrens, near Abandoned Mines
+-- 08           09              Rich District, Hawk Residence, balcony
+-- 09           10              Shore, behind Earth Guild, near the bridge
+-- 10           11              Beck Residence balcony, western town entrance
+-- 11           12              Western town shore, behind Armstrong residence
+-- 12           13              Island close to town, between port island and town
+-- 13           14              Northern Island, map border
+
+-- ***************************************************************************
+
+-- FOUNTAINS
+-- TYPE         TRIGGER ID      ID              DESCRIPTION
+-- Well         22              amberWell1      Port Island, near Oak HIll Cottage entrance
+-- Well         23              amberWell2      Before Amber Town Bridge
+-- Well         24              amberWell3      Western District, near prison tower
+-- Well         25              amberWell4      Swamp Island, near Knight Camp
+-- Fountain     27              amberFountain1  Port Island
+-- Fountain     28              amberFountain2  Town center
+-- Basin        165             amberFountain3  Rich district
+
+-- ***************************************************************************
+
+-- DUNGEONS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Dungeon      30              Oak HIll Cottage
+-- Dungeon      32              Archmage Residence
+-- Dungeon      34              Apple Cave
+-- Dungeon      36              Abandoned Mines
+-- Dungeon      168             Watchtower Cellar (Warrior)
+
+-- ***************************************************************************
+
+-- SHOPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Tavern       65              Powder Keg Inn, Port Island
+-- Training     67              Amber Training Grounds, Western town shore
+-- Temple       69              Saint Nourville Cathedral, Town Center
+-- Temple       71              Amber Bank, Town Center
+-- Tavern       73              Crusty Eagle Inn, Town Center
+-- Shop         75              Armorer: Steel Bucket, Eastern Market District
+-- Shop         77              Smith: Razorsharp, Eastern Market District
+-- Shop         79              Alchemist: Potions of Payne, Eastern Market District
+-- Shop         81              Magician: Odds and Ends, Eastern Market District
+-- Guild        83              Spirit, Southern Mage District
+-- Guild        85              Body,   Southern Mage District
+-- Guild        87              Mind,   Southern Mage District
+-- Guild        89              Fire,   Southern Mage District
+-- Guild        91              Air,    Southern Mage District
+-- Guild        93              Water,  Southern Mage District
+-- Guild        95              Earth,  Southern Mage District
+-- Town Hall    97              Town Center
+-- Merc Guild   138             Tent,   Mage District
+
+-- ***************************************************************************
+
+-- RESIDENCES
+-- TITLE        TRIGGER  AREA                   SPECIAL                     DETAILS
+-- Graywood     101      Port Island                                        W from fountain
+-- Nightkeep    102      Port Island                                        NW from fountain
+-- Colby        103      Port Island            Expert: Thief               E from fountain
+-- Bolton       104      Port Sub-island        Make: Black Potion          E after bridge
+-- Greene       105      Port Sub-island        Q: Worrying Mother          N after bridge
+-- Gladwyn      106      Port Sub-island                                    W after bridge
+-- Wright's     107      Port Sub-island        Expert: Disarm              Tent
+-- Halloran     108      Western Town Island    Q: Conrad Hawk              Small 2-store house
+-- Beck         109      Western Town Island    Q: Family Sword             Big house
+-- Amber Tower  110      West-south Hill        Q: Conrad Hawk              
+-- Timar        111      Western District       Expert: Leather             Entrance, rocky house
+-- Hoggard      112      Western District       Expert: Chain               Entrance, small house
+-- Shadoweaver  113      Western District       Future: Dark guild          Castle like house with tower
+-- Smith        114      Western District                                   Gray waffle-and-daub house
+-- Yap          115      Western District       Q: Lucky Coin               Small elven house
+-- Quick        116      Western District       Expert: Dodge               Barn-like house
+-- Borg         117      Western District       Buy: Empty Flask            Small round house
+-- Armstrong    118      Western District       Expert: Plate               L-shaped stone house
+-- Flavius      119      Western District                                   2-store yellow house
+-- Constantine  120      Western District       Q: Ritual                   Hexagon-shaped yellow house
+-- Witts        121      Western District       Guild memberships           Wooden 2-store house
+-- Sage         122      Western District       Expert: Perception          Elven yellow house
+-- Wells        123      Western District       Expert: Water               Bridge house (south)
+-- Aarden       124      Western District       Expert: Earth               Bridge house (north)
+-- Marley       125      Western District       Expert: Axe                 Big-stone gray house
+-- Goodwin      126      Western District       Buy: 8 hp/sp potions        Small tower house
+-- Brand        127      Western District       Expert: Fire                Duplex house (north)
+-- Lightfeather 128      Western District       Expert: Air | Buy: Jump     Duplex house (south)
+-- Blaine       129      Western District       Q: Ransom                   Rich stone house with stairs
+-- Stringer     130      Western District       Expert: Bow                 Rich elven 2-store house, near Inn
+-- Oswald       131      Western District       Expert: Mace                Large stone house with shed
+-- Ferrum       132      Western District       Sell: Amber                 L-shaped waffle-and-daub house
+-- Carter       133      Western District       Q: Swamp Creatures          Wooden 2-store house with door at corner
+-- Messer       134      Western District       Expert: Dagger              Small yellow house with wooden corners
+-- Leary        135      Western District       Expert: Mind                Blue 2-store house
+-- Vesalius     136      Mage District          Expert: Body                Big ston house with purple second floor
+-- Barnes       137      Mage District          Expert: Meditation          Wooden 2-store house with dirty 2nd floor
+-- Lund         138      Mage District          Expert: Spirit              Purple house
+-- n/a
+-- Craig        140      Center                 Expert: Repair              Poor house
+-- Hawk         141      Rich District                                      Arc house with 2 apartments
+-- Chapman      142      Rich District          Expert: Merchant | Goods    Huge building with tower
+-- Mayor        143      Rich District                                      Central 3-Store house
+-- Shirley      144      Rich District          Expert: Learning            White stone house
+-- Robeson      145      Rich District          Q: Revenge (reward)         Black stone house
+-- Winter       146      Rich District          E: ID Item/Monster          3-app duplex (east)
+-- McBane       147      Rich District          Buy: +1500 exp              3-app duplex (center)
+-- Ryder        148      Rich District          E: Shield / Spear           3-app duplex (west)
+-- Boyce        149      North-Western Shore    E: Staff | T: Arena, Castle Boatman's House
+-- Greene       150      Knight Camp            Q: Legate                   North Tent
+-- Kemp         151      Knight Camp            Expert: Armsmaster          East Tent
+-- Mitchell     152      Knight Camp            Expert: Sword               South Tent
+-- Stevenson    153      Eastern Desert Island  Q: Old Sea Dog              Lighthouse
+-- Cassio       154      Eastern Desert Island  Q: Revenge (complete)       Big 2-store waffle-and-daub house
+-- Payne        155      Swamp                  Make: Black Potion          Witch Hut
+-- Bunny Burrow 161      North Town Shore       Q: Missing Pet (complete)   Small cave / burrow
+
+-- ***************************************************************************
+
+-- TRIGGERS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Statue       37              Horse Statue in Mage District
+-- Statue       38              Shrine in Swamp, Dwarf
+-- Teleport     40              Swamp, teleport platform near Knight Camp
+-- Altar        42              Stonehenge at Swamp Island, Forest area
+-- Ship         61              South Ship: Black Betty
+-- Ship         63              West Ship:  Saint Barthelemy
+
+-- Exit         160             Eastern Bridge
+-- Sprite       162             Skull (North-East map corner)
+-- Texture      163             Guild of Body, North Window (gives scroll)
+-- NPC          164             Sir Henry (Port Island Bridge trigger)
+-- Ambush       166             Swamp Island between Port Island and Amber Town
+-- Sprite       169             Swamp Tree Stump (south-eastern part of archmage residence island, near small pool)
+-- SpriteId     200-255         Sour apple trees
+
+------------------------------------------------------------------------------
+-- LOCALS
+------------------------------------------------------------------------------
+
+local HouseID_WatchtowerCellar  = 582
+local HouseID_AppleCave         = 583
+local HouseID_AbandonedMines    = 584
+
+local function ShopDoor(evtId, houseId)
+    evt.house[evtId]    = houseId
+    evt.map[evtId]      = function()
 
         if IsWarrior() and vars.MiscAmberIsland.ClosedShops == true then
             evt.FaceAnimation{Player = "Current", Animation = 18}
-            evt.StatusText(53) -- "The Door is Locked"
+            Game.ShowStatusText(ModTxt.CLockedDoor)
 
-            -- Notify about wtf is happening in 10sec
+            -- Notify about wtf is happening in 5sec
             if evt.Cmp("MapVar41", 1) == false then
                 evt.Set("MapVar41", 1)
                 Timer(function()
@@ -82,14 +214,16 @@ function evt.ShopDoor(evtId, houseId)
 
             return
         end
-		evt.EnterHouse(houseId)
-	end
+        evt.EnterHouse(houseId)
+    end
 end
 
+------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
+
 function events.MonsterKilled(mon, monIndex, defaultHandler)
-    
+
     if mon.NPC_ID == 498 then
         vars.QuestsAmberIsland.QVarRevenge = 3 -- Michael Cassio is Killed
     elseif mon.NPC_ID == 539 then
@@ -136,25 +270,29 @@ function events.AfterLoadMap(WasInGame)
     end
 end
 
+------------------------------------------------------------------------------
 -- CHESTS
 ------------------------------------------------------------------------------
+
 for i = 0, 19, 1 do
-	local hintStr = evt.str[2]
+    local hintStr   = ModTxt.CChest
     if Game.Debug then
-        hintStr = hintStr .. " #"..tostring(i)
+        hintStr     = hintStr .. " #"..tostring(i)
     end
-	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function()
-	    evt.OpenChest(i)
-	end
+    evt.hint[1 + i]        = hintStr
+    evt.map[1 + i]         = function()
+        evt.OpenChest(i)
+    end
 end
 
--- APPLES
 ------------------------------------------------------------------------------
+-- APPLE TREES
+------------------------------------------------------------------------------
+
 for i = 200, 255, 1 do
-	evt.hint[i] = evt.str[43] 
-    evt.map[i] = function()
-        evt.StatusText(44)
+    evt.hint[i]        = evt.str[14]
+    evt.map[i]         = function()
+        evt.StatusText(15)
         --if not evt.CheckSeason(3) then
             --if not evt.CheckSeason(2) then
                 -- local checkStr = "MapVar50"..tostring(50+(i-200))
@@ -169,73 +307,89 @@ for i = 200, 255, 1 do
     end
 end
 
+------------------------------------------------------------------------------
 -- WELLS
 ------------------------------------------------------------------------------
-evt.hint[23] = evt.str[7]
-evt.hint[24] = evt.str[7]
-evt.hint[25] = evt.str[7]
 
--- Well: Port Island
-Fountain(22, 200, "amberWell1")
+evt.hint[23]        = ModTxt.CDrinkWell
+evt.hint[24]        = ModTxt.CDrinkWell
+evt.hint[25]        = ModTxt.CDrinkWell
 
--- Well: Before Amber Town Bridge
-Fountain(23, 201, "amberWell2")
+-- Port Island
+Fountain(22, 200,   "amberWell1")
 
--- Well: Inside Amber Town
-Fountain(24, 202, "amberWell3")
+-- Before Amber Town Bridge
+Fountain(23, 201,   "amberWell2")
 
--- Well: Swamp Island
-Fountain(25, 203, "amberWell4")
+-- Western District, near prison tower
+Fountain(24, 202,   "amberWell3")
 
+-- Swamp Island, near Knight Camp
+Fountain(25, 203,   "amberWell4")
+
+------------------------------------------------------------------------------
 -- FOUNTAINS
 ------------------------------------------------------------------------------
 
--- Fountain: Port Island
-Fountain(27, 26, "amberFountain1")
+-- Port Island
+Fountain(27, 26,    "amberFountain1")
 
--- Fountain: Amber Town
-Fountain(28, 204, "amberFountain2")
+-- Town Center
+Fountain(28, 204,   "amberFountain2")
 
--- North town basin
-Fountain(165, 205, "amberFountain3")
+-- Basin, Rich district
+Fountain(165, 205,  "amberFountain3")
 
+------------------------------------------------------------------------------
 -- DUNGEONS
 ------------------------------------------------------------------------------
+
 -- Dungeon: Oak Hill Cottage
-evt.hint[29] = evt.str[11]
-evt.hint[30] = evt.str[15]
-evt.map[30] = function()
-    evt.MoveToMap(-41,369,0,2,1,1,193,1,"oakhome.blv")
+evt.hint[29]        = evt.str[1]
+evt.hint[30]        = evt.str[5]
+evt.map[30]         = function()
+    evt.MoveToMap{
+        X           = -41,
+        Y           = 369,
+        Z           = 0,
+        Direction   = 2,
+        LookAngle   = 1,
+        SpeedZ      = 1,
+        HouseId     = 193,
+        Icon        = 1,
+        Name        = "oakhome.blv"
+    }
 end
 
 -- Dungeon: Archmage's Residence
-evt.hint[31] = evt.str[12]
-evt.hint[32] = evt.str[16]
-evt.map[32] = function()
+evt.hint[31]        = evt.str[2]
+evt.hint[32]        = evt.str[6]
+evt.map[32]         = function()
     evt.MoveToMap{
-        X = -4, 
-        Y = -2, 
-        Z = 1, 
-        Direction = 512, 
-        LookAngle = 0, 
-        SpeedZ = 0, 
-        HouseId = 195, 
-        Icon = 1, 
-        Name = "archmageEX.blv"}
+        X           = -4,
+        Y           = -2,
+        Z           = 1,
+        Direction   = 512,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 195,
+        Icon        = 1,
+        Name        = "archmageEX.blv"
+    }
 end
 
 -- Dungeon: Apple Cave
-evt.hint[34] = evt.str[17] -- Apple Cave
-evt.hint[33] = evt.str[13] -- Enter the Cave
-evt.map[34] = function()
+evt.hint[34]        = evt.str[7] -- Enter the Cave
+evt.hint[33]        = evt.str[3] -- Apple Cave
+evt.map[34]         = function()
 
     -- Barnaby found new home! #2
     if evt.Cmp("NPCs", 539) then
         evt.Subtract("NPCs", 539)
-        evt.MoveNPC{NPC = 539, HouseId = 583}
+        evt.MoveNPC{NPC = 539, HouseId = HouseID_AppleCave}
         evt.SpeakNPC(543)
         vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
-        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 583
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = HouseID_AppleCave
         return
     end
 
@@ -248,8 +402,8 @@ evt.map[34] = function()
         end
     end
 
-    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 583 then
-        evt.EnterHouse(583)
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == HouseID_AppleCave then
+        evt.EnterHouse(HouseID_AppleCave)
         return
     end
 
@@ -267,23 +421,23 @@ evt.map[34] = function()
 end
 
 -- Dungeon: Abandoned Mines
-evt.hint[35] = evt.str[14] -- Abandoned Mines
-evt.hint[36] = evt.str[18] -- Enter the Abandoned Mines
-evt.map[36] = function()
+evt.hint[35]        = evt.str[4] -- Abandoned Mines
+evt.hint[36]        = evt.str[8] -- Enter the Abandoned Mines
+evt.map[36]         = function()
 
     -- Barnaby found new home! #3
     if evt.Cmp("NPCs", 539) then
         evt.Subtract("NPCs", 539)
-        evt.MoveNPC{NPC = 539, HouseId = 584}
+        evt.MoveNPC{NPC = 539, HouseId = HouseID_AbandonedMines}
         evt.SpeakNPC(543)
         vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
-        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 584
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = HouseID_AbandonedMines
         return true
     end
 
-    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 then
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == HouseID_AbandonedMines then
         
-        evt.EnterHouse(584)
+        evt.EnterHouse(HouseID_AbandonedMines)
         return true
     end
 
@@ -300,38 +454,52 @@ evt.map[36] = function()
     }
 end
 
+------------------------------------------------------------------------------
 -- MISC
 ------------------------------------------------------------------------------
+
 -- Statue: Horse
-evt.hint[37] = evt.str[19] -- Horse Statue
-evt.map[37] = function()
+evt.hint[37]        = evt.str[9] -- Horse Statue
+evt.map[37]         = function()
     --
 end
 
 -- Statue: Swamp Island
-evt.hint[38] = evt.str[9] -- Statue
-evt.map[38] = function()
+evt.hint[38]        = ModTxt.CStatue
+evt.map[38]         = function()
     --
 end
 
 -- Teleporter: Swamp Island
-evt.hint[39] = evt.str[8] -- Teleportation Platform
-evt.hint[40] = evt.str[8]
-evt.map[40] = function()
+evt.hint[39]        = ModTxt.CTeleportPlatform
+evt.hint[40]        = ModTxt.CTeleportPlatform
+evt.map[40]         = function()
     if evt.All.Cmp("Inventory",796) then
-	evt.MoveToMap{X = 17708 ,Y = -20470, Z = 1 , Direction = 715, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 1, Name = "amber-east.odm"}
-	end
+        evt.MoveToMap{
+            X           = 17708 ,
+            Y           = -20470,
+            Z           = 1 ,
+            Direction   = 715,
+            LookAngle   = 0,
+            SpeedZ      = 0,
+            HouseId     = 0,
+            Icon        = 1,
+            Name        = "amber-east.odm"
+        }
+    end
 end
 
--- Altar: Swamp Island
-evt.hint[41] = evt.str[10] -- Altar
-evt.hint[42] = evt.str[21]
-evt.map[42] = function()
+-- Altar: Stonehenge Swamp Island
+evt.hint[41]        = ModTxt.CAltar
+evt.hint[42]        = evt.str[10]
+evt.map[42]         = function()
     if evt.All.Cmp("Inventory", 785) and vars.QuestsAmberIsland.QVarRitual == false then
+
         vars.QuestsAmberIsland.QVarRitual = true
         evt.Subtract("Inventory", 785)
         evt.PlaySound(14050,Party.X,Party.Y)
         evt.All.Add("Exp",0)
+
         local monster = SummonMonster(22, 19427, -1525, 897, true)
         monster.Level               = 5
         monster.FullHitPoints       = 360
@@ -345,23 +513,24 @@ evt.map[42] = function()
 end
 ------------------------------------------------------------------------------
 -- SHIPS
-evt.hint[60] = evt.str[22]
-evt.hint[61] = evt.str[22] -- Black Betty
-evt.map[61] = function()
-    
+------------------------------------------------------------------------------
+
+evt.hint[60]        = evt.str[11]
+evt.hint[61]        = evt.str[11] -- Black Betty
+evt.map[61]         = function()
     evt.EnterHouse(579)
 end
 
-evt.hint[62] = evt.str[23]
-evt.hint[63] = evt.str[23] -- 
-evt.map[63] = function()
-    
+evt.hint[62]        = evt.str[12]
+evt.hint[63]        = evt.str[12] --
+evt.map[63]         = function()
     evt.EnterHouse(580)
 end
 
-
+------------------------------------------------------------------------------
 -- SHOPS
 ------------------------------------------------------------------------------
+
 -- Tavern: Powder Keg Inn
 evt.HouseDoor(65, 120)
 
@@ -369,11 +538,12 @@ evt.HouseDoor(65, 120)
 evt.HouseDoor(67, 91)
 
 -- Temple: Saint Nourville Cathedral
-evt.map[69] = function()
+evt.map[69]         = function()
 
     if vars.MiscGlobal.OnDeathLocation == 0 then
         vars.MiscGlobal.OnDeathLocation = 1
     end
+
     evt.EnterHouse(246)
 end
 
@@ -383,17 +553,26 @@ evt.HouseDoor(71, 251)
 -- Tavern: Crusty Eagle Inn
 evt.HouseDoor(73, 117)
 
--- Smith: Razorsharp
-evt.ShopDoor(77, 3)
-
 -- Armorer: Steel Bucket
-evt.ShopDoor(75, 17)
+ShopDoor(75, 17)
 
--- Magician: Odds and Ends
-evt.ShopDoor(81, 41)
+-- Smith: Razorsharp
+ShopDoor(77, 3)
 
 -- Alchemist: Potions of Payne
-evt.ShopDoor(79, 53)
+ShopDoor(79, 53)
+
+-- Magician: Odds and Ends
+ShopDoor(81, 41)
+
+-- Guild: Spirit
+evt.HouseDoor(83, 156)
+
+-- Guild: Body
+evt.HouseDoor(85, 164)
+
+-- Guild: Mind
+evt.HouseDoor(87, 160)
 
 -- Guild: Fire
 evt.HouseDoor(89, 140)
@@ -407,23 +586,16 @@ evt.HouseDoor(93, 148)
 -- Guild: Earth
 evt.HouseDoor(95, 152)
 
--- Guild: Spirit
-evt.HouseDoor(83, 156)   
-
--- Guild: Mind
-evt.HouseDoor(87, 160)
-
--- Guild: Body
-evt.HouseDoor(85, 164)
-
 -- Town Hall: Amber Town
 evt.HouseDoor(97, 248)
 
+------------------------------------------------------------------------------
 -- RESIDENCES
 ------------------------------------------------------------------------------
-evt.hint[98] = evt.str[1]   -- House
-evt.hint[99] = evt.str[20]  -- Tent
-evt.hint[100] = evt.str[41] -- Tower
+
+evt.hint[98]        = ModTxt.CHouse
+evt.hint[99]        = ModTxt.CTent
+evt.hint[100]        = evt.str[13] -- Tower
 
 -- LOCATION: PORT ISLAND
 -- Graywood Residence
@@ -457,7 +629,7 @@ evt.HouseDoor(109, 532)
 
 -- Amber Tower (Prison)
 evt.house[110]  = 533
-evt.map[110]    = function()
+evt.map[110]         = function()
 
     -- StoryQuest3: Butler escapes prison (warrior)
     if IsWarrior() then
@@ -469,74 +641,84 @@ evt.map[110]    = function()
 end
 
 -- Residental Houses of Amber Town (Entrance Area)
-evt.HouseDoor(111, 534) -- first town rocky house
-evt.HouseDoor(112, 535) -- small house
-evt.HouseDoor(113, 536) -- castle-like house
-evt.HouseDoor(114, 537) -- next house
-evt.HouseDoor(115, 538) -- elf house
-evt.HouseDoor(116, 539) -- barn house
-evt.HouseDoor(117, 540) -- tiny house
-evt.HouseDoor(118, 541) -- Г-shaped house
-evt.HouseDoor(119, 542) -- 2f house
-evt.HouseDoor(120, 543) -- hexagon house
-evt.HouseDoor(121, 544) -- 2f evil house
-evt.HouseDoor(122, 545) -- yellow house
-evt.HouseDoor(123, 546) -- bridge-like house south
-evt.HouseDoor(124, 547) -- bridge-like house north
-evt.HouseDoor(125, 548) -- stone house
-evt.HouseDoor(126, 549) -- rocky small-tower house
-evt.HouseDoor(127, 550) -- duplex-north 549
-evt.HouseDoor(128, 551) -- duplex-south
-evt.HouseDoor(129, 552) -- rocky 2th f rich house
-evt.HouseDoor(130, 553) -- elf rich house
-evt.HouseDoor(131, 554) -- rocky barn-like house
-evt.HouseDoor(132, 555) -- L-shaped house with doors at corner
-evt.HouseDoor(133, 556) -- evil house with doors at corner
-evt.HouseDoor(134, 557) -- small hexagonal house
-evt.HouseDoor(135, 558) -- blue house
-evt.HouseDoor(136, 559) -- 2f rocky-red house near guilds
-evt.HouseDoor(137, 560) -- 2f evil house between tent and body guild
-evt.HouseDoor(138, 561) -- tent in guilds area
-evt.HouseDoor(139, 562) -- red house near spirit guild
-evt.HouseDoor(140, 563) -- poor house near city hall
-evt.HouseDoor(141, 564) -- arc-house, appartment
-evt.HouseDoor(142, 565) -- rich house: tower
-evt.HouseDoor(143, 566) -- rich house: 2f villa
-evt.HouseDoor(144, 567) -- rich house: white castle
-evt.HouseDoor(145, 568) -- rich house: black castle
-evt.HouseDoor(146, 569) -- rich house: duplex east
-evt.HouseDoor(147, 570) -- rich house: duplex mid
-evt.HouseDoor(148, 571) -- rich house: duplex west
-evt.HouseDoor(149, 572) -- Boatman's House
+evt.HouseDoor(111, 534) -- Timar        First town rocky house
+evt.HouseDoor(112, 535) -- Hoggard      Small house
+evt.HouseDoor(113, 536) -- Shadoweaver  Castle-like house
+evt.HouseDoor(114, 537) -- Smith        Gray waffle-and-daub house
+evt.HouseDoor(115, 538) -- Yap          Elf house
+evt.HouseDoor(116, 539) -- Quick        Barn-like house
+evt.HouseDoor(117, 540) -- Borg         Small round house
+evt.HouseDoor(118, 541) -- Armstrong    L-shaped house
+evt.HouseDoor(119, 542) -- Flavius      2 store yellow house
+evt.HouseDoor(120, 543) -- Constantine  Hexagon-shaped yellow house
+evt.HouseDoor(121, 544) -- Witts        Wooden 2-store house
+evt.HouseDoor(122, 545) -- Sage         Elven yellow house
+evt.HouseDoor(123, 546) -- Wells        Bridge-like house (south)
+evt.HouseDoor(124, 547) -- Aarden       Bridge-like house north
+evt.HouseDoor(125, 548) -- Marley       Big-stone house
+evt.HouseDoor(126, 549) -- Goodwin      Small tower house
+evt.HouseDoor(127, 550) -- Brand        Duplex-north 549
+evt.HouseDoor(128, 551) -- Lightfeather Duplex-south
+evt.HouseDoor(129, 552) -- Blaine       Rich stone house with stairs
+evt.HouseDoor(130, 553) -- Stringer     Rich elven 2-store house, near Inn
+evt.HouseDoor(131, 554) -- Oswald       Large stone house with shed
+evt.HouseDoor(132, 555) -- Ferrum       L-shaped waffle-and-daub house
+evt.HouseDoor(133, 556) -- Carter       Wooden 2-store house with door at corner
+evt.HouseDoor(134, 557) -- Messer       Small yellow house with wooden corners
+evt.HouseDoor(135, 558) -- Leary        Blue 2-store house
+evt.HouseDoor(136, 559) -- Vesalius     Big ston house with purple second floor
+evt.HouseDoor(137, 560) -- Barnes       Wooden 2-store house with dirty 2nd floor
+evt.HouseDoor(138, 561) -- Merc Guild   Tent near south bridge
+evt.HouseDoor(139, 562) -- Lund         Purple house near Spirit Guild
+evt.HouseDoor(140, 563) -- Craig        Poor house near Town Hall
+evt.HouseDoor(141, 564) -- Hawk         Arc house with 2 apartments
+evt.HouseDoor(142, 565) -- Chapman      Huge building with tower
+evt.HouseDoor(143, 566) -- Mayor        Central 3-Store house
+evt.HouseDoor(144, 567) -- Shirley      White stone house
+evt.HouseDoor(145, 568) -- Robeson      Black stone house
+evt.HouseDoor(146, 569) -- Winter       3-app duplex: east
+evt.HouseDoor(147, 570) -- McBane       3-app duplex: mid
+evt.HouseDoor(148, 571) -- Ryder        3-app duplex: west
+evt.HouseDoor(149, 572) -- Boyce        Boatman's House
 
 -- Swamp Island
-evt.house[150] = 573    -- Knight Camp: North Tent
-evt.map[150] = function()
+evt.house[150]  = 573   -- Greene       Knight Camp: North Tent
+evt.map[150]         = function()
     if evt.Cmp("NPCs", 538) then
         evt.Subtract("NPCs", 538)
         vars.QuestsAmberIsland.QVarGreeneRescued = true
         evt.MoveNPC(515,573)  -- Old Robert Greene
         evt.Add("Exp",500)
     end
-	evt.EnterHouse(573)
+    evt.EnterHouse(573)
 end
-evt.HouseDoor(151, 574) -- Knight Camp: East Tent
-evt.HouseDoor(152, 575) -- Knight Camp: West Tent
-evt.HouseDoor(153, 576) -- Lighthouse5
-evt.HouseDoor(154, 577) -- Big House at East
-evt.HouseDoor(155, 578) -- Witch Hut
+evt.HouseDoor(151, 574) -- Kemp         Knight Camp: East Tent
+evt.HouseDoor(152, 575) -- Mitchell     Knight Camp: West Tent
+evt.HouseDoor(153, 576) -- Stevenson    Lighthouse
+evt.HouseDoor(154, 577) -- Cassio       Big 2-store waffle-and-daub house
+evt.HouseDoor(155, 578) -- Payne        Swamp, Witch Hut
 
 -- Exit: Amber Island to East Amber Island
-evt.map[160] = function()
-    evt.MoveToMap{X = -22255, Y = 9476, Z = 79, Direction = 2048, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 1, Name = "amber-east.odm"}
+evt.map[160]         = function()
+    evt.MoveToMap{
+        X           = -22255,
+        Y           = 9476,
+        Z           = 79,
+        Direction   = 2048,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 1,
+        Name        = "amber-east.odm"
+    }
 end
 
 -- Bunny Burrow
 evt.HouseDoor(161, 606)
 
 -- Skull NE corner
-evt.hint[162] = evt.str[52]
-evt.map[162] = function()
+evt.hint[162]        = evt.str[16]
+evt.map[162]         = function()
     if evt.Cmp("MapVar39", 1) == false then
         evt.Set("MapVar39", 1)
         evt.Add("Inventory", 397)
@@ -544,7 +726,7 @@ evt.map[162] = function()
 end
 
 -- Body Guild Window
-evt.map[163] = function()
+evt.map[163]         = function()
     if evt.Cmp("MapVar38", 1) == false then
         evt.Set("MapVar38", 1)
         evt.Add("Inventory", 385)
@@ -552,7 +734,7 @@ evt.map[163] = function()
 end
 
 -- Sir Henry
-evt.map[164] = function()
+evt.map[164]         = function()
     if Game and Game.Debug == false and vars.MiscGlobal.FirstTimePlaying == 0 then
         vars.MiscGlobal.FirstTimePlaying = 1
         evt.SpeakNPC(449)
@@ -560,14 +742,14 @@ evt.map[164] = function()
 end
 
 -- Goblin Ambush
-evt.map[166] = function()
+evt.map[166]         = function()
 
     if not IsWarrior() or evt.Cmp("MapVar40", 1) == true then
         return
     end
 
     evt.Set("MapVar40", 1)
-    GoblinArray = {
+    local GoblinArray = {
         
         {X = -17828,  Y = -39,  Z = 0},
         {X = -17571,  Y = -44,  Z = 0},
@@ -589,23 +771,23 @@ evt.map[166] = function()
 end
 
 -- Warrior: Watchtower dungeon
-evt.hint[167] = evt.str[11]
-evt.hint[168] = evt.str[15]
-evt.map[168] = function()
+evt.hint[167]        = evt.str[1]
+evt.hint[168]        = evt.str[5]
+evt.map[168]         = function()
 
     -- Barnaby found new home! #1
     if evt.Cmp("NPCs", 539) then
         evt.Subtract("NPCs", 539)
-        evt.MoveNPC{NPC = 539, HouseId = 582}
+        evt.MoveNPC{NPC = 539, HouseId = HouseID_WatchtowerCellar}
         evt.SpeakNPC(543)
         vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
-        vars.QuestsAmberIsland.QVarButlerHideHouseID    = 582
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = HouseID_WatchtowerCellar
         return true
     end
 
-    if vars.QuestsAmberIsland.QVarButlerHideHouseID == 582 then
+    if vars.QuestsAmberIsland.QVarButlerHideHouseID == HouseID_WatchtowerCellar then
         
-        evt.EnterHouse(582)
+        evt.EnterHouse(HouseID_WatchtowerCellar)
         return true
     end
 
@@ -623,7 +805,7 @@ evt.map[168] = function()
 end
 
 -- Swamp Tree Stump (south-eastern part of archmage residence island, near small pool)
-evt.map[169] = function()
+evt.map[169]         = function()
 
     if not IsWarrior() then return end
 

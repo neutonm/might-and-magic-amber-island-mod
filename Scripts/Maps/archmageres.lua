@@ -1,86 +1,11 @@
 --[[
-Map: Archmage Residence
-Author: Henrik Chukhran, 2022 - 2024
+Map:    Archmage Residence
+Author: Henrik Chukhran, 2022 - 2026
 ]]
 
-local TXT = Localize{
-	[0] = " ",
-    [1] = "Doctor's Residence",
-    [2] = "Lever",
-    [3] = "Lift",
-    [4] = "Door",
-    [5] = "Switch",
-    [6] = "Button",
-    [7] = "Chest",
-    [8] = "Furniture",
-    [9] = "Bookcase",
-    [10] = "Hole",
-    [11] = "Nothing Happens",
-    [12] = "Fountain",
-    [13] = "Refreshing",
-    [14] = "Teleportation Pedestal",
-    [15] = "Keyhole",
-    [16] = "The Door Is Locked",
-    [17] = "Portal Is Activated",
-    [18] = "Gold Vein",
-    [19] = "Wine Rack",
-    [20] = "Drink from the Fountain",
-    [21] = "+10 Hit and Spell points restored",
-    [22] = "+5 AC (Temporary)",
-    [23] = "Refreshing",
-    [24] = "You need teleportation stone.",
-    [25] = "Leave Dungeon",
-    [26] = "Flower",
-    [27] = "Somebody already pressed the button!",
-    [28] = "+1 Elemental Resistances permanenty"
-}
-table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
-local TeleportActivatorItem = 781
-local WorkshopKeyItemID = 786
-function OpenWorkshopDoor()
-    if evt.Cmp("MapVar1", 1) and evt.Cmp("MapVar2", 1) then
-        evt.Set("MapVar3", 1)
-        evt.SetDoorState{Id = 9, State = 2}
-        evt.SetDoorState{Id = 10, State = 2}
-    end
-end
-
--- EVENTS
 ------------------------------------------------------------------------------
-function events.AfterLoadMap(WasInGame)
-
-    -- Missing minotaurs, find and kill
-    -- @todo find through editor and remove
-    for _, mon in Map.Monsters do
-        if mon.Id == 103 then
-            RemoveMonster(mon)
-        end
-    end
-end
-
-function events.LoadMap()
-
-    -- Workshop door keyhole lighs reset
-    if evt.Cmp("MapVar1", 1) then
-        evt.SetTexture(1, "solid03")
-    end
-    if evt.Cmp("MapVar2", 1) then
-        evt.SetTexture(2, "solid03")
-    end
-    
-end
-
--- ISSUES
--- Going from Amber Island to this dungeon crashes the game
------ Suggestion: make a transition mini-dungeon. Amber island and Archmage Residence both exceed polygon limit - it needs to unload itself before entering the dungeon.
-
--- TODO:
--- Monsters
--- Teleportation Gem for Swamp port + Letter
-
--- ****************************************************************************
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
@@ -107,7 +32,7 @@ end
 -- BOSS 1: Western Realm, Minotaur
 -- BOSS 2: Eastern Realm, Minotaur
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- DOORS
 -- DOOR ID      TRIGGER ID      DESCRIPTION
@@ -139,12 +64,12 @@ end
 -- 47           46              Secret: Western Key Realm (Waterfall Chamber)
 -- 48           47              Quest: Garden Wall (Flower)
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- BUTTONS
 -- 49           48              Button: Eastern Teleportation Chamber (Sun Symbol)
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- CHEST ID     TRIGGER ID      DESCRIPTION
 -- 00           01              Guest Room, 2nd Floor
@@ -166,7 +91,7 @@ end
 -- 16           17              Water Tunnels, East 
 -- 17           18              Water Tunnels, End Cave
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- MISC TRIGGERS
 -- TYPE         TRIGGER ID      DESCRIPTION
@@ -212,253 +137,287 @@ end
 -- Button       91              Guest Room, Secret
 -- EXIT         92              Start Room
 
--- TODO:
+------------------------------------------------------------------------------
+-- LOCALS
+------------------------------------------------------------------------------
 
--- Compilation issue: too many polygons + bad intersection of branches between portals from western realm 
--- UPDATE: not quite a polygon problem, i think the branches are either going outside internal polygons or interesct with portal face
+local TeleportActivatorItem = 781
+local WorkshopKeyItemID     = 786
 
------ Fix major issues
--------- failed compilation (it's not)
--------- rogue vertices
--------- tunnel issue below bridge
--------- summoning chamber door
--------- garden wall not actually opening
--------- bad teleportation from west tp room to west realm
--------- Add Door opening sound: take it from thief 1 (picklock successful)
------ Fix minor issues (as stated below) + textures/face attributes
------ Western Realm: clouds must teleport back to tp pos
------ Test
------ Monsters
------ Test
-
--- ****************************************************************************
--- Chests
-for i = 0, 19, 1 do
-	local hintStr = evt.str[7]
-    if Game.Debug then
-        hintStr = hintStr .. " #"..tostring(i)
+local function OpenWorkshopDoor()
+    if evt.Cmp("MapVar1", 1) and evt.Cmp("MapVar2", 1) then
+        evt.Set("MapVar3", 1)
+        evt.SetDoorState{Id = 9, State = 2}
+        evt.SetDoorState{Id = 10, State = 2}
     end
-	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function() 
-	    evt.OpenChest(i)
-	end
+end
+
+------------------------------------------------------------------------------
+-- EVENTS
+------------------------------------------------------------------------------
+function events.AfterLoadMap(WasInGame)
+
+    -- Missing minotaurs, find and kill
+    -- @todo find through editor and remove
+    for _, mon in Map.Monsters do
+        if mon.Id == 103 then
+            RemoveMonster(mon)
+        end
+    end
+end
+
+function events.LoadMap()
+
+    -- Workshop door keyhole lighs reset
+    if evt.Cmp("MapVar1", 1) then
+        evt.SetTexture(1, "solid03")
+    end
+    if evt.Cmp("MapVar2", 1) then
+        evt.SetTexture(2, "solid03")
+    end
+
+    -- Restore pedestals
+    if evt.Cmp("MapVar4", 1) then
+
+        evt.SetFacetBit(3,const.FacetBits.Invisible,false)
+        evt.SetLight(1,true)
+    end
+
+    if evt.Cmp("MapVar5", 1) then
+
+        evt.SetFacetBit(4,const.FacetBits.Invisible,false)
+        evt.SetLight(2,true)
+    end
+end
+
+------------------------------------------------------------------------------
+-- CHESTS
+------------------------------------------------------------------------------
+
+for i = 0, 19, 1 do
+    local hintStr   = ModTxt.CChest
+    if Game.Debug then
+        hintStr     = hintStr .. " #"..tostring(i)
+    end
+    evt.hint[1 + i]        = hintStr
+    evt.map[1 + i]         = function() 
+        evt.OpenChest(i)
+    end
 end 
 
--- Doors
+------------------------------------------------------------------------------
+-- DOORS
+------------------------------------------------------------------------------
+
 -- Double-Door: Well Cave, Entrance to Throne Room 
-evt.hint[21] = evt.str[4]
-evt.map[21] = function()
+evt.hint[21]        = ModTxt.CDoor
+evt.map[21]         = function()
     evt.SetDoorState{Id = 1, State = 2}
     evt.SetDoorState{Id = 2, State = 2}
 end
 
 -- Double-Door: Entrance to Fountain Chamber
-evt.hint[22] = evt.str[4]
-evt.map[22] = function()
+evt.hint[22]        = ModTxt.CDoor
+evt.map[22]         = function()
     evt.SetDoorState{Id = 3, State = 2}
     evt.SetDoorState{Id = 4, State = 2}
 end
 
 -- Double-Door: Fountain Chamber Door to West
-evt.hint[23] = evt.str[4]
-evt.map[23] = function()
+evt.hint[23]        = ModTxt.CDoor
+evt.map[23]         = function()
     evt.SetDoorState{Id = 5, State = 2}
     evt.SetDoorState{Id = 6, State = 2}
 end
 
 -- Double-Door: Fountain Chamber Door to East
-evt.hint[24] = evt.str[4]
-evt.map[24] = function()
+evt.hint[24]        = ModTxt.CDoor
+evt.map[24]         = function()
     evt.SetDoorState{Id = 7, State = 2}
     evt.SetDoorState{Id = 8, State = 2}
 end
 
 -- Double-Door: Fountain Chamber Door to Workshop
-evt.hint[25] = evt.str[4]
-evt.map[25] = function()
+evt.hint[25]        = ModTxt.CDoor
+evt.map[25]         = function()
 
     if not evt.Cmp("MapVar3", 1) then
         evt.FaceAnimation{Player = "Current", Animation = 18}
-        evt.StatusText(16)         				-- "The Door is Locked"
+        Game.ShowStatusText(ModTxt.CLockedDoor)
     else
         OpenWorkshopDoor() -- just in case
     end
-
-    -- Door
-    --evt.SetDoorState{Id = 9, State = 2}
-    --evt.SetDoorState{Id = 10, State = 2}
 end
 
 -- Double-Door: Guest Room 
-evt.hint[26] = evt.str[4]
-evt.map[26] = function()
+evt.hint[26]        = ModTxt.CDoor
+evt.map[26]         = function()
     evt.SetDoorState{Id = 11, State = 2}
     evt.SetDoorState{Id = 12, State = 2}
 end
 
 -- Double-Door: Rec Room 
-evt.hint[27] = evt.str[4]
-evt.map[27] = function()
+evt.hint[27]        = ModTxt.CDoor
+evt.map[27]         = function()
     evt.SetDoorState{Id = 13, State = 2}
     evt.SetDoorState{Id = 14, State = 2}
 end
 
 -- Double-Door: Diner Room 
-evt.hint[28] = evt.str[4]
-evt.map[28] = function()
-    --evt.SetDoorState{Id = 15, State = 2}
+evt.hint[28]        = ModTxt.CDoor
+evt.map[28]         = function()
     evt.SetDoorState{Id = 16, State = 0}
 end
 
 -- Double-Door: Wine Cellar 
-evt.hint[29] = evt.str[4]
-evt.map[29] = function()
+evt.hint[29]        = ModTxt.CDoor
+evt.map[29]         = function()
     evt.SetDoorState{Id = 17, State = 2}
     evt.SetDoorState{Id = 18, State = 2}
 end
 
 -- Double-Door: Bedroom 
-evt.hint[30] = evt.str[4]
-evt.map[30] = function()
+evt.hint[30]        = ModTxt.CDoor
+evt.map[30]         = function()
     evt.SetDoorState{Id = 19, State = 2}
     evt.SetDoorState{Id = 20, State = 2}
 end
 
 -- Double-Door: WC 
-evt.hint[31] = evt.str[4]
-evt.map[31] = function()
+evt.hint[31]        = ModTxt.CDoor
+evt.map[31]         = function()
     evt.SetDoorState{Id = 21, State = 2}
     evt.SetDoorState{Id = 22, State = 2}
 end
 
 -- Double-Door: Garden Storage Room: West 
-evt.hint[32] = evt.str[4]
-evt.map[32] = function()
+evt.hint[32]        = ModTxt.CDoor
+evt.map[32]         = function()
     evt.SetDoorState{Id = 23, State = 2}
     evt.SetDoorState{Id = 24, State = 2}
 end
 
 -- Double-Door: Garden Storage Room: North 
-evt.hint[33] = evt.str[4]
-evt.map[33] = function()
+evt.hint[33]        = ModTxt.CDoor
+evt.map[33]         = function()
     evt.SetDoorState{Id = 25, State = 2}
     evt.SetDoorState{Id = 26, State = 2}
 end
 
 -- Double-Door: Garden Storage Room: East 
-evt.hint[34] = evt.str[4]
-evt.map[34] = function()
+evt.hint[34]        = ModTxt.CDoor
+evt.map[34]         = function()
     evt.SetDoorState{Id = 27, State = 2}
     evt.SetDoorState{Id = 28, State = 2}
 end
 
 -- Double-Door: Alchemy Room
-evt.hint[35] = evt.str[4]
-evt.map[35] = function()
+evt.hint[35]        = ModTxt.CDoor
+evt.map[35]         = function()
     evt.SetDoorState{Id = 29, State = 2}
     evt.SetDoorState{Id = 30, State = 2}
 end
 
 -- Double-Door: Summoning Chamber
-evt.hint[36] = evt.str[4]
-evt.map[36] = function()
+evt.hint[36]        = ModTxt.CDoor
+evt.map[36]         = function()
     evt.SetDoorState{Id = 31, State = 2}
     --evt.SetDoorState{Id = 32, State = 2}
 end
 
 -- Double-Door: Office
-evt.hint[37] = evt.str[4]
-evt.map[37] = function()
+evt.hint[37]        = ModTxt.CDoor
+evt.map[37]         = function()
     evt.SetDoorState{Id = 33, State = 2}
     evt.SetDoorState{Id = 34, State = 2}
 end
 
 -- Double-Door: Library
-evt.hint[38] = evt.str[4]
-evt.map[38] = function()
+evt.hint[38]        = ModTxt.CDoor
+evt.map[38]         = function()
     evt.SetDoorState{Id = 35, State = 2}
     evt.SetDoorState{Id = 36, State = 2}
 end
 
 -- Double-Door: Shortcut to Garden: South
-evt.hint[39] = evt.str[4]
-evt.map[39] = function()
+evt.hint[39]        = ModTxt.CDoor
+evt.map[39]         = function()
     evt.SetDoorState{Id = 37, State = 2}
     evt.SetDoorState{Id = 38, State = 2}
 end
 
 -- Double-Door: Shortcut to Garden: North
-evt.hint[40] = evt.str[4]
-evt.map[40] = function()
+evt.hint[40]        = ModTxt.CDoor
+evt.map[40]         = function()
     evt.SetDoorState{Id = 39, State = 2}
     evt.SetDoorState{Id = 40, State = 2}
 end
 
 -- Double-Door: Eastern Teleportation Chamber
-evt.hint[41] = evt.str[4]
-evt.map[41] = function()
-    --evt.SetDoorState{Id = 41, State = 2}
-    --evt.SetDoorState{Id = 42, State = 2}
+evt.hint[41]        = ModTxt.CDoor
+evt.map[41]         = function()
     evt.FaceAnimation{Player = "Current", Animation = 18}
-	evt.StatusText(16)         				-- "The Door is Locked"
+    Game.ShowStatusText(ModTxt.CLockedDoor)
 end
 
 -- Secret: Fountain Chamber
-evt.hint[42] = evt.str[4]
-evt.map[42] = function()
+evt.hint[42]        = ModTxt.CDoor
+evt.map[42]         = function()
     evt.SetDoorState{Id = 43, State = 2}
 end
 
 -- Secret: Diner Room
-evt.hint[43] = evt.str[4]
-evt.map[43] = function()
+evt.hint[43]        = ModTxt.CDoor
+evt.map[43]         = function()
     evt.SetDoorState{Id = 44, State = 2}
 end
 
 -- Secret: Garden Storage Room
-evt.hint[44] = evt.str[4]
-evt.map[44] = function()
+evt.hint[44]        = ModTxt.CDoor
+evt.map[44]         = function()
     evt.SetDoorState{Id = 45, State = 2}
 end
 
 -- Secret: Garden Storage Room
-evt.hint[45] = evt.str[4]
-evt.map[45] = function()
+evt.hint[45]        = ModTxt.CDoor
+evt.map[45]         = function()
     evt.SetDoorState{Id = 46, State = 2}
 end
 
 -- Secret: Western Key Realm (Waterfall Chamber)
-evt.hint[46] = evt.str[4]
-evt.map[46] = function()
+evt.hint[46]        = ModTxt.CDoor
+evt.map[46]         = function()
     evt.SetDoorState{Id = 47, State = 2}
 end
 
 -- Quest: Garden Wall (Flower)
-evt.hint[47] = evt.str[26]
-evt.map[47] = function()
+evt.hint[47]        = ModTxt.CFlower
+evt.map[47]         = function()
     evt.SetDoorState{Id = 48, State = 2}
 end
 
--- ****************************************************************************
--- BUTTONS:
+------------------------------------------------------------------------------
+-- BUTTONS
+------------------------------------------------------------------------------
 
 -- Button: Eastern Teleportation Chamber (Sun Symbol)
-evt.hint[48] = evt.str[6]
-evt.map[48] = function()
+evt.hint[48]        = ModTxt.CButton
+evt.map[48]         = function()
     evt.SetDoorState{Id = 49, State = 2}
     -- Door
     evt.SetDoorState{Id = 41, State = 2}
     evt.SetDoorState{Id = 42, State = 2}
 end
 
--- ****************************************************************************
--- MISC:
+------------------------------------------------------------------------------
+-- MISC
+------------------------------------------------------------------------------
 
 -- Quest: Western Keyhole, Workshop Door
-evt.hint[49] = evt.str[15]
-evt.map[49] = function()
+evt.hint[49]        = ModTxt.CKeyhole
+evt.map[49]         = function()
     if not evt.Cmp("MapVar1", 1) then
-        if evt.All.Cmp("Inventory", WorkshopKeyItemID) then         	-- "Newname Key"
+        if evt.All.Cmp("Inventory", WorkshopKeyItemID) then
             evt.Set("MapVar1", 1)
             evt.SetTexture(1, "solid03")
             evt.Sub("Inventory",WorkshopKeyItemID)
@@ -468,16 +427,16 @@ evt.map[49] = function()
             
         else
             evt.FaceAnimation{Player = "Current", Animation = 18}
-            evt.StatusText(16)         				-- "The Door is Locked"
+            Game.ShowStatusText(ModTxt.CLockedDoor)
         end
     end
 end
 
 -- Quest: Eastern Keyhole, Workshop Door
-evt.hint[50] = evt.str[15]
-evt.map[50] = function()
+evt.hint[50]        = ModTxt.CKeyhole
+evt.map[50]         = function()
     if not evt.Cmp("MapVar2", 1) then
-        if evt.All.Cmp("Inventory", WorkshopKeyItemID) then         	-- "Newname Key"
+        if evt.All.Cmp("Inventory", WorkshopKeyItemID) then
             evt.Set("MapVar2", 1)
             evt.SetTexture(2, "solid03")
             evt.Sub("Inventory",WorkshopKeyItemID)
@@ -486,225 +445,254 @@ evt.map[50] = function()
             OpenWorkshopDoor()
         else
             evt.FaceAnimation{Player = "Current", Animation = 18}
-            evt.StatusText(16)         				-- "The Door is Locked"
+            Game.ShowStatusText(ModTxt.CLockedDoor)
         end
     end
 end
 
 -- Teleport: From Western Teleport Room to Western Realm
-evt.hint[51] = evt.str[0]
-evt.map[51] = function()
-	if evt.Cmp("MapVar4", 1) then
-		evt.MoveToMap{
-			X = -11607, Y = 2335, Z = 706, 
-			Direction = 516, LookAngle = 0, SpeedZ = 0, 
-			HouseId = 0, Icon = 0, Name = "archmagekey.blv"}
-	end
+evt.hint[51]        = ModTxt.CNull
+evt.map[51]         = function()
+    if evt.Cmp("MapVar4", 1) then
+        evt.MoveToMap{
+            X           = -11607,
+            Y           = 2335,
+            Z           = 706,
+            Direction   = 516,
+            LookAngle   = 0,
+            SpeedZ      = 0,
+            HouseId     = 0,
+            Icon        = 0,
+            Name        = "archmagekey.blv"
+        }
+    end
 end
 
 -- Teleport: From Western Realm to Western Teleport Room [DEPRECATED]
-evt.hint[52] = evt.str[0]
-evt.map[52] = function()
+evt.hint[52]        = ModTxt.CNull
+evt.map[52]         = function()
     evt.MoveToMap{
-        X = -5269, Y = 2803, Z = 190, 
-        Direction = 0, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 0, Icon = 0, Name = "0"}
+        X           = -5269,
+        Y           = 2803,
+        Z           = 190,
+        Direction   = 0,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "0"
+    }
 end
 
 -- Teleport: From Eastern Teleport Room to Eastern Realm
-evt.hint[53] = evt.str[0]
-evt.map[53] = function()
-	if evt.Cmp("MapVar5", 1) then
-		evt.MoveToMap{
-			X = 20796, Y = 988, Z = 65, 
-			Direction = 510, LookAngle = 0, SpeedZ = 0, 
-			HouseId = 0, Icon = 0, Name = "archmagekey.blv"}
-	end
+evt.hint[53]        = ModTxt.CNull
+evt.map[53]         = function()
+    if evt.Cmp("MapVar5", 1) then
+        evt.MoveToMap{
+            X           = 20796,
+            Y           = 988,
+            Z           = 65,
+            Direction   = 510,
+            LookAngle   = 0,
+            SpeedZ      = 0,
+            HouseId     = 0,
+            Icon        = 0,
+            Name        = "archmagekey.blv"
+        }
+    end
 end
 
 -- Teleport: From Eastern Realm to Eastern Teleport Room [DEPRECATED]
-evt.hint[54] = evt.str[0]
-evt.map[54] = function()
+evt.hint[54]        = ModTxt.CNull
+evt.map[54]         = function()
     evt.MoveToMap{
-        X = 10364, Y = 2937, Z = 65, 
-        Direction = 1024, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 0, Icon = 0, Name = "0"}
+        X           = 10364,
+        Y           = 2937,
+        Z           = 65,
+        Direction   = 1024,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "0"
+    }
 end
 
 -- Pedestal: Western Teleport Room
-evt.hint[55] = evt.str[14]
-evt.map[55] = function()
+evt.hint[55]        = ModTxt.CTeleport
+evt.map[55]         = function()
 
     if not evt.Cmp("MapVar4", 1) then
 
-    	if not evt.All.Cmp("Inventory", TeleportActivatorItem) then         	-- "Teleportation Gem"
-    		evt.FaceAnimation{Player = "All", Animation = 43}
-    		Game.ShowStatusText(evt.str[24])
-	    	return
-	    end
-	    evt.Sub("Inventory", TeleportActivatorItem)
-    	evt.Set("MapVar4", 1)
-	    evt.SetFacetBit(3,const.FacetBits.Invisible,false)
-	    evt.PlaySound(14050,Party.X,Party.Y)
-	    evt.SetLight(1,true)
-	    evt.FaceAnimation{Player = "All", Animation = 93}
-		evt.StatusText(17)         				-- "Portal Is Activated"
-	end
+        if not evt.All.Cmp("Inventory", TeleportActivatorItem) then
+            evt.FaceAnimation{Player = "All", Animation = 43}
+            Game.ShowStatusText(ModTxt.CNeedTeleportItem)
+            return
+        end
+        evt.Sub("Inventory", TeleportActivatorItem)
+        evt.Set("MapVar4", 1)
+        evt.SetFacetBit(3,const.FacetBits.Invisible,false)
+        evt.PlaySound(14050,Party.X,Party.Y)
+        evt.SetLight(1,true)
+        evt.FaceAnimation{Player = "All", Animation = 93}
+        Game.ShowStatusText(ModTxt.CPortalActivated)
+    end
 end
 
 -- Pedestal: Western Teleport Room
-evt.hint[56] = evt.str[14]
-evt.map[56] = function()
+evt.hint[56]        = ModTxt.CTeleport
+evt.map[56]         = function()
 
     if not evt.Cmp("MapVar5", 1) then
 
-    	if not evt.All.Cmp("Inventory", TeleportActivatorItem) then         	-- "Teleportation Gem"
-    		evt.FaceAnimation{Player = "All", Animation = 43}
-    		Game.ShowStatusText(evt.str[24])
-	    	return
-	    end
-	    evt.Sub("Inventory", TeleportActivatorItem)
-    	evt.Set("MapVar5", 1)
-	    evt.SetFacetBit(4,const.FacetBits.Invisible,false)
-	    evt.PlaySound(14050,Party.X,Party.Y)
-	    evt.SetLight(2,true)
-	    evt.FaceAnimation{Player = "All", Animation = 93}
-		evt.StatusText(17)         				-- "Portal Is Activated"
-	end
+        if not evt.All.Cmp("Inventory", TeleportActivatorItem) then
+            evt.FaceAnimation{Player = "All", Animation = 43}
+            Game.ShowStatusText(ModTxt.CNeedTeleportItem)
+            return
+        end
+        evt.Sub("Inventory", TeleportActivatorItem)
+        evt.Set("MapVar5", 1)
+        evt.SetFacetBit(4,const.FacetBits.Invisible,false)
+        evt.PlaySound(14050,Party.X,Party.Y)
+        evt.SetLight(2,true)
+        evt.FaceAnimation{Player = "All", Animation = 93}
+        Game.ShowStatusText(ModTxt.CPortalActivated)
+    end
 end
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- BOOKCASES
+------------------------------------------------------------------------------
 
 -- Bookcase: Rec Room, Entrance  
-evt.hint[60] = evt.str[9]
-evt.map[60] = function()
+evt.hint[60]        = ModTxt.CBookcase
+evt.map[60]         = function()
     if not evt.Cmp("MapVar10", 1) then
-		evt.Set("MapVar10", 1)
-		evt.Add("Inventory", 381)	-- "Summon Elementalr" scroll
-	end
+        evt.Set("MapVar10", 1)
+        evt.Add("Inventory", 381)    -- "Summon Elementalr" scroll
+    end
 end
 
 -- Bookcase: Rec Room, Pool Table   
-evt.hint[61] = evt.str[9]
-evt.map[61] = function()
+evt.hint[61]        = ModTxt.CBookcase
+evt.map[61]         = function()
     if not evt.Cmp("MapVar11", 1) then
-		evt.Set("MapVar11", 1)
-		evt.Add("Inventory", 389)	-- "Toxic Cloud" scroll
-	end
+        evt.Set("MapVar11", 1)
+        evt.Add("Inventory", 389)    -- "Toxic Cloud" scroll
+    end
 end
 
 -- Bookcase: Redroom
-evt.hint[62] = evt.str[9]
-evt.map[62] = function()
+evt.hint[62]        = ModTxt.CBookcase
+evt.map[62]         = function()
     if not evt.Cmp("MapVar12", 1) then
-		evt.Set("MapVar12", 1)
-		evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar12", 1)
+        evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: WC
-evt.hint[63] = evt.str[9]
-evt.map[63] = function()
+evt.hint[63]        = ModTxt.CBookcase
+evt.map[63]         = function()
     if not evt.Cmp("MapVar13", 1) then
-		evt.Set("MapVar13", 1)
-		evt.Add("Inventory", 407)	-- "Immolation" book
-	end
+        evt.Set("MapVar13", 1)
+        evt.Add("Inventory", 407)    -- "Immolation" book
+    end
 end
 
 -- Bookcase: Summoning Chamber
-evt.hint[64] = evt.str[9]
-evt.map[64] = function()
+evt.hint[64]        = ModTxt.CBookcase
+evt.map[64]         = function()
     if not evt.Cmp("MapVar14", 1) then
-		evt.Set("MapVar14", 1)
-		evt.Add("Inventory", 376)	-- "Power Cure" scroll
-	end
+        evt.Set("MapVar14", 1)
+        evt.Add("Inventory", 376)    -- "Power Cure" scroll
+    end
 end
 
 -- Bookcase: Office, West
-evt.hint[65] = evt.str[9]
-evt.map[65] = function()
+evt.hint[65]        = ModTxt.CBookcase
+evt.map[65]         = function()
     if not evt.Cmp("MapVar15", 1) then
-		evt.Set("MapVar15", 1)
-		evt.Add("Inventory", 340)	-- "Rock Blast" scroll
-	end
+        evt.Set("MapVar15", 1)
+        evt.Add("Inventory", 340)    -- "Rock Blast" scroll
+    end
 end
 
 -- Bookcase: Office, North
-evt.hint[66] = evt.str[9]
-evt.map[66] = function()
+evt.hint[66]        = ModTxt.CBookcase
+evt.map[66]         = function()
     if not evt.Cmp("MapVar16", 1) then
-		evt.Set("MapVar16", 1)
-		evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar16", 1)
+        evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: Office, Window
-evt.hint[67] = evt.str[9]
-evt.map[67] = function()
+evt.hint[67]        = ModTxt.CBookcase
+evt.map[67]         = function()
     if not evt.Cmp("MapVar17", 1) then
-		evt.Set("MapVar17", 1)
-		evt.Add("Inventory", 337)	-- "Stoneskin" scroll
-	end
+        evt.Set("MapVar17", 1)
+        evt.Add("Inventory", 337)    -- "Stoneskin" scroll
+    end
 end
 
 -- Bookcase: Library. SW
-evt.hint[68] = evt.str[9]
-evt.map[68] = function()
+evt.hint[68]        = ModTxt.CBookcase
+evt.map[68]         = function()
     if not evt.Cmp("MapVar18", 1) then
-		evt.Set("MapVar18", 1)
-		evt.Add("Inventory", 332)	-- "Lloyd's Beacon" scroll
-	end
+        evt.Set("MapVar18", 1)
+        evt.Add("Inventory", 332)    -- "Lloyd's Beacon" scroll
+    end
 end
 
 -- Bookcase: Library. W
-evt.hint[69] = evt.str[9]
-evt.map[69] = function()
+evt.hint[69]        = ModTxt.CBookcase
+evt.map[69]         = function()
     if not evt.Cmp("MapVar19", 1) then
-		evt.Set("MapVar19", 1)
-		evt.Add("Inventory", 332)	-- "Lloyd's Beacon" scroll
-	end
+        evt.Set("MapVar19", 1)
+        evt.Add("Inventory", 332)    -- "Lloyd's Beacon" scroll
+    end
 end
 
 -- Bookcase: Library. NW
-evt.hint[70] = evt.str[9]
-evt.map[70] = function()
+evt.hint[70]        = ModTxt.CBookcase
+evt.map[70]         = function()
     if not evt.Cmp("MapVar20", 1) then
-		evt.Set("MapVar20", 1)
-		evt.Add("Inventory", 332)	-- "Lloyd's Beacon" scroll
-	end
+        evt.Set("MapVar20", 1)
+        evt.Add("Inventory", 332)    -- "Lloyd's Beacon" scroll
+    end
 end
 
 -- Bookcase: Library. NE
-evt.hint[71] = evt.str[9]
-evt.map[71] = function()
+evt.hint[71]        = ModTxt.CBookcase
+evt.map[71]         = function()
     if not evt.Cmp("MapVar21", 1) then
-		evt.Set("MapVar21", 1)
-		evt.Add("Inventory", 332)	-- "Lloyd's Beacon" scroll
-	end
+        evt.Set("MapVar21", 1)
+        evt.Add("Inventory", 332)    -- "Lloyd's Beacon" scroll
+    end
 end
 
 -- Bookcase: Library. SE
-evt.hint[72] = evt.str[9]
-evt.map[72] = function()
+evt.hint[72]        = ModTxt.CBookcase
+evt.map[72]         = function()
     if not evt.Cmp("MapVar22", 1) then
-		evt.Set("MapVar22", 1)
-		evt.Add("Inventory", 302)	-- "Fire Resistance" scroll
-	end
+        evt.Set("MapVar22", 1)
+        evt.Add("Inventory", 302)    -- "Fire Resistance" scroll
+    end
 end
 
 -- Bookcase: Library, Block, SW, S
-evt.hint[73] = evt.str[9]
-evt.map[73] = function()
+evt.hint[73]        = ModTxt.CBookcase
+evt.map[73]         = function()
     if not evt.Cmp("MapVar23", 1) then
         evt.Set("MapVar23", 1)
-        evt.Add("Inventory", 313)	-- "Air Resistance" scroll
+        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
     end
 end
 
 -- Bookcase: Library, Block, SW, N
-evt.hint[74] = evt.str[9]
-evt.map[74] = function()
+evt.hint[74]        = ModTxt.CBookcase
+evt.map[74]         = function()
     if not evt.Cmp("MapVar24", 1) then
         evt.Set("MapVar24", 1)
         evt.Add("Inventory", 324)    -- "Water Resistance" scroll
@@ -712,8 +700,8 @@ evt.map[74] = function()
 end
 
 -- Bookcase: Library, Block, NW, S
-evt.hint[75] = evt.str[9]
-evt.map[75] = function()
+evt.hint[75]        = ModTxt.CBookcase
+evt.map[75]         = function()
     if not evt.Cmp("MapVar25", 1) then
         evt.Set("MapVar25", 1)
         evt.Add("Inventory", 335)    -- "Earth Resistance" scroll
@@ -721,8 +709,8 @@ evt.map[75] = function()
 end
 
 -- Bookcase: Library, Block, NW, N
-evt.hint[76] = evt.str[9]
-evt.map[76] = function()
+evt.hint[76]        = ModTxt.CBookcase
+evt.map[76]         = function()
     if not evt.Cmp("MapVar26", 1) then
         evt.Set("MapVar26", 1)
         evt.Add("Inventory", 385)    -- "Hour of Power" scroll
@@ -730,8 +718,8 @@ evt.map[76] = function()
 end
 
 -- Bookcase: Library, Block, NE, S
-evt.hint[77] = evt.str[9]
-evt.map[77] = function()
+evt.hint[77]        = ModTxt.CBookcase
+evt.map[77]         = function()
     if not evt.Cmp("MapVar27", 1) then
         evt.Set("MapVar27", 1)
         evt.Add("Inventory", 439)    -- "Preservation" scroll
@@ -739,8 +727,8 @@ evt.map[77] = function()
 end
 
 -- Bookcase: Library, Block, NE, N
-evt.hint[78] = evt.str[9]
-evt.map[78] = function()
+evt.hint[78]        = ModTxt.CBookcase
+evt.map[78]         = function()
     if not evt.Cmp("MapVar28", 1) then
         evt.Set("MapVar28", 1)
         evt.Add("Inventory", 374)    -- "Protection from Magic" scroll
@@ -748,8 +736,8 @@ evt.map[78] = function()
 end
 
 -- Bookcase: Library, Block, SE, S
-evt.hint[79] = evt.str[9]
-evt.map[79] = function()
+evt.hint[79]        = ModTxt.CBookcase
+evt.map[79]         = function()
     if not evt.Cmp("MapVar29", 1) then
         evt.Set("MapVar29", 1)
         evt.Add("Inventory", 374)    -- "Protection from Magic" scroll
@@ -757,8 +745,8 @@ evt.map[79] = function()
 end
 
 -- Bookcase: Library, Block, SE, N
-evt.hint[80] = evt.str[9]
-evt.map[80] = function()
+evt.hint[80]        = ModTxt.CBookcase
+evt.map[80]         = function()
     if not evt.Cmp("MapVar30", 1) then
         evt.Set("MapVar30", 1)
         evt.Add("Inventory", 304)    -- "Haste" scroll
@@ -766,37 +754,39 @@ evt.map[80] = function()
 end
 
 -- Bookcase: Workshop
-evt.hint[81] = evt.str[9]
-evt.map[81] = function()
+evt.hint[81]        = ModTxt.CBookcase
+evt.map[81]         = function()
     if not evt.Cmp("MapVar31", 1) then
         evt.Set("MapVar31", 1)
         evt.Add("Inventory", 387)    -- "Divine Intervention" scroll
     end
 end
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- WINERACKS
+------------------------------------------------------------------------------
 
 -- Winerack: Rec Room
-evt.hint[82] = evt.str[19]
-evt.map[82] = function()
+evt.hint[82]        = ModTxt.CWineRack
+evt.map[82]         = function()
     if not evt.Cmp("MapVar32", 1) then
-		evt.Set("MapVar32", 1)
-		evt.Add("Inventory", 247)	-- "Freezing" potion
-	end
+        evt.Set("MapVar32", 1)
+        evt.Add("Inventory", 247)    -- "Freezing" potion
+    end
 end
 
 -- Winerack: Diner Room
-evt.hint[83] = evt.str[19]
-evt.map[83] = function()
+evt.hint[83]        = ModTxt.CWineRack
+evt.map[83]         = function()
     if not evt.Cmp("MapVar33", 1) then
-		evt.Set("MapVar33", 1)
-		evt.Add("Inventory", 223)	-- "Magic" potion
-	end
+        evt.Set("MapVar33", 1)
+        evt.Add("Inventory", 223)    -- "Magic" potion
+    end
 end
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- FOUNTAINS
+------------------------------------------------------------------------------
 
 -- Fountain: Fountain Chamber
 Fountain(84, 100, "amberArchmageresFountain4")
@@ -810,33 +800,34 @@ Fountain(86, 102, "amberArchmageresFountain6")
 -- Fountain: Eastern Teleport Room
 Fountain(87, 103, "amberArchmageresFountain7")
 
--- ****************************************************************************
--- Potential Triggers
+------------------------------------------------------------------------------
+-- MISC
+------------------------------------------------------------------------------
 
 -- Trigger: Bath
-evt.hint[88] = evt.str[20]
-evt.map[88] = function()
-    evt.StatusText(23)         -- "Refreshing!"
+evt.hint[88]        = ModTxt.CDrinkFountain
+evt.map[88]         = function()
+    Game.ShowStatusText(ModTxt.CRefreshing)
 end
 
 -- Trigger: Library, Water Ball
-evt.hint[89] = evt.str[20]
-evt.map[89] = function()
-    evt.StatusText(23)         -- "Refreshing!"
+evt.hint[89]        = ModTxt.CDrinkFountain
+evt.map[89]         = function()
+    Game.ShowStatusText(ModTxt.CRefreshing)
 end
 
 -- Fountain: Guest Room, Secret (Button)
 Fountain(90, 104, "amberArchmageresFountain8")
 
 -- Button: Guest Room, Secret
-evt.hint[91] = evt.str[6]
-evt.map[91] = function()
-    evt.StatusText(27)         -- "Somebody already pressed the button!"
+evt.hint[91]        = ModTxt.CButton
+evt.map[91]         = function()
+    Game.ShowStatusText(ModTxt.CAlreadyPressed)
 end
 
 -- EXIT DOOR
-evt.hint[92] = evt.str[25]
-evt.map[92] = function()
+evt.hint[92]        = ModTxt.CLeaveDungeon
+evt.map[92]         = function()
 
 
     local bWAR  = IsWarrior()
@@ -846,7 +837,14 @@ evt.map[92] = function()
     local MDIR  = bWAR and 512  or 1536
 
     evt.MoveToMap{
-        X = MX, Y = MY, Z = MZ, 
-        Direction = MDIR, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 198, Icon = 1, Name = "archmageEX.blv"}
+        X           = MX,
+        Y           = MY,
+        Z           = MZ,
+        Direction   = MDIR,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 198,
+        Icon        = 1,
+        Name        = "archmageEX.blv"
+    }
 end

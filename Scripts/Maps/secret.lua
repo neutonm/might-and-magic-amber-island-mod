@@ -1,43 +1,11 @@
 --[[
-Map: Secret Hideout
-Author: Henrik Chukhran, 2022 - 2024
+Map:    Secret Hideout
+Author: Henrik Chukhran, 2022 - 2026
 ]]
 
-local TXT = Localize{
-	[0] = " ",
-    [1] = "Doctor's Residence",
-    [2] = "Lever",
-    [3] = "Lift",
-    [4] = "Door",
-    [5] = "Switch",
-    [6] = "Button",
-    [7] = "Chest",
-    [8] = "Furniture",
-    [9] = "Bookcase",
-    [10] = "Hole",
-    [11] = "Nothing Happens",
-    [12] = "Fountain",
-    [13] = "Refreshing",
-    [14] = "Teleportation Pedestal",
-    [15] = "Keyhole",
-    [16] = "The Door Is Locked",
-    [17] = "Portal Is Activated",
-    [18] = "Gold Vein",
-    [19] = "Wine Rack",
-    [20] = "Drink from the Fountain",
-    [21] = "+10 Hit and Spell points restored",
-    [22] = "+5 Elemental Resistance (Temporary)",
-    [23] = "Refreshing",
-    [24] = "You need teleportation stone.",
-    [25] = "Leave Dungeon",
-    [26] = "Flower",
-    [27] = "Somebody already pressed the button!"
-}
-table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
-
--- ****************************************************************************
+-- ***************************************************************************
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
@@ -51,7 +19,7 @@ Game.MapEvtLines.Count = 0
 -- GROUP 1: ???
 -- BOSS 1: ???
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- CHEST ID     TRIGGER ID      DESCRIPTION
 -- 00           01              Hideout, Cab, SE Room
@@ -66,7 +34,7 @@ Game.MapEvtLines.Count = 0
 -- 09           10              Wine Cellar, Crypt
 -- 10           11              Markham's Residence
 
--- ****************************************************************************
+-- ***************************************************************************
 
 -- MISC TRIGGERS
 -- TYPE         TRIGGER ID      DESCRIPTION
@@ -84,77 +52,83 @@ Game.MapEvtLines.Count = 0
 -- Teleport     32              Temple of the Moon
 -- Exit         33              Exit
 
+------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
+
 function events.AfterLoadMap(WasInGame)
 
     MakeHostile(64,66) -- Gargoyle
     MakeHostile(79,81) -- Golems
 end
 
--- ****************************************************************************
--- Chests
+------------------------------------------------------------------------------
+-- CHESTS
+------------------------------------------------------------------------------
+
 for i = 0, 19, 1 do
-	local hintStr = evt.str[7]
+    local hintStr   = ModTxt.CChest
     if Game.Debug then
-        hintStr = hintStr .. " #"..tostring(i)
+        hintStr     = hintStr .. " #"..tostring(i)
     end
-	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function() 
-	    evt.OpenChest(i)
-	end
+    evt.hint[1 + i]        = hintStr
+    evt.map[1 + i]         = function() 
+        evt.OpenChest(i)
+    end
 end 
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- BOOKCASES
+------------------------------------------------------------------------------
 
 -- Bookcase: Hideout, SE Room
-evt.hint[21] = evt.str[9]
-evt.map[21] = function()
+evt.hint[21]        = ModTxt.CBookcase
+evt.map[21]         = function()
     if not evt.Cmp("MapVar1", 1) then
-		evt.Set("MapVar1", 1)
-		--evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar1", 1)
+        --evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: Hideout, Living Room
-evt.hint[22] = evt.str[9]
-evt.map[22] = function()
+evt.hint[22]        = ModTxt.CBookcase
+evt.map[22]         = function()
     if not evt.Cmp("MapVar2", 1) then
-		evt.Set("MapVar2", 1)
-		--evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar2", 1)
+        --evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: Castle Harmondale, Library, N
-evt.hint[23] = evt.str[9]
-evt.map[23] = function()
+evt.hint[23]        = ModTxt.CBookcase
+evt.map[23]         = function()
     if not evt.Cmp("MapVar3", 1) then
-		evt.Set("MapVar3", 1)
-		--evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar3", 1)
+        --evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: Castle Harmondale, Library, S
-evt.hint[24] = evt.str[9]
-evt.map[24] = function()
+evt.hint[24]        = ModTxt.CBookcase
+evt.map[24]         = function()
     if not evt.Cmp("MapVar4", 1) then
-		evt.Set("MapVar4", 1)
-		--evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar4", 1)
+        --evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
 -- Bookcase: Castle Harmondale, Library, Fancy Room
-evt.hint[25] = evt.str[9]
-evt.map[25] = function()
+evt.hint[25]        = ModTxt.CBookcase
+evt.map[25]         = function()
     if not evt.Cmp("MapVar5", 1) then
-		evt.Set("MapVar5", 1)
-		--evt.Add("Inventory", 385)	-- "Hour of Power" scroll
-	end
+        evt.Set("MapVar5", 1)
+        --evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    end
 end
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- FOUNTAINS
+------------------------------------------------------------------------------
 
 -- Fountain: Entrance
 Fountain(26, 100, "amberSecret1")
@@ -165,38 +139,53 @@ Fountain(27, 101, "amberSecret2")
 -- Fountain: Castle Harmondale, Main Hall
 Fountain(28, 102, "amberSecret3")
 
--- ****************************************************************************
+------------------------------------------------------------------------------
 -- MISC
+------------------------------------------------------------------------------
 
 -- Locked Doors
-evt.hint[29] = evt.str[4]
-evt.map[29] = function()
+evt.hint[29]        = ModTxt.CDoor
+evt.map[29]         = function()
     evt.FaceAnimation{Player = "Current", Animation = 18}
-    evt.StatusText(16)         				-- "The Door is Locked"
+    Game.ShowStatusText(ModTxt.CLockedDoor)
 end
 
 -- Teleport: From Hideout to Magical Realm
-evt.hint[30] = evt.str[0]
-evt.map[30] = function()
+evt.hint[30]        = ModTxt.CNull
+evt.map[30]         = function()
     evt.MoveToMap{
-        X = 7657, Y = 7250, Z = 1, 
-        Direction = 9, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 0, Icon = 0, Name = "0"}
+        X           = 7657,
+        Y           = 7250,
+        Z           = 1,
+        Direction   = 9,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "0"
+    }
 end
 
 -- Teleport: From Magical Realm to Hideout
-evt.hint[31] = evt.str[0]
-evt.map[31] = function()
+evt.hint[31]        = ModTxt.CNull
+evt.map[31]         = function()
 
     evt.MoveToMap{
-        X = 3, Y = 2590, Z = 256, 
-        Direction = 1536, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 0, Icon = 0, Name = "0"}
+        X           = 3,
+        Y           = 2590,
+        Z           = 256,
+        Direction   = 1536,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "0"
+    }
 end
 
 -- Teleport: From Temple of the Moon to Hideout
-evt.hint[32] = evt.str[0]
-evt.map[32] = function()
+evt.hint[32]        = ModTxt.CNull
+evt.map[32]         = function()
 
     if vars.MiscAmberIsland.ArchmageEscapedHideout == 0 then
         vars.MiscAmberIsland.ArchmageEscapedHideout = 1
@@ -205,22 +194,39 @@ evt.map[32] = function()
     evt.SetDoorState{Id = 1, State = 2}
     evt.SetDoorState{Id = 2, State = 2}
     evt.MoveToMap{
-        X = -2290, Y = 1694, Z = 129, 
-        Direction = 1531, LookAngle = 0, SpeedZ = 0, 
-        HouseId = 0, Icon = 0, Name = "0"}
+        X           = -2290,
+        Y           = 1694,
+        Z           = 129,
+        Direction   = 1531,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "0"
+    }
     
 end
 
 -- EXIT DOOR
-evt.hint[33] = evt.str[25]
-evt.map[33] = function()
-    evt.MoveToMap{X = 16248, Y = -16674, Z = 1, Direction = 1024, LookAngle = 0, SpeedZ = 0, HouseId = 0, Icon = 4, Name = "amber-east.odm"}
+evt.hint[33]        = ModTxt.CLeaveDungeon
+evt.map[33]         = function()
+    evt.MoveToMap{
+        X           = 16248,
+        Y           = -16674,
+        Z           = 1,
+        Direction   = 1024,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 4,
+        Name        = "amber-east.odm"
+    }
 end
 
 -- Double-Door: Hideout, Living Room
-evt.hint[34] = evt.str[4]
-evt.map[34] = function()
-    
+evt.hint[34]        = ModTxt.CDoor
+evt.map[34]         = function()
+
     if vars.MiscAmberIsland.ArchmageEscapedHideout == 0 then
         vars.MiscAmberIsland.ArchmageEscapedHideout = 1
     end
@@ -230,17 +236,15 @@ evt.map[34] = function()
 end
 
 -- Double-Door, Black Vortex
-evt.hint[35] = evt.str[4]
-evt.map[35] = function()
+evt.hint[35]        = ModTxt.CDoor
+evt.map[35]         = function()
 
     evt.EnterHouse(581)
 end
 
 -- Safe Room (Harmondael Throne Room)
-evt.hint[36] = evt.str[4]
-evt.map[36] = function()
+evt.hint[36]        = ModTxt.CDoor
+evt.map[36]         = function()
 
     evt.EnterHouse(581)
 end
-
-

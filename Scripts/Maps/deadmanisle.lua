@@ -4,22 +4,14 @@ Author: Henrik Chukhran, 2022 - 2026
 --]]
 
 local TXT = Localize{
-	[0] =   " ",
-    [1] =   "Tent",
-    [2] =   "Chest",
-    [3] =   "Boat",
-    [4] =   "Broken Boat",
-    [5] =   "As you return, you find your boat half-submerged in the shallows, \01265523sabotaged beyond repair.\01200000\n\n"..
+    [1] =   "Broken Boat",
+    [2] =   "As you return, you find your boat half-submerged in the shallows, \01265523sabotaged beyond repair.\01200000\n\n"..
             "You'll need to find another way off the island."
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
-local FaceGroup_BaseBoat        = 1
-local FaceGroup_RuinedBoat      = 2
-local SpriteID_BaseBoatLantern  = 4
-
--- ****************************************************************************
+------------------------------------------------------------------------------
 
 -- FACE GROUPS / SPRITE ID
 -- ID           DESCRIPTION
@@ -29,18 +21,20 @@ local SpriteID_BaseBoatLantern  = 4
 -- 4            Boat Lantern sprite
 -- 5            Camp Boat Lantern sprite
 
-------------------------------------------------------------------------------
+-- ****************************************************************************
 
 -- CHEST ID     TRIGGER ID      DESCRIPTION
 -- 00           1               Dirt cross-road
 -- 01           2               South part of Island, near house ruin
 -- 02           3               Inside cave (story quest)
 
--- ****************************************************************************
-
 ------------------------------------------------------------------------------
 -- LOCALS
 ------------------------------------------------------------------------------
+
+local FaceGroup_BaseBoat        = 1
+local FaceGroup_RuinedBoat      = 2
+local SpriteID_BaseBoatLantern  = 4
 
 local function PostPirateAmbush()
 
@@ -127,12 +121,12 @@ end
 -- CHESTS
 ------------------------------------------------------------------------------
 for i = 0, 19, 1 do
-	local hintStr = evt.str[2]
+    local hintStr = ModTxt.CChest
     if Game.Debug then
         hintStr = hintStr .. " #"..tostring(i)
     end
-	evt.hint[1 + i] = hintStr
-	evt.map[1 + i] = function()
+    evt.hint[1 + i]        = hintStr
+    evt.map[1 + i]         = function()
 
         -- pirate chest
         if i == 2 then
@@ -142,8 +136,8 @@ for i = 0, 19, 1 do
                 return
             end
         end
-	    evt.OpenChest(i)
-	end
+        evt.OpenChest(i)
+    end
 end
 
 ------------------------------------------------------------------------------
@@ -151,14 +145,14 @@ end
 ------------------------------------------------------------------------------
 
 -- Tent (Safe Room)
-evt.hint[22] = evt.str[1]
-evt.map[22] = function()
+evt.hint[22]        = ModTxt.CTent
+evt.map[22]         = function()
     evt.EnterHouse(581)
 end
 
 -- Boat
-evt.hint[23] = evt.str[3]
-evt.map[23] = function()
+evt.hint[23]        = ModTxt.CBoat
+evt.map[23]         = function()
 
     evt.MoveToMap{
         X           = -4110,
@@ -174,9 +168,9 @@ evt.map[23] = function()
 end
 
 -- Broken Boat
-evt.hint[24] = evt.str[4]
-evt.map[24] = function()
-    Message(evt.str[5])
+evt.hint[24]        = evt.str[1]
+evt.map[24]         = function()
+    Message(evt.str[2])
 end
 
 -- Well
