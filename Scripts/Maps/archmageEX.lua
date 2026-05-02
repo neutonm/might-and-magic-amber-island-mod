@@ -70,6 +70,7 @@ Game.MapEvtLines.Count  = 0
 -- Sphere       37              Summoning Chamber: Air Resistance +2 sphere
 -- Sphere       38              Summoning Chamber: Water Resistance +2 sphere
 -- Sphere       39              Summoning Chamber: Earth Resistance +2 sphere
+-- Trigger      58              Floor: opens grated door if returned from archmageres.blv
 
 ------------------------------------------------------------------------------
 -- LOCALS
@@ -353,6 +354,14 @@ evt.hint[51]        = evt.str[2]
 evt.map[51]         = function()
     -- "You observe a distant celestial body in the sky."
     Game.ShowStatusText(evt.str[3])
+end
+
+-- Floor outside entrance to the "Archmage Residence"
+-- Open door in case player managed to get to archmageres first
+evt.hint[58]        = ModTxt.СNull
+evt.map[58]         = function()
+    evt.SetDoorState{Id = 10, State = 2}
+    evt.SetFacetBit(1, const.FacetBits.Untouchable, true)
 end
 
 ------------------------------------------------------------------------------
