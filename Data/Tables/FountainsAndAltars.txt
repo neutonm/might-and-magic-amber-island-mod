@@ -39,4 +39,7 @@
 38	amberCastle7	testlevel.blv	4805	-1218	-1092	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Underground	Null	$				
 39	amberCastle8	testlevel.blv	7620	-1671	-1152	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Apple Tree Chamber	Null	$				
 40	amberCastle9	testlevel.blv	5716	-3345	-1409	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance	Null	$				
-41	amberCastle10	testlevel.blv	4770	-3633	-1571	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Passage	Null	$				
+41	amberCastle10	testlevel.blv	4770	-3633	-1571	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Eastern Passage	Null	$				
+42	amberCastle11	testlevel.blv	4534	-1459	-1183	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance Wall	Null	$				
+43	amberCastle12	testlevel.blv	5798	-4811	-1146	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Narrow Tunnels	Null	$				
+44	amberCastle13	testlevel.blv	6245	-4027	-1380	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Western Passage	Null	$				

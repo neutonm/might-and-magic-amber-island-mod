@@ -752,6 +752,15 @@ Fountain(115, 112,     "amberCastle9")
 -- Basement Tunnels, South Passage
 Fountain(117, 114,     "amberCastle10")
 
+-- Basement Entrance, Wall Fountain
+Fountain(119, 118,     "amberCastle11")
+
+-- Basement Narrow Tunnels
+Fountain(121, 120,     "amberCastle12")
+
+-- Basement Tunnels, Western Passage
+Fountain(123, 122,     "amberCastle13")
+
 -- EXIT DOOR
 -- @todo trigger not set
 evt.hint[88]        = ModTxt.CLeaveDungeon
