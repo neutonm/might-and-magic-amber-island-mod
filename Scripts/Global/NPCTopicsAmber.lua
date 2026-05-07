@@ -1941,7 +1941,7 @@ Quest{
 	{		
 		Topic 		= 	"Quest: Missing Pet",
 		Give 		= 	"Sir Hoppington sent you? I do miss my warm bed... \01265523But why should I trust you?\01200000",
-		Done 		= 	"Back to Sir Hoppington, huh? Alright, lead the way, but keep the carrots coming!",
+		Done 		= 	"Back to Sir Hoppington, huh? Alright, lead the way, but keep the carrots coming!\n\n* The ravenous bunny devoured the carrots in mere moments, leaving not a single bite behind. *",
 		Undone 		= 	"Hey, what's the big idea? I'm not just some toy to be picked up. \01265523Where's the trust\01200000, huh?",
 		GreetDone 	= 	"What's up, folks? Do you have more carrots? I really could use a bite you know.",
 		TopicDone 	= 	false,
@@ -1951,6 +1951,11 @@ Quest{
 	Done			=	function(t)
 							evt.MoveNPC{NPC = 524, HouseId = 0}
 							evt.Add("NPCs", 524)
+
+							-- Eat all carrots
+							while evt.All.Cmp("Inventory", 793) do
+								evt.All.Sub("Inventory", 793)
+							end
 						end
 }
 
