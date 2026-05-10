@@ -91,7 +91,7 @@ function events.AfterLoadMap(WasInGame)
                     Direction = 1024, LookAngle = 0, SpeedZ = 0, 
                     HouseId = 0, Icon = 0, Name = "amber.odm"}
             end, const.Second, Game.Time + const.Second, false)
-            
+
         end
     end
 end
@@ -116,6 +116,9 @@ function events.BeforeNewGameAutosave()
                                                 -- escaped (1), taken (2), killed (3), hidden (4), imprisoned (5)
             QVarButlerHideHouseID   = 0,        -- House ID where butler was hidden by heroes
             QVarPirateWarrior       = 0,        -- Robert Stevenson Quest - Tree reached (warrior)
+            QVarConradBrawl         = 0,        -- Quest (Warrior): Brawl, state:
+                                                -- fight! (1), victory (2), failure (3), death (4), post failure (5)
+            QVarConradWarning       = false,    -- Conrad one time warning for breaking brawl rules
         }
     end
     if vars.MiscAmberIsland == nil then
@@ -161,8 +164,10 @@ function events.BeforeNewGameAutosave()
         -- Whoops, shop owners are discriminating against adventurers
         vars.MiscAmberIsland.ClosedShops = true
 
-        evt.MoveNPC(540,251)    -- Thomas Guilden
-        evt.MoveNPC(515,0)      -- Robert Greene (Out of swamp camp)
+        evt.MoveNPC(540,251)    -- Thomas Guilden   (Bank)
+        evt.MoveNPC(515,0)      -- Robert Greene    (Out of swamp camp)
+        evt.MoveNPC(491,0)      -- Conrad Hawk      (Prison)
+        evt.MoveNPC(547,117)    -- Conrad Hawk      (Inn)
     end
 
     -- Debug mode essentials

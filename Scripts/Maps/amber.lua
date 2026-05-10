@@ -19,7 +19,10 @@ local TXT   = Localize{
     [13]    = "Tower",
     [14]    = "Apple Tree",
     [15]    = "Yuck! Apples are too sour to be consumed...",
-    [16]    = "Skull"
+    [16]    = "Skull",
+    [17]    = "Fists up! The brawl begins!",
+    [18]    = "Running away? Cowards...",
+    [19]    = "Hey! That's cheating. You forfeit!",
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -30,6 +33,7 @@ Game.MapEvtLines.Count = 0
 -- ID           DESCRIPTION
 -- 42           (Warrior) Watchtower Cellarin Ruined tower
 -- 123          (Warrior) Board bridge between port island and town
+-- 200          (Warrior) Invisible wall surrounding arena behind Chapman res
 
 -- NPC GROUP
 -- IDs          DESCRIPTION
@@ -184,6 +188,7 @@ Game.MapEvtLines.Count = 0
 -- NPC          164             Sir Henry (Port Island Bridge trigger)
 -- Ambush       166             Swamp Island between Port Island and Amber Town
 -- Sprite       169             Swamp Tree Stump (south-eastern part of archmage residence island, near small pool)
+-- Invisible    170             Invisible wall surrounding arena behind Chapman res
 -- SpriteId     200-255         Sour apple trees
 
 ------------------------------------------------------------------------------
@@ -218,9 +223,79 @@ local function ShopDoor(evtId, houseId)
     end
 end
 
+local function ConradKilledParty()
+
+    -- Conrad Hawk managed to kick your ass?
+    if vars.QuestsAmberIsland.QVarConradBrawl == 4 then
+        evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+        evt.MoveNPC(547,117) -- Conrad goes back to Inn
+        for _, mon in Map.Monsters do
+            if mon.NPC_ID  == 547 then
+                RemoveMonster(mon)
+                break
+            end
+        end
+
+        vars.QuestsAmberIsland.QVarConradBrawl = 5 -- Post Death
+    end
+end
+
 ------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
+
+function events.AfterMonsterAttacked(t, attacker)
+
+    if t == nil then return end
+    if attacker == nil then return end
+
+    -- Conrad Hawk's fair fight (Warrior)
+    if not IsWarrior() then return end
+
+    -- Make sure we're fighting Conrad
+    if vars.QuestsAmberIsland.QVarConradBrawl ~= 1 then
+        return
+    end
+
+    if t.Attacker.Player ~= nil then
+        if t.Monster.NPC_ID == 547 then
+            
+            local notFair = false
+
+            if t.Attacker.Object ~= nil then
+                notFair = true
+            end
+
+            if t.Attacker.Spell ~= nil then
+                notFair = true
+            end
+
+            if t.Attacker.Player:GetActiveItem(const.ItemSlot.MainHand) then
+                notFair = true
+            end
+
+            if notFair then
+
+                -- Warning...
+                if not vars.QuestsAmberIsland.QVarConradWarning then
+                    evt.SpeakNPC(548)
+                    vars.QuestsAmberIsland.QVarConradWarning = true
+                    return
+                end
+
+                evt.MoveNPC(547,117) -- Conrad goes back to Inn
+                RemoveMonster(t.Monster)
+                vars.QuestsAmberIsland.QVarConradBrawl      = 3 -- Failure
+                vars.QuestsAmberIsland.QVarConradWarning    = false
+
+                -- Remove arena bounds
+                evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+
+                Message(evt.str[19])
+            end
+        end
+    end
+end
 
 function events.MonsterKilled(mon, monIndex, defaultHandler)
 
@@ -229,7 +304,36 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
     elseif mon.NPC_ID == 539 then
         vars.QuestsAmberIsland.QVarButlerEscaped = 3 -- Butler is killed
         vars.Quests.StoryQuest4 = "Done"
+    elseif mon.NPC_ID == 547 then -- Conrad Brawl (Warrior)
+    
+        vars.QuestsAmberIsland.QVarConradBrawl = 2  -- Victory
+
+        -- Conrad goes to prison
+        evt.MoveNPC(547,0)
+        evt.MoveNPC(491,533)
+
+        -- Remove arena bounds
+        evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+
+        -- Guard encounter
+        evt.Add("Exp", 0)
+        evt.SpeakNPC(549)
+
+        Sleep(1)
+        RemoveMonster(mon)
     end
+end
+
+function events.DeathMap(t)
+
+    -- Conrad killed the party?
+    if Game.Map.Name == "amber.odm" then
+        if vars.QuestsAmberIsland.QVarConradBrawl == 1 then
+            vars.QuestsAmberIsland.QVarConradBrawl = 4 -- Death
+            ConradKilledParty()
+        end
+    end
+
 end
 
 function events.AfterLoadMap(WasInGame)
@@ -259,6 +363,13 @@ function events.AfterLoadMap(WasInGame)
         evt.MoveNPC{NPC = 496, HouseId = 568}
         vars.QuestsAmberIsland.QVarRevenge = 7
     end
+
+    -- Managed to town portal from Conrad during fight?
+    if vars.QuestsAmberIsland.QVarConradBrawl == 1 then
+        vars.QuestsAmberIsland.QVarConradBrawl = 4
+    end
+
+    ConradKilledParty()
 
     -- Difficulty differences
     if IsWarrior() then
@@ -815,6 +926,35 @@ evt.map[169]         = function()
         evt.FaceAnimation{Player = "Current", Animation = 14}
         evt.Add("Experience", 0)
     end
+end
+
+-- (Warrior) Arena bounds behind Chapman residence
+evt.map[170]         = function()
+
+    -- Remove bounds if not fighting
+    if vars.QuestsAmberIsland.QVarConradBrawl == 1 then
+
+        -- Forfeit?
+        if not vars.QuestsAmberIsland.QVarConradWarning then
+            evt.SpeakNPC(548)
+            vars.QuestsAmberIsland.QVarConradWarning = true
+            return
+        end
+
+        vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
+
+        evt.MoveNPC(547,117) -- Conrad goes back to Inn
+        for _, mon in Map.Monsters do
+            if mon.NPC_ID  == 547 then
+                RemoveMonster(mon)
+                break
+            end
+        end
+
+        Message(evt.str[18])
+    end
+
+    evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
 end
 
 ------------------------------------------------------------------------------

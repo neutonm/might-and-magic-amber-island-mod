@@ -479,9 +479,27 @@ Quest{
 	Done			=	function(t)
 							evt.Subtract("Reputation", 5)
 							evt.All.Add("BaseMight", 5)
-							evt.All.Add("BaseSpeed", 5)					
+							evt.All.Add("BaseSpeed", 5)
 						end,
-	CanShow			=	function(t) return vars.Quests.AmberQuest11 == "Done" end
+	CanShow			=	function(t) return (not IsWarrior()) and vars.Quests.AmberQuest11 == "Done" end
+}
+
+Quest{
+	Slot 			= 	E,
+	Texts 			=
+	{
+		Topic 		= 	"Reward: Might/Speed +6",
+		Done 		= 	"*Conrad tosses you the promised coin, then cracks his knuckles with a grin.*\n\nA bet's a bet. You beat me fair, so here's your gold...\n\nSince you helped me out of Halloran's cage, I'll throw in something better: Let me show you how to hit harder and move quicker. Speed and strength, that's what wins a proper brawl.",
+		After 		= 	"I've paid my bet and taught you what I know. From here on, it's practice, bruises, and learning not to lead with your chin."
+	},
+	NeverGiven 		= 	true,
+	Done			=	function(t)
+							evt.Subtract("Reputation", 5)
+							evt.All.Add("BaseMight", 6)
+							evt.All.Add("BaseSpeed", 6)
+							evt.Add("Gold", 100)
+						end,
+	CanShow			=	function(t) return IsWarrior() and vars.Quests.AmberQuest11W == "Done" end
 }
 
 ------------------------------------------------------------------------------
@@ -557,6 +575,24 @@ Quest{
 		Quest 		= 	"\"Bail out\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nPay Guardmaster James Halloran, who resides near the bridge on the island's western part, to release Conrad Hawk.",
 	},
 	CheckDone 		= 	false,  -- the quest can't be completed here
+	CanShow			=	function(t) return not IsWarrior() end
+}
+
+Quest{
+	Name 			= 	"AmberQuest11W",
+	Slot 			= 	B,
+	Texts 			= 
+	{		
+		Topic 		= 	"Quest: Brawl",
+		TopicDone 	= 	false,
+		Give 		= 	"Hah! There you are...\n\nI was wondering when my victorious friends would come by to admire their handiwork. Good fight, by the way. My jaw still remembers it!"..
+						"\n\nProblem is, the guards only saw the part where fists were flying, not the part where I asked for it and you agreed. Now Halloran thinks I was back to breaking strangers' noses at the inn."..
+						"\n\n\01265523Find Guardmaster James Halloran\01200000 and tell him the truth: it was a fair brawl between willing fighters, not another tavern scuffle. \01265523He lives near the bridge on the western part of town\01200000. If he still wants bail paid, pay it, and I'll owe you twice over.",
+		Undone 		= 	"Any luck with Halloran? Tell him I started a fight, sure, but this time I started it properly. Challenge given, challenge accepted, no hard feelings - right?",
+		Quest 		= 	"\"Brawl\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nConrad was jailed after your agreed brawl. Explain the matter to Guardmaster Halloran near the western bridge, and pay the bail if needed.",
+	},
+	CheckDone 		= 	false,  -- the quest can't be completed here
+	CanShow			=	function(t) return IsWarrior() end
 }
 
 ------------------------------------------------------------------------------
@@ -676,6 +712,23 @@ Quest{
 						end,
 	CanShow			=	function(t) return vars.Quests.AmberQuest11 ~= "Done" end
 }
+
+Quest{
+	BaseName 		= 	"AmberQuest11W",
+	Slot 			= 	B,
+	Texts 			= 
+	{		
+		TopicGiven 	= 	"Quest: Brawl",
+		Done 		= 	"*Halloran listens carefully, then gives a tired sigh.*\n\nSo, Conrad actually found someone willing to trade blows with him for once? Right...\n\nFine. If it was agreed by both sides, \01265523I'll release him\01200000...\n\nBut tell Conrad his reputation is doing him no favors. When fists start flying and he's nearby, my guards don't ask who agreed to what - they reach for the shackles.",
+	},
+	Exp 			= 	750,
+	Done			=	function(t)
+							evt.MoveNPC{NPC = 491, HouseId = 0}
+							evt.MoveNPC{NPC = 477, HouseId = 117}
+						end,
+	CanShow			=	function(t) return vars.Quests.AmberQuest11W ~= "Done" end
+}
+
 ------------------------------------------------------------------------------
 -- Thomas Beck
 QuestNPC 			= 	490
@@ -856,7 +909,7 @@ Quest{
 							ShowQuestEffect(true, t.TakeQuestOperation)
 						end,
 	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	function(t) return not IsWarrior() end
+	CanShow			=	function(t) return IsWarrior() end
 }
 
 NPCTopic{
@@ -1117,7 +1170,6 @@ NPCTopic{
 						"\n\nThis marked the dawn of civilization on Amber Island. The name of this resourceful founder, however, remains lost to history."
 }
 
-
 KillMonstersQuest{
 	Name 			= 	"AmberQuest8",
 	{Map 			= 	"amber.odm", Monster = {265, 266, 267}},
@@ -1125,7 +1177,7 @@ KillMonstersQuest{
 	Texts 			= 
 	{		
 		Topic 		= 	"Quest: Swamp Creatures",
-		Give 		= 	"I've got some archaeological work to do in the swampy area on the \01265523southern island\01200000, but it's crawling with nasty \01265523lizards\01200000. Could you clear them out for me? I need that area safe to dig.",
+		Give 		= 	"I've got some archaeological work to do in the swampy area on the \01265523southern island\01200000, but it's crawling with nasty \01265523lizards\01200000.\n\nCould you clear them out for me? I need that area safe to dig.",
 		Done 		= 	"Awesome job, folks. You've really helped me out. If you ever find yourselves near the swamp, \01265523drop by and see what we're uncovering\01200000.",
 		Undone 		= 	"Those creatures are still causing trouble on the \01265523southern island\01200000. I can't start my work with them around.",
 		TopicDone 	= 	"Thanks: Swamp Creatures",
@@ -1133,10 +1185,33 @@ KillMonstersQuest{
 
 		Quest 		= 	"\"Swamp Creatures\"\nHoward Carter, Amber Island, Town, Western District\n\nClear out the hostile lizards in the swampy area on the southern island so Howard Carter can proceed with his archaeological work.",
 	},
-	Gold 			= 	2000,  -- reward: gold
-	Exp 			= 	1500,  -- reward: experience
+	CanShow			=	function(t) return not IsWarrior() end,
+	Gold 			= 	2000,
+	Exp 			= 	1500,
 	Done			=	function(t) evt.Subtract("Reputation", 5) end
 }
+
+KillMonstersQuest{
+	Name 			= 	"AmberQuest8W",
+	{Map 			= 	"amber.odm", Monster = {88, 89, 90}},
+	Slot 			= 	C,
+	Texts 			= 
+	{		
+		Topic 		= 	"Quest: Swamp Hydra",
+		Give 		= 	"I've got some archaeological work to do in the swampy area on the \01265523southern island\01200000, but something far worse than lizards has settled there.\n\nA gigantic \01265523Hydra\01200000 has taken control of the swamp, and the nearby reptiles have become far more aggressive because of it.\n\nCould you slay the beast for me? I need that area safe to dig.",
+		Done 		= 	"Awesome job, folks. With the Hydra gone, my workers can finally return to the excavation site safely.\n\nIf you ever find yourselves near the swamp, \01265523drop by and see what we're uncovering\01200000.",
+		Undone 		= 	"That \01265523Hydra\01200000 is still terrorizing the swamp on the \01265523southern island\01200000. I can't start my work with that monster around.",
+		TopicDone 	= 	"Thanks: Swamp Hydra",
+		After 		= 	"There's some fascinating stuff here in the swamp, but digging through this muck is a challenge. Your help has been invaluable in making it possible.",
+
+		Quest 		= 	"\"Swamp Hydra\"\nHoward Carter, Amber Island, Town, Western District\n\nSlay the gigantic Hydra in the swamp on the southern island so Howard Carter can safely continue his archaeological work.",
+	},
+	CanShow			=	function(t) return IsWarrior() end,
+	Gold 			= 	2000,
+	Exp 			= 	1500,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end
+}
+
 ------------------------------------------------------------------------------
 -- John Constantine
 
@@ -2493,4 +2568,170 @@ NPCTopic{
 								Name        = "abmines.blv"
 							}
 						end
+}
+
+------------------------------------------------------------------------------
+-- Conrad Hawk (Warrior; Inn)
+QuestNPC 			= 	547
+
+Greeting{
+	"Conrad Hawk's the name. I drink, I brawl, and I win more often than folks like to admit."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Branch 			= 	"",
+	NewBranch		=	"ConradFightOffer",
+	Texts 			= 
+	{		
+		Topic 		= 	"Quest: Brawl",
+		Ungive 		= 	"*Conrad sways slightly, grinning through the smell of ale.*\n\nWell, look what staggered in. Four brave heroes, and I still reckon I can put the lot of you on the floor myself!\n\n*He takes a careless swig from his cup.*\n\nFair brawl, me against all of you. Let's make it interesting: \01265523100 gold\01200000 says you can't take me down.\n\nRules are simple: fists only. No weapons, no offensive magic. Step off the arena platform, and that's a forfeit. So... wanna fight?\n\nBut first - let's drink!",
+	},
+	Ungive			=	SetBranch,
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarConradBrawl == 0 end,
+}
+
+Quest{
+	Slot 			= 	A,
+	Branch 			= 	"",
+	Texts 			= 
+	{		
+		Topic 		= 	"Pay: Lost bet (100g)",
+		Done 		= 	"*Conrad grins wide, looking far too pleased with himself.*\n\nThat's the spirit. A bet's a bet, and I knew you lot had honor under all those bruises.\n\nCome back when you're ready for another round. I'll be right here, keeping my fists warm.",
+	},
+	Done			=	function(t) 
+							vars.QuestsAmberIsland.QVarConradBrawl = 0
+						end,
+	NeverGiven		=	true,
+	NeverDone 		= 	true,
+	QuestGold 		= 	100,
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarConradBrawl >= 3 end,
+}
+
+Quest{
+	Slot 			= 	A,
+	Name 			= 	"",
+	Branch 			= 	"ConradFightOffer",
+	Texts 			=
+	{
+		Topic 		= 	"Let's fight!",
+	},
+	NeverGiven		=	true,
+	NeverDone 		= 	true,
+	Done      		=   function(t)
+
+							ReloadHouse(Game.GetCurrentHouse())
+							ExitScreen()
+
+							evt.MoveNPC(547,0) -- Conrad leaves Inn
+
+							evt.All.Set("Drunk", 0)
+
+							XYZ(Party, 686, 16629, 33)
+							Party.Direction = 512
+							Party.LookAngle = 0
+
+							-- State: Fight Conrad!
+							vars.QuestsAmberIsland.QVarConradBrawl 		= 1
+							vars.QuestsAmberIsland.QVarConradWarning 	= false
+
+							-- Make arena bounds trigger-able
+							evt.SetFacetBit(200,const.FacetBits.Untouchable, false)
+
+							-- Spawn Monk monster as Conrad Hawk
+							local mon			= SummonMonster(106, 686 , 17594, 33, true)
+							mon.FullHitPoints	= 200
+							mon.HP				= 200
+							mon.Level			= 10
+							mon.NPC_ID  		= 547
+							mon.Direction 		= 1537
+							mon.Hostile			= true
+							mon.Spell			= 0
+							mon.Spell2			= 0
+							mon.Attack1Damage 	= "3D4+3"
+							mon.NoFlee			= true
+
+							Sleep(1)
+
+							Message(evt.str[17])
+						end,
+}
+
+NPCTopic{
+	Slot 			= 	B,
+	Branch 			= 	"ConradFightOffer",
+	NewBranch		=	"",
+	Topic 			= 	"No thanks...",
+	Ungive			=	SetBranch,
+}
+
+------------------------------------------------------------------------------
+-- Conrad Hawk (Warrior; Shouts when Party leaves arena)
+QuestNPC 			= 	548
+
+Greeting{
+	"Hey! This is a brawl, not a battlefield!\n\n"..
+	"Fists only, no magic tricks, and keep your boots on the platform.\n\n"..
+	"\01265523Try that again and I'll count it as your forfeit!\01200000"
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Got it...",
+	Ungive			=	function(t) 
+
+							-- Return party to start position
+							XYZ(Party, 686, 16629, 33)
+							Party.Direction = 512
+							Party.LookAngle = 0
+
+							-- Return Conrad to start position
+							for _, mon in Map.Monsters do
+								if mon.NPC_ID == 547 then
+									XYZ(mon, 686, 17594, 33)
+									break;
+								end
+							end
+
+							ExitScreen()
+
+						end,
+}
+
+NPCTopic{
+	Slot 			= 	B,
+	Topic 			= 	"Forfeit!",
+	Ungive			=	function(t)
+
+							evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+							evt.MoveNPC(547,117) -- Conrad goes back to Inn
+							for _, mon in Map.Monsters do
+								if mon.NPC_ID  == 547 then
+									RemoveMonster(mon)
+									break
+								end
+							end
+
+							vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
+
+							ExitScreen()
+						end,
+}
+
+------------------------------------------------------------------------------
+-- Aaron Calegan (Intercepts fight with Conrad)
+QuestNPC 			= 	549
+
+Greeting{
+	"*Aaron Calegan rushes onto the platform with the other guards just as Conrad staggers, barely able to stay on his feet.*"..
+	"\n\nThat's enough! Conrad Hawk, I should've known it was you the moment I heard the shouting."..
+	"\n\n*He grabs Conrad before he can fall and gives the party an apologetic nod.*"..
+	"\n\nSorry about this. He's the island's favorite troublemaker, and trouble follows him like a shadow."..
+	"\01265523We'll take him back to the jail\01200000 before he decides losing wasn't enough excitement for one day."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Topic 			= 	"Ugh...",
+	Ungive			=	function(t) ExitScreen() end,
 }
