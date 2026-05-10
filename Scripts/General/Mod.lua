@@ -68,7 +68,7 @@ end
 
 -- Disable intro movie
 function events.ShowMovie(t)
-    if t.Name:lower() == "intro post" then
+    if t.Name:lower() == "intro post" or t.Name:lower() == "intro" then
         t.Allow = false
     end
 end
