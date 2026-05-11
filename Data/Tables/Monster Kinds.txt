@@ -279,3 +279,6 @@ Monster	Undead	Demon	Dragon	Elf	Swimmer	Immobile	Titan	NoArena
 277  Wererat Human Form Male A	-	-	-	-	-	-	-	-
 278  Wererat Human Form Male B	-	-	-	-	-	-	-	-
 279  Wererat Human Form Male C	-	-	-	-	-	-	-	-
+280  Skeletons Archer A	x	-	-	-	-	-	-	-
+281  Skeletons Archer B	x	-	-	-	-	-	-	-
+282  Skeletons Archer C	x	-	-	-	-	-	-	-

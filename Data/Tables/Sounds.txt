@@ -2664,4 +2664,8 @@ crystal dragon aware	8011	swap	-
 pirate_warrior Attack	8012	swap	-
 pirate_warrior Death	8013	swap	-
 pirate_warrior Wince	8014	swap	-
-pirate_warrior Aware	8015	0	-
+pirate_warrior Aware	8015	swap	-
+skeleton archer Attack	8016	swap	-
+skeleton archer Death	8017	swap	-
+skeleton archer Wince	8018	swap	-
+skeleton archer Aware	8019	swap	-
