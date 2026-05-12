@@ -611,15 +611,39 @@ evt.map[42]         = function()
         evt.PlaySound(14050,Party.X,Party.Y)
         evt.All.Add("Exp",0)
 
-        local monster = SummonMonster(22, 19427, -1525, 897, true)
-        monster.Level               = 5
-        monster.FullHitPoints       = 360
-        monster.HP                  = 360
-        monster.ArmorClass          = 10
-        monster.Attack1.DamageAdd   = 4
-        monster.Attack1.Missile     = 0
+        local monster = SummonMonster(IsWarrior() and 23 or 22, 19427, -1525, 897, true)
+        monster.NameId              = 14 -- Arnona'el
+        monster.Level               = IsWarrior() and 15 or 5
+        monster.FullHitPoints       = IsWarrior() and 640 or 360
+        monster.HP                  = IsWarrior() and 640 or 360
+        monster.ArmorClass          = IsWarrior() and 20 or 10
+        monster.Attack1.DamageAdd   = IsWarrior() and 12 or 4
+        monster.Attack1.Missile     = IsWarrior() and 0 or 3
         monster.Special             = 0
-        monster.Spell               = 0
+
+        if IsWarrior() then
+            for _, pl in Party do
+                if pl:GetIndex() == Game.CurrentPlayer then
+                    pl:AddCondition(const.Condition.Cursed)
+                else
+                    pl:AddCondition(const.Condition.Weak)
+                end
+            end
+
+            -- Spawn gogs
+            local x0, y0, z0    = 19951, -2709, 928
+            local dist          = 768
+
+            for i = 0, 5 do
+                local a     = i * math.pi / 3  -- 60 degrees
+                local X     = math.floor(x0 + math.cos(a) * dist + 0.5)
+                local Y     = math.floor(y0 + math.sin(a) * dist + 0.5)
+                local gog   = SummonMonster(77, X, Y, z0, true)
+                gog.AIType  = 3
+            end
+        else
+            monster.Spell = 0
+        end
     end
 end
 ------------------------------------------------------------------------------

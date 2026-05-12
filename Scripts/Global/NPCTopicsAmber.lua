@@ -1229,7 +1229,7 @@ KillMonstersQuest{
 	Texts 			= 
 	{		
 		Topic 		= 	"Quest: Ritual",
-		Give 		= 	"Before he started using goblins, Archmage Magnus placed several demonic altars across the island, which summoned demons he used to keep the village in line. Thanks to my magic and adventurers like you, there's only \01265523one altar left\01200000. It's in the woods on the southern island. Head there, and use \01265523this scroll\01200000 to cast a spell that will cleanse the area of the Archmage's corrupting magic. Be warned: unlike the other altars, the \01265523demon\01200000 protecting this altar is powerful. It will likely appear when you begin the cleansing.",
+		Give 		= 	"Before he started using goblins, Archmage Magnus placed several demonic altars across the island, which summoned demons he used to keep the village in line. Thanks to my magic and adventurers like you, there's only \01265523one altar left\01200000. It's in the woods on the southern island. \n\nHead there, and use \01265523this scroll\01200000 to cast a spell that will cleanse the area of the Archmage's corrupting magic.\n\nBe warned: unlike the other altars, the \01265523demon\01200000 protecting this altar is powerful. It will likely appear when you begin the cleansing.",
 		Done 		= 	"Excellent work! I can sense even the air is a bit fresher now. You've successfully cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your work.",
 		Undone 		= 	"Don't forget, to complete the ritual. You must summon and defeat the \01265523demon\01200000 at the altar on the southern island using this magical scroll.",
 		TopicDone 	= 	"Thanks: Ritual",
@@ -1251,7 +1251,42 @@ KillMonstersQuest{
 						end,
 	Gold 			= 	2500,
 	Exp 			= 	1500,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+	Done			=	function(t) evt.Subtract("Reputation", 5) end,
+	CanShow			=	function(t) return not IsWarrior() end
+}
+
+KillMonstersQuest{
+	Name 			= 	"AmberQuest9W",
+	{Map 			= 	"amber.odm", Monster = {23}},
+	Slot 			= 	A,
+	Texts 			= 
+	{		
+		Topic 		= 	"Quest: Ritual",
+		Give 		= 	"Before he started using goblins, Archmage Magnus placed several demonic altars across the island, which summoned demons he used to keep the village in line. Thanks to my magic and adventurers like you, there's only \01265523one altar left\01200000. It's in the woods on the southern island.\n\nHead there, and use \01265523this scroll\01200000 to cast a spell that will cleanse the area of the Archmage's corrupting magic.\n\n"..
+						"This ritual will strike back! The one who casts the spell will be \01265523cursed\01200000, and the rest will be \01265523weakened\01200000 by the ritual.\n\nThe \01265523demon\01200000 protecting this place is powerful, unnaturally fast, and once it appears, you will not be able to outrun it - he might even bring \01265523minions\01200000 with him. Make every preparation before you begin.",
+		Done 		= 	"Excellent work! I can sense even the air is a bit fresher now. You've successfully cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your work.",
+		Undone 		= 	"Don't forget, to complete the ritual, you must summon and defeat the \01265523demon\01200000 at the altar on the southern island using this magical scroll.\n\nPrepare well before casting it: the caster will be \01265523cursed\01200000, the rest will be \01265523weakened\01200000, and the demon is far too fast to escape once summoned - he might even bring \01265523minions\01200000 with him.",
+		TopicDone 	= 	"Thanks: Ritual",
+		After 		= 	"Thanks to you our island is now free from demonic influence. On behalf of the entire town, I extend our deepest gratitude. You've done a great service for us all.",
+
+		Quest 		= 	"\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and defeat the demon at the altar in the forested area of the southern swamp island.",
+	},
+	GivenItem 		= 	785,
+	CheckDone 		= 	function(t)
+							
+							-- extra check for monster
+							for _, mon in Map.Monsters do
+								if mon.Id == 23 and mon.HP > 0 then
+									return false
+								end
+							end
+
+							return vars.QuestsAmberIsland.QVarRitual == true
+						end,
+	Gold 			= 	3000,
+	Exp 			= 	2000,
+	Done			=	function(t) evt.Subtract("Reputation", 5) end,
+	CanShow			=	function(t) return IsWarrior() end
 }
 
 NPCTopic{
