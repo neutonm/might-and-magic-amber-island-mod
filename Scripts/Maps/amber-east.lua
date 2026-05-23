@@ -40,6 +40,7 @@ Game.MapEvtLines.Count              = 0
 -- 02           3               Castle Island, western (2nd) south ruin
 -- 03           4               Behind Castle Amber
 -- 04           5               Under the rock bridge (secret)
+-- 05           6               Fishhut in ruined village
 
 ------------------------------------------------------------------------------
 -- LOCALS

@@ -852,7 +852,6 @@ Quest{
 
 QuestNPC 			= 	494
 
-
 Quest{
 	Name 			= 	"AmberQuest7",
 	Slot 			= 	A,
@@ -862,12 +861,12 @@ Quest{
 		TopicDone 	= 	"Thanks: Old Sea Dog",
 		GreetDone 	= 	"Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
 		Give 		= 	"Hail to you! If you don't mind, I really could use some muscle here. You see, some time ago I was attacked by a sea monster. My ship crashed into the island and I fled."..
-						"\n\nCan you \01265523help me retrieve some of the goods?\01200000 They should be on the \01265523east side of Amber Island\01200000, at an \01265523unusual looking tree\01200000. I could do it by myself if it wasn't for dangers that inhabit the island.",
+						"\n\nCan you \01265523help me retrieve some of the goods?\01200000 They should be on the \01265523east side of Amber Island\01200000, among the \01265523flooded ruins\01200000, at an \01265523unusual looking tree\01200000. I could do it by myself if it wasn't for dangers that inhabit the island.",
 		Undone 		= 	"Set your course straight for the treasure on the \01265523east side of Amber Island, near the castle Amber island\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
-		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near a unique tree on Amber Island's east side, near the castle Amber island.",
+		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near a unique tree among the flooded ruins on Amber Island's east side, near Castle Amber.",
 		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
 	},
-	Give			= 	function(t)
+	Give			= 	function(t)	
 							evt.MoveNPC{NPC = 494, HouseId = 0}
 							evt.Add("NPCs", 494)
 							ShowQuestEffect(true, t.TakeQuestOperation)
@@ -893,14 +892,15 @@ Quest{
 						"They are buried in a cave at the center of "..
 						"\01265523Deadman's Island\01200000.\n\n"..
 
-						"First, we must head to the \01265523eastern part of Amber Island\01200000 "..
+						"First, we must head to the \01265523drowned village\01200000 "..
+						"on the \01265523eastern part of Amber Island\01200000 "..
 						"and find the \01265523hidden boat\01200000 near that "..
 						"\01265523unusual tree\01200000.\n\n"..
 
 						"I would go myself, but I am no match for the "..
 						"\01265523monstrosities\01200000 along the way.",
-		Undone 		= 	"Set your course for the \01265523hidden boat\01200000 near the \01265523unusual tree\01200000 on Amber Island's east side, near the castle Amber island, then sail to \01265523Deadman's Island\01200000 and claim the goods.",
-		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the hidden boat near the unusual tree on Amber Island's east side, near the castle Amber island, then travel to Deadman's Island and recover the goods from a central cave.",
+		Undone 		= 	"Set your course straight for the treasure among the \01265523flooded ruins\01200000 on the \01265523east side of Amber Island, near Castle Amber\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
+		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the hidden boat near the unusual tree among the flooded ruins on Amber Island's east side, near Castle Amber, then travel to Deadman's Island and recover the goods from a central cave.",
 		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
 	},
 	Give			= 	function(t)
