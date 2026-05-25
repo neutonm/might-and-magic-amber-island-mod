@@ -282,3 +282,6 @@ Monster	Undead	Demon	Dragon	Elf	Swimmer	Immobile	Titan	NoArena
 280  Skeletons Archer A	x	-	-	-	-	-	-	-
 281  Skeletons Archer B	x	-	-	-	-	-	-	-
 282  Skeletons Archer C	x	-	-	-	-	-	-	-
+283  Couatl (winged snake) A	-	-	-	-	-	-	-	-
+284  Couatl (winged snake) B	-	-	-	-	-	-	-	-
+285  Couatl (winged snake) C	-	-	-	-	-	-	-	-

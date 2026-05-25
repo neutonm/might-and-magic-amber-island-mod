@@ -2669,3 +2669,7 @@ skeleton archer Attack	8016	swap	-
 skeleton archer Death	8017	swap	-
 skeleton archer Wince	8018	swap	-
 skeleton archer Aware	8019	swap	-
+Coutal attk	8020	0	-
+Coutal death	8021	0	-
+Coutal wince	8022	0	-
+Coutal aware	8023	0	-
