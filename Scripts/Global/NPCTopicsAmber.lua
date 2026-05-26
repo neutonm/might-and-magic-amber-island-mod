@@ -729,6 +729,18 @@ Quest{
 	CanShow			=	function(t) return vars.Quests.AmberQuest11W ~= "Done" end
 }
 
+NPCTopic{
+	Slot 			= 	C,
+	Topic 			= 	"Knight Camp",
+	Text 			= 	"Recently, a band of adventurers discovered a platform believed to be a teleportation platform "..
+						"used by the \01265523Archmage\01200000. The camp was established together with \01265523Sir "..
+						"Greene\01200000 and others to investigate the site, as well as to prevent the Archmage "..
+						"from escaping the island.\n\n"..
+						"\01265523Bellona Kemp\01200000, the \01265523Armsmaster Expert\01200000, and \01265523Elmar Mitchel\01200000, "..
+						"the \01265523Sword Expert\01200000, tagged along with Sir Greene. If you need training, you will have to fight "..
+						"your way through hordes of lizards in the \01265523southern swamp area\01200000."
+}
+
 ------------------------------------------------------------------------------
 -- Thomas Beck
 QuestNPC 			= 	490
