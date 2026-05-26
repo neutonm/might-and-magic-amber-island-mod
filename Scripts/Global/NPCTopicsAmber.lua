@@ -1879,7 +1879,15 @@ Quest{
 QuestNPC			=	521
 
 Greeting{
-	"Where do you think you're going without an invitation, friend? Take one more step and we \01265523won't be so friendly\01200000 anymore.",
+	"Where do you think you're going without an invitation, friend? "..
+	"Take one more step and we \01265523won't be so friendly\01200000 anymore.",
+	CanShow			=	function(t) return not IsWarrior() end
+}
+
+Greeting{
+	"Whoa...\n\nHow do you plan to open that door without the proper \01265523key\01200000, friend? *Julius points to the key on his belt*\n\n"..
+	"You have to be a member of our nice little organization in order to get through there.\n\nBack off, gently now...",
+	CanShow			=	function(t) return IsWarrior() end
 }
 
 Quest{
@@ -1889,6 +1897,31 @@ Quest{
 		Topic 		= 	"Ignore warning",
 	},
 	NeverGiven		=	true,
+	CanShow			=	function(t) return not IsWarrior() end,
+	Done			=	function(t)
+
+							if vars.QuestsAmberIsland.QVarRansom ~= 3 then
+								vars.QuestsAmberIsland.QVarRansom = 4
+							end
+
+							for _, mon in Map.Monsters do
+								if mon.Group == 33 then
+									mon.Hostile = true
+									ExitScreen()
+								end
+							end
+						end
+}
+
+Quest{
+	Slot 			= 	E,
+	Texts 			=
+	{
+		Topic 		= 	"Open the door",
+	},
+	NeverGiven		=	true,
+	-- ItemID 668: Apple Cave Key
+	CanShow			=	function(t) return IsWarrior() and evt.All.Cmp("Inventory", 668) end,
 	Done			=	function(t)
 
 							if vars.QuestsAmberIsland.QVarRansom ~= 3 then

@@ -204,6 +204,8 @@ local HouseID_WatchtowerCellar  = 582
 local HouseID_AppleCave         = 583
 local HouseID_AbandonedMines    = 584
 
+local AppleCaveKeyItemID        = 668
+
 local function ShopDoor(evtId, houseId)
     evt.house[evtId]    = houseId
     evt.map[evtId]      = function()
@@ -515,6 +517,20 @@ evt.map[34]         = function()
                 evt.SpeakNPC(521)
                 return
             end
+        end
+    end
+
+    if IsWarrior() then
+        if vars.MiscAmberIsland.AppleCaveClosed == true then
+            
+            if not evt.All.Cmp("Inventory", AppleCaveKeyItemID) then
+                evt.FaceAnimation{Player = "Current", Animation = 18}
+                Game.ShowStatusText(ModTxt.CLockedDoor)
+                return
+            end
+
+            evt.Sub("Inventory", AppleCaveKeyItemID)
+            vars.MiscAmberIsland.AppleCaveClosed = false
         end
     end
 

@@ -131,6 +131,7 @@ function events.BeforeNewGameAutosave()
             AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
             ClosedShops             = false,    -- Warrior Mode: Shops are closed until merchant guild fee is payed
             SecretHideoutClosed     = true,     -- Secret Hideout dungeon - closed without key (ID: 667)
+            AppleCaveClosed         = true,     -- Warrior Mode: Apple Cave dungeon - closed without key (ID: 668)
         }
     end
 
