@@ -46,6 +46,11 @@ Game.MapEvtLines.Count = 0
 -- Chapman      Sell            3000        Coffee Beans
 -- Ferrum       Sell            300         Amber
 
+-- SPRITE IDs
+-- ID       NAME         TYPE        DESCRIPTION
+-- 190      "dec02"      Campfire    Western campfire (fire guild)
+-- 191      "dec02"      Campfire    Eastern campfire (fire guild)
+
 -- ***************************************************************************
 
 -- CHESTS
@@ -979,6 +984,11 @@ evt.map[170]         = function()
     end
 
     evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+end
+
+-- Fire guild campfires
+evt.map[190]         = function()
+    -- n/a
 end
 
 ------------------------------------------------------------------------------
