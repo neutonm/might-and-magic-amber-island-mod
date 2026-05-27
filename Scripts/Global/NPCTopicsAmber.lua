@@ -3,33 +3,33 @@ NPC Topics & Quests for Amber Island,
 Author: Henrik Chukhran, 2022 - 2024
 ]]
 
-local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5
-local Q = vars.Quests
+local A, B, C, D, E, F  = 0, 1, 2, 3, 4, 5
+local Q                 = vars.Quests
 
 local function SetBranch(t)
-	QuestBranch(t.NewBranch)
+    QuestBranch(t.NewBranch)
 end
 
-local QVarRevengeState = 
+local QVarRevengeState =
 {
-    GIVEN 		= 1,
-    DUEL 		= 2,
-	KILLED 		= 3,
-	REPORTING	= 4,
-	REPORTED	= 5,
-	RELEASED	= 6,
-	TRANSFERED	= 7,
-	REWARDED	= 8,
-	STOLEN		= 9
+    GIVEN       = 1,
+    DUEL        = 2,
+    KILLED      = 3,
+    REPORTING   = 4,
+    REPORTED    = 5,
+    RELEASED    = 6,
+    TRANSFERED  = 7,
+    REWARDED    = 8,
+    STOLEN      = 9
 }
 
-local QVarButlerEscapedState = 
+local QVarButlerEscapedState =
 {
-	ESCAPED		= 1,
-	TAKEN		= 2,
-	KILLED		= 3,
-	HIDDEN		= 4,
-	IMPRISONED	= 5
+    ESCAPED     = 1,
+    TAKEN       = 2,
+    KILLED      = 3,
+    HIDDEN      = 4,
+    IMPRISONED  = 5
 }
 
 -- Maximus (Mayor)
@@ -38,2852 +38,3460 @@ QuestNPC = 447
 local BlackPotionRequiredIngredients = IsWarrior() and 6 or 3
 
 Greeting{
-	"Greetings adventurers! I wasn't sure you would show up, but here you are.",
-	"Ah, adventurers, you're back. Any good news?",
+    "Greetings adventurers! I wasn't sure you would show up, but here you are.",
+    "Ah, adventurers, you're back. Any good news?",
 }
 
 Quest{
-	Slot 			= 	A,
-	BaseName 		= 	"StoryQuest1",
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Legate",
-		Give		=	"Many have stood where you stand, seeking to prove themselves. I need more than just willingness; I need proof of capability. I'll give you a chance to prove you're different."..
-						"\n\nYour first task will be a simple yet vital one. Travel to the knight's camp located in the \01265523southeastern swamp of Amber Island\01200000.\n\nThere, you will find \01265523Sir Greene\01200000. Deliver this letter to him and return with his response."..
-						"Consider this a test of your reliability. Succeed, and perhaps you'll prove yourselves worthy of more substantial undertakings.",
-		Done 		= 	"*Maximus takes the letter and reads it carefully.*\n\nWell done. Delivering a message to Sir Greene may be a small task, but you've proven your worthiness for more significant challenges.\n\nFor now, \01265523our payment is my trust.\01200000",
-		Undone 		= 	"Well? Sir Greene awaits your arrival in the \01265523southeastern swamp\01200000. I expect you to bring me his response. Off you go!",
-		Quest 		= 	"\"Story: Legate\"\nMayor Maximus, Amber Island, Town Hall\n\nDeliver a letter to Sir Robert Greene at the knight's camp located in the southeastern swamp of Amber Island.",
-	},
-	Exp				=	500,
-	QuestItem		=	795,
-	CanShow			= 	function(t) return vars.Quests.StoryQuest1 ~= "Done" end,
-	Give			=	function(t) evt.Add("Inventory", 794) end,
-	Done			=	function(t) evt.Subtract("Inventory", 794) end -- just in case, remove mayor letter
+    Slot            =   A,
+    BaseName        =   "StoryQuest1",
+    Texts           =
+    {
+        Topic       =   "Story Quest: Legate",
+        Give        =   "Many have stood where you stand, seeking to prove themselves. I need more than just "..
+                        "willingness; I need proof of capability. I'll give you a chance to prove you're "..
+                        "different."..
+                        "\n\nYour first task will be a simple yet vital one. Travel to the knight's camp "..
+                        "located in the \01265523southeastern swamp of Amber Island\01200000.\n\nThere, you "..
+                        "will find \01265523Sir Greene\01200000. Deliver this letter to him and return with "..
+                        "his response."..
+                        "Consider this a test of your reliability. Succeed, and perhaps you'll prove "..
+                        "yourselves worthy of more substantial undertakings.",
+        Done        =   "*Maximus takes the letter and reads it carefully.*\n\nWell done. Delivering a "..
+                        "message to Sir Greene may be a small task, but you've proven your worthiness for "..
+                        "more significant challenges.\n\nFor now, \01265523our payment is my trust.\01200000",
+        Undone      =   "Well? Sir Greene awaits your arrival in the \01265523southeastern swamp\01200000. I "..
+                        "expect you to bring me his response. Off you go!",
+        Quest       =   "\"Story: Legate\"\nMayor Maximus, Amber Island, Town Hall\n\nDeliver a letter to Sir "..
+                        "Robert Greene at the knight's camp located in the southeastern swamp of Amber "..
+                        "Island.",
+    },
+    Exp             =   500,
+    QuestItem       =   795,
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 ~= "Done" end,
+    Give            =   function(t) evt.Add("Inventory", 794) end,
+    Done            =   function(t) evt.Subtract("Inventory", 794) end -- just in case, remove mayor letter
 }
 
 Quest{
-	Slot 			= 	A,
-	BaseName 		= 	"StoryQuest2",
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Investigation",
-		Give		=	"With your capabilities confirmed, it's time to address a pressing matter:\01265523 locating Archmage Magnus\01200000. His mist machine prevents ships from safely docking at Amber Island, and his goblins have been forcing us to comply with his demands for gold. While it's not as critical as the mist machine situation, his capture is imperative to prevent further harm. His residence is guarded. Start there. Maybe once we have him in our custody, he will finally listen to reason."..
-						"\n\nMany have attempted to capture Magnus and failed. The last group of adventurers who tried were massacred. The sole survivor frequents the \01265523Crusty Eagle Inn\01200000. He might have valuable insights. You should \01265523consult with him\01200000 to aid your search for the archmage.",
-		Done 		= 	"Magnus wasn't in his residence? Disappointing, yet it does help narrow our search. This letter to his butler is our only lead. Luckily, the butler is in our custody. It's time we had a chat with him to see what more we can uncover.",
-		Undone 		= 	"Why are you here? Have you located the Archmage? You aren't taking this as seriously as you should. If Magnus is not brought to justice, we will all suffer.\n\n\01265523Don't forget to consult with that adventurer at the Crusty Eagle Inn.\01200000",
-		Quest 		= 	"\"Story: Investigation\"\nMayor Maximus, Amber Island, Town Hall\n\nSearch for Archmage Magnus on the island by investigating his residence for clues to his whereabouts.",
-	},
-	CanShow			= 	function(t) return vars.Quests.StoryQuest1 == "Done" and vars.Quests.StoryQuest2 ~= "Done" end,
-	Exp				=	1000,
-	Gold			=	1000,
-	QuestItem		=	798,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+    Slot            =   A,
+    BaseName        =   "StoryQuest2",
+    Texts           =
+    {
+        Topic       =   "Story Quest: Investigation",
+        Give        =   "With your capabilities confirmed, it's time to address a pressing matter:\01265523 "..
+                        "locating Archmage Magnus\01200000. His mist machine prevents ships from safely "..
+                        "docking at Amber Island, and his goblins have been forcing us to comply with his "..
+                        "demands for gold. While it's not as critical as the mist machine situation, his "..
+                        "capture is imperative to prevent further harm. His residence is guarded. Start "..
+                        "there. Maybe once we have him in our custody, he will finally listen to reason."..
+                        "\n\nMany have attempted to capture Magnus and failed. The last group of adventurers "..
+                        "who tried were massacred. The sole survivor frequents the \01265523Crusty Eagle "..
+                        "Inn\01200000. He might have valuable insights. You should \01265523consult with "..
+                        "him\01200000 to aid your search for the archmage.",
+        Done        =   "Magnus wasn't in his residence? Disappointing, yet it does help narrow our search. "..
+                        "This letter to his butler is our only lead. Luckily, the butler is in our custody. "..
+                        "It's time we had a chat with him to see what more we can uncover.",
+        Undone      =   "Why are you here? Have you located the Archmage? You aren't taking this as seriously "..
+                        "as you should. If Magnus is not brought to justice, we will all "..
+                        "suffer.\n\n\01265523Don't forget to consult with that adventurer at the Crusty Eagle "..
+                        "Inn.\01200000",
+        Quest       =   "\"Story: Investigation\"\nMayor Maximus, Amber Island, Town Hall\n\nSearch for "..
+                        "Archmage Magnus on the island by investigating his residence for clues to his "..
+                        "whereabouts.",
+    },
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Done" and vars.Quests.StoryQuest2 ~= "Done" end,
+    Exp             =   1000,
+    Gold            =   1000,
+    QuestItem       =   798,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 Quest{
-	Slot 			= 	A,
-	BaseName 		= 	"StoryQuest3",
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Secret Hideout",
-		Give		=	"Excellent work uncovering this letter and confirming the Archmage's absence from his residence. This is significant progress.\n\nWe must press our advantage. The butler, already in our custody, could hold the key to Magnus's hideout. \01265523Interrogate him\01200000. He may reveal the information we need to advance our pursuit. You can find him in the town \01265523jail\01200000.",
-		Done 		= 	"You were so close to capturing him. It's unfortunate he escaped at the last moment."..
-						"\n\nNevertheless, you've outdone all others in this pursuit, and now we have a definitive lead. He's taken refuge in \01265523Castle Amber!\01200000"..
-						"\n\nThe pieces are falling into place. We weren't sure why the goblins were so concentrated around Castle Amber, but now it just seems obvious. We must prepare for the next move.",
-		Undone 		= 	"Time is of the essence. With the information we have on Magnus's location, we must act swiftly and \01265523capture him\01200000 before he slips away again.",
-		Quest 		= 	"\"Story: Secret Hideout\"\nMayor Maximus, Amber Island, Town Hall\n\nHunt down Magnus in his secret hideout. Use the teleportation platform near the knight's camp in the swamp to get there.",
-	},
-	CanShow			= 	function(t) return  vars.Quests.StoryQuest2 == "Done" and vars.Quests.StoryQuest3 ~= "Done" end,
-	Exp				=	2000,
-	Gold			=	2000,
-	QuestItem		=	797,
-	Give			=	function(t)
+    Slot            =   A,
+    BaseName        =   "StoryQuest3",
+    Texts           =
+    {
+        Topic       =   "Story Quest: Secret Hideout",
+        Give        =   "Excellent work uncovering this letter and confirming the Archmage's absence from his "..
+                        "residence. This is significant progress.\n\nWe must press our advantage. The butler, "..
+                        "already in our custody, could hold the key to Magnus's hideout. \01265523Interrogate "..
+                        "him\01200000. He may reveal the information we need to advance our pursuit. You can "..
+                        "find him in the town \01265523jail\01200000.",
+        Done        =   "You were so close to capturing him. It's unfortunate he escaped at the last moment."..
+                        "\n\nNevertheless, you've outdone all others in this pursuit, and now we have a "..
+                        "definitive lead. He's taken refuge in \01265523Castle Amber!\01200000"..
+                        "\n\nThe pieces are falling into place. We weren't sure why the goblins were so "..
+                        "concentrated around Castle Amber, but now it just seems obvious. We must prepare for "..
+                        "the next move.",
+        Undone      =   "Time is of the essence. With the information we have on Magnus's location, we must "..
+                        "act swiftly and \01265523capture him\01200000 before he slips away again.",
+        Quest       =   "\"Story: Secret Hideout\"\nMayor Maximus, Amber Island, Town Hall\n\nHunt down "..
+                        "Magnus in his secret hideout. Use the teleportation platform near the knight's camp "..
+                        "in the swamp to get there.",
+    },
+    CanShow         =   function(t) return  vars.Quests.StoryQuest2 == "Done" and vars.Quests.StoryQuest3 ~= "Done" end,
+    Exp             =   2000,
+    Gold            =   2000,
+    QuestItem       =   797,
+    Give            =   function(t)
 
-							-- Buttler escapes (warrior)
-							if IsWarrior() and vars.QuestsAmberIsland.QVarButlerEscaped == 0 then
-								-- Summon Peasant on small island with chest not far from tower
-								local mon   = SummonMonster(175, -7528 , -1890, 37, true)
-								mon.NPC_ID  = 539
-								mon.Item    = 796 -- Amulet
+                            -- Buttler escapes (warrior)
+                            if IsWarrior() and vars.QuestsAmberIsland.QVarButlerEscaped == 0 then
+                                -- Summon Peasant on small island with chest not far from tower
+                                local mon   = SummonMonster(175, -7528 , -1890, 37, true)
+                                mon.NPC_ID  = 539
+                                mon.Item    = 796 -- Amulet
 
-								evt.MoveNPC{NPC = 528, HouseId = 0}
-								vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.ESCAPED
-							end
-						end,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+                                evt.MoveNPC{NPC = 528, HouseId = 0}
+                                vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.ESCAPED
+                            end
+                        end,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 KillMonstersQuest{
-	Name 			= 	"CoreQuest",
-	Slot 			= 	A,
-	{Map 			= 	"testlevel.blv", MonsterIndex = 4},
-	CheckDone 		= 	function()
-							--return evt.Cmp("QBits",7)
-							return vars.QuestsAmberIsland.QVar1
-						end,
-	CanShow			= 	function(t) return vars.Quests.StoryQuest3 == "Done" end,
-	Exp 			= 	5000,
-	Gold 			= 	5000,
-	Done			=	function(t) 
-							evt.MoveNPC(529,102)
-
-						end
+    Name            =   "CoreQuest",
+    Slot            =   A,
+    {Map            =   "testlevel.blv", MonsterIndex = 4},
+    CheckDone       =   function()
+                            --return evt.Cmp("QBits",7)
+                            return vars.QuestsAmberIsland.QVar1
+                        end,
+    CanShow         =   function(t) return vars.Quests.StoryQuest3 == "Done" end,
+    Exp             =   5000,
+    Gold            =   5000,
+    Done            =   function(t)
+                            evt.MoveNPC(529,102)
+                            -- "Saved Amber Island from Magnus the Archmage"
+                            evt.Add("Awards", 105)
+                            evt.Subtract("Reputation", 10)
+                        end
 }
-.SetTexts{	
-	Topic 			= 	"Story Quest: The Mist",
-	Give 			= 	"You've proven yourselves trustworthy, and frankly, you're the only one who can stand up to Magnus's monsters. We need your help to defeat him. I'm ordering an attack on Castle Amber. Magnus's goblins will easily repel our attack, but our attack will only be a diversion."..
-						"\n\nWhile our forces engage the goblin army, you will \01265523enter the castle\01200000 through the back, find Magnus, and \01265523destroy his mist machine\01200000. I know I asked you to capture him before, but I doubt he will listen to reason. You know what has to be done. This operation is risky, but it's our best chance to end this crisis. Once you're prepared, you can \01265523head to the boathouse and find the boatmaster, Cedrick Boyce.\01200000"..
-						"\n\nAs soon as Cedrick takes you to the island, \01265523our army will strike the goblins\01200000, allowing you an opportunity to get into \01265523Castle Amber\01200000.",
-	Done 			= 	"*As the heroes approach, Maximus rushes forward with a laugh, throwing his arms around them in an exuberant hug.*"..
-						"\n\n\01265523You did it, you actually did it! The Archmage and his cursed machine are destroyed.\01200000 On behalf of the entire island, I thank you, heroes! Your deeds will be remembered, and you'll always find a warm welcome here on Amber Island."..
-						"\n\nAs a token of our gratitude, we've decided to give you Castle Amber. The people here would feel better with you watching over them. I know I will. Granted, the castle is a wrecked pile of stones, but I'm sure you'll find some potential there, and maybe even gain a bit of clout with those pompous nobles from the mainland. Actually, now that the mist machine's destroyed, the first ships from the mainland have arrived. They sent an ambassador to speak to you specifically. Looks like your exploits are already attracting attention.\n\n \01265523*Please re-enter town hall*\01200000",
-	Undone 			= 	"I understand you may need some time to prepare, but every day we spend under Magnus's thumb brings us closer to ruin. As soon as you can, \01265523infiltrate the castle\01200000 and bring this ordeal to a close. \01265523Find boatmaster Cedrick Boyce, take a boat to the island\01200000, and we will send our forces to divert their defenders while you enter Castle Amber.",
-	TopicDone 		= 	"Thanks: The Mist",
-	After			=	"Thank you once again, my heroes. Amber island will never forget your heroic deeds.",
-	Quest 			= 	"Story: The Mist\nMayor Maximus, Amber Island, Town Hall\n\nContact boatmaster Cedrick Boyce to secure passage to Castle Amber's back entrance. Infiltrate the castle, eliminate Archmage Magnus, and destroy his mist machine.",
-	Done			=	function(t) 
-							evt.Add("Awards", 105) -- "Saved Amber Island from Magnus the Archmage"
-							evt.Subtract("Reputation", 10) 
-						end
+.SetTexts{
+    Topic           =   "Story Quest: The Mist",
+    Give            =   "You've proven yourselves trustworthy, and frankly, you're the only one who can stand "..
+                        "up to Magnus's monsters. We need your help to defeat him. I'm ordering an attack on "..
+                        "Castle Amber. Magnus's goblins will easily repel our attack, but our attack will "..
+                        "only be a diversion."..
+                        "\n\nWhile our forces engage the goblin army, you will \01265523enter the "..
+                        "castle\01200000 through the back, find Magnus, and \01265523destroy his mist "..
+                        "machine\01200000. I know I asked you to capture him before, but I doubt he will "..
+                        "listen to reason. You know what has to be done. This operation is risky, but it's "..
+                        "our best chance to end this crisis. Once you're prepared, you can \01265523head to "..
+                        "the boathouse and find the boatmaster, Cedrick Boyce.\01200000"..
+                        "\n\nAs soon as Cedrick takes you to the island, \01265523our army will strike the "..
+                        "goblins\01200000, allowing you an opportunity to get into \01265523Castle "..
+                        "Amber\01200000.",
+    Done            =   "*As the heroes approach, Maximus rushes forward with a laugh, throwing his arms "..
+                        "around them in an exuberant hug.*"..
+                        "\n\n\01265523You did it, you actually did it! The Archmage and his cursed machine "..
+                        "are destroyed.\01200000 On behalf of the entire island, I thank you, heroes! Your "..
+                        "deeds will be remembered, and you'll always find a warm welcome here on Amber "..
+                        "Island."..
+                        "\n\nAs a token of our gratitude, we've decided to give you Castle Amber. The people "..
+                        "here would feel better with you watching over them. I know I will. Granted, the "..
+                        "castle is a wrecked pile of stones, but I'm sure you'll find some potential there, "..
+                        "and maybe even gain a bit of clout with those pompous nobles from the mainland. "..
+                        "Actually, now that the mist machine's destroyed, the first ships from the mainland "..
+                        "have arrived. They sent an ambassador to speak to you specifically. Looks like your "..
+                        "exploits are already attracting attention.\n\n \01265523*Please re-enter town "..
+                        "hall*\01200000",
+    Undone          =   "I understand you may need some time to prepare, but every day we spend under "..
+                        "Magnus's thumb brings us closer to ruin. As soon as you can, \01265523infiltrate the "..
+                        "castle\01200000 and bring this ordeal to a close. \01265523Find boatmaster Cedrick "..
+                        "Boyce, take a boat to the island\01200000, and we will send our forces to divert "..
+                        "their defenders while you enter Castle Amber.",
+    TopicDone       =   "Thanks: The Mist",
+    After           =   "Thank you once again, my heroes. Amber island will never forget your heroic deeds.",
+    Quest           =   "Story: The Mist\nMayor Maximus, Amber Island, Town Hall\n\nContact boatmaster "..
+                        "Cedrick Boyce to secure passage to Castle Amber's back entrance. Infiltrate the "..
+                        "castle, eliminate Archmage Magnus, and destroy his mist machine.",
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	"Archmage Crisis",
-	"We've been ensnared in an extortion racket by one of our own, Magnus the Archmage. He's created a remarkable weather machine that produces thick fog around Amber Island, complicating navigation for ships at sea.\n\nMagnus only shuts it off when we pay him a hefty sum of gold. As the fog grows more widespread by the day, so does the price for his \"services.\" If we don't put an end to his actions, our island faces disaster. It's not just financial trouble if the ships stop coming. We can only grow so much of our own food.",
-	CanShow			=	function(t) return vars.Quests.CoreQuest ~= "Done" end
+    Slot            =   B,
+    "Archmage Crisis",
+    "We've been ensnared in an extortion racket by one of our own, Magnus the Archmage. He's created a "..
+    "remarkable weather machine that produces thick fog around Amber Island, complicating navigation for "..
+    "ships at sea.\n\nMagnus only shuts it off when we pay him a hefty sum of gold. As the fog grows more "..
+    "widespread by the day, so does the price for his \"services.\" If we don't put an end to his actions, "..
+    "our island faces disaster. It's not just financial trouble if the ships stop coming. We can only grow so "..
+    "much of our own food.",
+    CanShow         =   function(t) return vars.Quests.CoreQuest ~= "Done" end
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	"Invaders",
-	"A horde of goblins has taken over Castle Amber, and it's astonishing to see them following a swamp troll as their leader. Trolls are known cannibals. Have the goblins considered that once the troll runs out of human prey, they will be the next on the menu?",
-	CanShow			=	function(t) return vars.Quests.CoreQuest ~= "Done" end
+    Slot            =   C,
+    "Invaders",
+    "A horde of goblins has taken over Castle Amber, and it's astonishing to see them following a swamp troll "..
+    "as their leader. Trolls are known cannibals. Have the goblins considered that once the troll runs out of "..
+    "human prey, they will be the next on the menu?",
+    CanShow         =   function(t) return vars.Quests.CoreQuest ~= "Done" end
 }
 
 Quest{
-	Slot 			= 	D,
-	BaseName 		= 	"AmberQuest6",
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Revenge",
-		Done 		= 	"You've done a good deed by bringing this to light. Planning an assassination is a grave matter, and it shall not be taken lightly. Rest assured, appropriate actions will be taken against Otho for such a heinous plot. Thank you.",
-		Undone 		= 	"Otho Robeson hired you to assassinate Michael Cassio? Do you have any proof?",
-	},
-	Gold 			= 	500,
-	Exp				=	1000,
-	CanShow 		= 	function(t) return (vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498)) end,
-	Done			= 	function(t)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTED
-							evt.Subtract("NPCs", 498)
-							evt.Subtract("Reputation", 10)
-							evt.MoveNPC{NPC = 498, HouseId = 577}
-						end
+    Slot            =   D,
+    BaseName        =   "AmberQuest6",
+    Texts           =
+    {
+        Topic       =   "Quest: Revenge",
+        Done        =   "You've done a good deed by bringing this to light. Planning an assassination is a "..
+                        "grave matter, and it shall not be taken lightly. Rest assured, appropriate actions "..
+                        "will be taken against Otho for such a heinous plot. Thank you.",
+        Undone      =   "Otho Robeson hired you to assassinate Michael Cassio? Do you have any proof?",
+    },
+    Gold            =   500,
+    Exp             =   1000,
+    CanShow         =   function(t) return (vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING and evt.Cmp("NPCs", 498)) end,
+    Done            =   function(t)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTED
+                            evt.Subtract("NPCs", 498)
+                            evt.Subtract("Reputation", 10)
+                            evt.MoveNPC{NPC = 498, HouseId = 577}
+                        end
 }
 
 -- Eleric Graywood
-QuestNPC 			= 	450
+QuestNPC            =   450
 
 Greeting{
-	"Greetings! The spark in your eyes suggests you've come to our island seeking adventure, am I right? You should visit the mayor of Amber Town, Maximus. Word has it he's looking for adventurers willing to risk everything. There's a substantial reward, of course.",
+    "Greetings! The spark in your eyes suggests you've come to our island seeking adventure, am I right?\n\nYou "..
+    "should visit the mayor of Amber Town, Maximus. Word has it he's looking for adventurers willing to risk "..
+    "everything. There's a substantial reward, of course.",
 }
 
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"The Island",
-	Text 			= 	"Amber Island is a trading hub for many merchants worldwide. Gold flows through the island's veins, drawing fortune seekers of all kinds. Yourselves included, I presume."..
-						"\n\nRegrettably, this wealth also draws troublemakers. Normally, we'd hire guards, but Archmage Magnus has taken over that role without asking us. Hopefully, the mayor will sort this out before we're bled dry."
+    Slot            =   A,
+    Topic           =   "The Island",
+    Text            =   "Amber Island is a trading hub for many merchants worldwide. Gold flows through the "..
+                        "island's veins, drawing fortune seekers of all kinds. Yourselves included, I "..
+                        "presume."..
+                        "\n\nRegrettably, this wealth also draws troublemakers. Normally, we'd hire guards, "..
+                        "but Archmage Magnus has taken over that role without asking us. Hopefully, the mayor "..
+                        "will sort this out before we're bled dry."
 }
 
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Amber?",
-	Text 			= 	"Before it became a commercial hub, this place was the most abundant source of amber in the world for many decades. The name stuck, though nowadays, you'd be lucky to find a piece of amber. The miners extracted the last remnants a few years back."
+    Slot            =   B,
+    Topic           =   "Amber?",
+    Text            =   "Before it became a commercial hub, this place was the most abundant source of amber "..
+                        "in the world for many decades. The name stuck, though nowadays, you'd be lucky to "..
+                        "find a piece of amber. The miners extracted the last remnants a few years back."
 }
 ------------------------------------------------------------------------------
 -- William Nightkeep
-QuestNPC 			= 	451
+QuestNPC            =   451
 
 Greeting{
-	"Adventurers! I don't know how you got here, but it seems you're stuck with us now.",
+    "Adventurers! I don't know how you got here, but it seems you're stuck with us now.",
 }
 
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Difficult Times",
-	Text 			= 	"Sometimes, the mist manages to seep into the island area. Even though the \01265523Powder Keg Inn\01200000 is just a few steps from my house, finding my way home after lingering there too long is a challenge. It gets so thick that I can barely see my own hands. Damn that archmage."
+    Slot            =   A,
+    Topic           =   "Difficult Times",
+    Text            =   "Sometimes, the mist manages to seep into the island area. Even though the "..
+                        "\01265523Powder Keg Inn\01200000 is just a few steps from my house, finding my way "..
+                        "home after lingering there too long is a challenge. It gets so thick that I can "..
+                        "barely see my own hands.\n\nDamn that archmage."
 }
 ------------------------------------------------------------------------------
 -- Aria Nightkeep
-QuestNPC 			= 	452
+QuestNPC            =   452
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Husband",
-	Text 			= 	"William earns his living as a mercenary, safeguarding trade ships. Unfortunately, Archmage Magnus's mist has significantly disrupted the trade routes, so there's not a lot of mercenary work. As a result, William spends most of his days at the Inn, often drinking until he's three sheets to the wind. I do wish he'd find some temporary work or at least lend a hand around the house."
+    Slot            =   A,
+    Topic           =   "Husband",
+    Text            =   "William earns his living as a mercenary, safeguarding trade ships. Unfortunately, "..
+                        "Archmage Magnus's mist has significantly disrupted the trade routes, so there's not "..
+                        "a lot of mercenary work.\n\nAs a result, William spends most of his days at the Inn, "..
+                        "often drinking until he's three sheets to the wind.\n\nI do wish he'd find some "..
+                        "temporary work or at least lend a hand around the house."
 }
 
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Mercenaries",
-	Text 			= 	"Amber Island is a city state, so we hire our own mercenaries to keep us safe. If we let the monarchs on the mainland send their soldiers here, we'd have to start following their laws and paying them taxes."
+    Slot            =   B,
+    Topic           =   "Mercenaries",
+    Text            =   "Amber Island is a city state, so we hire our own mercenaries to keep us safe. If we "..
+                        "let the monarchs on the mainland send their soldiers here, we'd have to start "..
+                        "following their laws and paying them taxes."
 }
 
 ------------------------------------------------------------------------------
 -- Harley Payne (Alchemy Expert)
-QuestNPC 			= 	453
+QuestNPC            =   453
 
 NPCTeacher(QuestNPC)
 
-Quest{  
-	Name 			= 	"AmberMisc2",
-	Branch			=	"",
-	Slot 			= 	D,
-	QuestItem 		= 
-	{
-		{200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red 
-		{205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
-		{210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
-	},
-	Texts 			= 
-	{		
-		Topic 		= 	"Make: Black Potion (Personality)",
-		Done 		= 	"Perfect, this looks like everything. Give me a moment to mix them together...\n\n*After a short wait, she returns with a shimmering, \01265523black potion of profound Personality.\01200000*",
-		TopicDone 	= 	false,
-		Give 		= 	string.format("As an expert alchemist, I specialize in crafting the finest potions, including the renowned \01265523Potion of Personality\01200000. Provide me with the necessary ingredients, and I'll prepare one for you.\n\nI require \01265523%d\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
-		Undone 		= 	string.format("Don't forget, I need \01265523%d\01200000 ingredients from each of these categories: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
-	},
-	Exp 			= 	500,
-	RewardItem 		= 	268, -- Pure Personality
+Quest{
+    Name            =   "AmberMisc2",
+    Branch          =   "",
+    Slot            =   D,
+    QuestItem       =
+    {
+        {200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red
+        {205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
+        {210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
+    },
+    Texts           =
+    {
+        Topic       =   "Make: Black Potion (Personality)",
+        Done        =   "Perfect, this looks like everything. Give me a moment to mix them "..
+                        "together...\n\n*After a short wait, she returns with a shimmering, \01265523black "..
+                        "potion of profound Personality.\01200000*",
+        TopicDone   =   false,
+        Give        =   string.format("As an expert alchemist, I specialize in crafting the finest potions, "..
+                                      "including the renowned \01265523Potion of Personality\01200000. "..
+                                      "Provide me with the necessary ingredients, and I'll prepare one for "..
+                                      "you.\n\nI require \01265523%d\01200000 ingredients from each of these "..
+                                      "categories: \01265523red\01200000, \01265523blue\01200000, and "..
+                                      "\01265523yellow\01200000.", BlackPotionRequiredIngredients),
+        Undone      =   string.format("Don't forget, I need \01265523%d\01200000 ingredients from each of "..
+                                      "these categories: \01265523red\01200000, \01265523blue\01200000, and "..
+                                      "\01265523yellow\01200000.", BlackPotionRequiredIngredients),
+    },
+    Exp             =   500,
+    RewardItem      =   268, -- Pure Personality
 }
 
 ------------------------------------------------------------------------------
 -- Bellona Kemp  (Armsmaster Expert)
-QuestNPC 			= 	454
+QuestNPC            =   454
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Story Quest: Legate?",
-	Text			=	"Sir Robert? He had more wine than sense last night...\n\n"..
-						"Mumbled something about stepping out to relieve himself and wandered toward the old ruined tower.\n\n"..
-						"He never came back.",
-	CanShow			= 	function(t) return vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior() end
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Story Quest: Legate?",
+    Text            =   "Sir Robert? He had more wine than sense last night...\n\n"..
+                        "Mumbled something about stepping out to relieve himself and wandered toward the old "..
+                        "ruined tower.\n\n"..
+                        "He never came back.",
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior() end
 }
 
 ------------------------------------------------------------------------------
 -- Woodrow Marley  (Axe Expert)
-QuestNPC 			= 	455
+QuestNPC            =   455
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Sour Apples",
-	Text 			= 	"You'll find the apples on this island to be almost punishingly sour. Even biting into one is like a test of endurance!\n\nHowever, they do have one saving grace: these apples make for an excellent cider. In fact, the apple cider brewed here is hailed as some of the best in the world. It seems even the sourest fruits can produce remarkable results."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Sour Apples",
+    Text            =   "You'll find the \01265523apples\01200000 on this island to be almost punishingly \01265523sour\01200000. Even biting "..
+                        "into one is like a test of endurance!\n\nHowever, they do have one saving grace: "..
+                        "these apples make for an excellent cider. In fact, the apple cider brewed here is "..
+                        "hailed as some of the best in the world. It seems even the sourest fruits can "..
+                        "produce remarkable results."
 }
 
 ------------------------------------------------------------------------------
 -- Trevor Gully  (Body Building Expert)
-QuestNPC 			= 	456
+QuestNPC            =   456
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Robin Stringer (Bow Expert)
-QuestNPC 			= 	457
+QuestNPC            =   457
 
 Greeting{
-	"Welcome, traveler! I'm Robin Stringer, a bowyer and a master archer. Are you here to learn the fine art of shooting a bow?",
+    "Welcome, traveler! I'm Robin Stringer, a bowyer and a master archer. "..
+    "Are you here to learn the fine art of shooting a bow?",
 }
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Raymond Hoggard  (Chain Expert)
-QuestNPC 			= 	458
+QuestNPC            =   458
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Hector Messer (Dagger Expert)
-QuestNPC 			= 	459
+QuestNPC            =   459
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Wright (Disarm Expert)
-QuestNPC 			= 	460
+QuestNPC            =   460
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Hazel Quick (Dodging Expert)
-QuestNPC 			= 	461
+QuestNPC            =   461
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Rana Winter (ID Item Expert)
-QuestNPC 			= 	462
+QuestNPC            =   462
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Sullivan Winter (ID Monster Expert)
-QuestNPC 			= 	463
+QuestNPC            =   463
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Sophia Shirley (Learning Expert)
-QuestNPC 			= 	464
+QuestNPC            =   464
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Valeria Timar (Leather Expert)
-QuestNPC 			= 	465
+QuestNPC            =   465
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Robert Stevenson",
-	Text 			= 	"Have you heard whispers about Robert Stevenson? Some say that old sea dog might've been a pirate in his past, and let's be honest, there's no such thing as an ex-pirate. Keep your wits about you around him."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Robert Stevenson",
+    Text            =   "Have you heard whispers about Robert Stevenson? Some say that old sea dog might've "..
+                        "been a pirate in his past, and let's be honest, there's no such thing as an "..
+                        "ex-pirate. Keep your wits about you around him."
 }
 
 ------------------------------------------------------------------------------
 -- Oswald of Umbria (Mace Expert)
-QuestNPC 			= 	466
+QuestNPC            =   466
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Apple Cave",
-	Text 			= 	"Apple Island, \01265523located northwest of Amber Island\01200000, is home to the notorious Apple Cave. Despite the charming name, thanks to the abundant apple trees that grow there, it has been a haven for bandits and pirates for decades. Locals have tried several times to cleanse the area of its lawless residents, but like a bad weed, they keep coming back. It's a place best avoided unless you're looking for trouble, or perhaps an adventure."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Apple Cave",
+    Text            =   "Apple Island, \01265523located northwest of Amber Island\01200000, is home to the "..
+                        "notorious Apple Cave.\n\nDespite the charming name, thanks to the abundant apple trees "..
+                        "that grow there, it has been a haven for bandits and pirates for decades. Locals "..
+                        "have tried several times to cleanse the area of its lawless residents, but like a "..
+                        "bad weed, they keep coming back.\n\nIt's a place best avoided unless you're looking for "..
+                        "trouble, or perhaps an adventure."
 }
 
 ------------------------------------------------------------------------------
 -- Hugo Barnes (Meditation Expert)
-QuestNPC 			= 	467
+QuestNPC            =   467
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Edith Chapman (Merchant Expert)
-QuestNPC 			= 	468
+QuestNPC            =   468
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Ophelia Sage (Perception Expert)
-QuestNPC 			= 	469
+QuestNPC            =   469
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Ethan Armstrong (Plate Expert)
-QuestNPC 			= 	470
+QuestNPC            =   470
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
--- Craig 
-QuestNPC 			= 	471
+-- Craig
+QuestNPC            =   471
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Craig's Story",
-	Text 			= 	"I'm Craig, just a goblin trying to make ends meet in this bustling town. Found work at the smithy, fixing up whatever comes my way. Can't complain. Keeps the coin flowing, and it's better than working for Magnus."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Craig's Story",
+    Text            =   "I'm Craig, just a goblin trying to make ends meet in this bustling town. Found work "..
+                        "at the smithy, fixing up whatever comes my way.\n\nCan't complain. Keeps the coin "..
+                        "flowing, and it's better than working for Magnus."
 }
 
 ------------------------------------------------------------------------------
 -- Aldren Ryder (Shield Expert)
-QuestNPC 			= 	472
+QuestNPC            =   472
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Brigid Ryder (Spear Expert)
-QuestNPC 			= 	473
+QuestNPC            =   473
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Audrey Boyce (Staff Expert)
-QuestNPC 			= 	474
+QuestNPC            =   474
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Bradan Colby (Stealing Expert)
-QuestNPC 			= 	475
+QuestNPC            =   475
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Elmar Mitchell  (Sword Expert)
-QuestNPC 			= 	476
+QuestNPC            =   476
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Sir Greene",
-	Text 			= 	"Sir Greene? A decent captain and a proud one.Sharp mind, steady blade.\n\n"..
-						"But give him enough wine and the campfire tales grow louder by the minute. Never a dull night when he's celebrating."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Sir Greene",
+    Text            =   "Sir Greene? A decent captain and a proud one.Sharp mind, steady blade.\n\n"..
+                        "But give him enough wine and the campfire tales grow louder by the minute. Never a "..
+                        "dull night when he's celebrating."
 }
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (inn; Unarmed Expert)
-QuestNPC 			= 	477
+QuestNPC            =   477
 
 Greeting{
-	"Ah, my favourite people! What can I do for you today?"
+    "Ah, my favourite people! What can I do for you today?"
 }
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Brawling!",
-	Text 			= 	"Ah, brawling, there's nothing quite like it. You see, there's a certain art to landing the perfect punch, especially when it's someone's nose at the tavern on a lively evening. The thrill, the adrenaline rush... it's just how I like to unwind."
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Brawling!",
+    Text            =   "Ah, brawling, there's nothing quite like it.\n\nYou see, there's a certain art to "..
+                        "landing the perfect punch, especially when it's someone's nose at the tavern on a "..
+                        "lively evening.\n\nThe thrill, the adrenaline rush... it's just how I like to unwind."
 }
 
--- @todo	for future mm8-like experience, give bonus exlusively to available party heroes. Allow re-usage. Adjust price per person.
+-- @todo    for future mm8-like experience, give bonus exlusively to available party heroes. Allow re-usage. Adjust price per person.
 Quest{
-	Slot 			= 	E,
-	Texts 			= 
-	{
-		Topic 		= 	"Reward: Might/Speed +5",
-		Done 		= 	"Since you've helped me out, let me share a bit of my brawling expertise with you. It's all about speed and strength. Watch closely, train hard, and you'll find yourself hitting harder and moving faster before you know it.",
-		After 		= 	"I've taught you everything I know, there's really nothing more I can show you. You've got all the techniques. Now it's all about perfecting them on your own."
-	},
-	NeverGiven 		= 	true,
-	Done			=	function(t)
-							evt.Subtract("Reputation", 5)
-							evt.All.Add("BaseMight", 5)
-							evt.All.Add("BaseSpeed", 5)
-						end,
-	CanShow			=	function(t) return (not IsWarrior()) and vars.Quests.AmberQuest11 == "Done" end
+    Slot            =   E,
+    Texts           =
+    {
+        Topic       =   "Reward: Might/Speed +5",
+        Done        =   "Since you've helped me out, let me share a bit of my brawling expertise with you. "..
+                        "It's all about speed and strength. Watch closely, train hard, and you'll find "..
+                        "yourself hitting harder and moving faster before you know it.",
+        After       =   "I've taught you everything I know, there's really nothing more I can show you. "..
+                        "You've got all the techniques. Now it's all about perfecting them on your own."
+    },
+    NeverGiven      =   true,
+    Done            =   function(t)
+                            evt.Subtract("Reputation", 5)
+                            evt.All.Add("BaseMight", 5)
+                            evt.All.Add("BaseSpeed", 5)
+                        end,
+    CanShow         =   function(t) return (not IsWarrior()) and vars.Quests.AmberQuest11 == "Done" end
 }
 
 Quest{
-	Slot 			= 	E,
-	Texts 			=
-	{
-		Topic 		= 	"Reward: Might/Speed +6",
-		Done 		= 	"*Conrad tosses you the promised coin, then cracks his knuckles with a grin.*\n\nA bet's a bet. You beat me fair, so here's your gold...\n\nSince you helped me out of Halloran's cage, I'll throw in something better: Let me show you how to hit harder and move quicker. Speed and strength, that's what wins a proper brawl.",
-		After 		= 	"I've paid my bet and taught you what I know. From here on, it's practice, bruises, and learning not to lead with your chin."
-	},
-	NeverGiven 		= 	true,
-	Done			=	function(t)
-							evt.Subtract("Reputation", 5)
-							evt.All.Add("BaseMight", 6)
-							evt.All.Add("BaseSpeed", 6)
-							evt.Add("Gold", 100)
-						end,
-	CanShow			=	function(t) return IsWarrior() and vars.Quests.AmberQuest11W == "Done" end
+    Slot            =   E,
+    Texts           =
+    {
+        Topic       =   "Reward: Might/Speed +6",
+        Done        =   "*Conrad tosses you the promised coin, then cracks his knuckles with a grin.*\n\nA "..
+                        "bet's a bet. You beat me fair, so here's your gold...\n\nSince you helped me out of "..
+                        "Halloran's cage, I'll throw in something better: Let me show you how to hit harder "..
+                        "and move quicker. Speed and strength, that's what wins a proper brawl.",
+        After       =   "I've paid my bet and taught you what I know. From here on, it's practice, bruises, "..
+                        "and learning not to lead with your chin."
+    },
+    NeverGiven      =   true,
+    Done            =   function(t)
+                            evt.Subtract("Reputation", 5)
+                            evt.All.Add("BaseMight", 6)
+                            evt.All.Add("BaseSpeed", 6)
+                            evt.Add("Gold", 100)
+                        end,
+    CanShow         =   function(t) return IsWarrior() and vars.Quests.AmberQuest11W == "Done" end
 }
 
 ------------------------------------------------------------------------------
 -- Alfred Brand  (Fire Magic Expert)
-QuestNPC 			= 	478
+QuestNPC            =   478
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Avira Lightfeather (Air Magic Expert)
-QuestNPC 			= 	479
+QuestNPC            =   479
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Magee Wells (Water Magic Expert)
-QuestNPC 			= 	480
+QuestNPC            =   480
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- John Aarden (Earth Magic Expert)
-QuestNPC 			= 	481
+QuestNPC            =   481
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Asgerd Lund (Spirit Magic Expert)
-QuestNPC 			= 	482
+QuestNPC            =   482
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Timothy Leary (Mind Magic Expert)
-QuestNPC 			= 	483
+QuestNPC            =   483
 
 NPCTeacher(QuestNPC)
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"The Doors of Perception",
-	Text 			= 	"Welcome, seeker of the arcane! Interested in expanding your mind with some mind magic? It's like navigating a labyrinth where each turn reveals not walls, but windows into new dimensions. Imagine, if you will, tickling the very fabric of reality until it giggles back at you. That's mind magic! It's not just about bending thoughts, but about stretching them until they yawn and show you their secrets. Oh, and it can all be done in a fun way, too. I know a magical spell that'll make you perceive walls breathing and colors changing. So are you ready to open some doors in your mind, or perhaps slip through a few windows?"
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "The Doors of Perception",
+    Text            =   "Welcome, seeker of the arcane! Interested in expanding your mind with some mind "..
+                        "magic?\n\nIt's like navigating a labyrinth where each turn reveals not walls, but "..
+                        "windows into new dimensions. Imagine, if you will, tickling the very fabric of "..
+                        "reality until it giggles back at you. That's mind magic! It's not just about bending "..
+                        "thoughts, but about stretching them until they yawn and show you their secrets.\n\nOh, "..
+                        "and it can all be done in a fun way, too. I know a magical spell that'll make you "..
+                        "perceive walls breathing and colors changing. So are you ready to open some doors in "..
+                        "your mind, or perhaps slip through a few windows?"
 }
 
 ------------------------------------------------------------------------------
 -- Andreas Vesalius (Body Magic Expert)
-QuestNPC 			= 	484
+QuestNPC            =   484
 
 NPCTeacher(QuestNPC)
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (prison)
-QuestNPC 			= 	491
+QuestNPC            =   491
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Brawling",
-	Text 			= 	"Ah, brawling, there's nothing quite like it. You see, there's a certain art to landing the perfect punch, especially when it's someone's nose at the tavern on a lively evening. The thrill, the adrenaline rush... it's just how I like to unwind."
+    Slot            =   A,
+    Topic           =   "Brawling",
+    Text            =   "Ah, brawling, there's nothing quite like it. You see, there's a certain art to "..
+                        "landing the perfect punch, especially when it's someone's nose at the tavern on a "..
+                        "lively evening. The thrill, the adrenaline rush... it's just how I like to unwind."
 }
 
 Quest{
-	Name 			= 	"AmberQuest11",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Bail out!",
-		TopicDone 	= 	false,
-		Give 		= 	"Name's Conrad Hawk. You might've heard about my little scuffles at the inn. Look, I've got a situation that needs handling, and I can't do it from in here. How about you help me out?"..
-						"\n\n\01265523Find Guardmaster James Halloran\01200000. He's the one who can get me out of this mess. \01265523Lives near the bridge on the western part of town\01200000. Pay him the bail, and I'll owe you.",
-		Undone 		= 	"Are we done yet? I'm not one for sitting around, and this place isn't exactly lively. Hurry it up, will ya? I've got places to be and scores to settle.",
+    Name            =   "AmberQuest11",
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Bail out!",
+        TopicDone   =   false,
+        Give        =   "Name's Conrad Hawk. You might've heard about my little scuffles at the inn. Look, "..
+                        "I've got a situation that needs handling, and I can't do it from in here. How about "..
+                        "you help me out?"..
+                        "\n\n\01265523Find Guardmaster James Halloran\01200000. He's the one who can get me "..
+                        "out of this mess. \01265523Lives near the bridge on the western part of "..
+                        "town\01200000. Pay him the bail, and I'll owe you.",
+        Undone      =   "Are we done yet? I'm not one for sitting around, and this place isn't exactly "..
+                        "lively. Hurry it up, will ya? I've got places to be and scores to settle.",
 
-		Quest 		= 	"\"Bail out\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nPay Guardmaster James Halloran, who resides near the bridge on the island's western part, to release Conrad Hawk.",
-	},
-	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	function(t) return not IsWarrior() end
+        Quest       =   "\"Bail out\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nPay Guardmaster James "..
+                        "Halloran, who resides near the bridge on the island's western part, to release "..
+                        "Conrad Hawk.",
+    },
+    CheckDone       =   false,  -- the quest can't be completed here
+    CanShow         =   function(t) return not IsWarrior() end
 }
 
 Quest{
-	Name 			= 	"AmberQuest11W",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Brawl",
-		TopicDone 	= 	false,
-		Give 		= 	"Hah! There you are...\n\nI was wondering when my victorious friends would come by to admire their handiwork. Good fight, by the way. My jaw still remembers it!"..
-						"\n\nProblem is, the guards only saw the part where fists were flying, not the part where I asked for it and you agreed. Now Halloran thinks I was back to breaking strangers' noses at the inn."..
-						"\n\n\01265523Find Guardmaster James Halloran\01200000 and tell him the truth: it was a fair brawl between willing fighters, not another tavern scuffle. \01265523He lives near the bridge on the western part of town\01200000. If he still wants bail paid, pay it, and I'll owe you twice over.",
-		Undone 		= 	"Any luck with Halloran? Tell him I started a fight, sure, but this time I started it properly. Challenge given, challenge accepted, no hard feelings - right?",
-		Quest 		= 	"\"Brawl\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nConrad was jailed after your agreed brawl. Explain the matter to Guardmaster Halloran near the western bridge, and pay the bail if needed.",
-	},
-	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	function(t) return IsWarrior() end
+    Name            =   "AmberQuest11W",
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Brawl",
+        TopicDone   =   false,
+        Give        =   "Hah! There you are...\n\nI was wondering when my victorious friends would come by to "..
+                        "admire their handiwork. Good fight, by the way. My jaw still remembers it!"..
+                        "\n\nProblem is, the guards only saw the part where fists were flying, not the part "..
+                        "where I asked for it and you agreed. Now Halloran thinks I was back to breaking "..
+                        "strangers' noses at the inn."..
+                        "\n\n\01265523Find Guardmaster James Halloran\01200000 and tell him the truth: it was "..
+                        "a fair brawl between willing fighters, not another tavern scuffle. \01265523He lives "..
+                        "near the bridge on the western part of town\01200000. If he still wants bail paid, "..
+                        "pay it, and I'll owe you twice over.",
+        Undone      =   "Any luck with Halloran? Tell him I started a fight, sure, but this time I started it "..
+                        "properly. Challenge given, challenge accepted, no hard feelings - right?",
+        Quest       =   "\"Brawl\"\nConrad Hawk, Amber Island, Town, Jail Tower\n\nConrad was jailed after "..
+                        "your agreed brawl. Explain the matter to Guardmaster Halloran near the western "..
+                        "bridge, and pay the bail if needed.",
+    },
+    CheckDone       =   false,  -- the quest can't be completed here
+    CanShow         =   function(t) return IsWarrior() end
 }
 
 ------------------------------------------------------------------------------
 -- James Gladwyn
-QuestNPC 			= 	485
+QuestNPC            =   485
 
 Greeting{
-	"James Gladwyn at your service!\n\nOh, you're those \"new people\" everyone keeps talking about, right? Good. New people means more trade and more trade means more gold.",
+    "James Gladwyn at your service!\n\nOh, you're those \"new people\" everyone keeps talking about, right? "..
+    "Good. New people means more trade and more trade means more gold.",
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Wealth",
-	Text 			= 	"You've probably  already heard, but this island bleeds gold. It's true! Once the top supplier of amber, it's now one of the most successful trade hubs in the world. But if you ask me, the real secret to its prosperity is the low taxation. It's practically non-existent."
+    Slot            =   A,
+    Topic           =   "Wealth",
+    Text            =   "You've probably  already heard, but this island bleeds gold. It's true! Once the top "..
+                        "supplier of amber, it's now one of the most successful trade hubs in the world.\n\nBut "..
+                        "if you ask me, the real secret to its prosperity is the low taxation. It's "..
+                        "practically non-existent."
 }
 ------------------------------------------------------------------------------
 -- Mark Bolton
 QuestNPC = 486
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Goblins",
-	Text 			= 	"I'm sure that even a powerful sorcerer like Magnus the Archmage realized he can't keep extorting us alone. That's why he brought several ships' worth of goblin mercenaries to back his cause. While most headed to the castle, others roam about, stirring up trouble. Be careful when traveling beyond the town."
+    Slot            =   A,
+    Topic           =   "Goblins",
+    Text            =   "I'm sure that even a powerful sorcerer like Magnus the Archmage realized he can't "..
+                        "keep extorting us alone. That's why he brought several ships' worth of goblin "..
+                        "mercenaries to back his cause. While most headed to the castle, others roam about, "..
+                        "stirring up trouble. Be careful when traveling beyond the town."
 }
 ------------------------------------------------------------------------------
 -- Sheila Bolton
-QuestNPC 			= 	487
+QuestNPC            =   487
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"The Payne Family",
-	Text 			= 	"Ashley, my older sister, lives in a \01265523small hut to the southeast of Amber Island\01200000, nestled in the swampy area. If you're looking for an \01265523expert alchemist\01200000, she's the person you should seek out."
+    Slot            =   A,
+    Topic           =   "The Payne Family",
+    Text            =   "Ashley, my older sister, lives in a \01265523small hut to the southeast of Amber "..
+                        "Island\01200000, nestled in the swampy area. If you're looking for an "..
+                        "\01265523expert alchemist\01200000, she's the person you should seek out."
 }
 
-Quest{  
-	Name 			= 	"AmberMisc1",
-	Slot 			= 	C,
-	QuestItem 		= 
-	{
-		{200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red 
-		{205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
-		{210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
-	},
-	Texts 			= 
-	{		
-		Topic 		= 	"Make: Black Potion (Intelligence)",
-		Done 		= 	"You've already gathered all the ingredients? Excellent. Allow me a moment to prepare the potion...\n\n*After a brief period, she returns and presents you with a dark, swirling \01265523Potion of Pure Intelligence\01200000.*",
-		TopicDone 	= 	false,
-		Give 		= 	string.format("I'm not exactly a master alchemist, but I do know how to concoct the \"specialty of the house\": the \01265523Potion of Pure Intelligence\01200000. If you provide the necessary ingredients, I'll be able to brew one for you.\n\nI require \01265523%d\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
-		Undone 		= 	string.format("Remember, I need \01265523%d\01200000 ingredients from each of the following types: \01265523red\01200000, \01265523blue\01200000, and \01265523yellow\01200000.", BlackPotionRequiredIngredients),
-	},
-	Exp 			= 	500,
-	RewardItem 		= 	266, -- Pure Intellect
+Quest{
+    Name            =   "AmberMisc1",
+    Slot            =   C,
+    QuestItem       =
+    {
+        {200,201,202,203,204, Count = BlackPotionRequiredIngredients}, -- Red
+        {205,206,207,208,209, Count = BlackPotionRequiredIngredients}, -- Blue
+        {210,211,212,213,214, Count = BlackPotionRequiredIngredients}, -- Yellow
+    },
+    Texts           =
+    {
+        Topic       =   "Make: Black Potion (Intelligence)",
+        Done        =   "You've already gathered all the ingredients? Excellent. Allow me a moment to prepare "..
+                        "the potion...\n\n*After a brief period, she returns and presents you with a dark, "..
+                        "swirling \01265523Potion of Pure Intelligence\01200000.*",
+        TopicDone   =   false,
+        Give        =   string.format("I'm not exactly a master alchemist, but I do know how to concoct the "..
+                                      "\"specialty of the house\": the \01265523Potion of Pure "..
+                                      "Intelligence\01200000. If you provide the necessary ingredients, I'll "..
+                                      "be able to brew one for you.\n\nI require \01265523%d\01200000 "..
+                                      "ingredients from each of the following types: \01265523red\01200000, "..
+                                      "\01265523blue\01200000, and "..
+                                      "\01265523yellow\01200000.", BlackPotionRequiredIngredients),
+        Undone      =   string.format("Remember, I need \01265523%d\01200000 ingredients from each of the "..
+                                      "following types: \01265523red\01200000, \01265523blue\01200000, and "..
+                                      "\01265523yellow\01200000.", BlackPotionRequiredIngredients),
+    },
+    Exp             =   500,
+    RewardItem      =   266, -- Pure Intellect
 }
 
 ------------------------------------------------------------------------------
 -- Julia Greene
-QuestNPC 			= 	488
+QuestNPC            =   488
 
 Greeting{
-	"Come in, come in! You're just the adventurers I've been searching for. Perhaps you could do a little favor for an old lady? Oh, I'll put on some tea.",
+    "Come in, come in! You're just the adventurers I've been searching for. Perhaps you could do a little "..
+    "favor for an old lady? Oh, I'll put on some tea.",
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Robert",
-	Text 			= 	"My son was stationed at that \01265523dreadful camp in the swamp\01200000. Maximus only sends someone to check on them once in a blue moon. Now, with the whole town in turmoil, they must've forgotten about him. Poor Robi!"
+    Slot            =   A,
+    Topic           =   "Robert",
+    Text            =   "My son was stationed at that \01265523dreadful camp in the swamp\01200000. Maximus "..
+                        "only sends someone to check on them once in a blue moon. Now, with the whole town in "..
+                        "turmoil, they must've forgotten about him. Poor Robi!"
 }
 
 Quest{
-	Name 			= 	"AmberQuest3",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Worrying Mother",
-		TopicDone 	= 	false,
-		Give 		= 	"\01265523Robert\01200000 must be sitting in that wretched \01265523camp\01200000 all alone, cold, wet, and hungry, with no one to look after him. Would you be kind enough to deliver this crate to him? Don't worry, I'll pay you in advance for your trouble.",
-		Undone 		= 	"The food will cool down and spoil if you don't hurry up. My son is waiting for you!",
+    Name            =   "AmberQuest3",
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Worrying Mother",
+        TopicDone   =   false,
+        Give        =   "\01265523Robert\01200000 must be sitting in that wretched \01265523camp\01200000 all "..
+                        "alone, cold, wet, and hungry, with no one to look after him. Would you be kind "..
+                        "enough to deliver this crate to him? Don't worry, I'll pay you in advance for your "..
+                        "trouble.",
+        Undone      =   "The food will cool down and spoil if you don't hurry up. My son is waiting for you!",
 
-		Quest 		= 	"\"Worrying Mother\"\nJulia Greene, Amber Island, Port Island\n\nDeliver a stash of goods to Julia's son, Robert, who is stationed at the swamp camp.",
-	},
-	Give			= 	function(t)
-							evt.Add("Gold",500)
-						end,
-	GivenItem 		= 	783,
-	CheckDone 		= 	false,  -- the quest can't be completed here
+        Quest       =   "\"Worrying Mother\"\nJulia Greene, Amber Island, Port Island\n\nDeliver a stash of "..
+                        "goods to Julia's son, Robert, who is stationed at the swamp camp.",
+    },
+    Give            =   function(t)
+                            evt.Add("Gold",500)
+                        end,
+    GivenItem       =   783,
+    CheckDone       =   false,  -- the quest can't be completed here
 }
 
 ------------------------------------------------------------------------------
 -- James Halloran (bridge house)
-QuestNPC 			= 	489
+QuestNPC            =   489
 
 Greeting{
-	"Greetings. I'm the \01265523guardmaster\01200000 here, in charge of town security and overseeing the jail. What can I do for you today?"
+    "Greetings. I'm the \01265523guardmaster\01200000 here, in charge of town security and overseeing the "..
+    "jail. What can I do for you today?"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Crime",
-	Text 			= 	"With the level of crime in this town so low, I'm practically bored to death. It's so peaceful here that dealing with \01265523Conrad's\01200000 antics is the highlight of my week. A guardmaster could use a bit more excitement, you know?"
+    Slot            =   A,
+    Topic           =   "Crime",
+    Text            =   "With the level of crime in this town so low, I'm practically bored to death. It's so "..
+                        "peaceful here that dealing with \01265523Conrad's\01200000 antics is the highlight "..
+                        "of my week. A guardmaster could use a bit more excitement, you know?"
 }
 
 Quest{
-	BaseName 		= 	"AmberQuest11",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		TopicGiven 	= 	"Pay: Conrad Hawk (500g)",
-		Done 		= 	"*Guardmaster Halloran smirks as he accepts the payment.*\n\nAh, another contribution to my \"Conrad Fund\". At this rate, I'll be retiring early.\n\nThanks for the business.",
-		Undone 		= 	"*The guardmaster examines the offered amount with a raised eyebrow.*\n\nYou think this is enough? For this amount, Conrad might as well take up permanent residence in my cell. \01265523Come back when you've got the full amount\01200000. I'm not running a charity here.",
-	},
-	Exp 			= 	500,
-	QuestGold 		= 	500,
-	Done			=	function(t)
-							evt.MoveNPC{NPC = 491, HouseId = 0}
-							evt.MoveNPC{NPC = 477, HouseId = 117}
-						end,
-	CanShow			=	function(t) return vars.Quests.AmberQuest11 ~= "Done" end
+    BaseName        =   "AmberQuest11",
+    Slot            =   B,
+    Texts           =
+    {
+        TopicGiven  =   "Pay: Conrad Hawk (500g)",
+        Done        =   "*Guardmaster Halloran smirks as he accepts the payment.*\n\nAh, another contribution "..
+                        "to my \"Conrad Fund\". At this rate, I'll be retiring early.\n\nThanks for the "..
+                        "business.",
+        Undone      =   "*The guardmaster examines the offered amount with a raised eyebrow.*\n\nYou think "..
+                        "this is enough? For this amount, Conrad might as well take up permanent residence in "..
+                        "my cell. \01265523Come back when you've got the full amount\01200000. I'm not "..
+                        "running a charity here.",
+    },
+    Exp             =   500,
+    QuestGold       =   500,
+    Done            =   function(t)
+                            evt.MoveNPC{NPC = 491, HouseId = 0}
+                            evt.MoveNPC{NPC = 477, HouseId = 117}
+                        end,
+    CanShow         =   function(t) return vars.Quests.AmberQuest11 ~= "Done" end
 }
 
 Quest{
-	BaseName 		= 	"AmberQuest11W",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		TopicGiven 	= 	"Quest: Brawl",
-		Done 		= 	"*Halloran listens carefully, then gives a tired sigh.*\n\nSo, Conrad actually found someone willing to trade blows with him for once? Right...\n\nFine. If it was agreed by both sides, \01265523I'll release him\01200000...\n\nBut tell Conrad his reputation is doing him no favors. When fists start flying and he's nearby, my guards don't ask who agreed to what - they reach for the shackles.",
-	},
-	Exp 			= 	750,
-	Done			=	function(t)
-							evt.MoveNPC{NPC = 491, HouseId = 0}
-							evt.MoveNPC{NPC = 477, HouseId = 117}
-						end,
-	CanShow			=	function(t) return vars.Quests.AmberQuest11W ~= "Done" end
+    BaseName        =   "AmberQuest11W",
+    Slot            =   B,
+    Texts           =
+    {
+        TopicGiven  =   "Quest: Brawl",
+        Done        =   "*Halloran listens carefully, then gives a tired sigh.*\n\nSo, Conrad actually found "..
+                        "someone willing to trade blows with him for once? Right...\n\nFine. If it was agreed "..
+                        "by both sides, \01265523I'll release him\01200000...\n\nBut tell Conrad his "..
+                        "reputation is doing him no favors. When fists start flying and he's nearby, my "..
+                        "guards don't ask who agreed to what - they reach for the shackles.",
+    },
+    Exp             =   750,
+    Done            =   function(t)
+                            evt.MoveNPC{NPC = 491, HouseId = 0}
+                            evt.MoveNPC{NPC = 477, HouseId = 117}
+                        end,
+    CanShow         =   function(t) return vars.Quests.AmberQuest11W ~= "Done" end
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Knight Camp",
-	Text 			= 	"Recently, a band of adventurers discovered a platform believed to be a teleportation platform "..
-						"used by the \01265523Archmage\01200000. The camp was established together with \01265523Sir "..
-						"Greene\01200000 and others to investigate the site, as well as to prevent the Archmage "..
-						"from escaping the island.\n\n"..
-						"\01265523Bellona Kemp\01200000, the \01265523Armsmaster Expert\01200000, and \01265523Elmar Mitchel\01200000, "..
-						"the \01265523Sword Expert\01200000, tagged along with Sir Greene. If you need training, you will have to fight "..
-						"your way through hordes of lizards in the \01265523southern swamp area\01200000."
+    Slot            =   C,
+    Topic           =   "Knight Camp",
+    Text            =   "Recently, a band of adventurers discovered a platform believed to be a teleportation "..
+                        "platform "..
+                        "used by the \01265523Archmage\01200000. The camp was established together with \01265523Sir "..
+                        "Greene\01200000 and others to investigate the site, as well as to prevent the Archmage "..
+                        "from escaping the island.\n\n"..
+                        "\01265523Bellona Kemp\01200000, the \01265523Armsmaster Expert\01200000, and "..
+                        "\01265523Elmar Mitchel\01200000, "..
+                        "the \01265523Sword Expert\01200000, tagged along with Sir Greene. If you need "..
+                        "training, you will have to fight "..
+                        "your way through hordes of lizards in the \01265523southern swamp area\01200000."
 }
 
 ------------------------------------------------------------------------------
 -- Thomas Beck
-QuestNPC 			= 	490
+QuestNPC            =   490
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Ex-Miner",
-	Text 			= 	"I'm the last of the old dwarven miners from the amber extraction days, decades ago. Those were hard times, but they paid off. I've accumulated enough wealth over the years, and now, I'm relishing my retirement."
+    Slot            =   A,
+    Topic           =   "Ex-Miner",
+    Text            =   "I'm the last of the old dwarven miners from the amber extraction days, decades ago. "..
+                        "Those were hard times, but they paid off.\n\nI've accumulated enough wealth over the "..
+                        "years, and now, I'm relishing my retirement."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Abandoned Mines",
-	Text 			= 	"I spent my younger years in the abandoned mines in the northeast part of the island, mining amber. Everything changed when a huge monster showed up and tore through the place. I tried to stand up to it, but it knocked my \01265523family sword\01200000 from my hand and I had to run for it. I'm still embarrassed about losing that sword.\n\nNobody's been brave enough to go near those mines since then."
+    Slot            =   B,
+    Topic           =   "Abandoned Mines",
+    Text            =   "I spent my younger years in the abandoned mines in the northeast part of the island, "..
+                        "mining amber. Everything changed when a huge monster showed up and tore through the "..
+                        "place. I tried to stand up to it, but it knocked my \01265523family sword\01200000 "..
+                        "from my hand and I had to run for it. I'm still embarrassed about losing that "..
+                        "sword.\n\nNobody's been brave enough to go near those mines since then."
 }
 
 -- Hidden quest
 Quest{
-	Name 			= 	"AmberQuest4",
-	Slot 			= 	C,
-	CanShow			= 	function(t) return evt.All.Cmp("Inventory", 784) or Q.AmberQuest4 == "Done" end,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Family Sword",
-		Done 		= 	"*His eyes widen in amazement as he beholds \01265523the sword\01200000 you present to him. A smile breaks across his weathered face, and he begins quietly sobbing.*"..
-						"\n\nThis is the sword of my family, the very one I lost years ago in those forsaken mines. I never thought I'd see it again. Thank you, truly, from the bottom of my heart. I must insist on giving you a proper reward. The sword's worth more to me than money.",
-		Undone 		= 	"false",
-		GreetDone 	= 	"Greetings, friends! You are always welcome here.",
-		TopicDone 	= 	"Thanks: Family Sword",
-		After 		= 	"I can't thank you enough for returning this precious heirloom to me.",
-	},
-	NeverGiven 		= 	true,
-	QuestItem 		= 	784,
-	Gold 			= 	3000,
-	Exp 			= 	1000,
-	Done			=	function(t) 
-							evt.Add("Awards", 107) -- "Found and returned Family Sword to Thomas Beck"
-							evt.Subtract("Reputation", 5) 
-						end
+    Name            =   "AmberQuest4",
+    Slot            =   C,
+    CanShow         =   function(t) return evt.All.Cmp("Inventory", 784) or Q.AmberQuest4 == "Done" end,
+    Texts           =
+    {
+        Topic       =   "Quest: Family Sword",
+        Done        =   "*His eyes widen in amazement as he beholds \01265523the sword\01200000 you present "..
+                        "to him. A smile breaks across his weathered face, and he begins quietly sobbing.*"..
+                        "\n\nThis is the sword of my family, the very one I lost years ago in those forsaken "..
+                        "mines. I never thought I'd see it again. Thank you, truly, from the bottom of my "..
+                        "heart. I must insist on giving you a proper reward. The sword's worth more to me "..
+                        "than money.",
+        Undone      =   "false",
+        GreetDone   =   "Greetings, friends! You are always welcome here.",
+        TopicDone   =   "Thanks: Family Sword",
+        After       =   "I can't thank you enough for returning this precious heirloom to me.",
+    },
+    NeverGiven      =   true,
+    QuestItem       =   784,
+    Gold            =   3000,
+    Exp             =   1000,
+    Done            =   function(t)
+                            evt.Add("Awards", 107) -- "Found and returned Family Sword to Thomas Beck"
+                            evt.Subtract("Reputation", 5)
+                        end
 }
 ------------------------------------------------------------------------------
 -- Urist Alesworth
-QuestNPC 			= 	492
+QuestNPC            =   492
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Oak Home",
-	Text 			= 	"We're descendants of the \01265523Alesworth clan\01200000, had our hands in the second expedition and all that. Our great-granddad, he built our home right under a sprouting oak on this very hill. Then, the oak got chopped and this tavern was built right where it stood. So, here we are, running the place. "
+    Slot            =   A,
+    Topic           =   "Oak Home",
+    Text            =   "We're descendants of the \01265523Alesworth clan\01200000, had our hands in the "..
+                        "second expedition and all that. Our great-granddad, he built our home right under a "..
+                        "sprouting oak on this very hill. Then, the oak got chopped and this tavern was built "..
+                        "right where it stood. So, here we are, running the place. "
 }
 
 KillMonstersQuest{
-	Name 			= 	"AmberQuest1",
-	{Map 			= 	"oakhome.blv", Monster = {268, 269, 270}},
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Rat Problem",
-		Give 		= 	"Me and my brother are considering fixing up our \01265523old family home\01200000. It's been ages since we've stepped foot in there, and it seems the local fauna have turned it into their own little stinkin' den!\n\n"..
-						"So, I need you to head over and \01265523clear out those rats\01200000. For seasoned adventurers like yourselves, it should be a walk in the park, right? Consider it quick money in your pocket.", 
-		Done 		= 	"You got them! Don't give me that look. I didn't say these were common rats. If it was just common rats, I'd hardly need adventurers! Here's compensation for your efforts.",
-		Undone 		= 	"I'm still hearing squeaking from down below, which means those pests are still around. The job's not done yet!",
-		TopicDone 	= 	"Thanks: Rat Problem",
-		After 		= 	"I owe you a big one, adventurers. Thanks to you, my family and I can finally take back our old home. We're truly grateful for your help.",
+    Name            =   "AmberQuest1",
+    {Map            =   "oakhome.blv", Monster = {268, 269, 270}},
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Rat Problem",
+        Give        =   "Me and my brother are considering fixing up our \01265523old family home\01200000. "..
+                        "It's been ages since we've stepped foot in there, and it seems the local fauna have "..
+                        "turned it into their own little stinkin' den!\n\n"..
+                        "So, I need you to head over and \01265523clear out those rats\01200000. For seasoned "..
+                        "adventurers like yourselves, it should be a walk in the park, right? Consider it "..
+                        "quick money in your pocket.",
+        Done        =   "You got them! Don't give me that look. I didn't say these were common rats. If it "..
+                        "was just common rats, I'd hardly need adventurers! Here's compensation for your "..
+                        "efforts.",
+        Undone      =   "I'm still hearing squeaking from down below, which means those pests are still "..
+                        "around. The job's not done yet!",
+        TopicDone   =   "Thanks: Rat Problem",
+        After       =   "I owe you a big one, adventurers. Thanks to you, my family and I can finally take "..
+                        "back our old home. We're truly grateful for your help.",
 
-		Quest 		= 	"\"Rat Problem\"\nUrist Alesworth, Amber Island, Town, Powder Keg Inn\n\nGet rid of the rats from Oak Hill Cottage, situtated under the Powder Keg Inn at Port Island.",
-	},
-	Gold 			= 	2500,
-	Exp 			= 	2500, 
-	Done			=	function(t) evt.Subtract("Reputation", 5) end,
+        Quest       =   "\"Rat Problem\"\nUrist Alesworth, Amber Island, Town, Powder Keg Inn\n\nGet rid of "..
+                        "the rats from Oak Hill Cottage, situtated under the Powder Keg Inn at Port Island.",
+    },
+    Gold            =   2500,
+    Exp             =   2500,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end,
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Traps",
-	CanShow			= 	function(t) return IsWarrior() end,
-	Text 			= 	"Traps, you ask? Well, me and my brother tried to deal with the rat problem ourselves. Built traps, baited them just right, and thought we had it all handled. Problem is, these rats are smarter and meaner than we expected. They broke free of most of our traps or outright ignored them.\n\n" ..
-						"The traps are still there, though, and they will catch more than rats if you are not careful. Watch your step down there. Last thing we need is you getting caught in one of our contraptions on top of everything else."
+    Slot            =   C,
+    Topic           =   "Traps",
+    CanShow         =   function(t) return IsWarrior() end,
+    Text            =   "Traps, you ask? Well, me and my brother tried to deal with the rat problem "..
+                        "ourselves. Built traps, baited them just right, and thought we had it all handled. "..
+                        "Problem is, these rats are smarter and meaner than we expected. They broke free of "..
+                        "most of our traps or outright ignored them.\n\n" ..
+                        "The traps are still there, though, and they will catch more than rats if you are not "..
+                        "careful. Watch your step down there. Last thing we need is you getting caught in one "..
+                        "of our contraptions on top of everything else."
 }
 
 ------------------------------------------------------------------------------
 -- Harvey Yap
 
-QuestNPC 			= 	493
+QuestNPC            =   493
 
 Greeting{
-	"New people! Welcome to the Amber Island.",
-	"Good to see you again. Care for a cup of tea?",
+    "New people! Welcome to the Amber Island.",
+    "Good to see you again. Care for a cup of tea?",
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Amber Bank",
-	Text 			= 	"Have you had a chance to check out the Amber Bank? It's massive: practically a fortress. My dad's one of the folks who keeps it running. Now, everyone talks about trade and low taxes being the lifeblood of the island's prosperity, but according to my dad, the true secret is the bank. It's where all the kings and top merchants stash their riches. Naturally, nobody wants to mess with a place that guards so much wealth."
+    Slot            =   A,
+    Topic           =   "Amber Bank",
+    Text            =   "Have you had a chance to check out the Amber Bank?\n\nIt's massive: practically a "..
+                        "fortress.\n\nMy dad's one of the folks who keeps it running. Now, everyone talks about "..
+                        "trade and low taxes being the lifeblood of the island's prosperity, but according to "..
+                        "my dad, the true secret is the bank. It's where all the kings and top merchants "..
+                        "stash their riches.\n\nNaturally, nobody wants to mess with a place that guards so much "..
+                        "wealth."
 }
 
 Quest{
-	Name 			= 	"AmberQuest2",
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Lucky Coin",
-		Give 		= 	"I possess a special \01265523coin\01200000, a family heirloom passed down from my father. It has a long and storied history within our family."..
-						"\n\nYou see, um, I've developed a habit of flipping it in the air while strolling through the streets. Unfortunately, disaster struck recently. \01265523A black crow snatched the coin mid-air and flew off with it\01200000, leaving me... coinless. *sobs*"..
-						"\n\nIf you're willing to find it for me, I'm prepared to offer a substantial reward.",
-		Done 		= 	"What? You've found it? You can't imagine how relieved and happy I am! I'll be sure to be more careful with it from now on. Here's your reward, adventurers, as promised.",
-		Undone 		= 	"Still no luck finding that coin? What I'm am even saying, of course there's no luck. I lost it! *sobs*\n\nMaybe that crow has a nest somewhere nearby...",
-		GreetDone 	= 	"Ah, my favourite adventurers. I'm so happy to see you again. Come in, make yourself comfortable.",
-		TopicDone 	= 	"Thanks: Lucky Coin",
-		After 		= 	"I'm overjoyed to see my coin again! It's clear I need to break my tossing habit if I want to keep it safe. Thank you for your help. I won't forget this.",
+    Name            =   "AmberQuest2",
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Lucky Coin",
+        Give        =   "I possess a special \01265523coin\01200000, a family heirloom passed down from my "..
+                        "father. It has a long and storied history within our family."..
+                        "\n\nYou see, um, I've developed a habit of flipping it in the air while strolling "..
+                        "through the streets. Unfortunately, disaster struck recently. \01265523A black crow "..
+                        "snatched the coin mid-air and flew off with it\01200000, leaving me... coinless. "..
+                        "*sobs*"..
+                        "\n\nIf you're willing to find it for me, I'm prepared to offer a substantial reward.",
+        Done        =   "What? You've found it? You can't imagine how relieved and happy I am! I'll be sure "..
+                        "to be more careful with it from now on. Here's your reward, adventurers, as "..
+                        "promised.",
+        Undone      =   "Still no luck finding that coin? What I'm am even saying, of course there's no luck. "..
+                        "I lost it! *sobs*\n\nMaybe that crow has a nest somewhere nearby...",
+        GreetDone   =   "Ah, my favourite adventurers. I'm so happy to see you again. Come in, make yourself "..
+                        "comfortable.",
+        TopicDone   =   "Thanks: Lucky Coin",
+        After       =   "I'm overjoyed to see my coin again! It's clear I need to break my tossing habit if I "..
+                        "want to keep it safe. Thank you for your help. I won't forget this.",
 
-		Quest 		= 	"\"Lucky Coin\"\nHarvey Yap, Amber Island, Town, Western District\n\nFind the ancient golden coin and bring it to his owner.",
-	},
-	QuestItem 		= 	782,
-	Gold 			= 	1000,
-	Exp 			= 	1500,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+        Quest       =   "\"Lucky Coin\"\nHarvey Yap, Amber Island, Town, Western District\n\nFind the ancient "..
+                        "golden coin and bring it to his owner.",
+    },
+    QuestItem       =   782,
+    Gold            =   1000,
+    Exp             =   1500,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 ------------------------------------------------------------------------------
 -- Robert Stevenson
 
-QuestNPC 			= 	494
+QuestNPC            =   494
 
 Quest{
-	Name 			= 	"AmberQuest7",
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Quest: Old Sea Dog",
-		TopicDone 	= 	"Thanks: Old Sea Dog",
-		GreetDone 	= 	"Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
-		Give 		= 	"Hail to you! If you don't mind, I really could use some muscle here. You see, some time ago I was attacked by a sea monster. My ship crashed into the island and I fled."..
-						"\n\nCan you \01265523help me retrieve some of the goods?\01200000 They should be on the \01265523east side of Amber Island\01200000, among the \01265523flooded ruins\01200000, at an \01265523unusual looking tree\01200000. I could do it by myself if it wasn't for dangers that inhabit the island.",
-		Undone 		= 	"Set your course straight for the treasure on the \01265523east side of Amber Island, near the castle Amber island\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
-		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near a unique tree among the flooded ruins on Amber Island's east side, near Castle Amber.",
-		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
-	},
-	Give			= 	function(t)	
-							evt.MoveNPC{NPC = 494, HouseId = 0}
-							evt.Add("NPCs", 494)
-							ShowQuestEffect(true, t.TakeQuestOperation)
-						end,
-	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	function(t) return not IsWarrior() end
+    Name            =   "AmberQuest7",
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Old Sea Dog",
+        TopicDone   =   "Thanks: Old Sea Dog",
+        GreetDone   =   "Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
+        Give        =   "Hail to you! If you don't mind, I really could use some muscle here. You see, some "..
+                        "time ago I was attacked by a sea monster. My ship crashed into the island and I "..
+                        "fled."..
+                        "\n\nCan you \01265523help me retrieve some of the goods?\01200000 They should be on "..
+                        "the \01265523east side of Amber Island\01200000, among the \01265523flooded "..
+                        "ruins\01200000, at an \01265523unusual looking tree\01200000. I could do it by "..
+                        "myself if it wasn't for dangers that inhabit the island.",
+        Undone      =   "Set your course straight for the treasure on the \01265523east side of Amber Island, "..
+                        "near the castle Amber island\01200000, at that \01265523unusual tree\01200000. No "..
+                        "beast or man shall keep us from our prize.",
+        Quest       =   "\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the old sailor's lost loot near "..
+                        "a unique tree among the flooded ruins on Amber Island's east side, near Castle "..
+                        "Amber.",
+        After       =   "Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't "..
+                        "have made it easier if you tried!"
+    },
+    Give            =   function(t)
+                            evt.MoveNPC{NPC = 494, HouseId = 0}
+                            evt.Add("NPCs", 494)
+                            ShowQuestEffect(true, t.TakeQuestOperation)
+                        end,
+    CheckDone       =   false,  -- the quest can't be completed here
+    CanShow         =   function(t) return not IsWarrior() end
 }
 
 Quest{
-	Name 			= 	"AmberQuest7W",
-	Slot 			= 	B,
-	Texts 			= 
-	{
-		Topic 		= 	"Quest: Old Sea Dog",
-		TopicDone 	= 	"Thanks: Old Sea Dog",
-		GreetDone 	= 	"Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
-		Give 		= 	"Hail to you! If you don't mind, I could really use some muscle here. "..
-						"You see, some time ago, a sea monster attacked my ship. "..
-						"It crashed upon \01265523Deadman's Island\01200000, and I barely escaped "..
-						"by boat to \01265523Amber Island\01200000.\n\n"..
+    Name            =   "AmberQuest7W",
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Quest: Old Sea Dog",
+        TopicDone   =   "Thanks: Old Sea Dog",
+        GreetDone   =   "Surprise, landlubbers! Ye thought ye'd be finding treasure, but instead, ye found us!",
+        Give        =   "Hail to you! If you don't mind, I could really use some muscle here. "..
+                        "You see, some time ago, a sea monster attacked my ship. "..
+                        "It crashed upon \01265523Deadman's Island\01200000, and I barely escaped "..
+                        "by boat to \01265523Amber Island\01200000.\n\n"..
 
-						"Can you \01265523help me retrieve some of the goods?\01200000 "..
-						"They are buried in a cave at the center of "..
-						"\01265523Deadman's Island\01200000.\n\n"..
+                        "Can you \01265523help me retrieve some of the goods?\01200000 "..
+                        "They are buried in a cave at the center of "..
+                        "\01265523Deadman's Island\01200000.\n\n"..
 
-						"First, we must head to the \01265523drowned village\01200000 "..
-						"on the \01265523eastern part of Amber Island\01200000 "..
-						"and find the \01265523hidden boat\01200000 near that "..
-						"\01265523unusual tree\01200000.\n\n"..
+                        "First, we must head to the \01265523drowned village\01200000 "..
+                        "on the \01265523eastern part of Amber Island\01200000 "..
+                        "and find the \01265523hidden boat\01200000 near that "..
+                        "\01265523unusual tree\01200000.\n\n"..
 
-						"I would go myself, but I am no match for the "..
-						"\01265523monstrosities\01200000 along the way.",
-		Undone 		= 	"Set your course straight for the treasure among the \01265523flooded ruins\01200000 on the \01265523east side of Amber Island, near Castle Amber\01200000, at that \01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
-		Quest 		= 	"\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the hidden boat near the unusual tree among the flooded ruins on Amber Island's east side, near Castle Amber, then travel to Deadman's Island and recover the goods from a central cave.",
-		After		=	"Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't have made it easier if you tried!"
-	},
-	Give			= 	function(t)
-							evt.MoveNPC{NPC = 494, HouseId = 0}
-							evt.Add("NPCs", 494)
-							ShowQuestEffect(true, t.TakeQuestOperation)
-						end,
-	CheckDone 		= 	false,  -- the quest can't be completed here
-	CanShow			=	function(t) return IsWarrior() end
+                        "I would go myself, but I am no match for the "..
+                        "\01265523monstrosities\01200000 along the way.",
+        Undone      =   "Set your course straight for the treasure among the \01265523flooded ruins\01200000 "..
+                        "on the \01265523east side of Amber Island, near Castle Amber\01200000, at that "..
+                        "\01265523unusual tree\01200000. No beast or man shall keep us from our prize.",
+        Quest       =   "\"Old Sea Dog\"\nRobert Stevenson, Follower\n\nFind the hidden boat near the unusual "..
+                        "tree among the flooded ruins on Amber Island's east side, near Castle Amber, then "..
+                        "travel to Deadman's Island and recover the goods from a central cave.",
+        After       =   "Cheers for delivering yourselves right into our \01265523ambush!\01200000 Couldn't "..
+                        "have made it easier if you tried!"
+    },
+    Give            =   function(t)
+                            evt.MoveNPC{NPC = 494, HouseId = 0}
+                            evt.Add("NPCs", 494)
+                            ShowQuestEffect(true, t.TakeQuestOperation)
+                        end,
+    CheckDone       =   false,  -- the quest can't be completed here
+    CanShow         =   function(t) return IsWarrior() end
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Texts 			= 
-	{
-		Topic 		= 	"What the...",
-		Ungive 		= 	"Ye've walked the plank right into me \01265523trap\01200000, landlubbers!\n\nThere be no sea monster here, only the consequences of crossing paths with a pirate. Now, let's see if ye can fight men as well as beasts."
-	},
-	CanShow			= 	function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "What the...",
+        Ungive      =   "Ye've walked the plank right into me \01265523trap\01200000, landlubbers!\n\nThere "..
+                        "be no sea monster here, only the consequences of crossing paths with a pirate. Now, "..
+                        "let's see if ye can fight men as well as beasts."
+    },
+    CanShow         =   function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end
 }
 ------------------------------------------------------------------------------
 -- Martha Blaine
 
-QuestNPC 	= 	495
+QuestNPC    =   495
 
 Quest{
-	Name 			= 	"AmberQuest5",
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Ransom",
-		TopicDone 	= 	"Thanks: Ransom",
-		Give 		= 	"Please, I am begging you, help me! My daughter \01265523Laurie\01200000 has been taken by cruel \01265523ratmen\01200000. They are demanding a ransom of \012655231000\01200000 gold pieces, to be delivered to the \01265523north-west island\01200000."..
-						"\n\nCould you possibly deliver the ransom and personally escort her back home safely?",
-		Done		= 	"I cannot tell you how much it means to see Laurie safe and sound! Your bravery and kindness have brought our family back together. Here is your well-deserved reward. Thank you from the bottom of my heart.",
-		Undone 		= 	"Why are you still here? Please, my daughter's safety is at stake. Deliver the ransom and bring her back to me as soon as possible, please.",
-		After 		= 	"Thank you so much for bringing Laurie home. Our family will forever be grateful for what you've done.",
-		Quest 		= 	"\"Ransom\"\nMartha Blaine, Amber Island, Town, Western District\n\nLaurie Blaine has been kidnapped by vicious ratmen. The ransomer is awaiting the ransom at Apple Island, located in the north-west part of the islands. Deliver the ransom or rescue her, then safely escort her back home to her mother.",
-	},
-	Give			= 	function(t)
-							evt.Add("Gold",1000)
-						end,
-	Done			= 	function(t) 
-							if evt.Cmp("NPCs", 516) then
-								evt.Subtract("NPCs", 516)
-								evt.Subtract("Reputation", 5)
-								evt.MoveNPC{NPC = 516, HouseId = 552}
-								ShowQuestEffect(true, t.TakeQuestOperation)
-								vars.QuestsAmberIsland.QVarRansom = 5
-							end
-						end,
-	CheckDone 		= 	function(t) return evt.Cmp("NPCs", 516) == true end,
-	RewardItem 		= 	196,
-	Exp				=	2500,
+    Name            =   "AmberQuest5",
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Ransom",
+        TopicDone   =   "Thanks: Ransom",
+        Give        =   "Please, I am begging you, help me! My daughter \01265523Laurie\01200000 has been "..
+                        "taken by cruel \01265523ratmen\01200000. They are demanding a ransom of "..
+                        "\012655231000\01200000 gold pieces, to be delivered to the \01265523north-west "..
+                        "island\01200000."..
+                        "\n\nCould you possibly deliver the ransom and personally escort her back home safely?",
+        Done        =   "I cannot tell you how much it means to see Laurie safe and sound! Your bravery and "..
+                        "kindness have brought our family back together. Here is your well-deserved reward. "..
+                        "Thank you from the bottom of my heart.",
+        Undone      =   "Why are you still here? Please, my daughter's safety is at stake. Deliver the ransom "..
+                        "and bring her back to me as soon as possible, please.",
+        After       =   "Thank you so much for bringing Laurie home. Our family will forever be grateful for "..
+                        "what you've done.",
+        Quest       =   "\"Ransom\"\nMartha Blaine, Amber Island, Town, Western District\n\nLaurie Blaine has "..
+                        "been kidnapped by vicious ratmen. The ransomer is awaiting the ransom at Apple "..
+                        "Island, located in the north-west part of the islands. Deliver the ransom or rescue "..
+                        "her, then safely escort her back home to her mother.",
+    },
+    Give            =   function(t)
+                            evt.Add("Gold",1000)
+                        end,
+    Done            =   function(t)
+                            if evt.Cmp("NPCs", 516) then
+                                evt.Subtract("NPCs", 516)
+                                evt.Subtract("Reputation", 5)
+                                evt.MoveNPC{NPC = 516, HouseId = 552}
+                                ShowQuestEffect(true, t.TakeQuestOperation)
+                                vars.QuestsAmberIsland.QVarRansom = 5
+                            end
+                        end,
+    CheckDone       =   function(t) return evt.Cmp("NPCs", 516) == true end,
+    RewardItem      =   196,
+    Exp             =   2500,
 }
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{
-		Topic 		= 	"There's a problem...",
-		Done 		= 	"*Upon hearing the kidnappers' new demands, Martha's face crumples in despair. Clutching a bag of gold tightly in her trembling hands, she thrusts it towards you.*\n\n This is all I have, every last coin. Please, take it. Maybe it is enough to hire some help? I beg you, Laurier is all I've got. You must bring her back to me!\n\n*Her eyes brim with tears.*",
-	},
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRansom == 1 and not evt.Cmp("NPCs", 516) end,
-	Done			= 	function(t)
-							vars.QuestsAmberIsland.QVarRansom = 2
-						end,
-	Gold			= 	1678,
-	NeverGiven 		= 	true,
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "There's a problem...",
+        Done        =   "*Upon hearing the kidnappers' new demands, Martha's face crumples in despair. "..
+                        "Clutching a bag of gold tightly in her trembling hands, she thrusts it towards "..
+                        "you.*\n\n This is all I have, every last coin. Please, take it. Maybe it is enough "..
+                        "to hire some help? I beg you, Laurier is all I've got. You must bring her back to "..
+                        "me!\n\n*Her eyes brim with tears.*",
+    },
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRansom == 1 and not evt.Cmp("NPCs", 516) end,
+    Done            =   function(t)
+                            vars.QuestsAmberIsland.QVarRansom = 2
+                        end,
+    Gold            =   1678,
+    NeverGiven      =   true,
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Financial Issues",
-	Text 			= 	"You heard? It has been one misfortune after another. First, the Archmage's mist only clouded our skies, but now he forces us to pay his exorbitant fees for our own protection. Then, my husband finds himself unable to return from his travels, trapped abroad by the same cursed mist.\n\nAnd as if to add insult to injury, our dear daughter Laurie was kidnapped. Each event on its own is a strain, but together, they have nearly drained our coffers dry.\n\nThese are indeed dire times for the Blaine household."
+    Slot            =   C,
+    Topic           =   "Financial Issues",
+    Text            =   "You heard? It has been one misfortune after another. First, the Archmage's mist only "..
+                        "clouded our skies, but now he forces us to pay his exorbitant fees for our own "..
+                        "protection. Then, my husband finds himself unable to return from his travels, "..
+                        "trapped abroad by the same cursed mist.\n\nAnd as if to add insult to injury, our "..
+                        "dear daughter Laurie was kidnapped. Each event on its own is a strain, but together, "..
+                        "they have nearly drained our coffers dry.\n\nThese are indeed dire times for the "..
+                        "Blaine household."
 }
 ------------------------------------------------------------------------------
 -- Otho Robeson
 
-QuestNPC 			= 	496
+QuestNPC            =   496
 
 local function MoveOthoBackToHome()
-	RemoveTimer()
-	evt.MoveNPC{NPC = 496, HouseId = 568}
-	vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.TRANSFERED
+    RemoveTimer()
+    evt.MoveNPC{NPC = 496, HouseId = 568}
+    vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.TRANSFERED
 end
 
 Quest{
-	Name 			= 	"AmberQuest6",
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Revenge",
-		TopicDone 	= 	"Thanks: Revenge",
-		Give 		= 	"Ah, so you are the newly-arrived fortune seekers? You're precisely the sort of individuals I require at this moment."..
-						"\n\nMy need is one of a discreet and delicate nature, calling for a particular set of skills I believe you possess."..
-						"\n\nHis name is \01265523Michael Cassio\01200000. He resides not far from here, \01265523between our town and Castle Amber\01200000. My request is simple: you must \01265523kill Cassio\01200000 for me. This man has inflicted a grievous betrayal upon my house by dishonoring my wife."..
-						"\n\nI offer this \01265523ring\01200000 as advance payment. You may, of course, sell it and run away: a risk I am prepared to take. However, should you fulfill your commitment and then \01265523return the ring\01200000 to me, I assure you, your reward will be most generous indeed.",
-		Done		= 	"You actually did it? You cannot imagine my relief. I'll be stuck here for a \01265523few more hours\01200000, but once I'm out, \01265523visit my house\01200000 and we will discuss your reward. Don't forget to \01265523bring the ring.\01200000",
-		Undone 		= 	"The clock is ticking. Do what you have to do. End Michael Cassio.",
-		After 		= 	"Let's discuss your reward at my home \01265523after I'm released\01200000 from this disgusting hole. Don't forget to bring the ring.",
-		Quest 		= 	"\"Revenge\"\nOtho Robeson, Amber Island, Town, Jail Tower\n\nLocate and eliminate Michael Cassio. He resides to the east of Amber Town, situated between the town and Castle Amber.",
-	},
-	GivenItem 		= 	791,
-	Exp				=	2500,
-	Give			= 	function(t)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.GIVEN
-						end,
-	Done			= 	function(t)
-							evt.Add("Reputation", 10)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.RELEASED
-							evt.ForPlayer("All")
-							ShowQuestEffect(false,"Add")
-							Timer(
-								MoveOthoBackToHome, const.Hour, const.Hour + const.Minute, true)
-						end,
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRevenge and vars.QuestsAmberIsland.QVarRevenge < QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.REPORTED end,
-	CheckDone		= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.KILLED end
+    Name            =   "AmberQuest6",
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Revenge",
+        TopicDone   =   "Thanks: Revenge",
+        Give        =   "Ah, so you are the newly-arrived fortune seekers? You're precisely the sort of "..
+                        "individuals I require at this moment."..
+                        "\n\nMy need is one of a discreet and delicate nature, calling for a particular set "..
+                        "of skills I believe you possess."..
+                        "\n\nHis name is \01265523Michael Cassio\01200000. He resides not far from here, "..
+                        "\01265523between our town and Castle Amber\01200000. My request is simple: you must "..
+                        "\01265523kill Cassio\01200000 for me. This man has inflicted a grievous betrayal "..
+                        "upon my house by dishonoring my wife."..
+                        "\n\nI offer this \01265523ring\01200000 as advance payment. You may, of course, sell "..
+                        "it and run away: a risk I am prepared to take. However, should you fulfill your "..
+                        "commitment and then \01265523return the ring\01200000 to me, I assure you, your "..
+                        "reward will be most generous indeed.",
+        Done        =   "You actually did it? You cannot imagine my relief. I'll be stuck here for a "..
+                        "\01265523few more hours\01200000, but once I'm out, \01265523visit my house\01200000 "..
+                        "and we will discuss your reward. Don't forget to \01265523bring the ring.\01200000",
+        Undone      =   "The clock is ticking. Do what you have to do. End Michael Cassio.",
+        After       =   "Let's discuss your reward at my home \01265523after I'm released\01200000 from this "..
+                        "disgusting hole. Don't forget to bring the ring.",
+        Quest       =   "\"Revenge\"\nOtho Robeson, Amber Island, Town, Jail Tower\n\nLocate and eliminate "..
+                        "Michael Cassio. He resides to the east of Amber Town, situated between the town and "..
+                        "Castle Amber.",
+    },
+    GivenItem       =   791,
+    Exp             =   2500,
+    Give            =   function(t)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.GIVEN
+                        end,
+    Done            =   function(t)
+                            evt.Add("Reputation", 10)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.RELEASED
+                            evt.ForPlayer("All")
+                            ShowQuestEffect(false,"Add")
+                            Timer(
+                                MoveOthoBackToHome, const.Hour, const.Hour + const.Minute, true)
+                        end,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge and vars.QuestsAmberIsland.QVarRevenge < QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.REPORTED end,
+    CheckDone       =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.KILLED end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Failed: Revenge",
-	Text 			= 	"You think you're clever, siding with Michael against me? You will \01265523regret\01200000 this. Mark my words, you have not seen the last of me!",
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
+    Slot            =   B,
+    Topic           =   "Failed: Revenge",
+    Text            =   "You think you're clever, siding with Michael against me? You will "..
+                        "\01265523regret\01200000 this. Mark my words, you have not seen the last of me!",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Thanks: Revenge",
-	Text 			= 	"Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I look forward to \01265523collaborating\01200000 with you again in the future.",
+    Slot            =   C,
+    Topic           =   "Thanks: Revenge",
+    Text            =   "Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I "..
+                        "look forward to \01265523collaborating\01200000 with you again in the future.",
 
-	CanShow			= 	function(t) 
-							return vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.STOLEN
-						end
+    CanShow         =   function(t)
+                            return vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.STOLEN
+                        end
 }
 
 Quest{
-	Slot 			= 	D,
-	Texts 			= 
-	{
-		Topic 		= 	"Reward?",
-		Give 		= 	"Here is your well-deserved reward. Do you have the \01265523ring?\01200000 I'll gladly add a bonus if you do.",
-	},
-	Exp				=	500,
-	Give			= 	function(t)
-							local rewardGold = 1500
-							
-							if evt.All.Cmp("Inventory", 791) then
-								evt.Subtract("Inventory", 791)
-								rewardGold = rewardGold + 2500
-							end
-							evt.Add("Gold", rewardGold)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REWARDED
-						end,
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.TRANSFERED end
+    Slot            =   D,
+    Texts           =
+    {
+        Topic       =   "Reward?",
+        Give        =   "Here is your well-deserved reward. Do you have the \01265523ring?\01200000 I'll "..
+                        "gladly add a bonus if you do.",
+    },
+    Exp             =   500,
+    Give            =   function(t)
+                            local rewardGold = 1500
+
+                            if evt.All.Cmp("Inventory", 791) then
+                                evt.Subtract("Inventory", 791)
+                                rewardGold = rewardGold + 2500
+                            end
+                            evt.Add("Gold", rewardGold)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REWARDED
+                        end,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.TRANSFERED end
 }
 ------------------------------------------------------------------------------
 -- Desdemona Robeson
 
-QuestNPC 			= 	497
+QuestNPC            =   497
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Jealous Husband",
-	Text 			= 	"My husband, he's driven by such fierce jealousy, especially concerning me. It's like a madness that clouds his judgment. Just recently, he brutally attacked Michael Cassio, convinced he was involved in an affair with me. There's no reasoning with him when he gets these notions in his head. It's all so baseless, yet he believes it with every fiber of his being. It's tearing us apart."
+    Slot            =   A,
+    Topic           =   "Jealous Husband",
+    Text            =   "My husband, he's driven by such fierce jealousy, especially concerning me. It's like "..
+                        "a madness that clouds his judgment.\n\nJust recently, he brutally attacked Michael "..
+                        "Cassio, convinced he was involved in an affair with me. There's no reasoning with "..
+                        "him when he gets these notions in his head. It's all so baseless, yet he believes it "..
+                        "with every fiber of his being.\n\nIt's tearing us apart."
 }
 ------------------------------------------------------------------------------
 -- Michael Cassio
 
-QuestNPC 			= 	498
+QuestNPC            =   498
 
 NPCTopic{
-	Slot 			= 	A,
-	Branch			=	"",
-	Topic 			= 	"Otho Robeson",
-	Text 			= 	"That Otho Robeson is a complete lunatic! He beat me to a pulp, all because of some delusional idea that I was involved with his wife. I swear, the man's lost his mind! I've done nothing to deserve that kind of treatment. He's a menace, driven by irrational jealousy, and frankly, he's dangerous. Everyone needs to watch out for him. He's completely out of control."
+    Slot            =   A,
+    Branch          =   "",
+    Topic           =   "Otho Robeson",
+    Text            =   "That Otho Robeson is a complete lunatic! He beat me to a pulp, all because of some "..
+                        "delusional idea that I was involved with his wife. I swear, the man's lost his mind! "..
+                        "I've done nothing to deserve that kind of treatment. He's a menace, driven by "..
+                        "irrational jealousy, and frankly, he's dangerous. Everyone needs to watch out for "..
+                        "him. He's completely out of control."
 }
 
 Quest{
-	Slot 			= 	B,
-	Branch 			= 	"",
-	NewBranch		=	"Confrontation",
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Revenge",
-		Ungive 		= 	"What is the meaning of this?",
-	},
-	Ungive			=	SetBranch,
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.GIVEN end
+    Slot            =   B,
+    Branch          =   "",
+    NewBranch       =   "Confrontation",
+    Texts           =
+    {
+        Topic       =   "Quest: Revenge",
+        Ungive      =   "What is the meaning of this?",
+    },
+    Ungive          =   SetBranch,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.GIVEN end
 }
 
 Quest{
-	Slot 			= 	C,
-	Branch			=	"",
-	Texts 			= 
-	{		
-		Topic 		= 	"Well?",
-		Give 		= 	"We shouldn't loose any time, let's go \01265523see the mayor\01200000 and tell him everything.",
-	},
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING end
+    Slot            =   C,
+    Branch          =   "",
+    Texts           =
+    {
+        Topic       =   "Well?",
+        Give        =   "We shouldn't loose any time, let's go \01265523see the mayor\01200000 and tell him "..
+                        "everything.",
+    },
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTING end
 }
 
 NPCTopic{
-	Slot 			= 	D,
-	Branch			=	"",
-	Topic 			= 	"Thanks: Revenge",
-	Text 			= 	"I'm glad that you've chosen the path of honor. You will always be a welcome guest at my home.",
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Thanks: Revenge",
+    Text            =   "I'm glad that you've chosen the path of honor. You will always be a welcome guest at my home.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
 }
 
 Quest{
-	Slot 			= 	E,
-	Branch			=	"",
-	Texts 			= 
-	{		
-		Topic 		= 	"Stolen Ring",
-		Give 		= 	"Damn... This ring is one of a kind, and everyone knows it belongs to Otho.\n\n"..
-						"We have to catch that thief and get it back while the trail is still fresh.\n\n"..
-						"She went east, toward Eastern Amber Island. Move!",
-	},
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
+    Slot            =   E,
+    Branch          =   "",
+    Texts           =
+    {
+        Topic       =   "Stolen Ring",
+        Give        =   "Damn... This ring is one of a kind, and everyone knows it belongs to Otho.\n\n"..
+                        "We have to catch that thief and get it back while the trail is still fresh.\n\n"..
+                        "She went east, toward Eastern Amber Island. Move!",
+    },
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
 }
 
 -- BRANCH
 Quest{
-	Slot 			= 	A,
-	Branch 			= 	"Confrontation",
-	NewBranch		=	"void",
-	Texts 			= 
-	{
-		Topic 		= 	"Kill Michael",
-		Give 		= 	"What? Otho sent you? Well, he's picked the wrong person to intimidate. I won't go down without a \01265523fight\01200000, you lowlifes. You've underestimated me. I'm ready for whatever you've planned. Bring it on."
-	},
-	Give			= 	function(t)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.DUEL
-							evt.MoveNPC{NPC = 498, HouseId = 0}
-							local mon 	= SummonMonster(207, 16809, 9292, 96, true)
-							mon.NPC_ID 	= 498
-							mon.Hostile = true
+    Slot            =   A,
+    Branch          =   "Confrontation",
+    NewBranch       =   "void",
+    Texts           =
+    {
+        Topic       =   "Kill Michael",
+        Give        =   "What? Otho sent you? Well, he's picked the wrong person to intimidate. I won't go "..
+                        "down without a \01265523fight\01200000, you lowlifes. You've underestimated me. I'm "..
+                        "ready for whatever you've planned. Bring it on."
+    },
+    Give            =   function(t)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.DUEL
+                            evt.MoveNPC{NPC = 498, HouseId = 0}
+                            local mon   = SummonMonster(207, 16809, 9292, 96, true)
+                            mon.NPC_ID  = 498
+                            mon.Hostile = true
 
-							XYZ(Party, 17333, 10103, 74)
-							Party.Direction = 1273
-							Party.LookAngle = 0
+                            XYZ(Party, 17333, 10103, 74)
+                            Party.Direction = 1273
+                            Party.LookAngle = 0
 
-							if IsWarrior() then
-								mon.FullHP		= 360
-								mon.HP 			= 360
-								mon.Level		= mon.Level + 5
-								mon.ArmorClass	= 25
+                            if IsWarrior() then
+                                mon.FullHP      = 360
+                                mon.HP          = 360
+                                mon.Level       = mon.Level + 5
+                                mon.ArmorClass  = 25
 
-								mon.Spell 		= const.Spells.Heroism
-								mon.SpellChance = 10
-								mon.SpellSkill 	= JoinSkill(4, const.Expert)
-							end
-							SetBranch(t)
-						end
+                                mon.Spell       = const.Spells.Heroism
+                                mon.SpellChance = 10
+                                mon.SpellSkill  = JoinSkill(4, const.Expert)
+                            end
+                            SetBranch(t)
+                        end
 }
 Quest{
-	Slot 			= 	B,
-	Branch 			= 	"Confrontation",
-	NewBranch		=	"void",
-	Texts 			= 
-	{
-		Topic 		= 	"Take his side",
-		Give 		= 	"Thank you for choosing the path of honor. With the \01265523ring\01200000 as evidence of Otho's dark intentions, we have a chance to bring the truth to light. Let's get to the mayor as quickly as possible.",
-		Ungive		=	"*You can't approach Michael with this option without a proof - you need that \01265523ring\01200000 Otho gave you.*",
-	},
-	CheckGive		=	function(t) return evt.All.Cmp("Inventory", 791) end,
-	Give			= 	function(t)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
-							evt.MoveNPC{NPC = 498, HouseId = 0}
-							evt.Add("NPCs", 498)
-							evt.Subtract("Inventory", 791)
-							ShowQuestEffect(true, t.TakeQuestOperation)
+    Slot            =   B,
+    Branch          =   "Confrontation",
+    NewBranch       =   "void",
+    Texts           =
+    {
+        Topic       =   "Take his side",
+        Give        =   "Thank you for choosing the path of honor. With the \01265523ring\01200000 as "..
+                        "evidence of Otho's dark intentions, we have a chance to bring the truth to light. "..
+                        "Let's get to the mayor as quickly as possible.",
+        Ungive      =   "*You can't approach Michael with this option without a proof - you need that "..
+                        "\01265523ring\01200000 Otho gave you.*",
+    },
+    CheckGive       =   function(t) return evt.All.Cmp("Inventory", 791) end,
+    Give            =   function(t)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
+                            evt.MoveNPC{NPC = 498, HouseId = 0}
+                            evt.Add("NPCs", 498)
+                            evt.Subtract("Inventory", 791)
+                            ShowQuestEffect(true, t.TakeQuestOperation)
 
-							if IsWarrior() then
-								vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.STOLEN
-								evt.MoveNPC(550,604)
-								Timer(function()
-									RemoveTimer()
-									ShowQuestEffect(true, t.TakeQuestOperation)
-									Message(evt.str[20])
-								end, 2 * const.Minute, false)
-							end
+                            if IsWarrior() then
+                                vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.STOLEN
+                                evt.MoveNPC(550,604)
+                                Timer(function()
+                                    RemoveTimer()
+                                    ShowQuestEffect(true, t.TakeQuestOperation)
+                                    Message(evt.str[20])
+                                end, 2 * const.Minute, false)
+                            end
 
-							SetBranch(t)
-						end	
+                            SetBranch(t)
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Howard Carter
 
-QuestNPC 			= 	499
+QuestNPC            =   499
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Saint Nourville",
-	Text 			= 	"Many years ago, during the earliest days of amber mining on this island, a tragic accident occurred. The \01265523First Expedition\01200000 was buried deep underground due to an unexpected avalanche. Only one dwarf, later known as \01265523Saint Nourville\01200000, was spared from this calamity."..
-						"\n\nDriven by a profound sense of duty, he dedicated every ounce of his energy to sustain the lives of the trapped miners. He tirelessly dropped food for them, worked to clear the passage, and wove ropes for their rescue, all without a wink of sleep or a bite of food for several days. His effort paid off, and he successfully orchestrated their rescue."..
-						"\n\nIn gratitude, the miners established a \01265523temple in his honor\01200000 and erected a \01265523statue in the swamp\01200000 to honor his heroic deed."
+    Slot            =   A,
+    Topic           =   "Saint Nourville",
+    Text            =   "Many years ago, during the earliest days of amber mining on this island, a tragic "..
+                        "accident occurred. The \01265523First Expedition\01200000 was buried deep "..
+                        "underground due to an unexpected avalanche. Only one dwarf, later known as "..
+                        "\01265523Saint Nourville\01200000, was spared from this calamity."..
+                        "\n\nDriven by a profound sense of duty, he dedicated every ounce of his energy to "..
+                        "sustain the lives of the trapped miners. He tirelessly dropped food for them, worked "..
+                        "to clear the passage, and wove ropes for their rescue, all without a wink of sleep "..
+                        "or a bite of food for several days. His effort paid off, and he successfully "..
+                        "orchestrated their rescue."..
+                        "\n\nIn gratitude, the miners established a \01265523temple in his honor\01200000 and "..
+                        "erected a \01265523statue in the swamp\01200000 to honor his heroic deed."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"First Expedition",
-	Text 			= 	"It's believed that amber on this island was first discovered quite by chance by a marooned sailor who managed to survive here alone for four years. After his eventual rescue, he assembled a group of fortune seekers who would become the initial mining team, initiating what is now known as \"The First Expedition.\" "..
-						"\n\nThis marked the dawn of civilization on Amber Island. The name of this resourceful founder, however, remains lost to history."
+    Slot            =   B,
+    Topic           =   "First Expedition",
+    Text            =   "It's believed that amber on this island was first discovered quite by chance by a "..
+                        "marooned sailor who managed to survive here alone for four years. After his eventual "..
+                        "rescue, he assembled a group of fortune seekers who would become the initial mining "..
+                        "team, initiating what is now known as \"The First Expedition.\" "..
+                        "\n\nThis marked the dawn of civilization on Amber Island. The name of this "..
+                        "resourceful founder, however, remains lost to history."
 }
 
 KillMonstersQuest{
-	Name 			= 	"AmberQuest8",
-	{Map 			= 	"amber.odm", Monster = {265, 266, 267}},
-	Slot 			= 	C,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Swamp Creatures",
-		Give 		= 	"I've got some archaeological work to do in the swampy area on the \01265523southern island\01200000, but it's crawling with nasty \01265523lizards\01200000.\n\nCould you clear them out for me? I need that area safe to dig.",
-		Done 		= 	"Awesome job, folks. You've really helped me out. If you ever find yourselves near the swamp, \01265523drop by and see what we're uncovering\01200000.",
-		Undone 		= 	"Those creatures are still causing trouble on the \01265523southern island\01200000. I can't start my work with them around.",
-		TopicDone 	= 	"Thanks: Swamp Creatures",
-		After 		= 	"There's some fascinating stuff here in the swamp, but digging through this muck is a challenge. Your help has been invaluable in making it possible.",
+    Name            =   "AmberQuest8",
+    {Map            =   "amber.odm", Monster = {265, 266, 267}},
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Quest: Swamp Creatures",
+        Give        =   "I've got some archaeological work to do in the swampy area on the \01265523southern "..
+                        "island\01200000, but it's crawling with nasty \01265523lizards\01200000.\n\nCould "..
+                        "you clear them out for me? I need that area safe to dig.",
+        Done        =   "Awesome job, folks. You've really helped me out. If you ever find yourselves near "..
+                        "the swamp, \01265523drop by and see what we're uncovering\01200000.",
+        Undone      =   "Those creatures are still causing trouble on the \01265523southern island\01200000. "..
+                        "I can't start my work with them around.",
+        TopicDone   =   "Thanks: Swamp Creatures",
+        After       =   "There's some fascinating stuff here in the swamp, but digging through this muck is a "..
+                        "challenge. Your help has been invaluable in making it possible.",
 
-		Quest 		= 	"\"Swamp Creatures\"\nHoward Carter, Amber Island, Town, Western District\n\nClear out the hostile lizards in the swampy area on the southern island so Howard Carter can proceed with his archaeological work.",
-	},
-	CanShow			=	function(t) return not IsWarrior() end,
-	Gold 			= 	2000,
-	Exp 			= 	1500,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+        Quest       =   "\"Swamp Creatures\"\nHoward Carter, Amber Island, Town, Western District\n\nClear "..
+                        "out the hostile lizards in the swampy area on the southern island so Howard Carter "..
+                        "can proceed with his archaeological work.",
+    },
+    CanShow         =   function(t) return not IsWarrior() end,
+    Gold            =   2000,
+    Exp             =   1500,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 KillMonstersQuest{
-	Name 			= 	"AmberQuest8W",
-	{Map 			= 	"amber.odm", Monster = {88, 89, 90}},
-	Slot 			= 	C,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Swamp Hydra",
-		Give 		= 	"I've got some archaeological work to do in the swampy area on the \01265523southern island\01200000, but something far worse than lizards has settled there.\n\nA gigantic \01265523Hydra\01200000 has taken control of the swamp, and the nearby reptiles have become far more aggressive because of it.\n\nCould you slay the beast for me? I need that area safe to dig.",
-		Done 		= 	"Awesome job, folks. With the Hydra gone, my workers can finally return to the excavation site safely.\n\nIf you ever find yourselves near the swamp, \01265523drop by and see what we're uncovering\01200000.",
-		Undone 		= 	"That \01265523Hydra\01200000 is still terrorizing the swamp on the \01265523southern island\01200000. I can't start my work with that monster around.",
-		TopicDone 	= 	"Thanks: Swamp Hydra",
-		After 		= 	"There's some fascinating stuff here in the swamp, but digging through this muck is a challenge. Your help has been invaluable in making it possible.",
+    Name            =   "AmberQuest8W",
+    {Map            =   "amber.odm", Monster = {88, 89, 90}},
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Quest: Swamp Hydra",
+        Give        =   "I've got some archaeological work to do in the swampy area on the \01265523southern "..
+                        "island\01200000, but something far worse than lizards has settled there.\n\nA "..
+                        "gigantic \01265523Hydra\01200000 has taken control of the swamp, and the nearby "..
+                        "reptiles have become far more aggressive because of it.\n\nCould you slay the beast "..
+                        "for me? I need that area safe to dig.",
+        Done        =   "Awesome job, folks. With the Hydra gone, my workers can finally return to the "..
+                        "excavation site safely.\n\nIf you ever find yourselves near the swamp, \01265523drop "..
+                        "by and see what we're uncovering\01200000.",
+        Undone      =   "That \01265523Hydra\01200000 is still terrorizing the swamp on the \01265523southern "..
+                        "island\01200000. I can't start my work with that monster around.",
+        TopicDone   =   "Thanks: Swamp Hydra",
+        After       =   "There's some fascinating stuff here in the swamp, but digging through this muck is a "..
+                        "challenge. Your help has been invaluable in making it possible.",
 
-		Quest 		= 	"\"Swamp Hydra\"\nHoward Carter, Amber Island, Town, Western District\n\nSlay the gigantic Hydra in the swamp on the southern island so Howard Carter can safely continue his archaeological work.",
-	},
-	CanShow			=	function(t) return IsWarrior() end,
-	Gold 			= 	2000,
-	Exp 			= 	1500,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+        Quest       =   "\"Swamp Hydra\"\nHoward Carter, Amber Island, Town, Western District\n\nSlay the "..
+                        "gigantic Hydra in the swamp on the southern island so Howard Carter can safely "..
+                        "continue his archaeological work.",
+    },
+    CanShow         =   function(t) return IsWarrior() end,
+    Gold            =   2000,
+    Exp             =   1500,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 ------------------------------------------------------------------------------
 -- John Constantine
 
-QuestNPC 			= 	500
+QuestNPC            =   500
 
 Greeting{
 
-	"Ah, welcome! I'm John Constantine, a warlock specializing in \01265523demonic studies\01200000. I see many adventurers pass through in search of fortune. What adventures bring you to our enchanted shores today?"
+    "Ah, welcome! I'm John Constantine, a warlock specializing in \01265523demonic studies\01200000. I see "..
+    "many adventurers pass through in search of fortune. What adventures bring you to our enchanted shores "..
+    "today?"
 }
 
 KillMonstersQuest{
-	Name 			= 	"AmberQuest9",
-	{Map 			= 	"amber.odm", Monster = {22}},
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Ritual",
-		Give 		= 	"Before he started using goblins, Archmage Magnus placed several demonic altars across the island, which summoned demons he used to keep the village in line. Thanks to my magic and adventurers like you, there's only \01265523one altar left\01200000. It's in the woods on the southern island. \n\nHead there, and use \01265523this scroll\01200000 to cast a spell that will cleanse the area of the Archmage's corrupting magic.\n\nBe warned: unlike the other altars, the \01265523demon\01200000 protecting this altar is powerful. It will likely appear when you begin the cleansing.",
-		Done 		= 	"Excellent work! I can sense even the air is a bit fresher now. You've successfully cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your work.",
-		Undone 		= 	"Don't forget, to complete the ritual. You must summon and defeat the \01265523demon\01200000 at the altar on the southern island using this magical scroll.",
-		TopicDone 	= 	"Thanks: Ritual",
-		After 		= 	"Thanks to you our island is now free from demonic influence. On behalf of the entire town, I extend our deepest gratitude. You've done a great service for us all.",
+    Name            =   "AmberQuest9",
+    {Map            =   "amber.odm", Monster = {22}},
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Ritual",
+        Give        =   "Before he started using goblins, Archmage Magnus placed several demonic altars "..
+                        "across the island, which summoned demons he used to keep the village in line. Thanks "..
+                        "to my magic and adventurers like you, there's only \01265523one altar left\01200000. "..
+                        "It's in the woods on the southern island. \n\nHead there, and use \01265523this "..
+                        "scroll\01200000 to cast a spell that will cleanse the area of the Archmage's "..
+                        "corrupting magic.\n\nBe warned: unlike the other altars, the \01265523demon\01200000 "..
+                        "protecting this altar is powerful. It will likely appear when you begin the "..
+                        "cleansing.",
+        Done        =   "Excellent work! I can sense even the air is a bit fresher now. You've successfully "..
+                        "cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your "..
+                        "work.",
+        Undone      =   "Don't forget, to complete the ritual. You must summon and defeat the "..
+                        "\01265523demon\01200000 at the altar on the southern island using this magical "..
+                        "scroll.",
+        TopicDone   =   "Thanks: Ritual",
+        After       =   "Thanks to you our island is now free from demonic influence. On behalf of the entire "..
+                        "town, I extend our deepest gratitude. You've done a great service for us all.",
 
-		Quest 		= 	"\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and defeat the demon at the altar in the forested area of the southern swamp island.",
-	},
-	GivenItem 		= 	785,
-	CheckDone 		= 	function(t)
-							
-							-- extra check for monster
-							for _, mon in Map.Monsters do
-								if mon.Id == 22 and mon.HP > 0 then
-									return false
-								end
-							end
+        Quest       =   "\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and "..
+                        "defeat the demon at the altar in the forested area of the southern swamp island.",
+    },
+    GivenItem       =   785,
+    CheckDone       =   function(t)
 
-							return vars.QuestsAmberIsland.QVarRitual == true
-						end,
-	Gold 			= 	2500,
-	Exp 			= 	1500,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end,
-	CanShow			=	function(t) return not IsWarrior() end
+                            -- extra check for monster
+                            for _, mon in Map.Monsters do
+                                if mon.Id == 22 and mon.HP > 0 then
+                                    return false
+                                end
+                            end
+
+                            return vars.QuestsAmberIsland.QVarRitual == true
+                        end,
+    Gold            =   2500,
+    Exp             =   1500,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end,
+    CanShow         =   function(t) return not IsWarrior() end
 }
 
 KillMonstersQuest{
-	Name 			= 	"AmberQuest9W",
-	{Map 			= 	"amber.odm", Monster = {23}},
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Ritual",
-		Give 		= 	"Before he started using goblins, Archmage Magnus placed several demonic altars across the island, which summoned demons he used to keep the village in line. Thanks to my magic and adventurers like you, there's only \01265523one altar left\01200000. It's in the woods on the southern island.\n\nHead there, and use \01265523this scroll\01200000 to cast a spell that will cleanse the area of the Archmage's corrupting magic.\n\n"..
-						"This ritual will strike back! The one who casts the spell will be \01265523cursed\01200000, and the rest will be \01265523weakened\01200000 by the ritual.\n\nThe \01265523demon\01200000 protecting this place is powerful, unnaturally fast, and once it appears, you will not be able to outrun it - he might even bring \01265523minions\01200000 with him. Make every preparation before you begin.",
-		Done 		= 	"Excellent work! I can sense even the air is a bit fresher now. You've successfully cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your work.",
-		Undone 		= 	"Don't forget, to complete the ritual, you must summon and defeat the \01265523demon\01200000 at the altar on the southern island using this magical scroll.\n\nPrepare well before casting it: the caster will be \01265523cursed\01200000, the rest will be \01265523weakened\01200000, and the demon is far too fast to escape once summoned - he might even bring \01265523minions\01200000 with him.",
-		TopicDone 	= 	"Thanks: Ritual",
-		After 		= 	"Thanks to you our island is now free from demonic influence. On behalf of the entire town, I extend our deepest gratitude. You've done a great service for us all.",
+    Name            =   "AmberQuest9W",
+    {Map            =   "amber.odm", Monster = {23}},
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Ritual",
+        Give        =   "Before he started using goblins, Archmage Magnus placed several demonic altars "..
+                        "across the island, which summoned demons he used to keep the village in line. Thanks "..
+                        "to my magic and adventurers like you, there's only \01265523one altar left\01200000. "..
+                        "It's in the woods on the southern island.\n\nHead there, and use \01265523this "..
+                        "scroll\01200000 to cast a spell that will cleanse the area of the Archmage's "..
+                        "corrupting magic.\n\n"..
+                        "This ritual will strike back! The one who casts the spell will be "..
+                        "\01265523cursed\01200000, and the rest will be \01265523weakened\01200000 by the "..
+                        "ritual.\n\nThe \01265523demon\01200000 protecting this place is powerful, "..
+                        "unnaturally fast, and once it appears, you will not be able to outrun it - he might "..
+                        "even bring \01265523minions\01200000 with him. Make every preparation before you "..
+                        "begin.",
+        Done        =   "Excellent work! I can sense even the air is a bit fresher now. You've successfully "..
+                        "cleansed the area of the Archmage's foul magic. Here's the gold you deserve for your "..
+                        "work.",
+        Undone      =   "Don't forget, to complete the ritual, you must summon and defeat the "..
+                        "\01265523demon\01200000 at the altar on the southern island using this magical "..
+                        "scroll.\n\nPrepare well before casting it: the caster will be "..
+                        "\01265523cursed\01200000, the rest will be \01265523weakened\01200000, and the demon "..
+                        "is far too fast to escape once summoned - he might even bring "..
+                        "\01265523minions\01200000 with him.",
+        TopicDone   =   "Thanks: Ritual",
+        After       =   "Thanks to you our island is now free from demonic influence. On behalf of the entire "..
+                        "town, I extend our deepest gratitude. You've done a great service for us all.",
 
-		Quest 		= 	"\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and defeat the demon at the altar in the forested area of the southern swamp island.",
-	},
-	GivenItem 		= 	785,
-	CheckDone 		= 	function(t)
-							
-							-- extra check for monster
-							for _, mon in Map.Monsters do
-								if mon.Id == 23 and mon.HP > 0 then
-									return false
-								end
-							end
+        Quest       =   "\"Ritual\"\nJohn Constantine, Amber Island, Town, Western District\n\nSummon and "..
+                        "defeat the demon at the altar in the forested area of the southern swamp island.",
+    },
+    GivenItem       =   785,
+    CheckDone       =   function(t)
 
-							return vars.QuestsAmberIsland.QVarRitual == true
-						end,
-	Gold 			= 	3000,
-	Exp 			= 	2000,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end,
-	CanShow			=	function(t) return IsWarrior() end
+                            -- extra check for monster
+                            for _, mon in Map.Monsters do
+                                if mon.Id == 23 and mon.HP > 0 then
+                                    return false
+                                end
+                            end
+
+                            return vars.QuestsAmberIsland.QVarRitual == true
+                        end,
+    Gold            =   3000,
+    Exp             =   2000,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end,
+    CanShow         =   function(t) return IsWarrior() end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Demons",
-	Text 			= 	"Demons are vile abominations, the embodiment of evil. They never bring anything good into our world. Their origins are shrouded in mystery, but their presence is always a blight."
+    Slot            =   B,
+    Topic           =   "Demons",
+    Text            =   "Demons are vile abominations, the embodiment of evil. They never bring anything good "..
+                        "into our world. Their origins are shrouded in mystery, but their presence is always "..
+                        "a blight."
 }
 ------------------------------------------------------------------------------
 -- Samanatha Ferrum
-QuestNPC 			= 	501
+QuestNPC            =   501
 
 Greeting{
-	"You seem like a capable band of adventurers. If you ever come across a \01265523piece of amber\01200000, consider bringing it to me. I'm willing to offer you \01265523double\01200000 its usual price.",
+    "You seem like a capable band of adventurers. If you ever come across a \01265523piece of amber\01200000, "..
+    "consider bringing it to me. I'm willing to offer you \01265523double\01200000 its usual price.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Sell: Amber for 300g",
-		Done 		= 	"Wonderful piece! Please come again and bring more amber.",
-		Undone 		= 	"It appears you don't possess any suitable amber. Should you come across any, please return.",
-	},
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	Gold 			= 	300,
-	QuestItem		=	788
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Sell: Amber for 300g",
+        Done        =   "Wonderful piece! Please come again and bring more amber.",
+        Undone      =   "It appears you don't possess any suitable amber. Should you come across any, please return.",
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    Gold            =   300,
+    QuestItem       =   788
 }
 ------------------------------------------------------------------------------
 -- Amelia Lightfeather
-QuestNPC 			= 	502
+QuestNPC            =   502
 
 Greeting{
-	"Greetings, fellow traveler! If you're in need of an extra boost on your journeys, I have a \01265523collection of \"Jump\" spell scrolls\01200000, gathered during my own adventures.\n\nSince I no longer have a need for these scrolls, I'm looking to sell them to someone who can put them to good use.",
+    "Greetings, fellow traveler! If you're in need of an extra boost on your journeys, I have a "..
+    "\01265523collection of \"Jump\" spell scrolls\01200000, gathered during my own adventures.\n\nSince I no "..
+    "longer have a need for these scrolls, I'm looking to sell them to someone who can put them to good use.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Jump Scroll, 250g",
-		Done 		= 	"I'm happy to see the scrolls go to someone who can use them. Thank you for buying, and may your adventures be both exciting and profitable.",
-		Undone 		= 	"I get that they're not flying off the shelves, and I have plenty, but they still cost me quite a bit of effort to acquire. I can't part with them unless you have the full amount."
-	},
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	250,
-	RewardItem 		= 	315,
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Buy: Jump Scroll, 250g",
+        Done        =   "I'm happy to see the scrolls go to someone who can use them. Thank you for buying, "..
+                        "and may your adventures be both exciting and profitable.",
+        Undone      =   "I get that they're not flying off the shelves, and I have plenty, but they still "..
+                        "cost me quite a bit of effort to acquire. I can't part with them unless you have the "..
+                        "full amount."
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   250,
+    RewardItem      =   315,
 }
 
 ------------------------------------------------------------------------------
 -- Julia McBane
-QuestNPC 			= 	504
+QuestNPC            =   504
 
 Greeting{
-	"Greetings, travelers! I am the principal teacher of this island, guardian of its exclusive knowledge. Today, I offer you an invaluable opportunity to delve into a \01265523lecture\01200000 steeped in the unique wisdom of our land. This session is available for \012655231500g\01200000, an investment that promises to enrich your journey with profound insights and expertise found nowhere else.",
+    "Greetings, travelers! I am the principal teacher of this island, guardian of its exclusive knowledge. "..
+    "Today, I offer you an invaluable opportunity to delve into a \01265523lecture\01200000 steeped in the "..
+    "unique wisdom of our land.\n\nThis session is available for \012655231500g\01200000, an investment that "..
+    "promises to enrich your journey with profound insights and expertise found nowhere else.",
 }
 
--- @todo	for future mm8-like experience, give exp exlusively to available party heroes. Allow re-usage. Adjust price per person.
+-- @todo    for future mm8-like experience, give exp exlusively to available party heroes. Allow re-usage. Adjust price per person.
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Lecture (+1000xp) for 1500g",
-		Done 		= 	"An investment in knowledge is the best kind of investment. You won't regret your decision; it's worth every coin. Now, follow me...",
-		Undone 		= 	"While I firmly believe that knowledge is power, it also comes with its cost. Unfortunately, without the necessary gold, I cannot share this powerful wisdom with you.",
-		After 		= 	"You've already attended all the classes available for the season. I can't let you pay for what you already know. You already know everything I can teach you."
-	},
-	NeverGiven 		= 	true,
-	QuestGold 		= 	1500,
-	Exp				=	1000
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Buy: Lecture (+1000xp) for 1500g",
+        Done        =   "An investment in knowledge is the best kind of investment. You won't regret your "..
+                        "decision; it's worth every coin. Now, follow me...",
+        Undone      =   "While I firmly believe that knowledge is power, it also comes with its cost. "..
+                        "Unfortunately, without the necessary gold, I cannot share this powerful wisdom with "..
+                        "you.",
+        After       =   "You've already attended all the classes available for the season. I can't let you "..
+                        "pay for what you already know. You already know everything I can teach you."
+    },
+    NeverGiven      =   true,
+    QuestGold       =   1500,
+    Exp             =   1000
 }
 
 ------------------------------------------------------------------------------
 -- Ella Borg
-QuestNPC 			= 	506
+QuestNPC            =   506
 
 Greeting{
-	"I'm an amateur glassworker. I can sell you \01265523empty flasks\01200000 for your alchemical needs for 25g.",
+    "I'm an amateur glassworker. I can sell you \01265523empty flasks\01200000 for your alchemical needs for 25g.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Empty Flask for 25g",
-		Done 		= 	"Though I'm still mastering my craft, this flask is made to withstand the rigors of alchemy. Thank you for your purchase.",
-		Undone 		= 	"I'm sorry, but even though it's quite affordable, I must ask for the full price. Crafting, even at this level, demands time and materials."
-	},
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	25,
-	RewardItem 		= 	220,
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Buy: Empty Flask for 25g",
+        Done        =   "Though I'm still mastering my craft, this flask is made to withstand the rigors of "..
+                        "alchemy. Thank you for your purchase.",
+        Undone      =   "I'm sorry, but even though it's quite affordable, I must ask for the full price. "..
+                        "Crafting, even at this level, demands time and materials."
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   25,
+    RewardItem      =   220,
 }
 ------------------------------------------------------------------------------
 -- Jane Goodwin
-QuestNPC 			= 	507
+QuestNPC            =   507
 
 Greeting{
-	"Greetings!\n\nI make \01265523red\01200000 and \01265523blue\01200000 potions for my brother at Saint Nourville Cathedral. I've got a few extra potions on hand that I could offer you.",
+    "Greetings!\n\nI make \01265523red\01200000 and \01265523blue\01200000 potions for my brother at Saint "..
+    "Nourville Cathedral. I've got a few extra potions on hand that I could offer you.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Crate of Red Potions (x8) for 500g",
-		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
-		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
-	},
-	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkCurePotionSale == true or evt.Cmp("Counter2", 24 * 5) == true end,
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	500,
-	Done 			= 	function(t)
-							vars.MiscAmberIsland.BulkCurePotionSale = false
-							for i = 0, 8, 1 do
-								evt.GiveItem(1, const.ItemType.Potion_, 222)
-							end
-							evt.Set("Counter2", 0)
-							Timer(
-								function()
-									vars.MiscAmberIsland.BulkCurePotionSale = true
-								end, const.Week, const.Hour, true)
-						end
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Buy: Crate of Red Potions (x8) for 500g",
+        Done        =   "Thank you for your purchase! I'm sure my potions will serve you well.",
+        Undone      =   "I'd love to help you out with a better price, but the potions are already priced "..
+                        "lower when bought in bulk like this. I can't go any lower."
+    },
+    CanShow         =   function(t) return vars.MiscAmberIsland.BulkCurePotionSale == true or evt.Cmp("Counter2", 24 * 5) == true end,
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   500,
+    Done            =   function(t)
+                            vars.MiscAmberIsland.BulkCurePotionSale = false
+                            for i = 0, 8, 1 do
+                                evt.GiveItem(1, const.ItemType.Potion_, 222)
+                            end
+                            evt.Set("Counter2", 0)
+                            Timer(
+                                function()
+                                    vars.MiscAmberIsland.BulkCurePotionSale = true
+                                end, const.Week, const.Hour, true)
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Buy more! (Cure Potion)",
-	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkCurePotionSale == false and evt.Cmp("Counter2", 24 * 5) == false end,
-	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
+    Slot            =   B,
+    Topic           =   "Buy more! (Cure Potion)",
+    CanShow         =   function(t) return vars.MiscAmberIsland.BulkCurePotionSale == false and evt.Cmp("Counter2", 24 * 5) == false end,
+    Text            =   "I'm glad you're interested in more potions, but I've just sold out my current stock. "..
+                        "Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready "..
+                        "for you."
 }
 
 Quest{
-	Slot 			= 	C,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Crate of Blue Potions (x8) for 500g",
-		Done 		= 	"Thank you for your purchase! I'm sure my potions will serve you well.",
-		Undone 		= 	"I'd love to help you out with a better price, but the potions are already priced lower when bought in bulk like this. I can't go any lower."
-	},
-	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkManaPotionSale == true or evt.Cmp("Counter3", 24 * 5) == true end,
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	500,
-	Done 			= 	function(t)
-							vars.MiscAmberIsland.BulkManaPotionSale = false
-							for i = 0, 8, 1 do
-								evt.GiveItem(2, const.ItemType.Potion_, 223)
-							end
-							evt.Set("Counter3", 0)
-							Timer(
-								function()
-									vars.MiscAmberIsland.BulkManaPotionSale = true
-								end, const.Week, const.Hour, true)
-						end
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Buy: Crate of Blue Potions (x8) for 500g",
+        Done        =   "Thank you for your purchase! I'm sure my potions will serve you well.",
+        Undone      =   "I'd love to help you out with a better price, but the potions are already priced "..
+                        "lower when bought in bulk like this. I can't go any lower."
+    },
+    CanShow         =   function(t) return vars.MiscAmberIsland.BulkManaPotionSale == true or evt.Cmp("Counter3", 24 * 5) == true end,
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   500,
+    Done            =   function(t)
+                            vars.MiscAmberIsland.BulkManaPotionSale = false
+                            for i = 0, 8, 1 do
+                                evt.GiveItem(2, const.ItemType.Potion_, 223)
+                            end
+                            evt.Set("Counter3", 0)
+                            Timer(
+                                function()
+                                    vars.MiscAmberIsland.BulkManaPotionSale = true
+                                end, const.Week, const.Hour, true)
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	D,
-	Topic 			= 	"Buy more! (Mana Potion)",
-	CanShow			= 	function(t) return vars.MiscAmberIsland.BulkManaPotionSale == false and evt.Cmp("Counter3", 24 * 5) == false end,
-	Text 			= 	"I'm glad you're interested in more potions, but I've just sold out my current stock. Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready for you."
+    Slot            =   D,
+    Topic           =   "Buy more! (Mana Potion)",
+    CanShow         =   function(t) return vars.MiscAmberIsland.BulkManaPotionSale == false and evt.Cmp("Counter3", 24 * 5) == false end,
+    Text            =   "I'm glad you're interested in more potions, but I've just sold out my current stock. "..
+                        "Give me a \01265523week\01200000 to prepare a fresh batch, and I'll have them ready "..
+                        "for you."
 }
 ------------------------------------------------------------------------------
 -- Aldous Chapman
-QuestNPC 			= 	508
+QuestNPC            =   508
 
 Greeting{
-	"Welcome to Chapman residence. I am a well-known merchant here, ready to offer you an array of exquisite \01265523goods\01200000. Our island's treasures are renowned far and wide, and I'm here to provide you with the best trading experience.",
+    "Welcome to Chapman residence. I am a well-known merchant here, ready to offer you an array of exquisite "..
+    "\01265523goods\01200000. Our island's treasures are renowned far and wide, and I'm here to provide you "..
+    "with the best trading experience.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Amber Apple Cider for 1500g",
-		Done 		= 	"Thank you for your purchase. These bottles can only be bought here and can fetch a high price in mainland cities.",
-		Undone 		= 	"If you don't have enough gold, you'll have to come back when you do."
-	},
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	1500,
-	RewardItem 		= 	789,
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Buy: Amber Apple Cider for 1500g",
+        Done        =   "Thank you for your purchase. These bottles can only be bought here and can fetch a "..
+                        "high price in mainland cities.",
+        Undone      =   "If you don't have enough gold, you'll have to come back when you do."
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   1500,
+    RewardItem      =   789,
 }
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{
-		Topic 		= 	"Sell: Coffee Beans for 3000g",
-		Done 		= 	"Here on Amber Island, we have a great love for coffee. Your sale is much appreciated!",
-		Undone 		= 	"It appears you don't have any coffee beans with you.",
-	},
-	NeverGiven 		= 	true,
-	NeverDone 		= 	true,
-	Gold 			= 	3000,
-	QuestItem		=	790
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Sell: Coffee Beans for 3000g",
+        Done        =   "Here on Amber Island, we have a great love for coffee. Your sale is much appreciated!",
+        Undone      =   "It appears you don't have any coffee beans with you.",
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    Gold            =   3000,
+    QuestItem       =   790
 }
 
 ------------------------------------------------------------------------------
 -- Grimwald Hawk
-QuestNPC 			= 	509
+QuestNPC            =   509
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Conrad",
-	Text 			= 	"I'm at my wit's end with my son, Conrad. He's always stirring up trouble, provoking others, and seeking out fights. It's a constant source of embarrassment. I wish he'd settle down, start a family, build a home, and lead a respectable life instead of wandering around like a aimless loafer. "
+    Slot            =   A,
+    Topic           =   "Conrad",
+    Text            =   "I'm at my wit's end with my son, Conrad. He's always stirring up trouble, provoking "..
+                        "others, and seeking out fights. It's a constant source of embarrassment.\n\nI wish he'd "..
+                        "settle down, start a family, build a home, and lead a respectable life instead of "..
+                        "wandering around like a aimless loafer. "
 }
 ------------------------------------------------------------------------------
 -- Alaric Shadoweaver
-QuestNPC 			= 	510
+QuestNPC            =   510
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Liberal Attitudes",
-	Text 			= 	"This island is a sanctuary for those with an open-minded stance on magic. Here, it doesn't matter if you practice light or dark magic as long as you don't harm others. That's why my wife and I chose to settle here, seeking refuge from those who couldn't see beyond their prejudices."
+    Slot            =   A,
+    Topic           =   "Liberal Attitudes",
+    Text            =   "This island is a sanctuary for those with an open-minded stance on magic. Here, it "..
+                        "doesn't matter if you practice light or dark magic as long as you don't harm others. "..
+                        "That's why my wife and I chose to settle here, seeking refuge from those who "..
+                        "couldn't see beyond their prejudices."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Necromancy",
-	Text 			= 	"Being a necromancer is just a profession, like any other, and doesn't inherently make one evil. I do understand where the distrust comes from. Many necromancers choose isolation, and their practices can be unsettling. But remember, not all of us wish to summon legions of human skeletons. Sometimes, a little chicken skeleton minion is all you need for company."
+    Slot            =   B,
+    Topic           =   "Necromancy",
+    Text            =   "Being a necromancer is just a profession, like any other, and doesn't inherently "..
+                        "make one evil. I do understand where the distrust comes from. Many necromancers "..
+                        "choose isolation, and their practices can be unsettling.\n\nBut remember, not all of us "..
+                        "wish to summon legions of human skeletons. Sometimes, a little chicken skeleton "..
+                        "minion is all you need for company."
 }
 ------------------------------------------------------------------------------
 -- Mirabel Shadoweaver
-QuestNPC 			= 	511
+QuestNPC            =   511
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"The Future",
-	Text 			= 	"*Her speech is slow and stuttering.*"..
-						"\n\nOnce we resolve the situation with Archmage Magnus, I plan to establish a \01265523guild of dark magic\01200000, providing a sanctuary for practitioners of all kinds of marginalized magical practices."
+    Slot            =   A,
+    Topic           =   "The Future",
+    Text            =   "*Her speech is slow and stuttering.*"..
+                        "\n\nOnce we resolve the situation with Archmage Magnus, I plan to establish a "..
+                        "\01265523guild of dark magic\01200000, providing a sanctuary for practitioners of "..
+                        "all kinds of marginalized magical practices."
 }
 ------------------------------------------------------------------------------
 -- Bertram Smith
-QuestNPC 			= 	512
+QuestNPC            =   512
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Diversity",
-	Text 			= 	"Ever wondered why this place is so full of individuals of different races? Our island's diversity stems all the way from its origin story. It was uninhabited before \01265523The First Expedition\01200000, which meant the first settlers were dwarves, but the island quickly became a bustling trading hub, attracting individuals of all races seeking wealth and opportunity. Despite our differences, the pursuit of prosperity brings us together."
+    Slot            =   A,
+    Topic           =   "Diversity",
+    Text            =   "Ever wondered why this place is so full of individuals of different races?\n\nOur "..
+                        "island's diversity stems all the way from its origin story. It was uninhabited "..
+                        "before \01265523The First Expedition\01200000, which meant the first settlers were "..
+                        "dwarves, but the island quickly became a bustling trading hub, attracting "..
+                        "individuals of all races seeking wealth and opportunity.\n\nDespite our differences, "..
+                        "the pursuit of prosperity brings us together."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Castle Amber",
-	Text 			= 	"\01265523Saint Nourville\01200000 and the rest of \01265523the First Expedition\01200000 were good folk, but it's been generations since they were around. When Nourville's grandson Dargrin built \01265523Castle Amber\01200000, he was trying to make it look like one of the mainland castles. They say Dargrin and his descendants used to act like ambassadors for visitors from the mainland. Since then, various people have lived in the castle, but none of them have been dangerous. On this island the mayor is the only one with actual political power. I guess it was only a matter of time before someone like Archmage Magnus claimed the place."
+    Slot            =   B,
+    Topic           =   "Castle Amber",
+    Text            =   "\01265523Saint Nourville\01200000 and the rest of \01265523the First "..
+                        "Expedition\01200000 were good folk, but it's been generations since they were "..
+                        "around.\n\nWhen Nourville's grandson Dargrin built \01265523Castle Amber\01200000, he "..
+                        "was trying to make it look like one of the mainland castles. They say Dargrin and "..
+                        "his descendants used to act like ambassadors for visitors from the mainland. Since "..
+                        "then, various people have lived in the castle, but none of them have been dangerous. "..
+                        "\n\nOn this island the mayor is the only one with actual political power. I guess it was "..
+                        "only a matter of time before someone like Archmage Magnus claimed the place."
 }
 ------------------------------------------------------------------------------
 -- Florian Flavius
-QuestNPC 			= 	513
+QuestNPC            =   513
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Ratmen Pirates",
-	Text 			= 	"Sometimes, these ratmen pirates sneak onto the island under the cover of night. I think they want to carry out their deeds unnoticed. However, there are occasions when their presence brings chaos and disruption to the island, so I wouldn't say they're subtle either. Did you hear about how they grabbed \01265523Martha's daughter?\01200000"
+    Slot            =   A,
+    Topic           =   "Ratmen Pirates",
+    Text            =   "Sometimes, these ratmen pirates sneak onto the island under the cover of night. I "..
+                        "think they want to carry out their deeds unnoticed.\n\nHowever, there are occasions "..
+                        "when their presence brings chaos and disruption to the island, so I wouldn't say "..
+                        "they're subtle either.\n\nDid you hear about how they grabbed \01265523Martha's daughter?\01200000"
 }
 ------------------------------------------------------------------------------
--- Elisabeth 
-QuestNPC 			= 	514
+-- Elisabeth
+QuestNPC            =   514
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Horse Statue",
-	Text 			= 	"The story goes back to \01265523Maximus's\01200000 youthful days. In a fierce battle, he was gravely injured. His faithful horse, Stormhoof, raced tirelessly for half a day, bringing him back home to safety. Later, when he became mayor, he ordered the creation of a magnificent statue to honor the gallant creature. That's my husband. He's always been fond of grand symbolic gestures."
+    Slot            =   A,
+    Topic           =   "Horse Statue",
+    Text            =   "The story goes back to \01265523Maximus's\01200000 youthful days. In a fierce "..
+                        "battle, he was gravely injured.\n\nHis faithful horse, Stormhoof, raced tirelessly for "..
+                        "half a day, bringing him back home to safety. Later, when he became mayor, he "..
+                        "ordered the creation of a magnificent statue to honor the gallant creature. That's "..
+                        "my husband.\n\nHe's always been fond of grand symbolic gestures."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Failed Adventurers",
-	Text 			= 	"There have been a lot of adventurers who tried to do something about Archmage Magnus. Maximus has been desperate to hire help, but the adventurers all inevitably end up dead. I know it's been keeping him up at night. He's doing what he can to make sure that the adventurers he sends after Magnus are competent, but the last group were veterans and they were still slaughtered."
+    Slot            =   B,
+    Topic           =   "Failed Adventurers",
+    Text            =   "There have been a lot of adventurers who tried to do something about Archmage "..
+                        "Magnus. Maximus has been desperate to hire help, but the adventurers all inevitably "..
+                        "end up dead.\n\nI know it's been keeping him up at night. He's doing what he can to "..
+                        "make sure that the adventurers he sends after Magnus are competent, but the last "..
+                        "group were veterans and they were still slaughtered."
 }
 ------------------------------------------------------------------------------
 -- Robert Greene
-QuestNPC 			= 	515
+QuestNPC            =   515
 
 Greeting{
-	"We made it!\n\nNext time I go \"relic\" hunting... remind me to stay sober.",
-	"Ah, you again. The ankle mends, and the camp stands firm. I trust your duties progress as they should.",
+    "We made it!\n\nNext time I go \"relic\" hunting... remind me to stay sober.",
+    "Ah, you again. The ankle mends, and the camp stands firm. I trust your duties progress as they should.",
 }
 
 if not IsWarrior() then
-	Greeting{
-		"",
-	}
+    Greeting{
+        "",
+    }
 end
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Lizards",
-	Text 			= 	"These swamp lizards are the real deal when it comes to local predators. Surprisingly, they're \01265523missing\01200000 the \01265523petrifying ability\01200000 of their mainland cousins.",
+    Slot            =   A,
+    Topic           =   "Lizards",
+    Text            =   "These swamp lizards are the real deal when it comes to local predators. "..
+                        "Surprisingly, they're \01265523missing\01200000 the \01265523petrifying "..
+                        "ability\01200000 of their mainland cousins.",
 }
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Legate",
-		TopicDone 	= 	false,
-		Done 		= 	"Upon receiving the letter, Sir Greene's expression is focused and serious. Without uttering a single word, he begins to pen a response, the quill scratching quickly across the parchment. Moments later, he finishes, folds the letter, and seals it before handing it back to the heroes.\n\nThen, breaking his silence, he says, \"Hurry, bring this back to the mayor as soon as possible.\"",
-		Undone 		= 	"If the Mayor tasked you to deliver a letter to me, where is the letter?",
-	},
-	NeverGiven		=	true,
-	RewardItem		=	795,
-	QuestItem 		= 	794,
-	Exp				=	250,
-	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" and not IsWarrior() end,
-	Done			=	function(t)
-							evt.Subtract("Reputation", 5) 
-						end
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Story Quest: Legate",
+        TopicDone   =   false,
+        Done        =   "Upon receiving the letter, Sir Greene's expression is focused and serious. Without "..
+                        "uttering a single word, he begins to pen a response, the quill scratching quickly "..
+                        "across the parchment. Moments later, he finishes, folds the letter, and seals it "..
+                        "before handing it back to the heroes.\n\nThen, breaking his silence, he says, "..
+                        "\"Hurry, bring this back to the mayor as soon as possible.\"",
+        Undone      =   "If the Mayor tasked you to deliver a letter to me, where is the letter?",
+    },
+    NeverGiven      =   true,
+    RewardItem      =   795,
+    QuestItem       =   794,
+    Exp             =   250,
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Given" and not IsWarrior() end,
+    Done            =   function(t)
+                            evt.Subtract("Reputation", 5)
+                        end
 }
 
 Quest{
-	Slot 			= 	C,
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Legate",
-		TopicDone 	= 	false,
-		Done 		= 	"Upon receiving the letter, Sir Greene's expression is focused and serious. "..
-						"Without uttering a single word, he begins to pen a response, the quill scratching quickly across the parchment. "..
-						"Moments later, he finishes, folds the letter, and seals it before handing it back to the heroes.\n\n"..
-						"Then, breaking his silence, he says, \"Hurry, bring this back to the mayor as soon as possible.\"\n\n"..
-						"He pauses, then adds in a lower voice, \"And spare the Mayor the \01265523unnecessary details\01200000 of where you found me. Tell him I was inspecting the ruins.\"",
-		Undone 		= 	"If the Mayor tasked you to deliver a letter to me, where is the letter?",
-	},
-	NeverGiven		=	true,
-	RewardItem		=	795,
-	QuestItem 		= 	794,
-	Exp				=	250,
-	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" and IsWarrior() end,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Story Quest: Legate",
+        TopicDone   =   false,
+        Done        =   "Upon receiving the letter, Sir Greene's expression is focused and serious. "..
+                        "Without uttering a single word, he begins to pen a response, the quill scratching "..
+                        "quickly across the parchment. "..
+                        "Moments later, he finishes, folds the letter, and seals it before handing it back to "..
+                        "the heroes.\n\n"..
+                        "Then, breaking his silence, he says, \"Hurry, bring this back to the mayor as soon "..
+                        "as possible.\"\n\n"..
+                        "He pauses, then adds in a lower voice, \"And spare the Mayor the "..
+                        "\01265523unnecessary details\01200000 of where you found me. Tell him I was "..
+                        "inspecting the ruins.\"",
+        Undone      =   "If the Mayor tasked you to deliver a letter to me, where is the letter?",
+    },
+    NeverGiven      =   true,
+    RewardItem      =   795,
+    QuestItem       =   794,
+    Exp             =   250,
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Given" and IsWarrior() end,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 Quest{
-	BaseName 		= 	"AmberQuest3",
-	Slot 			= 	D,
-	Texts 			= 
-	{		
-		TopicGiven 	= 	"Quest: Worrying Mother",
-		TopicDone	= 	"Thanks: Worrying Mother",
-		Done 		= 	"Delivery from whom? My Mother? Again? *Sigh*\n\nI'm an annointed knight and a respected leader of our community, and she still treats me like a child. Oh well, let's at least see what she's sent... junk, lots of food and, of course, socks. And a note. *Sir Green quickly reads the note.*\n\n I'm told to give you this purse of gold. The path through this swamp is dangerous, so I guess you deserve it.",
-		Undone 		= 	"Hmm?",
-		After 		= 	"One of the most pieces of advice I've received as a soldier is to keep your socks dry. Being in the swamp makes this especially true and my momma knows it.\n\nCherish you mothers, adventurers. Sometimes they can look out for you in ways no one else will.",
-	},
-	Exp 			= 	1000,
-	Gold 			= 	500,
-	QuestItem 		= 	783,
-	Done			=	function(t) evt.Subtract("Reputation", 5) end
+    BaseName        =   "AmberQuest3",
+    Slot            =   D,
+    Texts           =
+    {
+        TopicGiven  =   "Quest: Worrying Mother",
+        TopicDone   =   "Thanks: Worrying Mother",
+        Done        =   "Delivery from whom? My Mother? Again? *Sigh*\n\nI'm an annointed knight and a "..
+                        "respected leader of our community, and she still treats me like a child. Oh well, "..
+                        "let's at least see what she's sent... junk, lots of food and, of course, socks. And "..
+                        "a note. *Sir Green quickly reads the note.*\n\n I'm told to give you this purse of "..
+                        "gold. The path through this swamp is dangerous, so I guess you deserve it.",
+        Undone      =   "Hmm?",
+        After       =   "One of the most pieces of advice I've received as a soldier is to keep your socks "..
+                        "dry. Being in the swamp makes this especially true and my momma knows it.\n\nCherish "..
+                        "you mothers, adventurers. Sometimes they can look out for you in ways no one else "..
+                        "will.",
+    },
+    Exp             =   1000,
+    Gold            =   500,
+    QuestItem       =   783,
+    Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
 NPCTopic{
-	Slot 			= 	E,
-	Topic 			= 	"Rescued!",
-	Text 			= 	"You have my thanks. Your actions today reflect well upon you - and upon the camp. I will not forget the service you have done here.",
-	CanShow			=	function(t) return IsWarrior() end
+    Slot            =   E,
+    Topic           =   "Rescued!",
+    Text            =   "You have my thanks. Your actions today reflect well upon you - and upon the camp. I "..
+                        "will not forget the service you have done here.",
+    CanShow         =   function(t) return IsWarrior() end
 }
 
 -- Robert Greene #2: Trapped inside Watchtower Cellar dungeon (Warrior)
-QuestNPC 			= 	538
+QuestNPC            =   538
 
 local function _IsRobertGreeneNearby()
 
-	for _, mon in Map.Monsters do
-		if mon.NPC_ID == 538 then
-			local range = GetDistanceBetweenObjects(mon, Party)
-			if range < 450.0 then
-				return true
-			end
-		end
-	end
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID == 538 then
+            local range = GetDistanceBetweenObjects(mon, Party)
+            if range < 450.0 then
+                return true
+            end
+        end
+    end
 
-	return false
+    return false
 end
 
 Greeting{
-	"Ho there! You - by the rubble! Yes, you!\n\n" ..
-	"*He leans against the wall; spider corpses surround him.*\n\n" ..
-	"Good. Reinforcements. I expected as much.\n\n" ..
-	"Before you ask... no, I am not \01265523trapped\01200000. I am... temporarily delayed. " ..
-	"During reconnaissance, I met resistance. The matter is handled.\n\n"..
-	"I have severely dislocated my ankle. I require assistance to withdraw.",
+    "Ho there! You - by the rubble! Yes, you!\n\n" ..
+    "*He leans against the wall; spider corpses surround him.*\n\n" ..
+    "Good. Reinforcements. I expected as much.\n\n" ..
+    "Before you ask... no, I am not \01265523trapped\01200000. I am... temporarily delayed. " ..
+    "During reconnaissance, I met resistance. The matter is handled.\n\n"..
+    "I have severely dislocated my ankle. I require assistance to withdraw.",
 
-	"Ah, my rescuers... I'm glad to see you. Let's get the hell out of here and back to my tent in the south-eastern part of the swamp island camp."
+    "Ah, my rescuers... I'm glad to see you. Let's get the hell out of here and back to my tent in the "..
+    "south-eastern part of the swamp island camp."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Story Quest: Legate?",
-	Text 			= 	"Report? What report... ah. The Mayor.\n\n" ..
-						"*A faint scent of wine lingers.*\n\n" ..
-						"Very well. Assist me back to the camp and you shall have it. ",
-	CanShow			=	function(t) return vars.Quests.StoryQuest1 == "Given" end
+    Slot            =   A,
+    Topic           =   "Story Quest: Legate?",
+    Text            =   "Report? What report... ah. The Mayor.\n\n" ..
+                        "*A faint scent of wine lingers.*\n\n" ..
+                        "Very well. Assist me back to the camp and you shall have it. ",
+    CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Given" end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Rescue?",
-	Text 			=   "Follow my route. I entered through the dwarven hideout behind the grated door, inside tower area.\n\n" ..
-						"Press the stud on the \01265523eighth step\01200000 from the ground. The grate will open in upper section of the tower.\n\n" ..
-						"Move carefully. The caves are infested.",
-	Ungive			=	function(t)
+    Slot            =   B,
+    Topic           =   "Rescue?",
+    Text            =   "Follow my route. I entered through the dwarven hideout behind the grated door, "..
+                        "inside tower area.\n\n" ..
+                        "Press the stud on the \01265523eighth step\01200000 from the ground. The grate will "..
+                        "open in upper section of the tower.\n\n" ..
+                        "Move carefully. The caves are infested.",
+    Ungive          =   function(t)
 
-							-- Hightlight button on 8th step
-							if Game.Map.Name == "watchtower.blv" then
-								evt.SetFacetBit(1,const.FacetBits.IsSecret, true)
-							end
-						end,
-	CanShow			= 	function(t)
-
-							if evt.Cmp("NPCs", 538) then
-								return false
-							end
-
-							return not _IsRobertGreeneNearby()
-						end
-}
-
-NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"What are you doing here?",
-	Text 			= 	"How did I get here?\n\n" ..
-						"Oh, I went for... um, a bottle of dwarven wine. You see, dwarves build hidden holdouts to endure sieges for months. And what sustains morale in such times? Precisely. Wine!\n" ..
-						"So I inspected dwarven hideout.\n\n" ..
-						"While examining the racks, I noticed a crack in the wall.  Naturally, I investigated it with a pickaxe. " ..
-						"Behind it was a chest - and a concealed pit full of spiders. The floor gave way beneath me...\n\n" ..
-						"I killed several creatures, though the fall severely dislocated my ankle.\n\n" ..
-						"I then executed a tactical withdrawal into this barracks. Thank all the gods you arrived.",
-	CanShow			= 	function(t)
-
-							if evt.Cmp("NPCs", 538) then
-								return true
-							end
-
-							return _IsRobertGreeneNearby()
-						end,
-}
-
-NPCTopic{
-	Slot 			= 	D,
-	Topic 			= 	"Spiders",
-	Text 			= 	"These caves are swarming with enormous spiders. Fortunately, my armor spared me their poison.\n\n" ..
-						"The only path out leads straight through their nest ahead. " ..
-						"I would clear it myself, but my ankle limits my effectiveness.\n\n" ..
-						"You will have to fight through.",
-	CanShow			= 	function(t)
-
-							if evt.Cmp("NPCs", 538) then
-								return true
-							end
-
-							return _IsRobertGreeneNearby()
-						end,
-}
-
-NPCTopic{
-	Slot 			= 	E,
-	Topic 			= 	"Let's go!",
-	Ungive      	=   function(t)
-
-							evt.Add("NPCs", 538)
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID == 538 then
-									RemoveMonster(mon)
-								end
-							end
-							ExitScreen()
+                            -- Hightlight button on 8th step
+                            if Game.Map.Name == "watchtower.blv" then
+                                evt.SetFacetBit(1,const.FacetBits.IsSecret, true)
+                            end
                         end,
-	CanShow			= 	function(t)
+    CanShow         =   function(t)
 
-							if evt.Cmp("NPCs", 538) then
-								return false
-							end
+                            if evt.Cmp("NPCs", 538) then
+                                return false
+                            end
 
-							return _IsRobertGreeneNearby()
-						end,
+                            return not _IsRobertGreeneNearby()
+                        end
+}
+
+NPCTopic{
+    Slot            =   C,
+    Topic           =   "What are you doing here?",
+    Text            =   "How did I get here?\n\n" ..
+                        "Oh, I went for... um, a bottle of dwarven wine. You see, dwarves build hidden "..
+                        "holdouts to endure sieges for months. And what sustains morale in such times? "..
+                        "Precisely. Wine!\n" ..
+                        "So I inspected dwarven hideout.\n\n" ..
+                        "While examining the racks, I noticed a crack in the wall.  Naturally, I investigated "..
+                        "it with a pickaxe. " ..
+                        "Behind it was a chest - and a concealed pit full of spiders. The floor gave way "..
+                        "beneath me...\n\n" ..
+                        "I killed several creatures, though the fall severely dislocated my ankle.\n\n" ..
+                        "I then executed a tactical withdrawal into this barracks. Thank all the gods you arrived.",
+    CanShow         =   function(t)
+
+                            if evt.Cmp("NPCs", 538) then
+                                return true
+                            end
+
+                            return _IsRobertGreeneNearby()
+                        end,
+}
+
+NPCTopic{
+    Slot            =   D,
+    Topic           =   "Spiders",
+    Text            =   "These caves are swarming with enormous spiders. Fortunately, my armor spared me "..
+                        "their poison.\n\n" ..
+                        "The only path out leads straight through their nest ahead. " ..
+                        "I would clear it myself, but my ankle limits my effectiveness.\n\n" ..
+                        "You will have to fight through.",
+    CanShow         =   function(t)
+
+                            if evt.Cmp("NPCs", 538) then
+                                return true
+                            end
+
+                            return _IsRobertGreeneNearby()
+                        end,
+}
+
+NPCTopic{
+    Slot            =   E,
+    Topic           =   "Let's go!",
+    Ungive          =   function(t)
+
+                            evt.Add("NPCs", 538)
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 538 then
+                                    RemoveMonster(mon)
+                                end
+                            end
+                            ExitScreen()
+                        end,
+    CanShow         =   function(t)
+
+                            if evt.Cmp("NPCs", 538) then
+                                return false
+                            end
+
+                            return _IsRobertGreeneNearby()
+                        end,
 }
 
 ------------------------------------------------------------------------------
 -- Laurie Blaine
-QuestNPC 			= 	516
+QuestNPC            =   516
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{
-		Topic 		= 	"Rescue!",
-		Done 		= 	"You do not look like those dreadful ratmen pirates. Are you here to rescue me?",
-	},
-	CanShow			=	function(t) return evt.Cmp("NPCs", 516) == false and vars.QuestsAmberIsland.QVarRansom ~= 5 end,
-	NeverGiven 		= 	true,
-	Done			= 	function(t) 
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID == 516 then
-									RemoveMonster(mon)
-								end
-							end
-							evt.Add("NPCs", 516)
-							evt.Subtract("Reputation", 5)
-							evt.Add("Awards", 106) -- "Rescued Laurie Blaine"
-							ShowQuestEffect(true, t.TakeQuestOperation)
-							vars.QuestsAmberIsland.QVarRansom = 3
-							vars.QuestsAmberIsland.QVarRansomTaken = true
-							Game.NeedRedraw = true
-						end
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Rescue!",
+        Done        =   "You do not look like those dreadful ratmen pirates. Are you here to rescue me?",
+    },
+    CanShow         =   function(t) return evt.Cmp("NPCs", 516) == false and vars.QuestsAmberIsland.QVarRansom ~= 5 end,
+    NeverGiven      =   true,
+    Done            =   function(t)
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 516 then
+                                    RemoveMonster(mon)
+                                end
+                            end
+                            evt.Add("NPCs", 516)
+                            evt.Subtract("Reputation", 5)
+                            evt.Add("Awards", 106) -- "Rescued Laurie Blaine"
+                            ShowQuestEffect(true, t.TakeQuestOperation)
+                            vars.QuestsAmberIsland.QVarRansom = 3
+                            vars.QuestsAmberIsland.QVarRansomTaken = true
+                            Game.NeedRedraw = true
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Hostage",
-	Text 			= 	"Surprisingly, despite their fearsome reputation, the ratmen pirates treated me quite well. They provided me with food and even respected my privacy. It is strange to think such menacing figures could show a hint of kindness. "
+    Slot            =   B,
+    Topic           =   "Hostage",
+    Text            =   "Surprisingly, despite their fearsome reputation, the ratmen pirates treated me quite "..
+                        "well. They provided me with food and even respected my privacy. It is strange to "..
+                        "think such menacing figures could show a hint of kindness. "
 }
 ------------------------------------------------------------------------------
 -- Julius Cheeser
-QuestNPC 			= 	517
+QuestNPC            =   517
 
 Greeting{
-	"Are you feeling a bit disoriented, pal? In search of a thrilling adventure and the promise of treasure, perhaps? It seems you've stumbled upon the perfect opportunity.",
+    "Are you feeling a bit disoriented, pal? In search of a thrilling adventure and the promise of treasure, "..
+    "perhaps? It seems you've stumbled upon the perfect opportunity.",
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Favor",
-	Text 			= 	"Do me a favor, will you? Locate the \01265523Blaine residence\01200000 in Amber Town and deliver a message for me. Tell them to think faster if they wish to see their daughter again. \n\nMaybe we'll share the loot together, friend.",
-	CanShow			= 	function(t) return Q.AmberQuest5 == nil end
+    Slot            =   A,
+    Topic           =   "Favor",
+    Text            =   "Do me a favor, will you? Locate the \01265523Blaine residence\01200000 in Amber Town "..
+                        "and deliver a message for me. Tell them to think faster if they wish to see their "..
+                        "daughter again. \n\nMaybe we'll share the loot together, friend.",
+    CanShow         =   function(t) return Q.AmberQuest5 == nil end
 }
 
 NPCTopic{
-    Slot            =   A,  
+    Slot            =   A,
     Topic           =   "Laurie Blaine",
-    Text            =   "The lass is safe and sound, snug as a bug in a rug! But she's itching to see home. Just make sure you \01265523bring the gold\01200000, all of it. We wouldn't want to prolong her stay, now would we?",
+    Text            =   "The lass is safe and sound, snug as a bug in a rug! But she's itching to see home. "..
+                        "Just make sure you \01265523bring the gold\01200000, all of it. We wouldn't want to "..
+                        "prolong her stay, now would we?",
     CanShow         =   function(t) return Q.AmberQuest5 and vars.QuestsAmberIsland.QVarRansom ~= 3 end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Pirate Life",
-	Text 			= 	"With everyone on Amber Island losing their heads over the mist crisis, they ain't watching their bloody valuables. Perfect time for a quick snatch, if you ask me."
+    Slot            =   B,
+    Topic           =   "Pirate Life",
+    Text            =   "With everyone on Amber Island losing their heads over the mist crisis, they ain't "..
+                        "watching their bloody valuables. Perfect time for a quick snatch, if you ask me."
 }
 
 Quest{
-	Slot 			= 	C,
-	CanShow			= 	function(t) return Q.AmberQuest5 ~= nil and vars.QuestsAmberIsland.QVarRansom == 0 end,
-	Texts 			=
-	{
-		Topic 		= 	"Pay: Ransom (1000g)",
-		Done 		= 	"Ah, bless your hearts, you've brought the gold! But, oh dear, what's this? Just 1000 gold pieces? My, my, they must've misheard me. \01265523I distinctly recall saying 5000 gold\01200000, not a coin less. Run along now, \01265523fetch\01200000 the proper amount. \n\nNo hard feelings, eh? Just a little misunderstanding! *bursts into snorting laughter*",
-		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
-	},
-	Done			= 	function(t)
-							vars.QuestsAmberIsland.QVarRansom = 1
-						end,
-	NeverGiven 		= 	true,
-	QuestGold		= 	1000
+    Slot            =   C,
+    CanShow         =   function(t) return Q.AmberQuest5 ~= nil and vars.QuestsAmberIsland.QVarRansom == 0 end,
+    Texts           =
+    {
+        Topic       =   "Pay: Ransom (1000g)",
+        Done        =   "Ah, bless your hearts, you've brought the gold! But, oh dear, what's this? Just 1000 "..
+                        "gold pieces? My, my, they must've misheard me. \01265523I distinctly recall saying "..
+                        "5000 gold\01200000, not a coin less. Run along now, \01265523fetch\01200000 the "..
+                        "proper amount. \n\nNo hard feelings, eh? Just a little misunderstanding! *bursts "..
+                        "into snorting laughter*",
+        Undone      =   "Are you messsing with me, friend? You don't have enough gold.",
+    },
+    Done            =   function(t)
+                            vars.QuestsAmberIsland.QVarRansom = 1
+                        end,
+    NeverGiven      =   true,
+    QuestGold       =   1000
 }
 
 Quest{
-	Slot 			= 	D,
-	Texts 			= 
-	{
-		Topic 		= 	"Pay: Ransom (5000g)",
-		Done 		= 	"Nice doing business with you, friend. Here's the gal, now get lost.",
-		Undone 		= 	"Are you messsing with me, friend? You don't have enough gold.",
-	},
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarRansom == 1 or vars.QuestsAmberIsland.QVarRansom == 2 end,
-	NeverGiven 		= 	true,
-	QuestGold 		= 	5000,
-	Done			= 	function(t) 
-							evt.Add("NPCs", 516)
-							ShowQuestEffect(true, t.TakeQuestOperation)
-							vars.QuestsAmberIsland.QVarRansom = 3
-							vars.QuestsAmberIsland.QVarRansomTaken = true
-						end
+    Slot            =   D,
+    Texts           =
+    {
+        Topic       =   "Pay: Ransom (5000g)",
+        Done        =   "Nice doing business with you, friend. Here's the gal, now get lost.",
+        Undone      =   "Are you messsing with me, friend? You don't have enough gold.",
+    },
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRansom == 1 or vars.QuestsAmberIsland.QVarRansom == 2 end,
+    NeverGiven      =   true,
+    QuestGold       =   5000,
+    Done            =   function(t)
+                            evt.Add("NPCs", 516)
+                            ShowQuestEffect(true, t.TakeQuestOperation)
+                            vars.QuestsAmberIsland.QVarRansom = 3
+                            vars.QuestsAmberIsland.QVarRansomTaken = true
+                        end
 }
 
 -- Julius Cheeser #2 (Apple Cave Entrance)
-QuestNPC			=	521
+QuestNPC            =   521
 
 Greeting{
-	"Where do you think you're going without an invitation, friend? "..
-	"Take one more step and we \01265523won't be so friendly\01200000 anymore.",
-	CanShow			=	function(t) return not IsWarrior() end
+    "Where do you think you're going without an invitation, friend? "..
+    "Take one more step and we \01265523won't be so friendly\01200000 anymore.",
+    CanShow         =   function(t) return not IsWarrior() end
 }
 
 Greeting{
-	"Whoa...\n\nHow do you plan to open that door without the proper \01265523key\01200000, friend? *Julius points to the key on his belt*\n\n"..
-	"You have to be a member of our nice little organization in order to get through there.\n\nBack off, gently now...",
-	CanShow			=	function(t) return IsWarrior() end
+    "Whoa...\n\nHow do you plan to open that door without the proper \01265523key\01200000, friend? *Julius "..
+    "points to the key on his belt*\n\n"..
+    "You have to be a member of our nice little organization in order to get through there.\n\nBack off, gently now...",
+    CanShow         =   function(t) return IsWarrior() end
 }
 
 Quest{
-	Slot 			= 	E,
-	Texts 			=
-	{
-		Topic 		= 	"Ignore warning",
-	},
-	NeverGiven		=	true,
-	CanShow			=	function(t) return not IsWarrior() end,
-	Done			=	function(t)
+    Slot            =   E,
+    Texts           =
+    {
+        Topic       =   "Ignore warning",
+    },
+    NeverGiven      =   true,
+    CanShow         =   function(t) return not IsWarrior() end,
+    Done            =   function(t)
 
-							if vars.QuestsAmberIsland.QVarRansom ~= 3 then
-								vars.QuestsAmberIsland.QVarRansom = 4
-							end
+                            if vars.QuestsAmberIsland.QVarRansom ~= 3 then
+                                vars.QuestsAmberIsland.QVarRansom = 4
+                            end
 
-							for _, mon in Map.Monsters do
-								if mon.Group == 33 then
-									mon.Hostile = true
-									ExitScreen()
-								end
-							end
-						end
+                            for _, mon in Map.Monsters do
+                                if mon.Group == 33 then
+                                    mon.Hostile = true
+                                    ExitScreen()
+                                end
+                            end
+                        end
 }
 
 Quest{
-	Slot 			= 	E,
-	Texts 			=
-	{
-		Topic 		= 	"Open the door",
-	},
-	NeverGiven		=	true,
-	-- ItemID 668: Apple Cave Key
-	CanShow			=	function(t) return IsWarrior() and evt.All.Cmp("Inventory", 668) end,
-	Done			=	function(t)
+    Slot            =   E,
+    Texts           =
+    {
+        Topic       =   "Open the door",
+    },
+    NeverGiven      =   true,
+    -- ItemID 668: Apple Cave Key
+    CanShow         =   function(t) return IsWarrior() and evt.All.Cmp("Inventory", 668) end,
+    Done            =   function(t)
 
-							if vars.QuestsAmberIsland.QVarRansom ~= 3 then
-								vars.QuestsAmberIsland.QVarRansom = 4
-							end
+                            if vars.QuestsAmberIsland.QVarRansom ~= 3 then
+                                vars.QuestsAmberIsland.QVarRansom = 4
+                            end
 
-							for _, mon in Map.Monsters do
-								if mon.Group == 33 then
-									mon.Hostile = true
-									ExitScreen()
-								end
-							end
-						end
+                            for _, mon in Map.Monsters do
+                                if mon.Group == 33 then
+                                    mon.Hostile = true
+                                    ExitScreen()
+                                end
+                            end
+                        end
 }
 
 Quest{
-	Slot 			= 	F,
-	Texts 			=
-	{
-		Topic 		= 	"Back off",
-	},
-	Done 			= 	function(t)
-							ExitScreen()
-						end,
-	NeverGiven		=	true,
-	NeverDone 		= 	true,
+    Slot            =   F,
+    Texts           =
+    {
+        Topic       =   "Back off",
+    },
+    Done            =   function(t)
+                            ExitScreen()
+                        end,
+    NeverGiven      =   true,
+    NeverDone       =   true,
 }
 
 ------------------------------------------------------------------------------
 -- Buster Squaky (Prisoner)
-QuestNPC 			= 	518
+QuestNPC            =   518
 
 Greeting{
-	"Ah, my dear saviors...\n\nTo think, my own kin turned against me, but here you are, bold and brave, setting me free. How delightfully unpredictable.\n\nPut my skills to use, friends. At your side, I'll guide you through the shadows and get the dirty jobs done.",
+    "Ah, my dear saviors...\n\nTo think, my own kin turned against me, but here you are, bold and brave, "..
+    "setting me free. How delightfully unpredictable.\n\nPut my skills to use, friends. At your side, I'll "..
+    "guide you through the shadows and get the dirty jobs done.",
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 	{
-		Topic 		= 	"Hire: Ratman (0g)",
-		Done		=	"Excellent choice. Just remember, while I may play in the shadows, my loyalty to you is as sharp and unwavering as my claws. Together, we'll be rich enough to do whatever we want.",
-		Undone		=	GuildMasterNotEnoughGoldStr,
-	},
-	NeverGiven		=	true,
-	CanShow			=	function(t) 
-							local Merc = Merc_GetByID(526)
-							return Merc_IsHired(Merc) == false end,
-	Done			=	function(t)
-							local Merc = Merc_GetByID(526)
-							Merc_Hire(Merc)
-							Merc_MakeAvailableForHire(Merc.NPC_ID)
-							evt.Add("NPCs", Merc.NPC_ID)
-							
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID == 518 then
-									RemoveMonster(mon)
-								end
-							end
-						end
+    Slot            =   A,
+    Texts           =   {
+        Topic       =   "Hire: Ratman (0g)",
+        Done        =   "Excellent choice. Just remember, while I may play in the shadows, my loyalty to you "..
+                        "is as sharp and unwavering as my claws. Together, we'll be rich enough to do "..
+                        "whatever we want.",
+        Undone      =   GuildMasterNotEnoughGoldStr,
+    },
+    NeverGiven      =   true,
+    CanShow         =   function(t)
+                            local Merc = Merc_GetByID(526)
+                            return Merc_IsHired(Merc) == false end,
+    Done            =   function(t)
+                            local Merc = Merc_GetByID(526)
+                            Merc_Hire(Merc)
+                            Merc_MakeAvailableForHire(Merc.NPC_ID)
+                            evt.Add("NPCs", Merc.NPC_ID)
+
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 518 then
+                                    RemoveMonster(mon)
+                                end
+                            end
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Samuel Krell
-QuestNPC 			= 	519
+QuestNPC            =   519
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Welcome!",
-	Text 			= 	"Welcome to the Spirit Guild. If you'd like, you can donate to the \01265523restoration\01200000 of the \01265523Day of the Gods\01200000 pedestal. Your contributions help and could bring you blessings that assist in your adventures. It's a way to gain favor and protection for your journeys."
+    Slot            =   A,
+    Topic           =   "Welcome!",
+    Text            =   "Welcome to the Spirit Guild. If you'd like, you can donate to the "..
+                        "\01265523restoration\01200000 of the \01265523Day of the Gods\01200000 pedestal. "..
+                        "Your contributions help and could bring you blessings that assist in your "..
+                        "adventures. It's a way to gain favor and protection for your journeys."
 }
 
-PedestalDOTGThankYouStr = "Thank you for your donation. May the blessings from the Day of the Gods pedestal help and protect you on your adventures."
+PedestalDOTGThankYouStr = "Thank you for your donation. May the blessings from the Day of the Gods pedestal "..
+                          "help and protect you on your adventures."
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{
-		Topic 		= 	"Fix: Day of the Gods Pedestal (8000g)",
-		Done 		= 	PedestalDOTGThankYouStr,
-		Undone 		= 	"Come back when you have enough gold.",
-		TopicDone 	= 	"Thanks: Day of the Gods Pedestal",
-		After 		= 	PedestalDOTGThankYouStr,
-	},
-	NeverGiven 		= 	true,
-	QuestGold 		= 	8000,
-	Done			= 	function(t) 
-							for i, a in Map.Sprites do
-								if a.Id == 1337 then
-									a.Invisible = false
-								end
-							end
-						end
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Fix: Day of the Gods Pedestal (8000g)",
+        Done        =   PedestalDOTGThankYouStr,
+        Undone      =   "Come back when you have enough gold.",
+        TopicDone   =   "Thanks: Day of the Gods Pedestal",
+        After       =   PedestalDOTGThankYouStr,
+    },
+    NeverGiven      =   true,
+    QuestGold       =   8000,
+    Done            =   function(t)
+                            for i, a in Map.Sprites do
+                                if a.Id == 1337 then
+                                    a.Invisible = false
+                                end
+                            end
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Pirate Stash (Lighthouse)
 
-QuestNPC 			= 	522
+QuestNPC            =   522
 
 Quest{
-	Slot 			= 	D,
-	Texts 			= 
-	{
-		Topic 		= 	"Quest: Open Chest",
-		Done 		= 	"With a creaking sound, the chest's lid swings open to reveal its contents: a gleaming hoard of \012655231208 gold pieces\01200000, piled neatly inside, waiting to be claimed.",
-		Undone 		= 	"The chest is securely \01265523locked\01200000, its heavy lid refusing to budge. A distinct pirate insignia marks the lock, indicating a specific \01265523key\01200000 is needed to open it.",
-	},
-	CanShow			=	function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end,
-	NeverGiven 		= 	true,
-	Gold 			= 	1208,
-	QuestItem		=	792,
-	Exp				=	500,
-	Done			= 	function(t) 
-							ShowQuestEffect(true, t.TakeQuestOperation)
-							evt.MoveNPC{NPC = 522, HouseId = 0}
-						end
+    Slot            =   D,
+    Texts           =
+    {
+        Topic       =   "Quest: Open Chest",
+        Done        =   "With a creaking sound, the chest's lid swings open to reveal its contents: a "..
+                        "gleaming hoard of \012655231208 gold pieces\01200000, piled neatly inside, waiting "..
+                        "to be claimed.",
+        Undone      =   "The chest is securely \01265523locked\01200000, its heavy lid refusing to budge. A "..
+                        "distinct pirate insignia marks the lock, indicating a specific \01265523key\01200000 "..
+                        "is needed to open it.",
+    },
+    CanShow         =   function(t) return vars.Quests.AmberQuest7 == "Done" or vars.Quests.AmberQuest7W == "Done" end,
+    NeverGiven      =   true,
+    Gold            =   1208,
+    QuestItem       =   792,
+    Exp             =   500,
+    Done            =   function(t)
+                            ShowQuestEffect(true, t.TakeQuestOperation)
+                            evt.MoveNPC{NPC = 522, HouseId = 0}
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Sir Hoppington the Brave
 
-QuestNPC 			= 	523
+QuestNPC            =   523
 
 Greeting{
-	"Ah, greetings, noble adventurers! I am \01265523Sir Hoppington the Brave\01200000, at your service. I find myself in a bit of a pickle, and I require assistance of the highest order.",
-	"Welcome back, adventurers? Any news about my missing pet?"
+    "Ah, greetings, noble adventurers! I am \01265523Sir Hoppington the Brave\01200000, at your service. I "..
+    "find myself in a bit of a pickle, and I require assistance of the highest order.",
+    "Welcome back, adventurers? Any news about my missing pet?"
 }
 
 Quest{
-	Slot 			= 	A,
-	Name			=	"AmberQuest10",
-	Texts 			= 
-	{
-		Topic 		= 	"Quest: Missing Pet",
-		TopicDone 	= 	"Thanks: Missing Pet",
-		After 		= 	"Thank you, brave souls, for returning my precious bunny. Your kindness won't be forgotten.",
-		Give		=	"I've got a unique problem. My magical talking \01265523bunny\01200000 has gone missing, and I miss it terribly. I need your help to \01265523find it\01200000 quietly and bring it back. Will you help me?",
-		Done 		= 	"Joyous day! My heart swells with gratitude at the sight of my dear friend returned to me. You have my deepest thanks and the eternal gratitude of Sir Hoppington the Brave!",
-		Undone 		= 	"Alas, my heart is heavy with worry, and my armor feels unusually burdensome without my little companion by my side. Have you perchance found any trace of my lost friend?",
-		GreetDone	=	"Ah, my valiant rescuers! Welcome back. Seeing my little companion frolicking once again fills me with immeasurable happiness. How may Sir Hoppington the Brave assist you today?",
-		Quest 		= 	"Missing Pet\nSir Hoppington the Brave, East Amber Island\n\nFind and return Sir Hoppington's missing talking bunny.",
-	},
-	Gold 			= 	1000,
-	Exp				=	1000,
-	CheckDone		=	function(t) return evt.Cmp("NPCs", 524) == true end,
-	Done			= 	function(t) 
-							evt.Subtract("Reputation", 5)
-							evt.Subtract("NPCs", 524)
-							evt.MoveNPC{NPC = 524, HouseId = 605}
-						end
+    Slot            =   A,
+    Name            =   "AmberQuest10",
+    Texts           =
+    {
+        Topic       =   "Quest: Missing Pet",
+        TopicDone   =   "Thanks: Missing Pet",
+        After       =   "Thank you, brave souls, for returning my precious bunny. Your kindness won't be forgotten.",
+        Give        =   "I've got a unique problem. My magical talking \01265523bunny\01200000 has gone "..
+                        "missing, and I miss it terribly. I need your help to \01265523find it\01200000 "..
+                        "quietly and bring it back. Will you help me?",
+        Done        =   "Joyous day! My heart swells with gratitude at the sight of my dear friend returned "..
+                        "to me. You have my deepest thanks and the eternal gratitude of Sir Hoppington the "..
+                        "Brave!",
+        Undone      =   "Alas, my heart is heavy with worry, and my armor feels unusually burdensome without "..
+                        "my little companion by my side. Have you perchance found any trace of my lost "..
+                        "friend?",
+        GreetDone   =   "Ah, my valiant rescuers! Welcome back. Seeing my little companion frolicking once "..
+                        "again fills me with immeasurable happiness. How may Sir Hoppington the Brave assist "..
+                        "you today?",
+        Quest       =   "Missing Pet\nSir Hoppington the Brave, East Amber Island\n\nFind and return Sir "..
+                        "Hoppington's missing talking bunny.",
+    },
+    Gold            =   1000,
+    Exp             =   1000,
+    CheckDone       =   function(t) return evt.Cmp("NPCs", 524) == true end,
+    Done            =   function(t)
+                            evt.Subtract("Reputation", 5)
+                            evt.Subtract("NPCs", 524)
+                            evt.MoveNPC{NPC = 524, HouseId = 605}
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Castle Amber",
-	Text 			= 	"Here in the shadow of Castle Amber, we knights stand vigilant, guarding against any threats that might emerge from its darkened halls. Recently, it's become a \01265523stronghold for goblins\01200000, and our main task is to ensure they don't spill into the town and jeopardize our people's safety. It's a constant battle, holding the line here, but it's crucial to keep the peace and protect the locals from harm."
+    Slot            =   B,
+    Topic           =   "Castle Amber",
+    Text            =   "Here in the shadow of Castle Amber, we knights stand vigilant, guarding against any "..
+                        "threats that might emerge from its darkened halls.\n\nRecently, it's become a "..
+                        "\01265523stronghold for goblins\01200000, and our main task is to ensure they don't "..
+                        "spill into the town and jeopardize our people's safety. It's a constant battle, "..
+                        "holding the line here, but it's crucial to keep the peace and protect the locals "..
+                        "from harm."
 }
 
 ------------------------------------------------------------------------------
 -- Bunny
 
-QuestNPC 			= 	524
+QuestNPC            =   524
 
 Greeting{
-	"Hello! Who are you? I wasn't expecting visitors.",
-	"What's up?"
+    "Hello! Who are you? I wasn't expecting visitors.",
+    "What's up?"
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Missing Pet",
-		Give 		= 	"Sir Hoppington sent you? I do miss my warm bed... \01265523But why should I trust you?\01200000",
-		Done 		= 	"Back to Sir Hoppington, huh? Alright, lead the way, but keep the carrots coming!\n\n* The ravenous bunny devoured the carrots in mere moments, leaving not a single bite behind. *",
-		Undone 		= 	"Hey, what's the big idea? I'm not just some toy to be picked up. \01265523Where's the trust\01200000, huh?",
-		GreetDone 	= 	"What's up, folks? Do you have more carrots? I really could use a bite you know.",
-		TopicDone 	= 	false,
-	},
-	CanShow 		= 	function(t) return Q.AmberQuest10 == "Given" end,
-	QuestItem 		= 	793,
-	Done			=	function(t)
-							evt.MoveNPC{NPC = 524, HouseId = 0}
-							evt.Add("NPCs", 524)
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Missing Pet",
+        Give        =   "Sir Hoppington sent you? I do miss my warm bed... \01265523But why should I trust "..
+                        "you?\01200000",
+        Done        =   "Back to Sir Hoppington, huh? Alright, lead the way, but keep the carrots "..
+                        "coming!\n\n* The ravenous bunny devoured the carrots in mere moments, leaving not a "..
+                        "single bite behind. *",
+        Undone      =   "Hey, what's the big idea? I'm not just some toy to be picked up. \01265523Where's "..
+                        "the trust\01200000, huh?",
+        GreetDone   =   "What's up, folks? Do you have more carrots? I really could use a bite you know.",
+        TopicDone   =   false,
+    },
+    CanShow         =   function(t) return Q.AmberQuest10 == "Given" end,
+    QuestItem       =   793,
+    Done            =   function(t)
+                            evt.MoveNPC{NPC = 524, HouseId = 0}
+                            evt.Add("NPCs", 524)
 
-							-- Eat all carrots
-							while evt.All.Cmp("Inventory", 793) do
-								evt.All.Sub("Inventory", 793)
-							end
-						end
+                            -- Eat all carrots
+                            while evt.All.Cmp("Inventory", 793) do
+                                evt.All.Sub("Inventory", 793)
+                            end
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Other Bunnies",
-	Text 			= 	"I met another bunny in the field today and excitedly started a conversation. I talked and talked, but he just stared at me, munching on his carrot. I finally concluded he must be a little slow, or maybe he's just really good at keeping secrets!"
+    Slot            =   B,
+    Topic           =   "Other Bunnies",
+    Text            =   "I met another bunny in the field today and excitedly started a conversation. I "..
+                        "talked and talked, but he just stared at me, munching on his carrot. I finally "..
+                        "concluded he must be a little slow, or maybe he's just really good at keeping "..
+                        "secrets!"
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Home",
-	Text 			= 	"I ventured out one day in search of the world's crunchiest carrots, and what an adventure it's been! I've hopped through fields, nibbled in gardens, and danced under moonlit skies...\n\nBut now, I seem to have hopped a bit too far. I can't quite remember the way back to my original home."
+    Slot            =   C,
+    Topic           =   "Home",
+    Text            =   "I ventured out one day in search of the world's crunchiest carrots, and what an "..
+                        "adventure it's been! I've hopped through fields, nibbled in gardens, and danced "..
+                        "under moonlit skies...\n\nBut now, I seem to have hopped a bit too far. I can't "..
+                        "quite remember the way back to my original home."
 }
 
 ------------------------------------------------------------------------------
 -- Aedan Kelly
-QuestNPC 			= 	527
+QuestNPC            =   527
 
 Greeting{
-	"Hmm? Fancy a drink, stranger?"
+    "Hmm? Fancy a drink, stranger?"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Regrets",
-	Text 			= 	"Yeah, I was \01265523part of a group\01200000 that came here seeking adventure a fortune in gold. We fought our way through the \01265523west wing\01200000 of Archmage Magnus's Residence, even reached a \01265523teleportation pedestal\01200000. One of our own tried it and never came back. Then we were ambushed. I'm the sole survivor. \n\nEnough adventuring for me. I'm heading home!"
+    Slot            =   A,
+    Topic           =   "Regrets",
+    Text            =   "Yeah, I was \01265523part of a group\01200000 that came here seeking adventure a "..
+                        "fortune in gold. We fought our way through the \01265523west wing\01200000 of "..
+                        "Archmage Magnus's Residence, even reached a \01265523teleportation "..
+                        "pedestal\01200000. One of our own tried it and never came back. Then we were "..
+                        "ambushed. I'm the sole survivor. \n\nEnough adventuring for me. I'm heading home!"
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Magnus's Residence",
-	Text 			= 	"The Archmage's Residence is a grand house in the \01265523southwestern part of Swamp Island\01200000. Inside, it's quite lavish, but don't let that fool you: it's teeming with elemental guards. Tough ones, and oddly, they seem at odds with each other. We tried to locate the Archmage but couldn't find him, only this blasted \01265523teleport stone\01200000. Our best guess was he's holed up in the \01265523central workshop.\01200000"
+    Slot            =   B,
+    Topic           =   "Magnus's Residence",
+    Text            =   "The Archmage's Residence is a grand house in the \01265523southwestern part of Swamp "..
+                        "Island\01200000.\n\nInside, it's quite lavish, but don't let that fool you: it's "..
+                        "teeming with elemental guards. Tough ones, and oddly, they seem at odds with each "..
+                        "other. We tried to locate the Archmage but couldn't find him, only this blasted "..
+                        "\01265523teleport stone\01200000.\n\nOur best guess was he's holed up in the "..
+                        "\01265523central workshop.\01200000"
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic			=	"Story Quest: Investigation?",
-	Text 			= 	"So, you're treading the path we did? You'll need all the luck you can get. We had a \01265523teleportation stone\01200000, something we used in the residence's western chamber. One of our team went through and vanished.\n\nBut when we fled the archmage's residence, I lost the stone near an \01265523old swamp tree stump\01200000. If you can find it, perhaps you'll succeed where we failed - and maybe even uncover what happened to our lost companion.",
-	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and IsWarrior() end
+    Slot            =   C,
+    Topic           =   "Story Quest: Investigation?",
+    Text            =   "So, you're treading the path we did? You'll need all the luck you can get. We had a "..
+                        "\01265523teleportation stone\01200000, something we used in the residence's western "..
+                        "chamber. One of our team went through and vanished.\n\nBut when we fled the "..
+                        "archmage's residence, I lost the stone near an \01265523old swamp tree "..
+                        "stump\01200000. If you can find it, perhaps you'll succeed where we failed - and "..
+                        "maybe even uncover what happened to our lost companion.",
+    CanShow         =   function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and IsWarrior() end
 }
 
 Quest{
-	Slot 			= 	C,
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Investigation?",
-		Done 		= 	"So, you're treading the path we did? You'll need all the luck you can get. Here, take this \01265523teleportation stone\01200000. We used it in the residence's western chamber. One of our team went through and vanished. Perhaps you'll have more success, maybe even find our lost companion.",
-		TopicDone 	= 	false,
-	},
-	NeverGiven		=	true,
-	RewardItem 		= 	781,
-	Exp				=	100,
-	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and not IsWarrior() end
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Story Quest: Investigation?",
+        Done        =   "So, you're treading the path we did? You'll need all the luck you can get. Here, "..
+                        "take this \01265523teleportation stone\01200000. We used it in the residence's "..
+                        "western chamber. One of our team went through and vanished. Perhaps you'll have more "..
+                        "success, maybe even find our lost companion.",
+        TopicDone   =   false,
+    },
+    NeverGiven      =   true,
+    RewardItem      =   781,
+    Exp             =   100,
+    CanShow         =   function(t) return vars.Quests.StoryQuest2 ~= nil and vars.Quests.StoryQuest2 ~= "Done" and not IsWarrior() end
 }
 
 NPCTopic{
-	Slot 			= 	D,
-	Topic 			= 	"Teleportation Stone",
-	Text 			= 	"We found this magical stone in a \01265523very weird place.\01200000 It was an eerie location where \01265523furniture floated\01200000 in space, defying all logic. Keep your eyes open for places that feel out of the ordinary; you never know what you might find.",
-	CanShow			=	function(t) return vars.Quests.StoryQuest2 ~= nil end
+    Slot            =   D,
+    Topic           =   "Teleportation Stone",
+    Text            =   "We found this magical stone in a \01265523very weird place.\01200000 It was an eerie "..
+                        "location where \01265523furniture floated\01200000 in space, defying all logic. Keep "..
+                        "your eyes open for places that feel out of the ordinary; you never know what you "..
+                        "might find.",
+    CanShow         =   function(t) return vars.Quests.StoryQuest2 ~= nil end
 }
 
 ------------------------------------------------------------------------------
 -- Barnaby Whitfield
-QuestNPC 			= 	528
+QuestNPC            =   528
 
 Greeting{
-	"Ah, leave me alone! I've already spilled everything I know to the guards... There's nothing more to say."
+    "Ah, leave me alone! I've already spilled everything I know to the guards... There's nothing more to say."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Butler",
-	Text 			= 	"Yes, I was Archmage Magnus's butler. Then he lost his mind, and just because I worked for him, I'm treated like a criminal! I'm innocent, yet here I am, suffering for his madness."
+    Slot            =   A,
+    Topic           =   "Butler",
+    Text            =   "Yes, I was Archmage Magnus's butler. Then he lost his mind, and just because I "..
+                        "worked for him, I'm treated like a criminal! I'm innocent, yet here I am, suffering "..
+                        "for his madness."
 }
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Secret Hideout?",
-		Done 		= 	"Fine, fine. Magnus does have a \01265523secret hideout\01200000. It's less a home and more a magical lab, where he dabbles in teleportation and other things that involve bending reality. He could be in his bedroom or lost in one of those twisted realities he's so fond of. He's been spending more and more time outside our world."..
-						"\n\nHere, take this \01265523medallion.\01200000 It may look insignificant, but it's imbued with magic. With it, you can use the \01265523teleportation platform\01200000 near the \01265523knights' camp in the swamp's southeastern region\01200000 to reach his hideout.\n\nI do hope you have \01265523key\01200000 to his secret hideout - should be somewhere in Archmage's Workshop.",
-		TopicDone 	= 	false,
-	},
-	NeverGiven		=	true,
-	RewardItem 		= 	796,
-	Exp				=	100,
-	CanShow			=	function(t) return vars.Quests.StoryQuest3 ~= nil end
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Story Quest: Secret Hideout?",
+        Done        =   "Fine, fine. Magnus does have a \01265523secret hideout\01200000. It's less a home "..
+                        "and more a magical lab, where he dabbles in teleportation and other things that "..
+                        "involve bending reality. He could be in his bedroom or lost in one of those twisted "..
+                        "realities he's so fond of. He's been spending more and more time outside our world."..
+                        "\n\nHere, take this \01265523medallion.\01200000 It may look insignificant, but it's "..
+                        "imbued with magic. With it, you can use the \01265523teleportation platform\01200000 "..
+                        "near the \01265523knights' camp in the swamp's southeastern region\01200000 to reach "..
+                        "his hideout.\n\nI do hope you have \01265523key\01200000 to his secret hideout - "..
+                        "should be somewhere in Archmage's Workshop.",
+        TopicDone   =   false,
+    },
+    NeverGiven      =   true,
+    RewardItem      =   796,
+    Exp             =   100,
+    CanShow         =   function(t) return vars.Quests.StoryQuest3 ~= nil end
 }
 
 ------------------------------------------------------------------------------
 -- Cedrick Boyce (Town)
-QuestNPC 			= 	530
+QuestNPC            =   530
 
 Greeting{
-	"Ahoy there! Looking for a \01265523boat?\01200000 I can't go very far because of the mist nowadays, so I'm just waiting for a chance to use my skills again."
+    "Ahoy there! Looking for a \01265523boat?\01200000 I can't go very far because of the mist nowadays, so "..
+    "I'm just waiting for a chance to use my skills again."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"The Mist",
-	Text 			= 	"That unnatural mist circling the island is a real menace, \01265523messing with ship navigation.\01200000 Thankfully, it usually doesn't envelop the island itself, making boat travel in shallow waters a safer bet. Just point the way, and I'll steer us clear of the thick fog."
+    Slot            =   A,
+    Topic           =   "The Mist",
+    Text            =   "That unnatural mist circling the island is a real menace, \01265523messing with ship "..
+                        "navigation.\01200000 Thankfully, it usually doesn't envelop the island itself, "..
+                        "making boat travel in shallow waters a safer bet. Just point the way, and I'll steer "..
+                        "us clear of the thick fog."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Travel: Arena",
-	NeverGiven		= 	true,
-	NeverDone		=	true,
-	CanShow			=	function(t) return vars.MiscAmberIsland.ArenaCounterStarted == false or evt.Cmp("Counter1", 24 * 5) == true end,
-	Done			=	function(t) 
-							vars.MiscAmberIsland.ArenaCounterStarted = true
-							evt.Set("Counter1", 0)
-							evt.MoveToMap{
-								X = 3840, Y = 2880, Z = 192, 
-								Direction = 1536, LookAngle = 0, SpeedZ = 0, 
-								HouseId = 0, Icon = 0, Name = "D05.blv"}					
-						end
+    Slot            =   B,
+    Topic           =   "Travel: Arena",
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    CanShow         =   function(t) return vars.MiscAmberIsland.ArenaCounterStarted == false or evt.Cmp("Counter1", 24 * 5) == true end,
+    Done            =   function(t)
+                            vars.MiscAmberIsland.ArenaCounterStarted = true
+                            evt.Set("Counter1", 0)
+                            evt.MoveToMap{
+                                X = 3840, Y = 2880, Z = 192,
+                                Direction = 1536, LookAngle = 0, SpeedZ = 0,
+                                HouseId = 0, Icon = 0, Name = "D05.blv"}
+                        end
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Travel: Arena",
-	Text 			= 	"Sorry, but the arena is currently closed and will reopen in 24 hours. Please come back later.",
-	CanShow			=	function(t) return vars.MiscAmberIsland.ArenaCounterStarted == true and evt.Cmp("Counter1", 24 * 5) == false end,
+    Slot            =   B,
+    Topic           =   "Travel: Arena",
+    Text            =   "Sorry, but the arena is currently closed and will reopen in 24 hours. Please come back later.",
+    CanShow         =   function(t) return vars.MiscAmberIsland.ArenaCounterStarted == true and evt.Cmp("Counter1", 24 * 5) == false end,
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"Travel: Castle Amber",
-	NeverGiven		= 	true,
-	NeverDone		=	true,
-	CanShow			=	function(t) return vars.Quests.CoreQuest ~= nil end,
-	Done			=	function(t) 
+    Slot            =   C,
+    Topic           =   "Travel: Castle Amber",
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    CanShow         =   function(t) return vars.Quests.CoreQuest ~= nil end,
+    Done            =   function(t)
 
-							-- Launch attack
-							if vars.MiscAmberIsland.AttackOnCastleAmber == 0 then
+                            -- Launch attack
+                            if vars.MiscAmberIsland.AttackOnCastleAmber == 0 then
 
-								vars.MiscAmberIsland.AttackOnCastleAmber = 1
-							
-							end
+                                vars.MiscAmberIsland.AttackOnCastleAmber = 1
 
-							evt.MoveToMap{
-								X = 19868, Y = 22474, Z = 10, 
-								Direction = 1378, LookAngle = 0, SpeedZ = 0, 
-								HouseId = 175, Icon = 1, Name = "amber-east.odm"}
-						end
+                            end
+
+                            evt.MoveToMap{
+                                X = 19868, Y = 22474, Z = 10,
+                                Direction = 1378, LookAngle = 0, SpeedZ = 0,
+                                HouseId = 175, Icon = 1, Name = "amber-east.odm"}
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Isabella Morland (Ambassador)
-QuestNPC 			= 	529
+QuestNPC            =   529
 
 Greeting{
-	"Greetings, distinguished heroes, I come as an \01265523envoy of King Richard Ironheart\01200000, bearing a message of great import."
+    "Greetings, distinguished heroes, I come as an \01265523envoy of King Richard Ironheart\01200000, bearing "..
+    "a message of great import."
 }
 
 Quest{
-	Name 			= 	"AmberEndQuest",
-	Slot 			= 	A,
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Royal Audience",
-		TopicDone 	= 	false,
-		Give 		= 	"Heroes of Amber Island, your valor has caught the eye of \01265523King Richard Ironheart\01200000 himself. He extends an invitation to join him at the palace, where your courage can play a pivotal role in an event of great significance to the realm."..
-						"\n\nThe king's fleet awaits to escort you across the seas to the mainland, where your next great adventure beckons. Consider this \01265523voyage\01200000 a token of the realm's gratitude. Your passage is free, courtesy of King Richard Ironheart.",
-		Undone 		= 	"Time is of the essence, noble heroes. While your deeds are many, the realm urgently requires your prowess. I urge you to hasten your preparations and \01265523set sail\01200000 with us to the mainland.",
+    Name            =   "AmberEndQuest",
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Royal Audience",
+        TopicDone   =   false,
+        Give        =   "Heroes of Amber Island, your valor has caught the eye of \01265523King Richard "..
+                        "Ironheart\01200000 himself. He extends an invitation to join him at the palace, "..
+                        "where your courage can play a pivotal role in an event of great significance to the "..
+                        "realm."..
+                        "\n\nThe king's fleet awaits to escort you across the seas to the mainland, where "..
+                        "your next great adventure beckons. Consider this \01265523voyage\01200000 a token of "..
+                        "the realm's gratitude. Your passage is free, courtesy of King Richard Ironheart.",
+        Undone      =   "Time is of the essence, noble heroes. While your deeds are many, the realm urgently "..
+                        "requires your prowess. I urge you to hasten your preparations and \01265523set "..
+                        "sail\01200000 with us to the mainland.",
 
-		Quest 		= 	"\"Royal Audience\"\nIsabella Morland, Amber Island, Town Hall\n\nEmbark on a voyage by ship to the mainland to attend an audience with King Richard Ironheart.",
-	},
-	CheckDone 		= 	false,  -- the quest can't be completed here
+        Quest       =   "\"Royal Audience\"\nIsabella Morland, Amber Island, Town Hall\n\nEmbark on a voyage "..
+                        "by ship to the mainland to attend an audience with King Richard Ironheart.",
+    },
+    CheckDone       =   false,  -- the quest can't be completed here
 }
 
 NPCTopic{
-	Slot 	= 	B,
-	Topic 	= 	"The End (Victory!)",
-	Text 	= 	"Good job!",
-	CanShow = 	function(t) return vars.QuestsAmberIsland.QVarEndGame == false end,
-	Ungive 	= 	function(t)
-					if vars.QuestsAmberIsland.QVarEndGame == false then
-						vars.QuestsAmberIsland.QVarEndGame = 1   
-						--evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
-						Party.QBits[99] = true
-						SuppressSound(true)
-						while Game.CurrentScreen ~= 0 do
-							Game.Actions.Add(113, 1)
-							Game.Actions.Process()
-						end
-						SuppressSound(false)
-						evt.EnterHouse(600)
-					end
-				end
+    Slot    =   B,
+    Topic   =   "The End (Victory!)",
+    Text    =   "Good job!",
+    CanShow =   function(t) return vars.QuestsAmberIsland.QVarEndGame == false end,
+    Ungive  =   function(t)
+                    if vars.QuestsAmberIsland.QVarEndGame == false then
+                        vars.QuestsAmberIsland.QVarEndGame = 1
+                        --evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
+                        Party.QBits[99] = true
+                        SuppressSound(true)
+                        while Game.CurrentScreen ~= 0 do
+                            Game.Actions.Add(113, 1)
+                            Game.Actions.Process()
+                        end
+                        SuppressSound(false)
+                        evt.EnterHouse(600)
+                    end
+                end
 }
 
 ------------------------------------------------------------------------------
 -- Cedrick Boyce (Castle Amber)
-QuestNPC 			= 	531
+QuestNPC            =   531
 
 Greeting{
-	"Ahoy there! Ready to set sail?"
+    "Ahoy there! Ready to set sail?"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Travel: Island Town",
-	NeverGiven		=	true,
-	NeverDone		=	true,
-	Done			=	function(t) 
-							evt.MoveToMap{
-								X = -3385, Y = 13553, Z = 101, 
-								Direction = 0, LookAngle = 0, SpeedZ = 0, 
-								HouseId = 191, Icon = 1, Name = "amber.odm"}
-						end
+    Slot            =   A,
+    Topic           =   "Travel: Island Town",
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    Done            =   function(t)
+                            evt.MoveToMap{
+                                X = -3385, Y = 13553, Z = 101,
+                                Direction = 0, LookAngle = 0, SpeedZ = 0,
+                                HouseId = 191, Icon = 1, Name = "amber.odm"}
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Tobias Saltybeard (Start ship)
-QuestNPC 			= 	532
+QuestNPC            =   532
 
 Greeting
 {
-	"Ahoy! I'm Tobias Saltybeard, captain of this vessel",
-	"Good to see you again. Maybe we'll be off on another voyage soon enough."
+    "Ahoy! I'm Tobias Saltybeard, captain of this vessel",
+    "Good to see you again. Maybe we'll be off on another voyage soon enough."
 }
 
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Arrival",
-	Text 			= 	"Here we are, at port on Amber Island. We were lucky enough to get here before the \01265523magical mist\01200000 appeared again. Mind you, there's no way out of it until the mist clears, so it seems we'll be extending our stay a bit longer than expected. Best make the most of it, eh?"
+    Slot            =   A,
+    Topic           =   "Arrival",
+    Text            =   "Here we are, at port on Amber Island. We were lucky enough to get here before the "..
+                        "\01265523magical mist\01200000 appeared again.\n\nMind you, there's no way out of it "..
+                        "until the mist clears, so it seems we'll be extending our stay a bit longer than "..
+                        "expected.\n\nBest make the most of it, eh?"
 }
 
 ------------------------------------------------------------------------------
 -- Tobias Saltybeard (Second ship)
-QuestNPC 			= 	533
+QuestNPC            =   533
 
 Greeting
 {
-	"Ahoy, matey! May I introduce myself, Captain Benjamin Barnacle of the Black Betty. Welcome aboard. Looking to book passage?",
-	"Welcome back. The Black Betty welcomes you."
+    "Ahoy, matey! May I introduce myself, Captain Benjamin Barnacle of the Black Betty. Welcome aboard. "..
+    "Looking to book passage?",
+    "Welcome back. The Black Betty welcomes you."
 }
 
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Trade and Mist",
-	Text 			= 	"This island, smack in the center of the vast ocean, serves as a pivotal point between the two continents. Most ships on intercontinental voyages make a stop here to resupply. However, the recent mist crisis has made it quite a challenge to reach. Navigating these waters has become a task only the bravest dare tackle. Lucky for me, the crew of the Black Betty don't lack for courage."
+    Slot            =   A,
+    Topic           =   "Trade and Mist",
+    Text            =   "This island, smack in the center of the vast ocean, serves as a pivotal point "..
+                        "between the two continents. Most ships on intercontinental voyages make a stop here "..
+                        "to resupply.\n\nHowever, the recent mist crisis has made it quite a challenge to reach. "..
+                        "Navigating these waters has become a task only the bravest dare tackle.\n\nLucky for "..
+                        "me, the crew of the Black Betty don't lack for courage."
 }
 
 ------------------------------------------------------------------------------
 -- Goblin Raider
-QuestNPC 			= 	536
+QuestNPC            =   536
 
 Greeting{
-	"Well, hello there!\n\nCongratulations, you've won a prize - a special dinner with the \01265523Troll Warchief\01200000 himself! And guess what? You're the main course! Hahaha! Alright, boys, let's show them to their seats!\n\nGet 'em!"
+    "Well, hello there!\n\nCongratulations, you've won a prize - a special dinner with the \01265523Troll "..
+    "Warchief\01200000 himself! And guess what? You're the main course! Hahaha! Alright, boys, let's show "..
+    "them to their seats!\n\nGet 'em!"
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			=
-	{
-		Topic 		= 	"Yikes!",
-	},
-	NeverGiven		=	true,
-	Done			=	function(t) ExitScreen() end
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Yikes!",
+    },
+    NeverGiven      =   true,
+    Done            =   function(t) ExitScreen() end
 }
 
 ------------------------------------------------------------------------------
 -- Thomas Guilden
-QuestNPC 			= 	540
+QuestNPC            =   540
 
 Greeting{
-	"Greetings, travelers. Thomas Guilden, clerk of the bank and occasional runner of errands. If you've come seeking assistance, you're in capable hands. How may I help you today?"
+    "Greetings, travelers. Thomas Guilden, clerk of the bank and occasional runner of errands. If you've come "..
+    "seeking assistance, you're in capable hands. How may I help you today?"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			=	"Thieves",
-	Text			=	"Adventurers have flooded Amber Island lately, all chasing the same thing - riches and fame by solving the archmage crisis. But when the work runs dry and the coin runs out, desperation kicks in. A lot of them start resorting to theft, smuggling, or worse.\n\n"..
-						"That's why we recommend purchasing the \01265523Merchant Guild's Seal of Approval\01200000 - it shows you're trustworthy and have the means to pay."
+    Slot            =   A,
+    Topic           =   "Thieves",
+    Text            =   "Adventurers have flooded Amber Island lately, all chasing the same thing - riches "..
+                        "and fame by solving the archmage crisis. But when the work runs dry and the coin "..
+                        "runs out, desperation kicks in. A lot of them start resorting to theft, smuggling, "..
+                        "or worse.\n\n"..
+                        "That's why we recommend purchasing the \01265523Merchant Guild's Seal of "..
+                        "Approval\01200000 - it shows you're trustworthy and have the means to pay."
 }
 
 Quest{
-	Slot 			= 	B,
-	Texts 			= 
-	{
-		Topic 		= 	"Buy: Seal of Approval for 1600g",
-		Done 		= 	"Well done. With this, the merchants will see you as trustworthy customers. Carry it with you, and you'll find doors opening where they were once shut. Best of luck out there.",
-		Undone 		= 	"I'm afraid you don't have enough to cover the cost. Come back when you've gathered the required funds. Until then, the merchants likely won't take any chances.",
-		After 		= 	"Ah, it's good to see the seal is in capable hands. I trust it's been useful in easing your dealings with the locals. Anything else I can assist with?"
-	},
-	NeverGiven 		= 	true,
-	QuestGold 		= 	1600,
-	Exp				=	250,
-	Done			=	function(t) vars.MiscAmberIsland.ClosedShops = false end
+    Slot            =   B,
+    Texts           =
+    {
+        Topic       =   "Buy: Seal of Approval for 1600g",
+        Done        =   "Well done. With this, the merchants will see you as trustworthy customers. Carry it "..
+                        "with you, and you'll find doors opening where they were once shut. Best of luck out "..
+                        "there.",
+        Undone      =   "I'm afraid you don't have enough to cover the cost. Come back when you've gathered "..
+                        "the required funds. Until then, the merchants likely won't take any chances.",
+        After       =   "Ah, it's good to see the seal is in capable hands. I trust it's been useful in "..
+                        "easing your dealings with the locals. Anything else I can assist with?"
+    },
+    NeverGiven      =   true,
+    QuestGold       =   1600,
+    Exp             =   250,
+    Done            =   function(t) vars.MiscAmberIsland.ClosedShops = false end
 }
 
 ------------------------------------------------------------------------------
 -- Thomas Guilden (Outside)
-QuestNPC 			= 	541
+QuestNPC            =   541
 
 Greeting{
-	"*Thomas Guilden steps forward, adjusting his well-worn satchel with a polite smile.*\n\n"..
-	"Ah, I couldn't help but notice the door shutting in your faces. Amber Island is overrun with adventurers these days - most of them broke and turning to theft. It's no wonder shopkeepers have grown wary.\n\n"..
-	"But if you're not like the rest, prove it. Head to the \01265523bank\01200000 and purchase the \01265523Merchant Guild's Seal of Approval\01200000. It's the only way to show the locals you're here to trade, not steal. What do you say?"
+    "*Thomas Guilden steps forward, adjusting his well-worn satchel with a polite smile.*\n\n"..
+    "Ah, I couldn't help but notice the door shutting in your faces. Amber Island is overrun with adventurers "..
+    "these days - most of them broke and turning to theft. It's no wonder shopkeepers have grown wary.\n\n"..
+    "But if you're not like the rest, prove it. Head to the \01265523bank\01200000 and purchase the "..
+    "\01265523Merchant Guild's Seal of Approval\01200000. It's the only way to show the locals you're here to "..
+    "trade, not steal. What do you say?"
 }
 
 Quest{
-	Slot 			= 	A,
-	Texts 			=
-	{
-		Topic 		= 	"Ok...",
-	},
-	NeverGiven		=	true,
-	Done			=	function(t) ExitScreen() end
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Ok...",
+    },
+    NeverGiven      =   true,
+    Done            =   function(t) ExitScreen() end
 }
 
 ------------------------------------------------------------------------------
 -- Barnaby Whitfield (Warrior)
-QuestNPC 			= 	539
+QuestNPC            =   539
 
 Greeting{
-	"*As you approach the soaked, weak-looking Archmage's butler, the man lifts his head miserably. His eyes hold little hope.*\n\n"..
-	"So... I suppose you've come to drag me back.\n\nPlease, I beg you... I'm innocent! I have no wish to return to that dreadful prison cell. At least hear me out before you decide my fate.",
-	"I can only pray you will show mercy upon my soul, adventurers."
+    "*As you approach the soaked, weak-looking Archmage's butler, the man lifts his head miserably. His eyes "..
+    "hold little hope.*\n\n"..
+    "So... I suppose you've come to drag me back.\n\nPlease, I beg you... I'm innocent! I have no wish to "..
+    "return to that dreadful prison cell. At least hear me out before you decide my fate.",
+    "I can only pray you will show mercy upon my soul, adventurers."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Magnus",
-	Text 			= 	"Magnus is a complicated man. He is not evil by nature, though I understand his actions may suggest otherwise. His passion for the study of magical realities slowly consumed him, and in time that passion turned into an unhealthy obsession. It drove him to pursue his research at any cost, and thus all this trouble began.\n\n"..
-						"He is a wealthy man, and given enough time and patience he could have gathered more than enough gold to fund his work. Yet patience was never his strength. He desired the means to continue his research immediately... and so here we are."
+    Slot            =   A,
+    Topic           =   "Magnus",
+    Text            =   "Magnus is a complicated man. He is not evil by nature, though I understand his "..
+                        "actions may suggest otherwise. His passion for the study of magical realities slowly "..
+                        "consumed him, and in time that passion turned into an unhealthy obsession. It drove "..
+                        "him to pursue his research at any cost, and thus all this trouble began.\n\n"..
+                        "He is a wealthy man, and given enough time and patience he could have gathered more "..
+                        "than enough gold to fund his work. Yet patience was never his strength. He desired "..
+                        "the means to continue his research immediately... and so here we are."
 }
 
 Quest{
-	Slot 			= 	B,
-	BaseName		=	"StoryQuest4",
-	Texts 			= 
-	{		
-		Topic 		= 	"Story Quest: Fugitive Butler",
-		Give 		= 	"Indeed, I served Magnus as his butler. I kept the house and followed his orders, nothing more. I took no part in his schemes, though the mayor refuses to believe it. Before the gods, my conscience is clear.\n\n"..
-						"If you would help me, I ask for \01265523some food (5 units), a little gold (500g), and escort to a hiding place\01200000 - far from people and far from where anyone would think to search.\n\nAs a token of my gratitude, I'll tell you where you may find Magnus.",
-		Done		=	"You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
-						"Take this \01265523amulet\01200000. With it, you can activate the \01265523teleporter near the knight camp on the swamp island\01200000 and reach Magnus's \01265523secret hideout\01200000.\n\n"..
-						"It is less a home and more a magical laboratory, where he experiments with teleportation and other ways of bending reality. If you seek him, that is where you must go.\n\n"..
-						"But be warned - if you mean to reach his hideout, you will need the \01265523key from his workshop\01200000.",
-		Undone		= 	"I still need \01265523some food (5 units), a little gold (500g), and a safe place to hide\01200000 - somewhere far from people and where no one would think to search.\n\nIf you help me - I'll tell you where you may find Magnus.",
-		TopicDone 	= 	"Thanks: Fugitive Butler",
-		After		=	"You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
-						"Use the \01265523amulet\01200000 I gave you to activate the \01265523teleporter near the knight camp on the swamp island\01200000 and reach the secret hideout.\n\n"..
-						"But be warned - if you mean to reach his hideout, you will need the \01265523key from his workshop\01200000.",
-		Quest 		= 	"\"Story: Fugitive Butler\"\nBarnaby Whitfield, Follower\n\nBring Barnaby some food (5 units) and gold (500g), then escort him to a secluded hiding place far from towns and obvious locations.",
-	},
-	Give			= 	function(t)
-							evt.Add("NPCs", 539)
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID == 539 then
-									RemoveMonster(mon)
-								end
-							end
-							vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.TAKEN
-						end,
-	CheckDone 		= 	function(t)
-							
-							local needs 		= 0
-							local requiredNeeds = 3
+    Slot            =   B,
+    BaseName        =   "StoryQuest4",
+    Texts           =
+    {
+        Topic       =   "Story Quest: Fugitive Butler",
+        Give        =   "Indeed, I served Magnus as his butler. I kept the house and followed his orders, "..
+                        "nothing more. I took no part in his schemes, though the mayor refuses to believe it. "..
+                        "Before the gods, my conscience is clear.\n\n"..
+                        "If you would help me, I ask for \01265523some food (5 units), a little gold (500g), "..
+                        "and escort to a hiding place\01200000 - far from people and far from where anyone "..
+                        "would think to search.\n\nAs a token of my gratitude, I'll tell you where you may "..
+                        "find Magnus.",
+        Done        =   "You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
+                        "Take this \01265523amulet\01200000. With it, you can activate the "..
+                        "\01265523teleporter near the knight camp on the swamp island\01200000 and reach "..
+                        "Magnus's \01265523secret hideout\01200000.\n\n"..
+                        "It is less a home and more a magical laboratory, where he experiments with "..
+                        "teleportation and other ways of bending reality. If you seek him, that is where you "..
+                        "must go.\n\n"..
+                        "But be warned - if you mean to reach his hideout, you will need the \01265523key "..
+                        "from his workshop\01200000.",
+        Undone      =   "I still need \01265523some food (5 units), a little gold (500g), and a safe place to "..
+                        "hide\01200000 - somewhere far from people and where no one would think to "..
+                        "search.\n\nIf you help me - I'll tell you where you may find Magnus.",
+        TopicDone   =   "Thanks: Fugitive Butler",
+        After       =   "You have my deepest gratitude, adventurers. I shall not forget this kindness.\n\n"..
+                        "Use the \01265523amulet\01200000 I gave you to activate the \01265523teleporter near "..
+                        "the knight camp on the swamp island\01200000 and reach the secret hideout.\n\n"..
+                        "But be warned - if you mean to reach his hideout, you will need the \01265523key "..
+                        "from his workshop\01200000.",
+        Quest       =   "\"Story: Fugitive Butler\"\nBarnaby Whitfield, Follower\n\nBring Barnaby some food "..
+                        "(5 units) and gold (500g), then escort him to a secluded hiding place far from towns "..
+                        "and obvious locations.",
+    },
+    Give            =   function(t)
+                            evt.Add("NPCs", 539)
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 539 then
+                                    RemoveMonster(mon)
+                                end
+                            end
+                            vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.TAKEN
+                        end,
+    CheckDone       =   function(t)
 
-							if evt.All.Cmp("Gold", 500) then
-								needs = needs + 1
-							end
+                            local needs         = 0
+                            local requiredNeeds = 3
 
-							if evt.All.Cmp("Food", 5) then
-								needs = needs + 1
-							end
+                            if evt.All.Cmp("Gold", 500) then
+                                needs = needs + 1
+                            end
 
-							if vars.QuestsAmberIsland.QVarButlerEscaped == QVarButlerEscapedState.HIDDEN then
-								needs = needs + 1
-							end
+                            if evt.All.Cmp("Food", 5) then
+                                needs = needs + 1
+                            end
 
-							if needs >= requiredNeeds then
-								
-								evt.Subtract("Gold", 500)
-								evt.Subtract("Food", 5)
-								return true
-							end
+                            if vars.QuestsAmberIsland.QVarButlerEscaped == QVarButlerEscapedState.HIDDEN then
+                                needs = needs + 1
+                            end
 
-							return false
-						end,
-	Exp				=	750,
-	RewardItem 		= 	796
+                            if needs >= requiredNeeds then
+
+                                evt.Subtract("Gold", 500)
+                                evt.Subtract("Food", 5)
+                                return true
+                            end
+
+                            return false
+                        end,
+    Exp             =   750,
+    RewardItem      =   796
 }
 
 NPCTopic{
-	Slot 			= 	C,
-	Topic 			= 	"How's life?",
-	Text 			= 	"This place is surprisingly livable. I even found an old dwarven siege hideout - there's a bed, some wine, and a few supplies. I should manage well enough here.",
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 582 end
+    Slot            =   C,
+    Topic           =   "How's life?",
+    Text            =   "This place is surprisingly livable. I even found an old dwarven siege hideout - "..
+                        "there's a bed, some wine, and a few supplies. I should manage well enough here.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 582 end
 }
 
 NPCTopic{
-	Slot 			= 	D,
-	Topic 			= 	"How's life?",
-	Text 			= 	"Well... pirate caves aren't the friendliest of places. Still, as long as I keep away from the local vermin, I should be fine.",
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 583 end
+    Slot            =   D,
+    Topic           =   "How's life?",
+    Text            =   "Well... pirate caves aren't the friendliest of places. Still, as long as I keep away "..
+                        "from the local vermin, I should be fine.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 583 end
 }
 
 NPCTopic{
-	Slot 			= 	E,
-	Topic 			= 	"How's life?",
-	Text 			= 	"Quite a creepy place. I've heard stories about a Behemoth lurking in these mines, and something tells me they may be true.\n\nStill, I found a small building with a bed and some old furniture. I think I can manage here for a while.",
-	CanShow			=	function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 end
+    Slot            =   E,
+    Topic           =   "How's life?",
+    Text            =   "Quite a creepy place. I've heard stories about a Behemoth lurking in these mines, "..
+                        "and something tells me they may be true.\n\nStill, I found a small building with a "..
+                        "bed and some old furniture. I think I can manage here for a while.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 end
 }
 
 ------------------------------------------------------------------------------
 -- Aaron Calegan
-QuestNPC 			= 	542
+QuestNPC            =   542
 
 Greeting
 {
-	"Name's Aaron. I keep watch over the prison.\n\nYou'd better not cause any trouble here. If you're looking to bail someone out, speak with Guardmaster \01265523James Halloran\01200000. You'll find him near the bridge on the western part of the island."
+    "Name's Aaron. I keep watch over the prison.\n\nYou'd better not cause any trouble here. If you're "..
+    "looking to bail someone out, speak with Guardmaster \01265523James Halloran\01200000. You'll find him "..
+    "near the bridge on the western part of the island."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Mainland",
-	Text 			= 	"I used to fight as a mercenary on the mainland - kings and lords were always feuding with one another, so there was never a shortage of work.\n\nThese days I serve as a prison guard here on Amber Island. The pay is good, and most days I can take it easy since crime is low - though lately things have been busier than usual."
+    Slot            =   A,
+    Topic           =   "Mainland",
+    Text            =   "I used to fight as a mercenary on the mainland - kings and lords were always feuding "..
+                        "with one another, so there was never a shortage of work.\n\nThese days I serve as a "..
+                        "prison guard here on Amber Island. The pay is good, and most days I can take it easy "..
+                        "since crime is low - though lately things have been busier than usual."
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Story Quest: Secret Hideout?",
-	Text			=	"That butler, Barnaby? Pulled the oldest trick in the book. Pretended to be sick, then slipped past the guard and jumped into the sea, \01265523swimming towards port island\01200000. Haven't seen him since.\n\n"..
-						"But I'm not worried. This is an island - he's got nowhere to run. Sooner or later someone will spot him.\n\n"..
-						"If you happen to bring him back, there might be a little reward waiting for you.",
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarButlerEscaped > 0 and vars.QuestsAmberIsland.QVarButlerEscaped < 3 end
+    Slot            =   B,
+    Topic           =   "Story Quest: Secret Hideout?",
+    Text            =   "That butler, Barnaby? Pulled the oldest trick in the book. Pretended to be sick, "..
+                        "then slipped past the guard and jumped into the sea, \01265523swimming towards port "..
+                        "island\01200000. Haven't seen him since.\n\n"..
+                        "But I'm not worried. This is an island - he's got nowhere to run. Sooner or later "..
+                        "someone will spot him.\n\n"..
+                        "If you happen to bring him back, there might be a little reward waiting for you.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerEscaped > 0 and vars.QuestsAmberIsland.QVarButlerEscaped < 3 end
 }
 
 Quest{
-	Slot 			= 	C,
-	Texts 			= 
-	{		
-		Topic 		= 	"Hand Barnaby back...",
-		Done 		= 	"Well, look at that! You actually found the runaway. Good work. We'll take him back to his cell.\n\nHere's your reward for bringing him in.",
-		TopicDone 	= 	false,
-	},
-	NeverGiven		=	true,
-	Gold 			= 	500,
-	Exp				=	200,
-	Done			=	function(t)
-							evt.Subtract("NPCs", 539)
-							evt.MoveNPC{NPC = 528, HouseId = 533}
-							vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.IMPRISONED
-							Q.StoryQuest4 = "Done"
-						end,
-	CanShow			=	function(t) return evt.Cmp("NPCs", 539) end
+    Slot            =   C,
+    Texts           =
+    {
+        Topic       =   "Hand Barnaby back...",
+        Done        =   "Well, look at that! You actually found the runaway. Good work. We'll take him back "..
+                        "to his cell.\n\nHere's your reward for bringing him in.",
+        TopicDone   =   false,
+    },
+    NeverGiven      =   true,
+    Gold            =   500,
+    Exp             =   200,
+    Done            =   function(t)
+                            evt.Subtract("NPCs", 539)
+                            evt.MoveNPC{NPC = 528, HouseId = 533}
+                            vars.QuestsAmberIsland.QVarButlerEscaped = QVarButlerEscapedState.IMPRISONED
+                            Q.StoryQuest4 = "Done"
+                        end,
+    CanShow         =   function(t) return evt.Cmp("NPCs", 539) end
 }
 
 ------------------------------------------------------------------------------
 -- Barnaby Whitfield (Warrior) (Found Hideout)
-QuestNPC 			= 	543
+QuestNPC            =   543
 
 Greeting
 {
-	"This place... yes, it should serve well as a hiding place. Remote and far from prying eyes.\n\nYou have my gratitude, adventurers!"
+    "This place... yes, it should serve well as a hiding place. Remote and far from prying eyes.\n\nYou have "..
+    "my gratitude, adventurers!"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Great!",
-	Ungive      	=   function(t)
-							ExitScreen()
-							--evt.SpeakNPC(539)
-						end,
+    Slot            =   A,
+    Topic           =   "Great!",
+    Ungive          =   function(t)
+                            ExitScreen()
+                            --evt.SpeakNPC(539)
+                        end,
 }
 
 ------------------------------------------------------------------------------
 -- Watchtower & Apple Cave & Abandoned Mines Dungeon Entrances (for butler)
-QuestNPC 			= 	544
+QuestNPC            =   544
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Enter the Watchtower Cellar",
-	Ungive      	=   function(t)
-							evt.MoveToMap{
-								X           = -23,
-								Y           = 127,
-								Z           = 1,
-								Direction   = 1024,
-								LookAngle   = 1,
-								SpeedZ      = 1,
-								HouseId     = 199,
-								Icon        = 1,
-								Name        = "watchtower.blv"
-							}
-						end
+    Slot            =   A,
+    Topic           =   "Enter the Watchtower Cellar",
+    Ungive          =   function(t)
+                            evt.MoveToMap{
+                                X           = -23,
+                                Y           = 127,
+                                Z           = 1,
+                                Direction   = 1024,
+                                LookAngle   = 1,
+                                SpeedZ      = 1,
+                                HouseId     = 199,
+                                Icon        = 1,
+                                Name        = "watchtower.blv"
+                            }
+                        end
 }
 
-QuestNPC 			= 	545
+QuestNPC            =   545
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Enter the Apple Cave",
-	Ungive      	=   function(t)
-							evt.MoveToMap{
-								X           = -148,
-								Y           = 3,
-								Z           = 0,
-								Direction   = 2048,
-								LookAngle   = 1,
-								SpeedZ      = 1,
-								HouseId     = 194,
-								Icon        = 1,
-								Name        = "applecave.blv"
-							}
-						end
+    Slot            =   A,
+    Topic           =   "Enter the Apple Cave",
+    Ungive          =   function(t)
+                            evt.MoveToMap{
+                                X           = -148,
+                                Y           = 3,
+                                Z           = 0,
+                                Direction   = 2048,
+                                LookAngle   = 1,
+                                SpeedZ      = 1,
+                                HouseId     = 194,
+                                Icon        = 1,
+                                Name        = "applecave.blv"
+                            }
+                        end
 }
 
-QuestNPC 			= 	546
+QuestNPC            =   546
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Enter the Abandoned Mines",
-	Ungive      	=   function(t)
-							evt.MoveToMap{
-								X           = 190,
-								Y           = 140,
-								Z           = 33,
-								Direction   = 512,
-								LookAngle   = 0,
-								SpeedZ      = 0,
-								HouseId     = 196,
-								Icon        = 1,
-								Name        = "abmines.blv"
-							}
-						end
+    Slot            =   A,
+    Topic           =   "Enter the Abandoned Mines",
+    Ungive          =   function(t)
+                            evt.MoveToMap{
+                                X           = 190,
+                                Y           = 140,
+                                Z           = 33,
+                                Direction   = 512,
+                                LookAngle   = 0,
+                                SpeedZ      = 0,
+                                HouseId     = 196,
+                                Icon        = 1,
+                                Name        = "abmines.blv"
+                            }
+                        end
 }
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (Warrior; Inn)
-QuestNPC 			= 	547
+QuestNPC            =   547
 
 Greeting{
-	"Conrad Hawk's the name. I drink, I brawl, and I win more often than folks like to admit."
+    "Conrad Hawk's the name. I drink, I brawl, and I win more often than folks like to admit."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Branch 			= 	"",
-	NewBranch		=	"ConradFightOffer",
-	Texts 			= 
-	{		
-		Topic 		= 	"Quest: Brawl",
-		Ungive 		= 	"*Conrad sways slightly, grinning through the smell of ale.*\n\nWell, look what staggered in. Four brave heroes, and I still reckon I can put the lot of you on the floor myself!\n\n*He takes a careless swig from his cup.*\n\nFair brawl, me against all of you. Let's make it interesting: \01265523100 gold\01200000 says you can't take me down.\n\nRules are simple: fists only. No weapons, no offensive magic. Step off the arena platform, and that's a forfeit. So... wanna fight?\n\nBut first - let's drink!",
-	},
-	Ungive			=	SetBranch,
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarConradBrawl == 0 end,
+    Slot            =   A,
+    Branch          =   "",
+    NewBranch       =   "ConradFightOffer",
+    Texts           =
+    {
+        Topic       =   "Quest: Brawl",
+        Ungive      =   "*Conrad sways slightly, grinning through the smell of ale.*\n\nWell, look what "..
+                        "staggered in. Four brave heroes, and I still reckon I can put the lot of you on the "..
+                        "floor myself!\n\n*He takes a careless swig from his cup.*\n\nFair brawl, me against "..
+                        "all of you. Let's make it interesting: \01265523100 gold\01200000 says you can't "..
+                        "take me down.\n\nRules are simple: fists only. No weapons, no offensive magic. Step "..
+                        "off the arena platform, and that's a forfeit. So... wanna fight?\n\nBut first - "..
+                        "let's drink!",
+    },
+    Ungive          =   SetBranch,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarConradBrawl == 0 end,
 }
 
 Quest{
-	Slot 			= 	A,
-	Branch 			= 	"",
-	Texts 			= 
-	{		
-		Topic 		= 	"Pay: Lost bet (100g)",
-		Done 		= 	"*Conrad grins wide, looking far too pleased with himself.*\n\nThat's the spirit. A bet's a bet, and I knew you lot had honor under all those bruises.\n\nCome back when you're ready for another round. I'll be right here, keeping my fists warm.",
-	},
-	Done			=	function(t) 
-							vars.QuestsAmberIsland.QVarConradBrawl = 0
-						end,
-	NeverGiven		=	true,
-	NeverDone 		= 	true,
-	QuestGold 		= 	100,
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarConradBrawl >= 3 end,
+    Slot            =   A,
+    Branch          =   "",
+    Texts           =
+    {
+        Topic       =   "Pay: Lost bet (100g)",
+        Done        =   "*Conrad grins wide, looking far too pleased with himself.*\n\nThat's the spirit. A "..
+                        "bet's a bet, and I knew you lot had honor under all those bruises.\n\nCome back when "..
+                        "you're ready for another round. I'll be right here, keeping my fists warm.",
+    },
+    Done            =   function(t)
+                            vars.QuestsAmberIsland.QVarConradBrawl = 0
+                        end,
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    QuestGold       =   100,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarConradBrawl >= 3 end,
 }
 
 Quest{
-	Slot 			= 	A,
-	Name 			= 	"",
-	Branch 			= 	"ConradFightOffer",
-	Texts 			=
-	{
-		Topic 		= 	"Let's fight!",
-	},
-	NeverGiven		=	true,
-	NeverDone 		= 	true,
-	Done      		=   function(t)
+    Slot            =   A,
+    Name            =   "",
+    Branch          =   "ConradFightOffer",
+    Texts           =
+    {
+        Topic       =   "Let's fight!",
+    },
+    NeverGiven      =   true,
+    NeverDone       =   true,
+    Done            =   function(t)
 
-							ReloadHouse(Game.GetCurrentHouse())
-							ExitScreen()
+                            ReloadHouse(Game.GetCurrentHouse())
+                            ExitScreen()
 
-							evt.MoveNPC(547,0) -- Conrad leaves Inn
+                            evt.MoveNPC(547,0) -- Conrad leaves Inn
 
-							evt.All.Set("Drunk", 0)
+                            evt.All.Set("Drunk", 0)
 
-							XYZ(Party, 686, 16629, 33)
-							Party.Direction = 512
-							Party.LookAngle = 0
+                            XYZ(Party, 686, 16629, 33)
+                            Party.Direction = 512
+                            Party.LookAngle = 0
 
-							-- State: Fight Conrad!
-							vars.QuestsAmberIsland.QVarConradBrawl 		= 1
-							vars.QuestsAmberIsland.QVarConradWarning 	= false
+                            -- State: Fight Conrad!
+                            vars.QuestsAmberIsland.QVarConradBrawl      = 1
+                            vars.QuestsAmberIsland.QVarConradWarning    = false
 
-							-- Make arena bounds trigger-able
-							evt.SetFacetBit(200,const.FacetBits.Untouchable, false)
+                            -- Make arena bounds trigger-able
+                            evt.SetFacetBit(200,const.FacetBits.Untouchable, false)
 
-							-- Spawn Monk monster as Conrad Hawk
-							local mon			= SummonMonster(106, 686 , 17594, 33, true)
-							mon.FullHitPoints	= 200
-							mon.HP				= 200
-							mon.Level			= 10
-							mon.NPC_ID  		= 547
-							mon.Direction 		= 1537
-							mon.Hostile			= true
-							mon.Spell			= 0
-							mon.Spell2			= 0
-							mon.Attack1Damage 	= "3D4+3"
-							mon.NoFlee			= true
+                            -- Spawn Monk monster as Conrad Hawk
+                            local mon           = SummonMonster(106, 686 , 17594, 33, true)
+                            mon.FullHitPoints   = 200
+                            mon.HP              = 200
+                            mon.Level           = 10
+                            mon.NPC_ID          = 547
+                            mon.Direction       = 1537
+                            mon.Hostile         = true
+                            mon.Spell           = 0
+                            mon.Spell2          = 0
+                            mon.Attack1Damage   = "3D4+3"
+                            mon.NoFlee          = true
 
-							Sleep(1)
+                            Sleep(1)
 
-							Message(evt.str[17])
-						end,
+                            Message(evt.str[17])
+                        end,
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Branch 			= 	"ConradFightOffer",
-	NewBranch		=	"",
-	Topic 			= 	"No thanks...",
-	Ungive			=	SetBranch,
+    Slot            =   B,
+    Branch          =   "ConradFightOffer",
+    NewBranch       =   "",
+    Topic           =   "No thanks...",
+    Ungive          =   SetBranch,
 }
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (Warrior; Shouts when Party leaves arena)
-QuestNPC 			= 	548
+QuestNPC            =   548
 
 Greeting{
-	"Hey! This is a brawl, not a battlefield!\n\n"..
-	"Fists only, no magic tricks, and keep your boots on the platform.\n\n"..
-	"\01265523Try that again and I'll count it as your forfeit!\01200000"
+    "Hey! This is a brawl, not a battlefield!\n\n"..
+    "Fists only, no magic tricks, and keep your boots on the platform.\n\n"..
+    "\01265523Try that again and I'll count it as your forfeit!\01200000"
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Got it...",
-	Ungive			=	function(t) 
+    Slot            =   A,
+    Topic           =   "Got it...",
+    Ungive          =   function(t)
 
-							-- Return party to start position
-							XYZ(Party, 686, 16629, 33)
-							Party.Direction = 512
-							Party.LookAngle = 0
+                            -- Return party to start position
+                            XYZ(Party, 686, 16629, 33)
+                            Party.Direction = 512
+                            Party.LookAngle = 0
 
-							-- Return Conrad to start position
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID == 547 then
-									XYZ(mon, 686, 17594, 33)
-									break;
-								end
-							end
+                            -- Return Conrad to start position
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 547 then
+                                    XYZ(mon, 686, 17594, 33)
+                                    break;
+                                end
+                            end
 
-							ExitScreen()
+                            ExitScreen()
 
-						end,
+                        end,
 }
 
 NPCTopic{
-	Slot 			= 	B,
-	Topic 			= 	"Forfeit!",
-	Ungive			=	function(t)
+    Slot            =   B,
+    Topic           =   "Forfeit!",
+    Ungive          =   function(t)
 
-							evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
-							evt.MoveNPC(547,117) -- Conrad goes back to Inn
-							for _, mon in Map.Monsters do
-								if mon.NPC_ID  == 547 then
-									RemoveMonster(mon)
-									break
-								end
-							end
+                            evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
+                            evt.MoveNPC(547,117) -- Conrad goes back to Inn
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID  == 547 then
+                                    RemoveMonster(mon)
+                                    break
+                                end
+                            end
 
-							vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
+                            vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
 
-							ExitScreen()
-						end,
+                            ExitScreen()
+                        end,
 }
 
 ------------------------------------------------------------------------------
 -- Aaron Calegan (Intercepts fight with Conrad)
-QuestNPC 			= 	549
+QuestNPC            =   549
 
 Greeting{
-	"*Aaron Calegan rushes onto the platform with the other guards just as Conrad staggers, barely able to stay on his feet.*"..
-	"\n\nThat's enough! Conrad Hawk, I should've known it was you the moment I heard the shouting."..
-	"\n\n*He grabs Conrad before he can fall and gives the party an apologetic nod.*"..
-	"\n\nSorry about this. He's the island's favorite troublemaker, and trouble follows him like a shadow."..
-	"\01265523We'll take him back to the jail\01200000 before he decides losing wasn't enough excitement for one day."
+    "*Aaron Calegan rushes onto the platform with the other guards just as Conrad staggers, barely able to "..
+    "stay on his feet.*"..
+    "\n\nThat's enough! Conrad Hawk, I should've known it was you the moment I heard the shouting."..
+    "\n\n*He grabs Conrad before he can fall and gives the party an apologetic nod.*"..
+    "\n\nSorry about this. He's the island's favorite troublemaker, and trouble follows him like a shadow."..
+    "\01265523We'll take him back to the jail\01200000 before he decides losing wasn't enough excitement for one day."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Topic 			= 	"Ugh...",
-	Ungive			=	function(t) ExitScreen() end,
+    Slot            =   A,
+    Topic           =   "Ugh...",
+    Ungive          =   function(t) ExitScreen() end,
 }
 
 ------------------------------------------------------------------------------
 -- Jasmine (Thief)
 
-QuestNPC 			= 	550
+QuestNPC            =   550
 
 Greeting{
-	"Damn it..."
+    "Damn it..."
 }
 
 NPCTopic{
-	Slot 			= 	A,
-	Texts 			=
-	{		
-		Topic 		= 	"Quest: Revenge",
-		Ungive 		= 	"Alright, alright! You caught me. Happy now?\n\n" ..
-						"*She rolls her eyes and tosses the \01265523nobleman's ring\01200000 into a dark corner.*\n\n" ..
-						"There's your precious trinket. Try not to lose it again.\n" ..
-						"See you around...\n\n" ..
-						"*As the party turns toward the ring, the girl \01265523slips away\01200000.*\n\n"..
-						"Forget about her,\" Michael says. \"We got what we came for. Let's head back to the mayor.\"",
-	},
-	Ungive			=	function(t)
-							ShowQuestEffect(false, t.TakeQuestOperation)
-							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
-							evt.MoveNPC(550,0)
-						end,
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
+    Slot            =   A,
+    Texts           =
+    {
+        Topic       =   "Quest: Revenge",
+        Ungive      =   "Alright, alright! You caught me. Happy now?\n\n" ..
+                        "*She rolls her eyes and tosses the \01265523nobleman's ring\01200000 into a dark "..
+                        "corner.*\n\n" ..
+                        "There's your precious trinket. Try not to lose it again.\n" ..
+                        "See you around...\n\n" ..
+                        "*As the party turns toward the ring, the girl \01265523slips away\01200000.*\n\n"..
+                        "Forget about her,\" Michael says. \"We got what we came for. Let's head back to the mayor.\"",
+    },
+    Ungive          =   function(t)
+                            ShowQuestEffect(false, t.TakeQuestOperation)
+                            vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
+                            evt.MoveNPC(550,0)
+                        end,
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
 }
-
