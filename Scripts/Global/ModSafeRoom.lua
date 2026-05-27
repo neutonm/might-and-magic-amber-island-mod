@@ -1,6 +1,6 @@
 --[[
-"Rest" Room Mechanics
-Author: Henrik Chukhran, 2022 - 2024
+Description:    "Rest" Room Mechanics
+Author:         Henrik Chukhran, 2022 - 2026
 ]]
  
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5

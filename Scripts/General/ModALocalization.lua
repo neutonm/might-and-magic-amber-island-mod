@@ -1,3 +1,8 @@
+--[[
+Description:    Global strings datatable for locaization
+Author:         Henrik Chukhran, 2022 - 2026
+]]
+
 ModTxt                  = LocalizeAll{
     CNull               = " ",
 

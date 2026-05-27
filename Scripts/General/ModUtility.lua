@@ -1,6 +1,6 @@
 --[[
-Utility & Helpers
-Author: Henrik Chukhran, 2022 - 2024
+Description:    Utility & Helpers
+Author:         Henrik Chukhran, 2022 - 2026
 ]]
 
 function GetDifficulty()
@@ -53,13 +53,13 @@ end
 function GetDistanceBetweenObjects(a, b)
 
 	if a.Pos == nil then
-        
+
         print("GetDistanceBetweenObjects Error: a isn't object\n")
         return 0
     end
 
     if b.Pos == nil then
-        
+
         print("GetDistanceBetweenObjects Error: b isn't object\n")
         return 0
     end
@@ -88,7 +88,7 @@ function ContainsNumber(myArray, myValue)
     if myArray == nil then
         return false
     end
-    
+
     for _, v in ipairs(myArray) do
         if v == myValue then
             return true
@@ -126,7 +126,7 @@ function PlayerSetSkill(player, skillID, points, mastery)
 
     pl = Party[player]
     local mySkill, myMastery = SplitSkill(pl.Skills[skillID])
-    pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points), 
+    pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points),
         math.max(myMastery, mastery))
 end
 
@@ -137,10 +137,10 @@ function PlayerHasSkill(player, skillID)
 end
 
 function PartySetSkill(skillID, points, mastery)
-    
+
     for _, pl in Party do
         local mySkill, myMastery = SplitSkill(pl.Skills[skillID])
-        pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points), 
+        pl.Skills[skillID]     = JoinSkill(math.max(mySkill, points),
             math.max(myMastery, mastery))
     end
 end

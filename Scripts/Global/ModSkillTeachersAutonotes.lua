@@ -1,4 +1,8 @@
--- Generate Autonotes for teachers
+--[[
+Description:    Autonotes for General/ModSkillTeachers.lua
+Author:         Henrik Chukhran, 2022 - 2026
+]]
+
 for i = 1, #TeachersDB do
     if TeachersDB[i] ~= nil and (TeachersDB[i].Autonote ~= nil or TeachersDB[i].Autonote:match("^%s*(.-)%s*$") ~= "" ) then
         Autonote(":"..TeachersDB[i].ID, 5, TeachersDB[i].Autonote)

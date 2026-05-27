@@ -1,7 +1,6 @@
 --[[
-
-Mercenary Mechanics,
-Author: Henrik Chukhran, 2022 - 2024
+Description:    Mercenary Mechanics,
+Author:         Henrik Chukhran, 2022 - 2026
 
 ToDo:
     - New Upgrade: Special
@@ -42,7 +41,7 @@ SMercUpgrade        = {
 -- Holds mutable data shared across save files
 SMercSaveData       = {
     NPC_ID          = 0,
-    FightsLeft      = 1,     
+    FightsLeft      = 1,
     Upgrades        = { SMercUpgrade },
     Released        = false,
     ReleaseMap      = "",
@@ -140,17 +139,17 @@ end
 function Merc_Hire(Merc)
 
     if Merc_IsHired(Merc) then return end
-    
+
     local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
     MercSaveData.HiredOnce = true
 
-    table.insert(vars.MercNPCHiredList, Merc.NPC_ID) 
+    table.insert(vars.MercNPCHiredList, Merc.NPC_ID)
 end
 
 function Merc_Fire(Merc)
 
     if Merc_IsHired(Merc) == false then return end
-    
+
     for i, v in ipairs(vars.MercNPCHiredList) do
         if v == Merc.NPC_ID then
             table.remove(vars.MercNPCHiredList, i)
@@ -174,7 +173,7 @@ function Merc_MakeAvailableForHire(MercID)
 
     if Merc_IsAvailableForHire(MercID) then return end
 
-    table.insert(vars.MercNPCAvailableList, MercID) 
+    table.insert(vars.MercNPCAvailableList, MercID)
 end
 
 function Merc_GetUpgrade(Merc, MercUpgradeType)
@@ -193,7 +192,7 @@ function Merc_GetUpgradeLevel(Merc, MercUpgradeType)
 
     local Level = 0
     local MercUpgrades = Merc_GetSaveDataByID(Merc.NPC_ID)
-    
+
     for _, upgrade in ipairs(MercUpgrades) do
         if upgrade.UpgradeType == MercUpgradeType then
             Level = upgrade.Level or 1
@@ -205,7 +204,7 @@ function Merc_GetUpgradeLevel(Merc, MercUpgradeType)
 end
 
 function Merc_Upgrade(Merc, MercUpgradeType)
-    
+
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
     local Upgrade           = Merc_GetUpgrade(Merc, MercUpgradeType)
 
@@ -215,7 +214,7 @@ function Merc_Upgrade(Merc, MercUpgradeType)
             Price           = { 1000,2000,3000 },
             UpgradeType     = MercUpgradeType
         }
-        
+
         table.insert(MercSaveData, NewUpgrade)
 
         Upgrade = table.copy(NewUpgrade)
@@ -239,10 +238,10 @@ function Merc_Fight(Merc, t)
     Merc_ConsumeCharge(Merc)
 
     local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
-    
+
     MercSaveData.Released       = true
     MercSaveData.ReleaseMap     = Game.Map.Name
-    
+
     local UpgradeMonLevel       = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Level) + 1
     local UpgradeHPLevel        = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.HP) + 1
     local UpgradeACLevel        = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.AC) + 1
@@ -251,7 +250,7 @@ function Merc_Fight(Merc, t)
 
     -- Monster
     local mon                   = SummonMonster(Merc.MonsterID, Party.X, Party.Y, Party.Z, false)
-    
+
     -- User values
     mon.FullHitPoints           = Merc.FullHP[UpgradeHPLevel]
     mon.ArmorClass              = Merc.AC[UpgradeHPLevel]
@@ -268,7 +267,7 @@ function Merc_Fight(Merc, t)
     mon.ShowOnMap               = true
     mon.HP                      = mon.FullHitPoints
     mon.NoFlee                  = true
-    
+
     -- Damage
     local meleeDmg              = Merc_ParseDamageString(Merc.Attack1[UpgradeDmg1Level])
     mon.Attack1.DamageAdd       = meleeDmg.DamageAdd
@@ -285,7 +284,7 @@ function Merc_Dismiss(Merc, t)
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
     MercSaveData.Released   = false
     MercSaveData.ReleaseMap = ""
-    
+
     for _, mon in Map.Monsters do
         if mon.NPC_ID == QuestNPC then
             RemoveMonster(mon)
@@ -298,14 +297,14 @@ function Merc_Dismiss(Merc, t)
             local UpgradeUseLevel   = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Charges) or 1
             local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
             MercSaveData.FightsLeft = Merc.FightsMax[UpgradeUseLevel+1] or 1
-        end, 
+        end,
         const.Day, const.Hour, true)
 
     ExitScreen()
 end
 
 function Merc_IsSpecial(Merc, t)
-    
+
     if Merc.Ability == nil              then return false end
     if type(Merc.Ability) ~= "string"   then return false end
     if string.len(Merc.Ability) == 0    then return false end
@@ -325,7 +324,7 @@ function Merc_IsSpecialTag(Merc, tag)
     return false
 end
 
-function Merc_ShowMessageAboutAbility(Merc, t) 
+function Merc_ShowMessageAboutAbility(Merc, t)
 
     if Merc_IsSpecial(Merc, t) then
         Message(Merc.Credentials.TextSpecial)
@@ -359,7 +358,7 @@ end
 function Merc_ShowInfo(Merc)
 
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
-    
+
     local UpgMax            = const.Mercenary.UpgradeLimit
     local UpgradeHPLevel    = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.HP)
     local UpgradeACLevel    = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.AC)
@@ -402,7 +401,7 @@ function Merc_ShowInfo(Merc)
 end
 
 function Merc_GetByID(mercID)
-    
+
     for _, v in pairs(MercsDB) do
         if v.NPC_ID == mercID then
             return v
@@ -528,7 +527,7 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
         for _, Merc in pairs(MercsDB) do
             local SaveData = table.copy(SMercSaveData)
             SaveData.NPC_ID = Merc.NPC_ID
-            table.insert(vars.MercSaveDataList, SaveData) 
+            table.insert(vars.MercSaveDataList, SaveData)
         end
 
         -- Default available mercs
@@ -567,7 +566,7 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
     if not ContainsNumber(MercNPCList, mon.NPC_ID) then
         return
     end
-    
+
     evt.Add("NPCs",mon.NPC_ID)
 
     local Merc                  = Merc_GetByID(mon.NPC_ID)
@@ -609,7 +608,7 @@ function events.AfterLoadMap(WasInGame)
     Timer(
         function()
             Merc_ResetChargesForAllMercs()
-        end, 
+        end,
         const.Day, const.Hour, false)
 end
 
@@ -622,7 +621,7 @@ function events.GameInitialized2()
         if MercsDB[i].Ability == nil then
             MercsDB[i].Ability = ""
         end
-    
+
         if MercsDB[i].Credentials == nil then
             MercsDB[i].Credentials = table.copy(SMercCredentials)
         end

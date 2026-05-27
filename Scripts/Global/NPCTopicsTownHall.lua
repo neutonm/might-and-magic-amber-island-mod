@@ -1,6 +1,6 @@
 --[[
-Custom "Town Hall" topics Template,
-Author: Henrik Chukhran, 2022 - 2024
+Description:    Custom "Town Hall" topics Template,
+Author:         Henrik Chukhran, 2022 - 2024
 ]]
 
 local A, B, C, D, E, F = 0, 1, 2, 3, 4, 5

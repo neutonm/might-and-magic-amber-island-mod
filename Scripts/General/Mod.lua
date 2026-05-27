@@ -1,21 +1,20 @@
 --[[
-Global Mod Script
-Author: Henrik Chukhran, 2022 - 2024
+Description:    Global Mod Script
+Author:         Henrik Chukhran, 2022 - 2026
 ]]
 
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug      = false
+Game.Debug      = true
 
 -- New Game
 Game.NewGameMap = Game.Debug and "hub.blv" or "amber.odm"
 Game.TitleTrack = 22
 
 function events.NewGameMap()
-    
     XYZ(Party,-17116,-21798,449)
-end 
+end
 
 function events.DeathMap(t)
 
@@ -40,7 +39,7 @@ function events.DeathMap(t)
         Party.Direction     = 1262
         Party.LookAngle     = 0
     end
-    
+
 end
 
 function events.BeforeLoadMap(WasInGame, WasLoaded)
@@ -60,7 +59,7 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
         god()
     end
 
-    if path.ext(Game.Map.Name):lower() == ".odm" then 
+    if path.ext(Game.Map.Name):lower() == ".odm" then
         LocalFile(Game.DecListBin)
         Game.DecListBin[34].SoundId = 0
     end
@@ -74,7 +73,7 @@ function events.ShowMovie(t)
 end
 
 function events.MonsterKilled(mon, monIndex, defaultHandler)
-    
+
 end
 
 function events.AfterLoadMap(WasInGame)
@@ -87,8 +86,8 @@ function events.AfterLoadMap(WasInGame)
             vars.QuestsAmberIsland.QVarEndGame = 2
             Timer(function()
                 evt.MoveToMap{
-                    X = 3684, Y = 8941, Z = 120, 
-                    Direction = 1024, LookAngle = 0, SpeedZ = 0, 
+                    X = 3684, Y = 8941, Z = 120,
+                    Direction = 1024, LookAngle = 0, SpeedZ = 0,
                     HouseId = 0, Icon = 0, Name = "amber.odm"}
             end, const.Second, Game.Time + const.Second, false)
 
@@ -152,7 +151,7 @@ function events.BeforeNewGameAutosave()
         -- No stuff
         Party.Gold         = 0
         Party.Food         = 2
-        
+
         -- Clear inventory
         for id = 0, 1024 do
             for p = 0, Party.Count - 1 do
@@ -194,6 +193,6 @@ function events.BeforeNewGameAutosave()
 
     -- Clear emerald island quests
     for i = 1, 6 do
-        Party.QBits[i] = false 
+        Party.QBits[i] = false
     end
 end

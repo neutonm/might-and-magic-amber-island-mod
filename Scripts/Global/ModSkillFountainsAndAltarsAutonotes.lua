@@ -1,3 +1,8 @@
+--[[
+Description:    Autonotes for General/ModFountainsAndAltars.lua
+Author:         Henrik Chukhran, 2022 - 2026
+]]
+
 for i = 1, #FountainsAndAltarsDB do
     if FountainsAndAltarsDB[i] ~= nil then
         local autonoteId   = ":" .. FountainsAndAltarsDB[i].ID
