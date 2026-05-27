@@ -3157,6 +3157,18 @@ NPCTopic{
     CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 584 end
 }
 
+NPCTopic{
+    Slot            =   F,
+    Topic           =   "How's life?",
+    Text            =   "A ruined cellar beneath a ruined inn, in the middle of a swamp...\n\n"..
+                        "It sounds dreadful when said aloud, but Castle Amber is close. "..
+                        "That makes me feel a good deal safer than I expected for some reason.\n\n"..
+                        "No one is likely to search for me down here. I only hope the couatls keep to the marsh "..
+                        "and don't take an interest in my little hiding place.\n\n"..
+                        "All things considered, I think I can manage.",
+    CanShow         =   function(t) return vars.QuestsAmberIsland.QVarButlerHideHouseID == 604 end
+}
+
 ------------------------------------------------------------------------------
 -- Aaron Calegan
 QuestNPC            =   542

@@ -346,4 +346,20 @@ evt.map[29]         = function()
 end
 
 -- Ruined Inn hideout
-evt.HouseDoor(30, 604)
+evt.map[30]         = function()
+
+    local HouseID_RuinedCellar = 604
+
+    -- Barnaby found new home! #4
+    if evt.Cmp("NPCs", 539) then
+        evt.Subtract("NPCs", 539)
+        evt.MoveNPC{NPC = 539, HouseId = HouseID_RuinedCellar}
+        evt.SpeakNPC(543)
+        vars.QuestsAmberIsland.QVarButlerEscaped        = 4 -- hidden
+        vars.QuestsAmberIsland.QVarButlerHideHouseID    = HouseID_RuinedCellar
+        return
+    end
+
+    evt.EnterHouse(HouseID_RuinedCellar)
+end
+
