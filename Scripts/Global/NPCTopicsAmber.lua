@@ -19,7 +19,8 @@ local QVarRevengeState =
 	REPORTED	= 5,
 	RELEASED	= 6,
 	TRANSFERED	= 7,
-	REWARDED	= 8
+	REWARDED	= 8,
+	STOLEN		= 9
 }
 
 local QVarButlerEscapedState = 
@@ -995,9 +996,9 @@ NPCTopic{
 QuestNPC 			= 	496
 
 local function MoveOthoBackToHome()
+	RemoveTimer()
 	evt.MoveNPC{NPC = 496, HouseId = 568}
 	vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.TRANSFERED
-	RemoveTimer()
 end
 
 Quest{
@@ -1045,7 +1046,9 @@ NPCTopic{
 	Topic 			= 	"Thanks: Revenge",
 	Text 			= 	"Thank you for dealing with Cassio. I appreciate your discretion and effectiveness. I look forward to \01265523collaborating\01200000 with you again in the future.",
 
-	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED end
+	CanShow			= 	function(t) 
+							return vars.QuestsAmberIsland.QVarRevenge >= QVarRevengeState.TRANSFERED and vars.QuestsAmberIsland.QVarRevenge ~= QVarRevengeState.STOLEN
+						end
 }
 
 Quest{
@@ -1122,6 +1125,19 @@ NPCTopic{
 	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.REPORTED end
 }
 
+Quest{
+	Slot 			= 	E,
+	Branch			=	"",
+	Texts 			= 
+	{		
+		Topic 		= 	"Stolen Ring",
+		Give 		= 	"Damn... This ring is one of a kind, and everyone knows it belongs to Otho.\n\n"..
+						"We have to catch that thief and get it back while the trail is still fresh.\n\n"..
+						"She went east, toward Eastern Amber Island. Move!",
+	},
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
+}
+
 -- BRANCH
 Quest{
 	Slot 			= 	A,
@@ -1135,9 +1151,24 @@ Quest{
 	Give			= 	function(t)
 							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.DUEL
 							evt.MoveNPC{NPC = 498, HouseId = 0}
-							local mon = SummonMonster(207, 16809, 9292, 96, true)
-							mon.NPC_ID = 498
+							local mon 	= SummonMonster(207, 16809, 9292, 96, true)
+							mon.NPC_ID 	= 498
 							mon.Hostile = true
+
+							XYZ(Party, 17333, 10103, 74)
+							Party.Direction = 1273
+							Party.LookAngle = 0
+
+							if IsWarrior() then
+								mon.FullHP		= 360
+								mon.HP 			= 360
+								mon.Level		= mon.Level + 5
+								mon.ArmorClass	= 25
+
+								mon.Spell 		= const.Spells.Heroism
+								mon.SpellChance = 10
+								mon.SpellSkill 	= JoinSkill(4, const.Expert)
+							end
 							SetBranch(t)
 						end
 }
@@ -1158,6 +1189,17 @@ Quest{
 							evt.Add("NPCs", 498)
 							evt.Subtract("Inventory", 791)
 							ShowQuestEffect(true, t.TakeQuestOperation)
+
+							if IsWarrior() then
+								vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.STOLEN
+								evt.MoveNPC(550,604)
+								Timer(function()
+									RemoveTimer()
+									ShowQuestEffect(true, t.TakeQuestOperation)
+									Message(evt.str[20])
+								end, 2 * const.Minute, false)
+							end
+
 							SetBranch(t)
 						end	
 }
@@ -2815,3 +2857,33 @@ NPCTopic{
 	Topic 			= 	"Ugh...",
 	Ungive			=	function(t) ExitScreen() end,
 }
+
+------------------------------------------------------------------------------
+-- Jasmine (Thief)
+
+QuestNPC 			= 	550
+
+Greeting{
+	"Damn it..."
+}
+
+NPCTopic{
+	Slot 			= 	A,
+	Texts 			=
+	{		
+		Topic 		= 	"Quest: Revenge",
+		Ungive 		= 	"Alright, alright! You caught me. Happy now?\n\n" ..
+						"*She rolls her eyes and tosses the \01265523nobleman's ring\01200000 into a dark corner.*\n\n" ..
+						"There's your precious trinket. Try not to lose it again.\n" ..
+						"See you around...\n\n" ..
+						"*As the party turns toward the ring, the girl \01265523slips away\01200000.*\n\n"..
+						"Forget about her,\" Michael says. \"We got what we came for. Let's head back to the mayor.\"",
+	},
+	Ungive			=	function(t)
+							ShowQuestEffect(false, t.TakeQuestOperation)
+							vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REPORTING
+							evt.MoveNPC(550,0)
+						end,
+	CanShow			= 	function(t) return vars.QuestsAmberIsland.QVarRevenge == QVarRevengeState.STOLEN end
+}
+

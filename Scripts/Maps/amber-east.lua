@@ -344,3 +344,6 @@ evt.map[29]         = function()
         Name        = "deadmanisle.odm"
     }
 end
+
+-- Ruined Inn hideout
+evt.HouseDoor(30, 604)

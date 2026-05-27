@@ -23,6 +23,11 @@ local TXT   = Localize{
     [17]    = "Fists up! The brawl begins!",
     [18]    = "Running away? Cowards...",
     [19]    = "Hey! That's cheating. You forfeit!",
+    [20]    =   "As you step outside, a hooded girl brushes past you.\n\n"..
+                "Before anyone can react, her hand flashes toward the nobleman's ring.\n\n"..
+                "\01265523The ring is gone.\01200000\n\n"..
+                "\"Thief!\" Michael shouts. \"After her!\"\n\n"..
+                "She bolts east, toward \01265523East Amber Island\01200000.",
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
