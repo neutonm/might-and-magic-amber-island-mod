@@ -6,7 +6,7 @@ Author:         Henrik Chukhran, 2022 - 2026
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug      = true
+Game.Debug      = false
 
 -- New Game
 Game.NewGameMap = Game.Debug and "hub.blv" or "amber.odm"
@@ -101,6 +101,11 @@ function events.BeforeNewGameAutosave()
     vars.Difficulty = Game.SelectedDifficulty
 
     -- Amber Island Variables
+    if vars.QuestsCore == nil then
+        vars.QuestsCore = {
+            ArchmageState           = 0,        -- (0) - n/a, (1) defeated, (2) offer accepted, (3) offer refused/killed, (4) contract shown
+        }
+    end
     if vars.QuestsAmberIsland == nil then
         vars.QuestsAmberIsland = {
             QVar1                   = false,    -- Quest: The Fog

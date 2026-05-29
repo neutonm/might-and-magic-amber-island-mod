@@ -138,6 +138,7 @@ Game.MapEvtLines.Count = 0
 
 local TrollKeyItemID        = 664
 local TeleportGemItemID     = 781
+local ArchmageNPCID         = 448
 
 ------------------------------------------------------------------------------
 -- EVENTS
@@ -165,6 +166,47 @@ function events.LoadMap()
         evt.SetFacetBit(1,const.FacetBits.Invisible,false)
         evt.SetFacetBit(2,const.FacetBits.Untouchable,false)
         evt.SetLight(1,true)
+    end
+end
+
+function events.CanExitNPC(t)
+
+    if t.NPC == ArchmageNPCID then
+
+        if vars.QuestsCore.ArchmageState == 1 then
+            t.Allow = false
+        end
+        return
+    end
+
+    t.Allow = true
+end
+
+function events.AfterMonsterAttacked(t, attacker)
+
+    if t == nil then return end
+    if attacker == nil then return end
+
+    if vars.QuestsCore.ArchmageState ~= 0 then
+        return
+    end
+
+    if t.Attacker.Player ~= nil then
+        if t.Monster.NPC_ID == ArchmageNPCID then
+
+            if t.Monster.HP < (t.Monster.FullHP * 0.1) then
+                vars.QuestsCore.ArchmageState = 1 -- archmage defeated
+                t.Monster.HP = t.Monster.FullHP
+                evt.SpeakNPC(ArchmageNPCID)
+            end
+        end
+    end
+end
+
+function events.MonsterKilled(mon, monIndex, defaultHandler)
+
+    if mon.NPC_ID == ArchmageNPCID then
+        vars.QuestsCore.ArchmageState = 3
     end
 end
 

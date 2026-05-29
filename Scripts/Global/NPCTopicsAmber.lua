@@ -45,6 +45,7 @@ Greeting{
 Quest{
     Slot            =   A,
     BaseName        =   "StoryQuest1",
+    Branch          =   "",
     Texts           =
     {
         Topic       =   "Story Quest: Legate",
@@ -76,6 +77,7 @@ Quest{
 Quest{
     Slot            =   A,
     BaseName        =   "StoryQuest2",
+    Branch          =   "",
     Texts           =
     {
         Topic       =   "Story Quest: Investigation",
@@ -110,6 +112,7 @@ Quest{
 Quest{
     Slot            =   A,
     BaseName        =   "StoryQuest3",
+    Branch          =   "",
     Texts           =
     {
         Topic       =   "Story Quest: Secret Hideout",
@@ -152,20 +155,23 @@ Quest{
 
 KillMonstersQuest{
     Name            =   "CoreQuest",
+    Branch          =   "",
     Slot            =   A,
     {Map            =   "testlevel.blv", MonsterIndex = 4},
     CheckDone       =   function()
                             --return evt.Cmp("QBits",7)
                             return vars.QuestsAmberIsland.QVar1
                         end,
-    CanShow         =   function(t) return vars.Quests.StoryQuest3 == "Done" end,
     Exp             =   5000,
     Gold            =   5000,
     Done            =   function(t)
-                            evt.MoveNPC(529,102)
+                            evt.MoveNPC(529,248)
                             -- "Saved Amber Island from Magnus the Archmage"
                             evt.Add("Awards", 105)
                             evt.Subtract("Reputation", 10)
+                        end,
+    CanShow         =   function(t)
+                            return vars.Quests.StoryQuest3 == "Done" and vars.QuestsCore.ArchmageState ~= 2
                         end
 }
 .SetTexts{
@@ -189,17 +195,17 @@ KillMonstersQuest{
                         "are destroyed.\01200000 On behalf of the entire island, I thank you, heroes! Your "..
                         "deeds will be remembered, and you'll always find a warm welcome here on Amber "..
                         "Island."..
-                        "\n\nAs a token of our gratitude, we've decided to give you Castle Amber. The people "..
+                        "\n\nAs a token of our gratitude, we've decided to \01265523give you Castle Amber\01200000. The people "..
                         "here would feel better with you watching over them. I know I will. Granted, the "..
                         "castle is a wrecked pile of stones, but I'm sure you'll find some potential there, "..
                         "and maybe even gain a bit of clout with those pompous nobles from the mainland. "..
                         "Actually, now that the mist machine's destroyed, the first ships from the mainland "..
-                        "have arrived. They sent an ambassador to speak to you specifically. Looks like your "..
+                        "have arrived. They sent an \01265523ambassador\01200000 to speak to you specifically. Looks like your "..
                         "exploits are already attracting attention.\n\n \01265523*Please re-enter town "..
                         "hall*\01200000",
     Undone          =   "I understand you may need some time to prepare, but every day we spend under "..
                         "Magnus's thumb brings us closer to ruin. As soon as you can, \01265523infiltrate the "..
-                        "castle\01200000 and bring this ordeal to a close. \01265523Find boatmaster Cedrick "..
+                        "castle\01200000 and bring this ordeal to a close.\n\n\01265523Find boatmaster Cedrick "..
                         "Boyce, take a boat to the island\01200000, and we will send our forces to divert "..
                         "their defenders while you enter Castle Amber.",
     TopicDone       =   "Thanks: The Mist",
@@ -210,7 +216,90 @@ KillMonstersQuest{
 }
 
 NPCTopic{
+    Slot            =   A,
+    Branch          =   "",
+    Topic           =   "Story Quest: The Mist",
+    Text            =   "I understand you may need some time to prepare, but every day we spend under "..
+                        "Magnus's thumb brings us closer to ruin. As soon as you can, \01265523infiltrate the "..
+                        "castle\01200000 and bring this ordeal to a close.\n\n\01265523Find boatmaster Cedrick "..
+                        "Boyce, take a boat to the island\01200000, and we will send our forces to divert "..
+                        "their defenders while you enter Castle Amber.\n\n"..
+                        "\01265523*Looks like the magical contract Magnus gave you is not in your inventory or you forgot to turn mist machine off!*\01200000",
+    CanShow         =   function(t)
+                            return vars.Quests.StoryQuest3 == "Done" and vars.QuestsCore.ArchmageState == 2 and
+                            (not evt.All.Cmp("Inventory", 670) or vars.QuestsAmberIsland.QVar1 == false)
+                        end
+}
+
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "",
+    NewBranch       =   "ArchmageContract",
+    Topic           =   "Story Quest: The Mist",
+    Text            =   "*As the heroes approach, Maximus rushes forward with a laugh, throwing his arms "..
+                        "around them in an exuberant hug.*"..
+                        "\n\n\01265523You did it, you actually did it! The mist machine is destroyed!\01200000 "..
+                        "Amber Island is free at last!"..
+                        "\n\nBut... wait. What is that parchment in your hands? Did Magnus leave some final "..
+                        "trick behind?",
+    Ungive          =   SetBranch,
+    CanShow         =   function(t)
+                            return vars.Quests.StoryQuest3 == "Done" and vars.QuestsCore.ArchmageState == 2 and
+                            evt.All.Cmp("Inventory", 670) and vars.QuestsAmberIsland.QVar1 == true
+                        end
+}
+
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "ArchmageContract",
+    NewBranch       =   "ArchmageContractFinish",
+    Topic           =   "Explain...",
+    Text            =   "*Maximus listens in silence as you explain Magnus's surrender, his escape, and the "..
+                        "magical contract he gave as proof of his promise.*"..
+                        "\n\nYou... let him go? You believed \01265523Magnus\01200000? By the gods, you have been "..
+                        "played for fools. He escaped justice and left us with pretty words wrapped in magic!"..
+                        "\n\nAnd yet... the \01265523mist machine\01200000 is destroyed. His residence is "..
+                        "ours now, and if this contract truly binds him, then Amber Island is free of him. "..
+                        "I cannot deny what you have done...",
+    Ungive          =   SetBranch,
+}
+
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "ArchmageContractFinish",
+    NewBranch       =   "",
+    Topic           =   "Continue",
+    Text            =   "On behalf of the entire island, I thank you, heroes! Your "..
+                        "deeds will be remembered, and you'll always find a warm welcome here on Amber Island."..
+                        "\n\nBecause Archmage is still alive, you shall receive \01265523half the reward\01200000. And more than that..."..
+                        "\n\nAs a token of our gratitude, we've decided to \01265523give you Castle Amber\01200000. The people "..
+                        "here would feel better with you watching over them. I know I will. Granted, the "..
+                        "castle is a wrecked pile of stones, but I'm sure you'll find some potential there, "..
+                        "and maybe even gain a bit of clout with those pompous nobles from the mainland. "..
+                        "\n\nActually, now that the mist machine's destroyed, the first ships from the mainland "..
+                        "have arrived. They sent an \01265523ambassador\01200000 to speak to you specifically. Looks like your "..
+                        "exploits are already attracting attention.\n\n \01265523*Please re-enter town hall*\01200000",
+    Ungive          =   function(t)
+                            SetBranch(t)
+
+                            vars.QuestsCore.ArchmageState   = 4 -- contract shown
+                            vars.Quests.StoryQuest3         = "Done"
+                            vars.Quests.CoreQuest           = "Done"
+                            evt.Add("Exp",  5000)
+                            evt.Add("Gold", 2500)
+
+                            evt.All.Sub("Inventory", 670)
+
+                            evt.MoveNPC(529,248)
+                            -- "Saved Amber Island from Magnus the Archmage"
+                            evt.Add("Awards", 105)
+                            evt.Subtract("Reputation", 10)
+                        end,
+}
+
+NPCTopic{
     Slot            =   B,
+    Branch          =   "",
     "Archmage Crisis",
     "We've been ensnared in an extortion racket by one of our own, Magnus the Archmage. He's created a "..
     "remarkable weather machine that produces thick fog around Amber Island, complicating navigation for "..
@@ -223,6 +312,7 @@ NPCTopic{
 
 NPCTopic{
     Slot            =   C,
+    Branch          =   "",
     "Invaders",
     "A horde of goblins has taken over Castle Amber, and it's astonishing to see them following a swamp troll "..
     "as their leader. Trolls are known cannibals. Have the goblins considered that once the troll runs out of "..
@@ -233,6 +323,7 @@ NPCTopic{
 Quest{
     Slot            =   D,
     BaseName        =   "AmberQuest6",
+    Branch          =   "",
     Texts           =
     {
         Topic       =   "Quest: Revenge",
@@ -252,6 +343,133 @@ Quest{
                         end
 }
 
+------------------------------------------------------------------------------
+-- Magnus
+QuestNPC            =   448
+
+Greeting
+{
+    "Enough.\n\n" ..
+    "You have made your point, adventurers. By every practical measure, \01265523I am "..
+    "defeated\01200000 - I could argue technicalities, but I am not so fond of dying.\n\n"..
+    "I underestimated Amber Island. The very power I have lived upon, they turned against me - "..
+    "Gold brought you here. And here you stand!\n\n"..
+    "\01265523Spare my life\01200000, and I shall leave Amber Island forever. My residence shall "..
+    "remain as collateral. More than that, I offer a \01265523binding contract\01200000, sealed "..
+    "by magic older and harsher than any court. Take it to your mayor as a proof of my word.\n\n"..
+    "I ask this not only for myself. A true \01265523calamity comes from above the sky\01200000, "..
+    "and I may yet have a way to save lives when the heavens fall.\n\n"
+}
+
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "",
+    Topic           =   "Apocalypse",
+    Text            =   "A \01265523celestial body\01200000 is moving toward our world. When it strikes, "..
+                        "seas will rise, skies will burn, and most life will end.\n\n" ..
+                        "My work with \01265523interdimensional tunnels\01200000 may offer escape. Not "..
+                        "safety, perhaps, but possibility. It requires gold, crystals, reagents, labor, "..
+                        "and time - time your heroic interference has made much harder to spare. Thank "..
+                        "you for that.\n\n" ..
+                        "It may fail. But I see no army that can fight the sky, no king who can command "..
+                        "it aside, and no priest whose prayers have slowed it. My way is only a chance, "..
+                        "but it is a chance."
+}
+
+NPCTopic{
+    Slot            =   B,
+    Branch          =   "",
+    Topic           =   "Amber Island",
+    Text            =   "This is one of the smallest and richest places in the world. An easy target, if "..
+                        "you will. I chose it because the mainland kingdoms have armies, heroes, court "..
+                        "wizards, and other nuisances who would have delayed me. Not stopped me, mind "..
+                        "you. Delayed me.\n\n" ..
+                        "Do you know how much wealth rots here in vaults, cellars, counting houses, and "..
+                        "noble strongboxes? Gold enough to fund my work ten times over.\n\n" ..
+                        "I tried reasoning with the locals, but they could not grasp the grandeur or "..
+                        "importance of my work. Simpletons.\n\n" ..
+                        "So yes, I extorted them."
+}
+
+NPCTopic{
+    Slot            =   D,
+    Branch          =   "",
+    NewBranch       =   "ArchmageFate",
+    Topic           =   "Archmage's Fate",
+    Text            =   "So. What shall it be, adventurers?\n\n"..
+                        "Do you accept my offer and take my oath to your mayor, or do you insist on blood?\n\n"..
+                        "Choose carefully. I have \01265523one more trick\01200000 in my sleeve, and I "..
+                        "\01265523will not be taken alive\01200000. Force the matter, and you may kill me, "..
+                        "but you will not parade me.\n\n"..
+                        "Come to your senses. Take the \01265523contract\01200000, take my residence, take "..
+                        "your reward, if that is what moves you. I leave Amber Island forever, and you "..
+                        "gain peace without spending more blood.",
+    Ungive          =   SetBranch,
+}
+
+---
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "ArchmageFate",
+    NewBranch       =   "ArchmageOfferEnd",
+    Topic           =   "Accept",
+    Text            =   "I knew you were reasonable people.\n\n"..
+                        "Here. The contract.\n\n"..
+                        "It binds my departure from Amber Island, my refusal to return, and the surrender "..
+                        "of my residence as collateral. Break it, and the magic will punish me more "..
+                        "severely than your mayor's little gallows ever could.\n\n"..
+                        "I shall vanish from his precious shores. If, in time, you find yourselves less "..
+                        "interested in local gratitude and more interested in the survival of the world, "..
+                        "seek me in the lands of the lizards. No royal boot has yet stepped there and "..
+                        "declared its mud a province - a perfect environment to continue my work.\n\n"..
+                        "Had circumstances been different, I might have found your company useful. Farewell...\n\n"..
+                        "*As you take the contract, the Archmage slowly disappears.*\n\01265523The Mist machine is still operational - better pull that lever\01200000",
+    Ungive          =   function(t)
+                            evt.Add("Inventory", 670)
+                            SetBranch(t)
+                            vars.QuestsCore.ArchmageState = 2 -- offer accepted
+                            for _, mon in Map.Monsters do
+                                if mon.NPC_ID == 448 then
+                                    RemoveMonster(mon)
+                                end
+                            end
+                        end,
+}
+
+NPCTopic{
+    Slot            =   B,
+    Branch          =   "ArchmageFate",
+    NewBranch       =   "ArchmageOfferEnd",
+    Topic           =   "Refuse",
+    Text            =   "Maybe this world does not deserve saving.\n\n" ..
+                        "So be it, heroes. Stupidity must have consequences.\n\n" ..
+                        "The Archmage makes a swift gesture, and suddenly his wounds are gone. It seems "..
+                        "he has strength enough for another round. The fight continues!",
+    Ungive          =   function(t)
+                            SetBranch(t)
+                            vars.QuestsCore.ArchmageState = 3 -- offer refused / killed
+                        end,
+}
+
+NPCTopic{
+    Slot            =   C,
+    Branch          =   "ArchmageFate",
+    NewBranch       =   "",
+    Topic           =   "Back",
+    Ungive          =   function(t)
+                            SetBranch(t)
+                            evt.SpeakNPC(448)
+                        end,
+}
+
+NPCTopic{
+    Slot            =   A,
+    Branch          =   "ArchmageOfferEnd",
+    Topic           =   "Continue",
+    Ungive          =   function(t) ExitScreen() end,
+}
+
+------------------------------------------------------------------------------
 -- Eleric Graywood
 QuestNPC            =   450
 
@@ -2036,6 +2254,21 @@ NPCTopic{
                         "make sure that the adventurers he sends after Magnus are competent, but the last "..
                         "group were veterans and they were still slaughtered."
 }
+
+NPCTopic{
+    Slot            =   C,
+    Topic           =   "Magnus the Mad",
+    Text            =   "Archmage \01265523Magnus\01200000 is a madman.\n\nHe has always been a doomsayer, "..
+                        "eager to throw his ridiculous fantasies at anyone forced to listen. Whenever someone "..
+                        "asked for proof, he would lose his temper, call names, and make a public scene.\n\n"..
+                        "Even when he began extorting us, claiming he needed our gold to save us all, he "..
+                        "spent much of it improving and furnishing his own residence. He even built a grand "..
+                        "statue of himself.\n\nThe apocalyptic danger he kept shouting about was "..
+                        "\01265523Magnus himself\01200000. We had to pour gold into his hands just to prevent "..
+                        "our own little end of the world.\n\nHis words never matched his deeds. A liar and "..
+                        "a madman indeed."
+}
+
 ------------------------------------------------------------------------------
 -- Robert Greene
 QuestNPC            =   515
