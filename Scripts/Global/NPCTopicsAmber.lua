@@ -3064,7 +3064,7 @@ NPCTopic{
                             evt.MoveToMap{
                                 X = 19868, Y = 22474, Z = 10,
                                 Direction = 1378, LookAngle = 0, SpeedZ = 0,
-                                HouseId = 175, Icon = 1, Name = "amber-east.odm"}
+                                HouseId = 192, Icon = 1, Name = "amber-east.odm"}
                         end
 }
 

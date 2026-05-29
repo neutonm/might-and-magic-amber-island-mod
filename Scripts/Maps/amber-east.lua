@@ -245,7 +245,7 @@ evt.map[26]         = function()
         Direction   = 607,
         LookAngle   = 0,
         SpeedZ      = 0,
-        HouseId     = 0,
+        HouseId     = 191,
         Icon        = 1,
         Name        = "amber.odm"
     }
@@ -313,7 +313,7 @@ evt.map[28]         = function()
         Direction   = 1024,
         LookAngle   = 0,
         SpeedZ      = 0,
-        HouseId     = 0,
+        HouseId     = 191,
         Icon        = 1,
         Name        = "amber.odm"
     }
