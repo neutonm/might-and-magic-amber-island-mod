@@ -7,6 +7,17 @@ Game.MapEvtLines.Count = 0
 
 ------------------------------------------------------------------------------
 
+-- FACE GROUPS
+-- ID           DESCRIPTION
+-- 1            (Warrior) Traps (floors)
+
+-- SPRITE IDs
+-- ID       NAME         TYPE        DESCRIPTION
+-- 2        dec48        Glass       Red Goblet / Glass
+-- 3        TORCH05      Torch       Blue torch
+
+------------------------------------------------------------------------------
+
 -- DOORS
 -- DOOR ID      TRIGGER ID      DESCRIPTION
 -- 01-02        51              Double-Door: Workshop Corridor -> WC Stairs
@@ -94,6 +105,31 @@ Game.MapEvtLines.Count = 0
 -- Exit         76              Leave to Amber Island
 -- House        77              Tavern Entrance
 
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Blades       80              Entrance corridor, small step towards fountain
+-- IceBlast     81              Gallery, south door floor (before steps)
+-- Fireball     82              Gallery, second floor, balcony entrance
+-- Fireball     83              Gallery, second floor, south floor
+-- Fireball     84              Workshop corridor, West floor
+-- Blades       85              Workshop corridor, south-east
+-- Fireball     86              Workshop small storage room
+-- Fireball     87              Workshop, spinning wheel floor
+-- Blades       88              Workshop, smithy
+-- Fireball     89              Workshop corridor, north
+-- Blades       90              Mess Hall, Entrance, right before door
+-- IceBlast     91              Kitchen Entrance
+-- Fireball     92              Storage room entrance
+-- Fireball     93              Fountain, Top platform
+-- Blades       94              Library entrance
+-- Fireball     95              Temple
+-- IceBolt      96              Waterfall connector
+-- Fireball     97              Master bedroom connector, before the door
+-- Fireball     98              Before cave
+-- Fireball     99              Cave room to Barracks small storage room
+-- Fireball     100             Start of Barracks corridor
+-- Fireball     101             Basement, between two stairways
+
 ------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
@@ -102,6 +138,22 @@ function events.AfterLoadMap(WasInGame)
 
     --MakeHostile(268,270) -- Ratmen
     MakeHostile(79,81) -- Golems
+
+    if not IsWarrior() then
+        
+        -- Remove traps in "Adventurer"
+        evt.SetFacetBit(1,const.FacetBits.IsSecret, false)
+        evt.SetSprite(2, false)
+    end
+end
+
+function events.InitSprite(i, a, name)
+
+    if IsWarrior() then return end
+
+	if name == "TORCH05" then
+		ChangeSprite(i, "torch01")
+	end
 end
 
 ------------------------------------------------------------------------------
@@ -492,3 +544,404 @@ end
 
 -- Tavern Entrance
 evt.HouseDoor(77, 249)
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Entrance corridor, small step towards fountain
+evt.map[80]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Blades,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = -19,
+        FromY   = 389,
+        FromZ   = 128,
+        ToX     = 3468,
+        ToY     = 389,
+        ToZ     = 128
+    }
+end
+
+-- Gallery, south door floor (before steps)
+evt.map[81]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.IceBlast,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 726,
+        FromY   = -491,
+        FromZ   = 86,
+        ToX     = 1726,
+        ToY     = -1059,
+        ToZ     = 86
+    }
+end
+
+-- Gallery, second floor, balcony entrance
+evt.map[82]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2181,
+        FromY   = -785,
+        FromZ   = 426,
+        ToX     = 15,
+        ToY     = -785,
+        ToZ     = 426
+    }
+end
+
+-- Gallery, second floor, south floor
+evt.map[83]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2181,
+        FromY   = -785,
+        FromZ   = 426,
+        ToX     = 1087,
+        ToY     = -1199,
+        ToZ     = 426
+    }
+end
+
+-- Workshop corridor, West floor
+evt.map[84]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2546,
+        FromY   = -2101,
+        FromZ   = 89,
+        ToX     = 2060,
+        ToY     = -2101,
+        ToZ     = 89
+    }
+end
+
+-- Workshop corridor, south-east
+evt.map[85]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Blades,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2213,
+        FromY   = -2562,
+        FromZ   = 150,
+        ToX     = 3784,
+        ToY     = -2562,
+        ToZ     = 150
+    }
+end
+
+-- Workshop small storage room
+evt.map[86]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2730,
+        FromY   = -1862,
+        FromZ   = 116,
+        ToX     = 3387,
+        ToY     = -1856,
+        ToZ     = 116
+    }
+end
+
+-- Workshop, spinning wheel floor
+evt.map[87]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 4747,
+        FromY   = -3329,
+        FromZ   = 128,
+        ToX     = 3646,
+        ToY     = -3329,
+        ToZ     = 128
+    }
+end
+
+-- Workshop, smithy
+evt.map[88]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Blades,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 4865,
+        FromY   = -3233,
+        FromZ   = 128,
+        ToX     = 4865,
+        ToY     = -1533,
+        ToZ     = 120
+    }
+end
+
+-- Workshop corridor, north
+evt.map[89]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 3646,
+        FromY   = -1101,
+        FromZ   = 94,
+        ToX     = 3646,
+        ToY     = -1580,
+        ToZ     = 94
+    }
+end
+
+
+-- Mess Hall, Entrance, right before door
+evt.map[90]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Blades,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 890,
+        FromY   = 2532,
+        FromZ   = 100,
+        ToX     = 890,
+        ToY     = 1022,
+        ToZ     = 100
+    }
+end
+
+-- Kitchen Entrance
+evt.map[91]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.IceBlast,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 1789,
+        FromY   = 1221,
+        FromZ   = 140,
+        ToX     = 1789,
+        ToY     = 1921,
+        ToZ     = 140
+    }
+end
+
+-- Storage room entrance
+evt.map[92]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 3326,
+        FromY   = 2530,
+        FromZ   = 88,
+        ToX     = 3326,
+        ToY     = 2530,
+        ToZ     = -192
+    }
+end
+
+-- Fountain, Top platform
+evt.map[93]         = function()
+
+    if not IsWarrior() then return end
+ 
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 3590,
+        FromY   = 367,
+        FromZ   = 900,
+        ToX     = 3590,
+        ToY     = 367,
+        ToZ     = 320
+    }
+end
+
+-- Library entrance
+evt.map[94]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Blades,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 5011,
+        FromY   = -885,
+        FromZ   = 450,
+        ToX     = 5011,
+        ToY     = 1014,
+        ToZ     = 450
+    }
+end
+
+-- Temple
+evt.map[95]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 4418,
+        FromY   = 113,
+        FromZ   = 630,
+        ToX     = 5105,
+        ToY     = 126,
+        ToZ     = 410
+    }
+end
+
+-- Waterfall connector
+evt.map[96]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.IceBolt,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 4229,
+        FromY   = -557,
+        FromZ   = 528,
+        ToX     = 4229,
+        ToY     = -947,
+        ToZ     = 528
+    }
+end
+
+-- Master bedroom connector, before the door
+evt.map[97]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 5239,
+        FromY   = -1011,
+        FromZ   = 804,
+        ToX     = 5239,
+        ToY     = -1811,
+        ToZ     = 804
+    }
+end
+
+-- Before cave
+evt.map[98]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 1641,
+        FromY   = 1051,
+        FromZ   = 737,
+        ToX     = 2684,
+        ToY     = 1027,
+        ToZ     = 400
+    }
+end
+
+-- Cave room to Barracks small storage room
+evt.map[99]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 3054,
+        FromY   = 2434,
+        FromZ   = 612,
+        ToX     = 2554,
+        ToY     = 2434,
+        ToZ     = 612
+    }
+end
+
+-- Start of Barracks corridor 
+evt.map[100]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 2184,
+        FromY   = 2548,
+        FromZ   = 998,
+        ToX     = 2184,
+        ToY     = 2548,
+        ToZ     = 768
+    }
+end
+
+-- Basement, between two stairways
+evt.map[101]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 4,
+        FromX   = 4800,
+        FromY   = 1275,
+        FromZ   = -414,
+        ToX     = 5268,
+        ToY     = 1275,
+        ToZ     = -414
+    }
+end

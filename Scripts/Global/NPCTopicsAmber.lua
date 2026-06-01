@@ -1243,14 +1243,15 @@ KillMonstersQuest{
 NPCTopic{
     Slot            =   C,
     Topic           =   "Traps",
-    CanShow         =   function(t) return IsWarrior() end,
-    Text            =   "Traps, you ask? Well, me and my brother tried to deal with the rat problem "..
+    CanShow         =   function(t) return IsWarrior() and vars.Quests.AmberQuest1 ~= nil end,
+    Text            =   "We tried to deal with the rat problem "..
                         "ourselves. Built traps, baited them just right, and thought we had it all handled. "..
                         "Problem is, these rats are smarter and meaner than we expected. They broke free of "..
                         "most of our traps or outright ignored them.\n\n" ..
                         "The traps are still there, though, and they will catch more than rats if you are not "..
-                        "careful. Watch your step down there. Last thing we need is you getting caught in one "..
-                        "of our contraptions on top of everything else."
+                        "careful. Watch your step down there - we've \01265523marked\01200000 the traps with "..
+                        "\01265523red goblets\01200000 and \01265523blue torches\01200000."..
+                        "\n\nLast thing we need is you getting caught in one of our contraptions on top of everything else."
 }
 
 ------------------------------------------------------------------------------
