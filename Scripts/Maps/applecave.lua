@@ -7,6 +7,12 @@ Game.MapEvtLines.Count = 0
 
 ------------------------------------------------------------------------------
 
+-- FACE GROUPS
+-- ID           DESCRIPTION
+-- 10           (Warrior) Traps (floors)
+
+------------------------------------------------------------------------------
+
 -- MONSTERS
 -- GROUP 1: Animalists as Bootlegers
 -- GROUP 2: MM6 Mages as Pirate Wizards
@@ -144,6 +150,14 @@ Game.MapEvtLines.Count = 0
 -- Fountain     98              Throne Room, NW
 -- Fountain     99              Temple, Higher Floor
 -- Gold         100-108             
+
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Fireball     120             Entrance, after grated door floor
+-- IceBlast     121             Curved wooden passage after Barracks, leading deep into large cave
+-- Fireball     122             Near the temple, after the door leading to "balcony"
+-- Fireball     123             Before the prison
+-- AcidBurst    124             Throne Room entrance
 
 -- Issue:   Standing between elevation and a flat surface in Mine Cart Room 
 --          by the switch will cause player to fall down through textures
@@ -461,6 +475,9 @@ evt.hint[53]        = ModTxt.CSwitch
 evt.map[53]         = function()
     evt.SetDoorState{Id = 52, State = 2}
     evt.SetDoorState{Id = 59, State = 2}
+
+    -- Just in case, open grated doors 
+    evt.SetDoorState{Id = 9, State = 0}
 end
 
 -- Elevator Switch: Temple, Lower Floor, Top
@@ -755,4 +772,98 @@ end
 evt.hint[111]       = ModTxt.CDoor
 evt.map[111]        = function()
     evt.EnterHouse(581)
+end
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Entrance, after grated door floor
+evt.map[120]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 380,
+        FromY   = 1487,
+        FromZ   = 64,
+        ToX     = 1892,
+        ToY     = -98,
+        ToZ     = 128
+    }
+end
+
+-- Curved wooden passage after Barracks, leading deep into large cave
+evt.map[121]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.IceBlast,
+        Mastery = const.Expert,
+        Skill   = 5,
+        FromX   = 3852,
+        FromY   = -5180,
+        FromZ   = -1189,
+        ToX     = 3721,
+        ToY     = -5236,
+        ToZ     = -1189
+    }
+end
+
+-- Near the temple, after the door leading to "balcony"
+evt.map[122]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 5,
+        FromX   = 2193,
+        FromY   = -6291,
+        FromZ   = -1472,
+        ToX     = 43,
+        ToY     = -6506,
+        ToZ     = -1472
+    }
+end
+
+-- Before the prison
+evt.map[123]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 5,
+        FromX   = -1219,
+        FromY   = -1918,
+        FromZ   = -3027,
+        ToX     = -1477,
+        ToY     = -1421,
+        ToZ     = -3027
+    }
+end
+
+-- Throne Room entrance
+evt.map[124]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.AcidBurst,
+        Mastery = const.Expert,
+        Skill   = 5,
+        FromX   = 4556,
+        FromY   = -679,
+        FromZ   = -1157,
+        ToX     = 4551,
+        ToY     = 464,
+        ToZ     = -1024
+    }
 end

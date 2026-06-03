@@ -9,7 +9,7 @@ Game.MapEvtLines.Count = 0
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
-
+-- 10           (Warrior) Traps (floors)
 
 -- VARIABLES
 -- ID           DESCRIPTION
@@ -51,6 +51,15 @@ Game.MapEvtLines.Count = 0
 -- Teleport     31              Castle Harmondale
 -- Teleport     32              Temple of the Moon
 -- Exit         33              Exit
+
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- AcidBurst    50              Entrance
+-- Sparks       51              Portal Room
+-- Fireball     52              Harmondale room, carpet
+-- Fireball     53              Castle Gryphonheart, first room entrance
+-- Sparks       54              Wine Cellar, stairs
+-- AcidBurst    55              Lord Markhams Manor / Temple of the Moon Entrance
 
 ------------------------------------------------------------------------------
 -- EVENTS
@@ -247,4 +256,134 @@ evt.hint[36]        = ModTxt.CDoor
 evt.map[36]         = function()
 
     evt.EnterHouse(581)
+end
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Entrance
+evt.map[50]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.AcidBurst,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 3,
+        FromY   = 1143,
+        FromZ   = 152,
+        ToX     = -5,
+        ToY     = 446,
+        ToZ     = 152
+    }
+end
+
+-- Portal Room
+evt.map[51]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 38,
+        FromY   = 1777,
+        FromZ   = 370,
+        ToX     = Party.Pos.X,
+        ToY     = Party.Pos.Y,
+        ToZ     = 185
+    }
+end
+
+-- Harmondale room, carpet
+evt.map[52]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 6520,
+        FromY   = 11101,
+        FromZ   = 191,
+        ToX     = 8062,
+        ToY     = 12253,
+        ToZ     = 64
+    }
+end
+
+-- Castle Gryphonheart, first room entrance
+evt.map[53]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 10391,
+        FromY   = 14750,
+        FromZ   = 1797,
+        ToX     = 10374,
+        ToY     = 13283,
+        ToZ     = 1561
+    }
+end
+
+-- Wine Cellar, stairs to secret flooded room
+evt.map[54]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 4151,
+        FromY   = 14529,
+        FromZ   = 497,
+        ToX     = 3595,
+        ToY     = 14495,
+        ToZ     = 419
+    }
+end
+
+-- Zokkar Tomb, Black Vortexa
+evt.map[55]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.PoisonSpray,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 4664,
+        FromY   = 18987,
+        FromZ   = -293,
+        ToX     = 4702,
+        ToY     = 20361,
+        ToZ     = -290
+    }
+end
+
+-- Lord Markhams Manor / Temple of the Moon Entrance 
+evt.map[56]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.AcidBurst,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 8976,
+        FromY   = 16921,
+        FromZ   = -946,
+        ToX     = 8976,
+        ToY     = 17776,
+        ToZ     = -946
+    }
 end

@@ -9,6 +9,7 @@ Game.MapEvtLines.Count  = 0
 
 -- FACE GROUPS
 -- ID           DESCRIPTION
+-- 10           (Warrior) Traps (floors)
 -- 21-24        Gold Veins
 
 -- VARIABLES
@@ -32,6 +33,11 @@ Game.MapEvtLines.Count  = 0
 -- MISC TRIGGERS
 -- TYPE         TRIGGER ID      DESCRIPTION
 -- Gold         21-23           Gold veins
+
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Sparks       50              Entrance
+-- PoisonSpray  51              Between tavern and rails
 
 ------------------------------------------------------------------------------
 -- LOCALS
@@ -125,4 +131,44 @@ evt.map[100]        = function()
         HouseId     = 0,
         Icon        = 4,
         Name        = "amber.odm"}
+end
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Entrance
+evt.map[50]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = -823,
+        FromY   = 891,
+        FromZ   = 120,
+        ToX     = -694,
+        ToY     = 615,
+        ToZ     = 65
+    }
+end
+
+-- Between tavern and rails
+evt.map[51]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.PoisonSpray,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 7600,
+        FromY   = 3063,
+        FromZ   = 719,
+        ToX     = 7649,
+        ToY     = 4198,
+        ToZ     = 710
+    }
 end

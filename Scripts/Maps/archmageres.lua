@@ -15,6 +15,7 @@ Game.MapEvtLines.Count = 0
 -- 4            Eastern Teleport Room, Pedestal, Gem
 -- 5            Western Teleportator Room & Realm port texture
 -- 6            Eastern Teleportator Room & Realm port texture
+-- 10           (Warrior) Traps (floors)
 
 -- VARIABLES
 -- ID           DESCRIPTION
@@ -136,6 +137,15 @@ Game.MapEvtLines.Count = 0
 -- Fountain     90              Guest Room, Secret
 -- Button       91              Guest Room, Secret
 -- EXIT         92              Start Room
+
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Fireball     100             Guest room, before entering small bedroom (secret tunnel)
+-- Fireball     101             Western tunnel leading to garden
+-- Fireball     102             Eastern tunnel leading to garden
+-- Fireball     103             Alchemy Room, entrance
+-- Fireball     104             Eastern Teleportation room
+-- Fireball     105             Workshop
 
 ------------------------------------------------------------------------------
 -- LOCALS
@@ -846,5 +856,117 @@ evt.map[92]         = function()
         HouseId     = 198,
         Icon        = 1,
         Name        = "archmageEX.blv"
+    }
+end
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Guest room, before entering small bedroom (secret tunnel)
+evt.map[100]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = -685,
+        FromY   = 1626,
+        FromZ   = -447,
+        ToX     = -687,
+        ToY     = 837,
+        ToZ     = -511
+    }
+end
+
+-- Western tunnel leading to garden
+evt.map[101]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = -796,
+        FromY   = 5910,
+        FromZ   = -72,
+        ToX     = -796,
+        ToY     = 5910,
+        ToZ     = -255
+    }
+end
+
+-- Eastern tunnel leading to garden
+evt.map[102]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 4844,
+        FromY   = 6568,
+        FromZ   = -19,
+        ToX     = 5257,
+        ToY     = 6040,
+        ToZ     = -255
+    }
+end
+
+-- Alchemy Room, entrance
+evt.map[103]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 6786,
+        FromY   = 5798,
+        FromZ   = -64,
+        ToX     = 6778,
+        ToY     = 6745,
+        ToZ     = -127
+    }
+end
+
+-- Eastern Teleportation room
+evt.map[104]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 9004,
+        FromY   = 3306,
+        FromZ   = 64,
+        ToX     = 9700,
+        ToY     = 2535,
+        ToZ     = 64
+    }
+end
+
+-- Workshop
+evt.map[105]         = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Expert,
+        Skill   = 7,
+        FromX   = 2302,
+        FromY   = 4048,
+        FromZ   = -16,
+        ToX     = 2292,
+        ToY     = 5314,
+        ToZ     = -190
     }
 end

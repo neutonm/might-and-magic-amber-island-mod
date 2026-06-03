@@ -1,5 +1,5 @@
 --[[
-Map:     Castle Amber
+Map:    Castle Amber
 Author: Henrik Chukhran, 2022 - 2026
 ]]
 
@@ -11,6 +11,7 @@ Game.MapEvtLines.Count = 0
 -- ID           DESCRIPTION
 -- 1            Teleporation pedestal Gem
 -- 2            Invisible teleporter cube (on teleportation platform)
+-- 10           (Warrior) Traps (floors)
 
 -- VARIABLES
 -- ID           DESCRIPTION
@@ -131,6 +132,16 @@ Game.MapEvtLines.Count = 0
 -- Fountain     113             Apple Tree Chamber
 -- Fountain     115             Basement Tunnels
 -- Fountain     117             Basement Tunnels, South Passage
+
+-- TRAPS
+-- TYPE         TRIGGER ID      DESCRIPTION
+-- Sparks       130             Entrance, stairs
+-- Sparks       131             Elevator to master bedroom
+-- FireBolt     132             Entrance to throne room
+-- AcidBurst    133             Entrance to mess hall
+-- Fireball     134             Entrance to mess hall
+-- IceBlast     135             Teleportation room
+-- Sparks       136             Entrance to the lower tunnels ("crossroads")
 
 ------------------------------------------------------------------------------
 -- LOCALS
@@ -817,5 +828,135 @@ evt.map[88]         = function()
         HouseId     = 0,
         Icon        = 4,
         Name        = "amber-east.odm"
+    }
+end
+
+------------------------------------------------------------------------------
+-- TRAPS
+------------------------------------------------------------------------------
+
+-- Entrance, stairs
+evt.map[130]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 1535,
+        FromY   = 600,
+        FromZ   = 330,
+        ToX     = 1535,
+        ToY     = -243,
+        ToZ     = 330
+    }
+end
+
+-- Elevator to master bedroom
+evt.map[131]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Grandmaster,
+        Skill   = 7,
+        FromX   = -2555,
+        FromY   = -2119,
+        FromZ   = 2161,
+        ToX     = -2555,
+        ToY     = -2422,
+        ToZ     = 2161
+    }
+end
+
+-- Entrance to throne room
+evt.map[132]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.FireBolt,
+        Mastery = const.Master,
+        Skill   = 15,
+        FromX   = 552,
+        FromY   = -3058,
+        FromZ   = 700,
+        ToX     = 1357,
+        ToY     = -3058,
+        ToZ     = 700
+    }
+end
+
+-- Entrance to mess hall
+evt.map[133]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.AcidBurst,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = -814,
+        FromY   = -6392,
+        FromZ   = 440,
+        ToX     = 863,
+        ToY     = -6392,
+        ToZ     = 440
+    }
+end
+
+-- Entrance to mess hall
+evt.map[134]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Fireball,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 4146,
+        FromY   = -511,
+        FromZ   = -574,
+        ToX     = 3656,
+        ToY     = -511,
+        ToZ     = -574
+    }
+end
+
+-- Teleportation room
+evt.map[135]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.IceBlast,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 5762,
+        FromY   = 4103,
+        FromZ   = 160,
+        ToX     = 5762,
+        ToY     = 3731,
+        ToZ     = 150
+    }
+end
+
+-- Entrance to the lower tunnels ("crossroads")
+evt.map[136]        = function()
+
+    if not IsWarrior() then return end
+
+    evt.CastSpell{
+        Spell   = const.Spells.Sparks,
+        Mastery = const.Master,
+        Skill   = 7,
+        FromX   = 5395,
+        FromY   = -1796,
+        FromZ   = -1100,
+        ToX     = 5097,
+        ToY     = -1510,
+        ToZ     = -1151
     }
 end
