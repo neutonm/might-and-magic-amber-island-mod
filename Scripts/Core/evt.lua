@@ -12,7 +12,7 @@ for _, t in pairs(evt) do
 	end
 end
 
-local _KNOWNGLOBALS = vars, Vars, mapvars, MapVars, Game, Party, Map
+local _KNOWNGLOBALS = vars, Vars, mapvars, MapVars, Game, Party, Map, Mouse, const
 
 local function MakeEventsTable()
 	local ret = events.new()
@@ -316,10 +316,24 @@ function ResetMapStr()
 	evt.House = evt.house
 end
 
------------ AfterProcessEvent
-
 local GlobalEventInfo, TargetObj
 local AsyncProc, AsyncTrue, AsyncPlayer, AsyncCurrentPlayer, AsyncTargetObj
+
+----------- amber-island begin
+local function FixEvtTargetObj(targetObj)
+	targetObj = targetObj or 0
+	if targetObj % 8 ~= const.ObjectRefKind.Facet or targetObj > 0xFFFF or not Mouse or not Mouse.GetTarget then
+		return targetObj
+	end
+
+	local mouseTarget 	= Mouse.GetTarget()
+	local mouseValue 	= mouseTarget and mouseTarget.Value or 0
+	if mouseValue % 8 == const.ObjectRefKind.Facet and mouseValue > 0xFFFF and mouseValue % 0x10000 == targetObj then
+		return mouseValue
+	end
+	return targetObj
+end
+----------- amber-island end
 
 function internal.ResetEvtPlayer()
 	evt.Player = u4[offsets.CurrentPlayer] - 1
@@ -524,7 +538,7 @@ local function MakeCmd(name, num, f, invis)
 				oldGlobalEventInfo = u4[o.GlobalEventInfo]
 				u4[o.GlobalEventInfo] = IsGlobal or (Game.CurrentScreen == 4 or Game.CurrentScreen == 13) and 1 or 0
 			end
-			u4[o.EvtTargetObj] = TargetObj or 0
+			u4[o.EvtTargetObj] = FixEvtTargetObj(TargetObj)  -- amber-island: restore truncated high facet refs from mouse clicks
 			local player = player or evt.Player
 			if not player or player == evt.Players.Current then
 				player = evt.CurrentPlayer or evt.Players.Current
