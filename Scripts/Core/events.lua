@@ -298,7 +298,17 @@ if mmver == 6 then
 		push eax  ; mastery
 		push edx  ; skill
 		push ecx  ; spell
-		mov ecx, esi
+		;mov ecx, esi
+		
+		; get the player pointer
+		mov ecx, [esp+30h+10h+8]
+		test ecx, ecx
+		jnl @f
+		xor ecx, ecx
+	@@:
+		imul ecx, 0x161C
+		add ecx, 0x908F34
+		
 		call absolute 0x481EA0
 		mov [esp + 12], eax  ; HP
 		call absolute 0x47F0A0
@@ -2372,7 +2382,7 @@ if mmver > 6 then
 	@std:
 	]])
 	
-	local ItemAdditionalDamage_ret = table.invert(mm78({0x439930, 0x4399C1}, {0x437336, 0x437449}))
+	-- local ItemAdditionalDamage_ret = table.invert(mm78({0x439930, 0x4399C1}, {0x437336, 0x437449}))
 	
 	-- ItemAdditionalDamage
 	mem.hookfunction(mm78(0x439E16, 0x4378CD), 2, 1, function(d, def, item, kind, vampiric)
@@ -2624,7 +2634,7 @@ do
 		events.cocalls("PlayerAttacked", t, attacker)
 		Pl_Slot = t.PlayerSlot or slot
 		if not t.Handled then
-			def(attackerID, attacker.MonsterAction or action, speed, Pl_Slot)
+			def(attackerID, attacker.MonsterAction or action, speed, is8 and Pl_Slot or assert(Party[Pl_Slot]:GetIndex()))
 		end
 		
 		--!k{Handled carried over from #PlayerAttacked:events.PlayerAttacked# event}

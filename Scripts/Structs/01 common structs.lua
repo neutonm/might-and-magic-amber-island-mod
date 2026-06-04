@@ -1469,7 +1469,7 @@ function structs.f.MapMonster(define)
 	define
 	.method{p = mmv(0x44BF50, 0x4595D3, 0x456E90), name = "LoadFrames"; false}
 	 .Info{Sig = "SoundLoaded = false";  "If 'SoundLoaded' = 'false', sound indexes would be loaded for the monster as well."}
-	.method{p = mmv(0x4219B0, 0x426DC7, 0x425203), name = "ChooseTargetPlayer"}
+	.method{p = mmv(0x4219B0, 0x426DC7, 0x425203), cc = 0, name = "ChooseTargetPlayer"}
 	 .Info "Returns player slot index"
 	.method{p = mmv(0x421DC0, 0x427522, 0x425951), name = "CalcTakenDamage", cc = 0, must = 2}
 	 .Info{Sig = "DamageKind, Damage";  "Returns the amount of damage the monster has to actually receive"}
@@ -2573,7 +2573,7 @@ function structs.f.TFTItem(define)
 	.i2  'Index'
 	 .Info "index in bitmaps.lod"
 	.i2  'Time'
-	 .Info "time for this frame in 1/32 of a second"
+	 .Info "time for this frame in 1/16 of a second. Multiply this value by 8 to get in-game time value"
 	.i2  'TotalTime'
 	 .Info "total time for this group"
 	.bit('NotGroupEnd', 1)
@@ -3140,6 +3140,7 @@ function structs.f.NPCProfTxtItem(define)
 		.i4  'Chance'
 		.i4  'Cost'
 		.i4  'Personality'
+		 .Info{Type = "const.NPCPersonality"}
 		.EditPChar  'Benefit'
 		.EditPChar  'JoinText'
 		.array(7).EditPChar 'ProfNewsTopic'
@@ -3152,6 +3153,20 @@ function structs.f.NPCProfTxtItem(define)
 		.EditPChar  'JoinText'
 		.EditPChar  'DismissText'
 	end
+end
+
+function structs.f.BTB(define)
+	define
+	 .Info "Represents data from npcBTB.txt. Note that #Game.RemapBTB:# is used when npcBTB.txt is read, because its columns order is different."
+	.array(13).u1  'AcceptBribe'
+	 .Info{Sig = "[personality:const.NPCPersonality]"}
+	.array(13).u1  'AcceptThreat'
+	 .Info{Sig = "[personality:const.NPCPersonality]"}
+	.array(13).u1  'AcceptBeg'
+	 .Info{Sig = "[personality:const.NPCPersonality]"}
+	.skip(1)
+	.array(25).array(13).EditPChar  'Text'
+	 .Info{Sig = "[Msg#][personality:const.NPCPersonality]"}
 end
 
 local function ArcStartIncome(o, obj, name, val)
@@ -3228,7 +3243,7 @@ function structs.f.ArcomageCard(define)
 	.array(3).i1  'CostRes'
 	.b1  'Discardable'
 	.i4  'If'
-	 .Info ":const.ArcomageIf"
+	 .Info{Type = "const.ArcomageIf"}
 	.struct(structs.ArcomageActions)  'Then'
 	.struct(structs.ArcomageActions)  'Else'
 	.skip(2)

@@ -97,6 +97,20 @@ function structs.aux.PDialog(o, obj, name, val)
 	end
 end
 
+function structs.aux.ValueInCode(a)
+	a = a or i4
+	return function(o, obj, name, val)
+		o = obj["?ptr"] + o
+		if val == nil then
+			return a[o]
+		else
+			mem.IgnoreProtection(true)
+			a[o] = val
+			mem.IgnoreProtection(false)
+		end
+	end
+end
+
 function structs.f.GameStructure(define)
 	define
 	 .Info{Name = "Game"}
@@ -138,9 +152,9 @@ function structs.f.GameStructure(define)
 		end
 	end)
 	[mmv(0x4BCDD8, 0x4E28D8, 0x4F37D8)].i4  'CurrentScreen'
-	 .Info ":const.Screens"
+	 .Info{Type = "const.Screens"}
 	[mmv(0x4D4714, 0x506DC8, 0x5185A8)].i4  'CurrentCharScreen'
-	 .Info ":const.CharScreens"
+	 .Info{Type = "const.CharScreens"}
 	[mmv(0x5F811C, 0x6A0BC4, 0x6CEB24)].i4  'MainMenuCode'
 	 .Info "-1 = in game, 0 = in main menu, 1 = show new game, 2 = show credits, 3 = show load menu, 4 = exit, 5 = loading game, 6 = in new game screen, 8 = in credits/new game breefing in MM6, 9 = load game/clicked Create Party in MM6, 10 = load level [MM7+]"
 	-- 465012(MM8) SetMainMenuCode
@@ -236,7 +250,7 @@ function structs.f.GameStructure(define)
 	end
 	define.func{name = "ProcessActions", p = mmv(0x42ADA0, 0x4304D6, 0x42EDD8)}
 	[mmv(0x6199C0, 0x6A0BC8, 0x6CEB28)].i4  'ExitMapAction'
-	 .Info ":const.ExitMapAction"
+	 .Info{Type = "const.ExitMapAction"}
 	if mmver == 7 then
 		define[0x5077C8]
 		.b1  'FlashHistoryBook'
@@ -314,15 +328,7 @@ function structs.f.GameStructure(define)
 	[mmv(0x4C3B74, 0x4EFEC8, 0x5004E8)].array(mmv(68, 78, 78)).i2  'MapDoorSound'
 	[mmv(0x4C1F18, 0x4EC9B8, 0x4FC9EC)].array(16).struct(structs.FogChances)  'MapFogChances'
 	if mmver < 8 then
-		define[mmv(0x465243, 0x473C64)].CustomType('FlyCeiling', 4, function(o, obj, _, val)
-			if val == nil then
-				return i4[o]
-			else
-				mem.IgnoreProtection(true)
-				i4[o] = val
-				mem.IgnoreProtection(false)
-			end
-		end)
+		define[mmv(0x465243, 0x473C64)].CustomType('FlyCeiling', 4, structs.aux.ValueInCode(i4))
 		 .Info "3000 in MM6, 4000 in MM7+, in MM8 it's configured per map (!Lua[[Map.OutdoorExtra.Ceiling]])"
 	end
 	
@@ -408,15 +414,7 @@ function structs.f.GameStructure(define)
 			mem.IgnoreProtection(false)
 		end
 	end)
-	[mmv(0x483E62, 0x4902C2, 0x4904EB) - 4].CustomType('MaxBirthYear', 4, function(o, obj, _, val)
-		if val == nil then
-			return i4[o]
-		else
-			mem.IgnoreProtection(true)
-			i4[o] = val
-			mem.IgnoreProtection(false)
-		end
-	end)
+	[mmv(0x483E62, 0x4902C2, 0x4904EB) - 4].CustomType('MaxBirthYear', 4, structs.aux.ValueInCode(i4))
 	[mmv(0x90E838, 0xAD45B0, 0xB7CA88)].bit ('NeedRender', 2)
 	 .Info "Same as Party.NeedRender"
 	[mmv(0x908E30, 0xACD6B4, 0xB21728)].b4  'TurnBased'
@@ -447,6 +445,7 @@ function structs.f.GameStructure(define)
 	end
 	define
 	[mmv(0x9DE364, 0xF8B9B0, 0xFFDDA8)].i4  'SmackVideo'
+	[mmv(0x9DE394, 0xF8BA90, 0xFFDE88)].i4  'DontResumeMusicAfterVideo'
 	[mmv(0x4BF8A0, 0x4E8348, 0x4F7F4C)].array(20).u1  'EquipStat2ItemSlot'  -- (24) ?
 	if mmver == 6 then
 		define.array(1, 180).b1  'MonsterSex'
@@ -542,13 +541,18 @@ end]=]
 	if mmver > 6 then
 		define
 		[mm78(0x73B8D4, 0x7798B8)].array(0, 205).array(0, 1).EditPChar  'NPCGreet'
-		[mm78(0x73BFAA, 0x779F8E)].array(0, 50).i2  'NPCGroup'
+		.array(0, 50).i2  'BaseNPCGroup'
+		.array(0, 50).i2  'NPCGroup'
 		[mm78(0x739CF4, 0x778F50)].array(0, 50).EditPChar  'NPCNews'
 		[mm78(0x5C89E0, 0x5E4DA8)].array(0, 29).struct(structs.HistoryTxtItem)  'HistoryTxt'
 	else
 		define
 		[0x6B8C60].array{0, 279}.struct(structs.NPCNewsItem)  'NPCNews'
 		[0x6BA568].array(96).i2  'NPCNewsCountByMap'
+		[0x6B9980].struct(structs.BTB)  'BTB'
+		 .Info "npcBTB.txt"
+		[0x4C1036].array(13).u1  'RemapBTB'
+		 .Info{"Remaps a column in npcBTB.txt file onto index in #BTB:structs.BTB# structure", Type = "const.NPCPersonality"}
 	end
 	define[mmv(0x6A9168, 0x724050, 0x761998)]
 	.array(mmv(400, 501, 551)).struct(structs.NPC)  'NPCDataTxt'
@@ -595,15 +599,7 @@ end]=]
 		end
 	end)
 	if mmver == 6 then
-		define[0x452FDE].CustomType('NarratorTrack', 1, function(o, obj, _, val)
-			if val == nil then
-				return u1[o]
-			else
-				mem.IgnoreProtection(true)
-				u1[o] = val
-				mem.IgnoreProtection(false)
-			end
-		end)
+		define[0x452FDE].CustomType('NarratorTrack', 1, structs.aux.ValueInCode(u1))
 	end
 	
 	local pmis = mem.StaticAlloc(8)
@@ -713,6 +709,14 @@ end]=]
 		[0x6F330C].struct(structs.LanguageLod)  'EnglishDLod'
 	end
 	define
+	[0].CustomType('RandSeed', 0, function(o, obj, name, val)
+		local p = (mmver > 6 and call(mmv(0, 0x4CECD2, 0x4DDD52), 0) + 5*4 or 0x4C5354)
+		if val then
+			i4[p] = val
+		else
+			return i4[p]
+		end
+	end)
 	[mmv(0x6296EC, 0x6BDEFC, 0x6F3004)].i4  'dist_mist'
 	.Info{Name = "IsD3D", new = true}
 	if mmver > 6 then
@@ -729,14 +733,11 @@ end]=]
 		end)
 		 .Info "Minimum required Z coordinate of the normal to climb a building surface. MM6 default is 1 (any non-vertical surface), MM7+ default is 46378, which corresponds to Lua[[46378/0x10000 = 0.7]]."
 	end
-	define[0].CustomType('RandSeed', 0, function(o, obj, name, val)
-		local p = (mmver > 6 and call(mmv(0, 0x4CECD2, 0x4DDD52), 0) + 5*4 or 0x4C5354)
-		if val then
-			i4[p] = val
-		else
-			return i4[p]
-		end
-	end)
+	define
+	[mmv(0x9CF5A0, 0xF791FC, 0xFEB604)].pstruct(structs.Music)  'Music'  -- redbook
+	-- .pstruct(structs.MSS)  'MSS'  -- MSS32.dll
+	
+	define
 	.func{name = "Rand", p = mmv(0x4AE22B, 0x4CAAC2, 0x4D99F2), cc = 0}
 	local function Pauses(s, time, info, infoR, info2)
 		local var, bool, pause, resume = "PauseCount"..s, "Paused"..s, "DoPause"..s, "DoResume"..s
@@ -2152,4 +2153,28 @@ function structs.f.LodRecord(define)
 	.u4  'NamePtr'
 	 .Info "Pointer passed to Load* function"
 	.string(0x40)  'Name'
+end
+
+
+local MusicBuf
+
+function structs.f.Music(define)
+	define
+	.method{pp = mmv(0x4B928C, 0x4D832C, 0x4E8330), cc = 0, name = "Play", must = 2}       -- _AIL_redbook_play@12
+	 .Info{Sig = "StartMSec, EndMSec"}
+	.method{pp = mmv(0x4B92A0, 0x4D8324, 0x4E8328), cc = 0, name = "Stop"}                 -- _AIL_redbook_stop@4
+	.method{pp = mmv(0x4B9238, 0x4D8340, 0x4E8308), cc = 0, name = "Close"}                -- _AIL_redbook_close@4
+	.method{pp = mmv(0x4B923C, 0x4D8320, 0x4E8324), cc = 0, name = "Pause"}                -- _AIL_redbook_pause@4
+	.method{pp = mmv(0x4B925C, 0x4D831C, 0x4E8320), cc = 0, name = "Resume"}               -- _AIL_redbook_resume@4
+	.method{pp = mmv(0x4B9284, 0x4D8308, 0x4E82F4), cc = 0, name = "SetVolume", must = 1}  -- _AIL_redbook_set_volume@8
+	if mmver > 6 then
+		define
+		.method{pp = mm78(0x4D83B4, 0x4E8364), cc = 0, name = "GetVolume"}                   -- _AIL_redbook_volume@4
+	end
+	function define.m:GetTrackInfo(track)
+		MusicBuf = MusicBuf or mem.StaticAlloc(8)
+		call(mmv(0x4B9288, 0x4D8328, 0x4E832C), 0, self, track, MusicBuf, MusicBuf + 4)      -- _AIL_redbook_track_info@16
+		return i4[MusicBuf], i4[MusicBuf + 4]
+	end
+	define.Info{Sig = "track, pStartMSec, pEndMSec"}
 end
