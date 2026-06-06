@@ -1,9 +1,24 @@
--- fix hired npcs being modulo 256 (byte used for intermediate storage)
--- replace all references with dword instead
--- also increment pointeers by 4 not by 1 etc.
+-- fix hired npcs being modulo 256; skip if MMExtension already patched it
+if mem.u1[0x492046] ~= 0x8A or mem.u1[0x445C93] ~= 0x0F then
+	return
+end
+
 local hooks = HookManager{buffer = 0x5C5C30}
 
 -- hooks.asmpatch(0x445A49, "lea eax,dword [ebp-4]", 3)
+
+local clearBuffer = [[
+	pushad
+	mov edi, %buffer%
+	xor eax, eax
+	mov ecx, 1024
+	rep stosd
+	popad
+]]
+
+for _, addr in ipairs{0x416AAA, 0x420BAE, 0x430657, 0x445AA5, 0x445BE5, 0x445CDF, 0x491F7F} do
+	hooks.asmhook(addr, clearBuffer)
+end
 
 hooks.asmpatch(0x416AD2, [[
 	mov dword [edi+%buffer%],ecx
