@@ -10,6 +10,17 @@ local function SetBranch(t)
 	QuestBranch(t.NewBranch)
 end
 
+local function Merc_FindMonster(Merc)
+
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID == Merc.NPC_ID then
+            return mon
+        end
+    end
+
+    return nil
+end
+
 local function IsQuestNPCActive()
     return evt.Cmp("NPCs", QuestNPC)
 end
@@ -140,7 +151,7 @@ local function NPCMercDeclare(Merc)
         Branch      =   "",
         GetTopic    =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
-                            return string.format("Fight \01265523(%d)", MercSaveData.FightsLeft) 
+                            return string.format("%s \01265523(%d)", ModTxt.MercFight, MercSaveData.FightsLeft) 
                         end,
         CanShow     =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
@@ -149,10 +160,103 @@ local function NPCMercDeclare(Merc)
         Ungive      =   function(t) 
                             Merc_Fight(Merc, t) 
                         end
-    } 
+    }
+
+    -- Merc is released: dismissing + Tactics
 
     NPCTopic{
         Slot        =   A,
+        Branch      =   "",
+        Topic       =   "Tactics: Follow",
+        CanShow     =   function(t)
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+                            local MercMonster       = nil
+                            local MercModAIEntry    = nil
+
+                            if IsQuestNPCActive() and MercSaveData.Dead == true then
+                                return false
+                            end
+                            
+                            MercMonster     = Merc_FindMonster(Merc)
+                            MercModAIEntry  = ModAI_Get(MercMonster)
+                            
+                            return MercModAIEntry and MercModAIEntry.Mode ~= const.FollowerMode.Hold or false
+        end,
+        Ungive      =   function(t)
+                            ModAI_Hold(Merc_FindMonster(Merc))
+                            Message(ModTxt.MercTacticsHoldMsg)
+                        end
+    }
+
+    NPCTopic{
+        Slot        =   A,
+        Branch      =   "",
+        Topic       =   "Tactics: Hold",
+        CanShow     =   function(t)
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+                            local MercMonster       = nil
+                            local MercModAIEntry    = nil
+
+                            if IsQuestNPCActive() and MercSaveData.Dead == true then
+                                return false
+                            end
+                            
+                            MercMonster     = Merc_FindMonster(Merc)
+                            MercModAIEntry  = ModAI_Get(MercMonster)
+                            
+                            return MercModAIEntry and MercModAIEntry.Mode == const.FollowerMode.Hold or false
+        end,
+        Ungive      =   function(t)
+                            ModAI_FollowParty(Merc_FindMonster(Merc))
+                            Message(ModTxt.MercTacticsFollowMsg)
+                        end
+    }
+
+    NPCTopic{
+        Slot        =   B,
+        Branch      =   "",
+        Topic       =   "Style: Aggressive",
+        CanShow     =   function(t)
+
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+
+                            if IsQuestNPCActive() and MercSaveData.Dead == true then
+                                return false
+                            end
+                            
+                            return MercSaveData.AIBehavior == const.FollowerMode.OffensiveFollow
+                        end,
+        Ungive      =   function(t)
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+                            MercSaveData.AIBehavior = const.FollowerMode.DefensiveFollow
+                            ModAI_SetMode(Merc_FindMonster(Merc), const.FollowerMode.DefensiveFollow)
+                            Message(ModTxt.MercStyleDefensiveMsg)
+                        end
+    }
+
+    NPCTopic{
+        Slot        =   B,
+        Branch      =   "",
+        Topic       =   "Style: Defensive",
+        CanShow     =   function(t)
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+
+                            if IsQuestNPCActive() and MercSaveData.Dead == true then
+                                return false
+                            end
+                            
+                            return MercSaveData.AIBehavior == const.FollowerMode.DefensiveFollow
+                        end,
+        Ungive      =   function(t)
+                            local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
+                            MercSaveData.AIBehavior = const.FollowerMode.OffensiveFollow
+                            ModAI_SetMode(Merc_FindMonster(Merc), const.FollowerMode.OffensiveFollow)
+                            Message(ModTxt.MercStyleAggressiveMsg)
+                        end
+    }
+
+    NPCTopic{
+        Slot        =   C,
         Branch      =   "",
         Topic       =   "Dismiss!",
         CanShow     =   function(t)
@@ -163,6 +267,8 @@ local function NPCMercDeclare(Merc)
                             Merc_Dismiss(Merc, t) 
                         end
     }
+
+    --
 
     NPCTopic{
         Slot        =   A,

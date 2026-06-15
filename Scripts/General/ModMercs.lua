@@ -46,7 +46,8 @@ SMercSaveData       = {
     Released        = false,
     ReleaseMap      = "",
     Dead            = false,
-    HiredOnce       = false
+    HiredOnce       = false,
+    AIBehavior      = const.FollowerMode.DefensiveFollow
 }
 
 -- Required by guildmaster
@@ -55,13 +56,13 @@ SMercCredentials    = {
     PriceReHire     = 500,
     PriceResurrect  = 500,
 
-    TextAbout       = "I'm tough and rough.",
-    TextHired       = "Hired!",
-    TextGreeting    = "Greetings!",
-    TextFightTired  = "Too tired.",
+    TextAbout       = ModTxt.MercDefaultAbout,
+    TextHired       = ModTxt.MercDefaultHired,
+    TextGreeting    = ModTxt.MercDefaultGreeting,
+    TextFightTired  = ModTxt.MercDefaultFightTired,
     TextSpecial     = "",
-    TextFireAttempt = "Are you sure?",
-    TextFireCancel  = "Phew, that was close!"
+    TextFireAttempt = ModTxt.MercDefaultFireAttempt,
+    TextFireCancel  = ModTxt.MercDefaultFireCancel
 }
 
 SMercCredentialsSchema = {
@@ -274,6 +275,11 @@ function Merc_Fight(Merc, t)
     mon.Attack1.DamageDiceCount = meleeDmg.DamageDiceCount
     mon.Attack1.DamageDiceSides = meleeDmg.DamageDiceSides
 
+    -- Add Enhanced AI to the merc
+    ModAI_Add(mon)
+    ModAI_SetMode(mon, MercSaveData.AIBehavior)
+    ModAI_FollowParty(mon)
+
     ExitScreen()
 end
 
@@ -284,6 +290,9 @@ function Merc_Dismiss(Merc, t)
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
     MercSaveData.Released   = false
     MercSaveData.ReleaseMap = ""
+
+    -- Remove Enhanced AI from database
+    ModAI_Remove(mon)
 
     for _, mon in Map.Monsters do
         if mon.NPC_ID == QuestNPC then
@@ -371,29 +380,24 @@ function Merc_ShowInfo(Merc)
     local ac                = Merc.AC[UpgradeACLevel+1]           or Merc.AC[1]
     local level             = Merc.Level[UpgradeMonLevel+1]       or Merc.Level[1]
     local attack1           = Merc.Attack1[UpgradeDmg1Level+1]    or Merc.Attack1[1]
-    local attack2           = Merc.Attack2[UpgradeDmg2Level+1]    or Merc.Attack2[1]
+    local attack2           = Merc.Attack2 and (Merc.Attack2[UpgradeDmg2Level+1]    or Merc.Attack2[1]) or nil
     local fightsLeft        = Merc.FightsMax[UpgradeSumLevel+1]   or Merc.FightsMax[1]
 
     local meleeStr          = ""
     local meleeUpdStr       = ""
     if (attack1 and string.len(attack1) > 0) then
-        meleeStr            = string.format("With my trusty weapons, I deliver a formidable melee assault, capable of inflicting \01265523%s\01200000 damage.\n\n", attack1)
-        meleeUpdStr         = string.format("	008* Melee:	160%d/3\n", UpgradeDmg1Level)
+        meleeStr            = string.format(ModTxt.MercInfoMelee, attack1)
+        meleeUpdStr         = string.format(ModTxt.MercInfoMeleeUpgrade, UpgradeDmg1Level)
     end
 
     local rangedStr         = ""
     local rangedUpdStr      = ""
     if (attack2 and string.len(attack2) > 0) then
-        rangedStr           = string.format("I can perform a ranged attack, dealing \01265523%s\01200000 damage to your target.\n\n", attack2)
-        rangedUpdStr        = string.format("	008* Ranged:	160%d/3\n", UpgradeDmg2Level)
+        rangedStr           = string.format(ModTxt.MercInfoRanged, attack2)
+        rangedUpdStr        = string.format(ModTxt.MercInfoRangedUpgrade, UpgradeDmg2Level)
     end
 
-    local Output = string.format("Greetings!\n\nI am known as \01265523%s\01200000, a mercenary combatant of Level \01265523%d\01200000.\n\n"..
-                            "My have a robust health pool of \01265523%d\01200000 and an armor class of \01265523%d\01200000.\n\n"..
-                            "%s"..
-                            "%s"..
-                            "You have my allegiance for \01265523%s\01200000 summons each day, ready to stand by your side!\n\n"..
-                            "Upgrades: \n	008* Hit Points:	160%d/3\n	008* Armor Class:	160%d/3\n	008* Level:	160%d/3\n%s%s	008* Summons:	160%d/3",
+    local Output = string.format(ModTxt.MercInfo,
                             Merc.Name, level, hp, ac, meleeStr, rangedStr, fightsLeft,
                             UpgradeHPLevel, UpgradeACLevel, UpgradeMonLevel, meleeUpdStr, rangedUpdStr, UpgradeSumLevel)
 
