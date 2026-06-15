@@ -60,6 +60,15 @@ function events.LoadMap()
     end
 end
 
+function events.AfterLoadMap(WasInGame)
+
+    if not IsWarrior() then
+        
+        -- Remove traps in "Adventurer"
+        evt.SetFacetBit(10,const.FacetBits.IsSecret, false)
+    end
+end
+
 ------------------------------------------------------------------------------
 -- CHESTS & GOLD VEINS
 ------------------------------------------------------------------------------

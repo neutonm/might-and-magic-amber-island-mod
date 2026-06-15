@@ -159,6 +159,11 @@ function events.AfterLoadMap(WasInGame)
 
     MakeHostile(79,81) -- Golems
     evt.SetNPCGroupNews(37, 41)
+
+    if not IsWarrior() then
+        -- Remove traps in "Adventurer"
+        evt.SetFacetBit(10,const.FacetBits.IsSecret, false)
+    end
 end
 
 function events.LoadMap()

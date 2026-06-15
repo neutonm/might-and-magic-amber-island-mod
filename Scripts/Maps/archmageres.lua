@@ -174,6 +174,11 @@ function events.AfterLoadMap(WasInGame)
             RemoveMonster(mon)
         end
     end
+
+    if not IsWarrior() then
+        -- Remove traps in "Adventurer"
+        evt.SetFacetBit(10,const.FacetBits.IsSecret, false)
+    end
 end
 
 function events.LoadMap()

@@ -69,6 +69,11 @@ function events.AfterLoadMap(WasInGame)
 
     MakeHostile(64,66) -- Gargoyle
     MakeHostile(79,81) -- Golems
+
+    if not IsWarrior() then
+        -- Remove traps in "Adventurer"
+        evt.SetFacetBit(10,const.FacetBits.IsSecret, false)
+    end
 end
 
 ------------------------------------------------------------------------------
