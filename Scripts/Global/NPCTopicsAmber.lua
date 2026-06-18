@@ -1107,7 +1107,7 @@ Quest{
     QuestGold       =   500,
     Done            =   function(t)
                             evt.MoveNPC{NPC = 491, HouseId = 0}
-                            evt.MoveNPC{NPC = 477, HouseId = 117}
+                            evt.MoveNPC{NPC = 477, HouseId = 250}
                         end,
     CanShow         =   function(t) return vars.Quests.AmberQuest11 ~= "Done" end
 }
@@ -1127,7 +1127,7 @@ Quest{
     Exp             =   750,
     Done            =   function(t)
                             evt.MoveNPC{NPC = 491, HouseId = 0}
-                            evt.MoveNPC{NPC = 477, HouseId = 117}
+                            evt.MoveNPC{NPC = 477, HouseId = 250}
                         end,
     CanShow         =   function(t) return vars.Quests.AmberQuest11W ~= "Done" end
 }
@@ -3679,7 +3679,7 @@ NPCTopic{
     Ungive          =   function(t)
 
                             evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
-                            evt.MoveNPC(547,117) -- Conrad goes back to Inn
+                            evt.MoveNPC(547,250) -- Conrad goes back to Inn
                             for _, mon in Map.Monsters do
                                 if mon.NPC_ID  == 547 then
                                     RemoveMonster(mon)

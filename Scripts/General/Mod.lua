@@ -172,7 +172,7 @@ function events.BeforeNewGameAutosave()
         evt.MoveNPC(540,251)    -- Thomas Guilden   (Bank)
         evt.MoveNPC(515,0)      -- Robert Greene    (Out of swamp camp)
         evt.MoveNPC(491,0)      -- Conrad Hawk      (Prison)
-        evt.MoveNPC(547,117)    -- Conrad Hawk      (Inn)
+        evt.MoveNPC(547,250)    -- Conrad Hawk      (Inn)
     end
 
     -- Debug mode essentials

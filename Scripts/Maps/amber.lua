@@ -240,7 +240,7 @@ local function ConradKilledParty()
     -- Conrad Hawk managed to kick your ass?
     if vars.QuestsAmberIsland.QVarConradBrawl == 4 then
         evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
-        evt.MoveNPC(547,117) -- Conrad goes back to Inn
+        evt.MoveNPC(547,250) -- Conrad goes back to Inn
         for _, mon in Map.Monsters do
             if mon.NPC_ID  == 547 then
                 RemoveMonster(mon)
@@ -295,7 +295,7 @@ function events.AfterMonsterAttacked(t, attacker)
                     return
                 end
 
-                evt.MoveNPC(547,117) -- Conrad goes back to Inn
+                evt.MoveNPC(547,250) -- Conrad goes back to Inn
                 RemoveMonster(t.Monster)
                 vars.QuestsAmberIsland.QVarConradBrawl      = 3 -- Failure
                 vars.QuestsAmberIsland.QVarConradWarning    = false
@@ -693,7 +693,7 @@ end
 ------------------------------------------------------------------------------
 
 -- Tavern: Powder Keg Inn
-evt.HouseDoor(65, 120)
+evt.HouseDoor(65, 249)
 
 -- Training: Amber Training Grounds
 evt.HouseDoor(67, 91)
@@ -712,7 +712,7 @@ end
 evt.HouseDoor(71, 251)
 
 -- Tavern: Crusty Eagle Inn
-evt.HouseDoor(73, 117)
+evt.HouseDoor(73, 250)
 
 -- Armorer: Steel Bucket
 ShopDoor(75, 17)
@@ -993,7 +993,7 @@ evt.map[170]         = function()
 
         vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
 
-        evt.MoveNPC(547,117) -- Conrad goes back to Inn
+        evt.MoveNPC(547,250) -- Conrad goes back to Inn
         for _, mon in Map.Monsters do
             if mon.NPC_ID  == 547 then
                 RemoveMonster(mon)
