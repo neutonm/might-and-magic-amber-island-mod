@@ -85,6 +85,7 @@ return {
 	["Scripts/Structs/After/RemoveAutonotesLimit.lua"] = 1,
 	["Scripts/Structs/After/RemoveAwardsLimits.lua"] = 1,
 	["Scripts/Structs/After/RemoveHouseMoviesLimit.lua"] = 1,
+	["Scripts/Structs/After/RemoveHistoryLimits.lua"] = 1,
 	["Scripts/Structs/After/RemoveIndoorLimits.lua"] = 1,
 	["Scripts/Structs/After/RemoveMapStatsLimit.lua"] = 1,
 	["Scripts/Structs/After/RemoveNPCProfLimit.lua"] = 1,
