@@ -166,6 +166,9 @@ KillMonstersQuest{
     Gold            =   5000,
     Done            =   function(t)
                             evt.MoveNPC(529,248)
+
+                            evt.Add("History33", 0) -- Archmage Defeated
+
                             -- "Saved Amber Island from Magnus the Archmage"
                             evt.Add("Awards", 105)
                             evt.Subtract("Reputation", 10)
@@ -287,6 +290,8 @@ NPCTopic{
                             vars.Quests.CoreQuest           = "Done"
                             evt.Add("Exp",  5000)
                             evt.Add("Gold", 2500)
+
+                            evt.Add("History34", 0) -- Pact with the Archmage
 
                             evt.All.Sub("Inventory", 670)
 

@@ -111,6 +111,15 @@ function events.AfterLoadMap(WasInGame)
             end
         end
     end
+
+    -- History book entries
+    if vars.MiscGlobal and vars.MiscGlobal.FirstHistoryBookEntries == 0 then
+        
+        vars.MiscGlobal.FirstHistoryBookEntries = 1
+        evt.Add("History30", 0)
+        evt.Add("History31", 0)
+        evt.Add("History32", 0)
+    end
 end
 
 function events.BeforeNewGameAutosave()
@@ -163,6 +172,7 @@ function events.BeforeNewGameAutosave()
     end
     if vars.MiscGlobal == nil then
         vars.MiscGlobal = {
+            FirstHistoryBookEntries = 0,        -- Show History book entries on game start
             FirstTimePlaying        = 0,        -- for "Sir Henry" message at startup
             OnDeathLocation         = 0,        -- Variable for resurrection locations
         }
