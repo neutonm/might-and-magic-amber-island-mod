@@ -6,11 +6,26 @@ Author:         Henrik Chukhran, 2022 - 2026
 -- @todo make a list of travel points and use them instead of MoveTo with magic number arguments
 
 -- DEBUG MODE (MOD)
-Game.Debug      = false
+Game.Debug                  = Game.Debug or false
+local NEW_GAME_MAP          = "amber.odm"
+local DEBUG_NEW_GAME_MAP    = "hub.blv"
 
 -- New Game
-Game.NewGameMap = Game.Debug and "hub.blv" or "amber.odm"
 Game.TitleTrack = 22
+
+function events.MenuAction(t)
+
+    if t.Action == 54 then
+        Game.NewGameMap = Game.Debug and DEBUG_NEW_GAME_MAP or NEW_GAME_MAP
+    end
+end
+
+function events.Action(t)
+
+    if t.Action == 124 and not t.Handled and mem.u4[0x6bdfb8] == 124 and Game.CurrentScreen == 1 then
+		Game.NewGameMap = Game.Debug and DEBUG_NEW_GAME_MAP or NEW_GAME_MAP
+	end
+end
 
 function events.NewGameMap()
     XYZ(Party,-17116,-21798,449)
@@ -52,13 +67,6 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
 
     ArcomageRequireDeck(false)
 
-    -- Debug mode essentials
-    if Game.Debug == true then
-        evt.Add("Gold",99999)
-        Party.Food = 100
-        god()
-    end
-
     if path.ext(Game.Map.Name):lower() == ".odm" then
         LocalFile(Game.DecListBin)
         Game.DecListBin[34].SoundId = 0
@@ -78,8 +86,10 @@ end
 
 function events.AfterLoadMap(WasInGame)
 
+    local mapName = Game.Map.Name
+
     -- Temporary: Hostiles
-    if Game.Map.Name == "out02.odm" then
+    if mapName == "out02.odm" then
 
         if vars.QuestsAmberIsland.QVarEndGame == 1 then
             -- @todo change endgame start location and clear this workaround
@@ -91,6 +101,14 @@ function events.AfterLoadMap(WasInGame)
                     HouseId = 0, Icon = 0, Name = "amber.odm"}
             end, const.Second, Game.Time + const.Second, false)
 
+        end
+    elseif mapName == "hub.blv" then
+
+        if vars.MiscGlobal and vars.MiscGlobal.DebugGodPending then
+            vars.MiscGlobal.DebugGodPending = false
+            if Game.Debug == true then
+                god()
+            end
         end
     end
 end
@@ -179,6 +197,7 @@ function events.BeforeNewGameAutosave()
     if Game.Debug == true then
         Party.Gold = 99999
         Party.Food = 100
+        vars.MiscGlobal.DebugGodPending = true
     end
 
     -- Bow and repair for everyone
