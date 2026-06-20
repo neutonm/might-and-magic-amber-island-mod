@@ -3107,27 +3107,6 @@ Quest{
     CheckDone       =   false,  -- the quest can't be completed here
 }
 
-NPCTopic{
-    Slot    =   B,
-    Topic   =   "The End (Victory!)",
-    Text    =   "Good job!",
-    CanShow =   function(t) return vars.QuestsAmberIsland.QVarEndGame == false end,
-    Ungive  =   function(t)
-                    if vars.QuestsAmberIsland.QVarEndGame == false then
-                        vars.QuestsAmberIsland.QVarEndGame = 1
-                        --evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
-                        Party.QBits[99] = true
-                        SuppressSound(true)
-                        while Game.CurrentScreen ~= 0 do
-                            Game.Actions.Add(113, 1)
-                            Game.Actions.Process()
-                        end
-                        SuppressSound(false)
-                        evt.EnterHouse(600)
-                    end
-                end
-}
-
 ------------------------------------------------------------------------------
 -- Cedrick Boyce (Castle Amber)
 QuestNPC            =   531
@@ -3167,6 +3146,27 @@ NPCTopic{
                         "\01265523magical mist\01200000 appeared again.\n\nMind you, there's no way out of it "..
                         "until the mist clears, so it seems we'll be extending our stay a bit longer than "..
                         "expected.\n\nBest make the most of it, eh?"
+}
+
+NPCTopic{
+    Slot            =   B,
+    Topic           =   "The End (Victory!)",
+    Text            =   "Good job!",
+    CanShow         =   function(t) return vars.Quests.CoreQuest == "Done" and vars.QuestsAmberIsland.QVarEndGame == false end,
+    Ungive          =   function(t)
+                            if vars.QuestsAmberIsland.QVarEndGame == false then
+                                vars.QuestsAmberIsland.QVarEndGame = 1
+                                --evt.ShowMovie{DoubleSize = 1, ExitCurrentScreen = true, Name = "\"Endgame 1 Good\" "}
+                                Party.QBits[99] = true
+                                SuppressSound(true)
+                                while Game.CurrentScreen ~= 0 do
+                                    Game.Actions.Add(113, 1)
+                                    Game.Actions.Process()
+                                end
+                                SuppressSound(false)
+                                evt.EnterHouse(600)
+                            end
+                        end
 }
 
 ------------------------------------------------------------------------------

@@ -11,7 +11,8 @@ local NEW_GAME_MAP          = "amber.odm"
 local DEBUG_NEW_GAME_MAP    = "hub.blv"
 
 -- New Game
-Game.TitleTrack = 22
+Game.TitleTrack             = 22
+Game.WinMapName             = "amber.odm"
 
 function events.MenuAction(t)
 
@@ -28,7 +29,17 @@ function events.Action(t)
 end
 
 function events.NewGameMap()
+
+    local WinMapIndex   = 0
+
+    -- Start location
     XYZ(Party,-17116,-21798,449)
+
+    -- Level to load after Victory Screen
+    WinMapIndex = assert(Game.MapStats.Find(Game.WinMapName),
+		('End game map "%s" is missing from MapStats.txt'):format(Game.WinMapName))
+
+	Game.WinMapIndex    = tostring(WinMapIndex)
 end
 
 function events.DeathMap(t)
@@ -88,21 +99,8 @@ function events.AfterLoadMap(WasInGame)
 
     local mapName = Game.Map.Name
 
-    -- Temporary: Hostiles
-    if mapName == "out02.odm" then
-
-        if vars.QuestsAmberIsland.QVarEndGame == 1 then
-            -- @todo change endgame start location and clear this workaround
-            vars.QuestsAmberIsland.QVarEndGame = 2
-            Timer(function()
-                evt.MoveToMap{
-                    X = 3684, Y = 8941, Z = 120,
-                    Direction = 1024, LookAngle = 0, SpeedZ = 0,
-                    HouseId = 0, Icon = 0, Name = "amber.odm"}
-            end, const.Second, Game.Time + const.Second, false)
-
-        end
-    elseif mapName == "hub.blv" then
+    -- Enable god mode in dev dungeon
+    if mapName == "hub.blv" then
 
         if vars.MiscGlobal and vars.MiscGlobal.DebugGodPending then
             vars.MiscGlobal.DebugGodPending = false
