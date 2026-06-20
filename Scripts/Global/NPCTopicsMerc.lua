@@ -151,7 +151,7 @@ local function NPCMercDeclare(Merc)
         Branch      =   "",
         GetTopic    =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
-                            return string.format("%s \01265523(%d)", ModTxt.MercFight, MercSaveData.FightsLeft) 
+                            return string.format("%s \01265523(%d)", MercTxt.MMercFight, MercSaveData.FightsLeft) 
                         end,
         CanShow     =   function(t)
                             local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
@@ -184,7 +184,7 @@ local function NPCMercDeclare(Merc)
         end,
         Ungive      =   function(t)
                             ModAI_Hold(Merc_FindMonster(Merc))
-                            Message(ModTxt.MercTacticsHoldMsg)
+                            Message(MercTxt.MMercTacticsHoldMsg)
                         end
     }
 
@@ -208,7 +208,7 @@ local function NPCMercDeclare(Merc)
         end,
         Ungive      =   function(t)
                             ModAI_FollowParty(Merc_FindMonster(Merc))
-                            Message(ModTxt.MercTacticsFollowMsg)
+                            Message(MercTxt.MMercTacticsFollowMsg)
                         end
     }
 
@@ -230,7 +230,7 @@ local function NPCMercDeclare(Merc)
                             local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
                             MercSaveData.AIBehavior = const.FollowerMode.DefensiveFollow
                             ModAI_SetMode(Merc_FindMonster(Merc), const.FollowerMode.DefensiveFollow)
-                            Message(ModTxt.MercStyleDefensiveMsg)
+                            Message(MercTxt.MMercStyleDefensiveMsg)
                         end
     }
 
@@ -251,7 +251,7 @@ local function NPCMercDeclare(Merc)
                             local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
                             MercSaveData.AIBehavior = const.FollowerMode.OffensiveFollow
                             ModAI_SetMode(Merc_FindMonster(Merc), const.FollowerMode.OffensiveFollow)
-                            Message(ModTxt.MercStyleAggressiveMsg)
+                            Message(MercTxt.MMercStyleAggressiveMsg)
                         end
     }
 
