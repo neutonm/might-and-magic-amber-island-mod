@@ -75,6 +75,23 @@ function TownHall_NPCTopicDeclare()
         Slot        =   A,
         Branch      =   "",
         GetTopic    =   function(t)
+                            return TownHallTxt.TFailedTopic
+                        end,
+        CanShow     =   function(t)
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            return state.BountyStatus == const.TownHall.BountyStatus.Fail
+                        end,
+        Ungive      =   function(t)
+                            local Town, state = TownHall_GetContext(QuestNPC)
+                            Message(string.format(TownHallTxt.TBountyFailed, state.TargetMonster_Name))
+                            TownHall_ResetBounty(Town)
+                            Game.UpdateDialogTopics()
+                        end
+    }
+    NPCTopic{
+        Slot        =   A,
+        Branch      =   "",
+        GetTopic    =   function(t)
                             return TownHallTxt.TBountyHuntNATopic
                         end,
         CanShow     =   function(t)
@@ -129,4 +146,3 @@ end
 
 QuestNPC = 535
 TownHall_NPCTopicDeclare()
-

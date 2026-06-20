@@ -91,11 +91,13 @@ TownHallTxt             = LocalizeAll{
 
     TParticipateTopic   = "Bounty Hunt: Participate!",
     TStatusTopic        = "Bounty Hunt: Status",
+    TFailedTopic        = "Bounty Hunt: Failed",
     TBountyHuntNATopic  = "Bounty Hunt: n\\a",
     TCollectBountyTopic = "Collect Bounty \01265523(%dg)",
     TPayFineTopic       = "Pay Fine \01265523(%dg)",
 
     TBountyStart        = "This month's bounty is on a \01265523%s\01200000. \n\nKill it before the deadline and return to collect \01265523%d\01200000 gold reward.",
+    TBountyFailed       = "The deadline has passed, and the bounty on \01265523%s\01200000 is no longer valid.",
     TTimeLeft           = "You have \01265523%s\01200000 to complete the hunt.",
     TComeBackLater      = "No new bounty is available right now.\n\nCome back in \01265523%s\01200000 for another bounty.",
     TComeBackSoon       = "A new bounty will be available soon.",
@@ -242,6 +244,21 @@ function TownHall_Register(TownHall, NPC_ID)
     end
 
     table.insert(TownHallDB, TownHall)
+end
+
+--! @brief  Marks current pending bounty as failed, preserving target info for NPC dialog
+function TownHall_FailBounty(TownHall)
+
+    if TownHall == nil or TownHall.NPC_ID == nil then
+        if Game.Debug then
+            debug.Message("Invalid \'TownHall\'")
+        end
+        return false
+    end
+
+    local state = TownHall_GetState(TownHall)
+    state.BountyStatus = const.TownHall.BountyStatus.Fail
+    return true
 end
 
 --! @brief  Resets current bounty, makes it available for participation once again
@@ -424,7 +441,7 @@ function events.PopulateNPCDialog(t, npc)
         if t.Kind == "NPC" and t.Index == v.NPC_ID then
             local state = TownHall_GetState(v)
             if TownHall_IsBountyOutdated(v) then
-                TownHall_ResetBounty(v)
+                TownHall_FailBounty(v)
                 Game.UpdateDialogTopics()
             elseif state.BountyStatus == const.TownHall.BountyStatus.Success and TownHall_GetCooldownTimeLeft(v) <= 0 then
                 TownHall_ResetBounty(v)
@@ -446,7 +463,7 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
         if state.BountyStatus == const.TownHall.BountyStatus.Pending and state.TargetMonster_ID == mon.Id then
 
             if TownHall_IsBountyOutdated(v) then
-                state.BountyStatus              = const.TownHall.BountyStatus.Fail
+                TownHall_FailBounty(v)
             else
                 vars.TownHallAccumulatedBounty  = vars.TownHallAccumulatedBounty + state.Bounty 
 
