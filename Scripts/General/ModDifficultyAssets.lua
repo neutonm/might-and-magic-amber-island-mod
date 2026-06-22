@@ -54,6 +54,11 @@ local function ReadWriteDataTable(filePath, f)
     end
 end
 
+local function ReloadMonstersTxt()
+    mem.fill(Game.MonstersTxt)
+    mem.call(0x45504A, 1, Game.MonstersTxt['?ptr'])  -- monsters.txt
+end
+
 -- The actual function
 local function LoadHardcoreStuff()
 
@@ -74,8 +79,7 @@ local function LoadHardcoreStuff()
     --mem.call(0x456DBE, 1, 0x5D2860)  -- monsters, items, 2DEvents, ...
     --mem.call(0x477033, 0)  -- quests, autonote, awards, ...
 
-    --mem.fill(Game.MonstersTxt)
-    --mem.call(0x45504A, 1, Game.MonstersTxt['?ptr'])  -- monsters
+    ReloadMonstersTxt()
 
     mem.fill(Game.HostileTxt)
     mem.call(0x454810, 1, Game.HostileTxt['?ptr'])  -- Hostile
@@ -91,16 +95,6 @@ local function LoadHardcoreStuff()
 
     mem.fill(Game.AwardsTxt)
     mem.call(0x4763E4, 0)  -- awards
-
-    -- Custom MONSTERS.txt
-    -- local hdr           = NameHeader({[-1] = 'Monster'}, Game.MonstersTxt)
-    -- local f             = StructsArray(Game.MonstersTxt, nil, 
-    -- {
-    --     Resisable       = true,
-    --     RowHeaders      = hdr, 
-    --     IgnoreFields    = {Name = true, Picture = true}
-    -- })
-    -- ReadWriteDataTable(AppPath..[[Data\Tables\MonstersHard.txt]], f)
 
     -- Custom MAPSTATS.txt
     -- local hdr           = NameHeader({[-1] = 'Map'}, Game.MapStats)
@@ -140,6 +134,7 @@ local function UnloadHardcoreStuff()
         CurLods[p] = nil
     end
 
+    ReloadMonstersTxt()
     ReloadDataTables()
 end
 

@@ -7,6 +7,7 @@ end
 
 local OldMonCount, NewMonCount = mmv(nil, 198, 264), nil
 local OldPlMCount, NewPlMCount = mmv(nil, 31, 131), nil
+local NeedPlaceMonRebind = false
 
 local function ChangeGameArray(name, p, count)
 	structs.o.GameStructure[name] = p
@@ -19,12 +20,14 @@ if mmver > 6 then
 	mem.autohook2(mmv(nil, 0x455082, 0x45286c), function(d)
 
 		NewMonCount = DataTables.ComputeRowCountInPChar(d.eax, 6, 6) - 4
-		if NewMonCount <= OldMonCount then
+		if NewMonCount + 1 <= Game.MonstersTxt.count then
 			return
 		end
 
 		local ExtraSize = (NewMonCount+1)*mmv(nil, 88, 96) + 0x100
+		local OldStartPos = Game.MonstersTxt["?ptr"]
 		local NewStartPos = mem.hookalloc(ExtraSize)
+		assert(NewStartPos and NewStartPos ~= 0, "failed to allocate extended MonstersTxt")
 		for i = NewStartPos, NewStartPos + ExtraSize - 1 do
 			mem.u1[i] = 0x0
 		end
@@ -59,7 +62,7 @@ if mmver > 6 then
 
 			SimpleReplacePtr(
 				{0x44F81C, 0x44F82E, 0x456DD3, 0x4bc2dc, 0x459603},
-				1, 0x5cccc0, NewStartPos)
+				1, OldStartPos, NewStartPos)
 
 			SimpleReplacePtr(
 				{0x41EA25, 0x42134D, 0x439B69, 0x439BC8, 0x439C8D, 0x439D49,
@@ -67,17 +70,17 @@ if mmver > 6 then
 				0x403620, 0x4037f7, 0x4039c0, 0x403bcc, 0x403e04, 0x4064b5,
 				0x40657e, 0x439a4d, 0x439b23, 0x43a1eb, 0x43a2c8, 0x43a709,
 				0x43a7e6, 0x44fb48, 0x44fe03, 0x450b7a, 0x461294},
-				2, 0x5cccc0, NewStartPos)
+				2, OldStartPos, NewStartPos)
 
 
 			SimpleReplacePtr(
 				{0x4bbbcb, 0x4bbc02, 0x4bd1ec, 0x4bd223},
-				2, 0x5cccc0, NewStartPos)
+				2, OldStartPos, NewStartPos)
 
 
 			SimpleReplacePtr(
 				{0x4012f6, 0x40690e},
-				3, 0x5cccc0, NewStartPos)
+				3, OldStartPos, NewStartPos)
 
 			mem.u4[0x4bc316 + 2] = NewStartPos + NewMonCount * 88
 
@@ -101,18 +104,18 @@ if mmver > 6 then
 
 			SimpleReplacePtr(
 				{0x401331, 0x40702b, 0x4bae04, 0x4bae4b, 0x4b9d4f, 0x4b9d94},
-				3, 0x5e9530, NewStartPos)
+				3, OldStartPos, NewStartPos)
 
 			SimpleReplacePtr(
 				{0x401bce, 0x401d9f, 0x402008, 0x403853, 0x403a33, 0x403c02,
 				0x403e17, 0x404058, 0x406bd9, 0x406c9c, 0x420779, 0x43754a,
 				0x437d10, 0x4381ab, 0x44d2a1, 0x44e3e5, 0x456e89, 0x456ec3,
 				0x45eba5, 0x4b16b9, 0x4b6076, 0x4ba10c},
-				2, 0x5e9530, NewStartPos)
+				2, OldStartPos, NewStartPos)
 
 			SimpleReplacePtr(
 				{0x45466a, 0x4ba522, 0x44d532, 0x44cf47, 0x44cf65},
-				1, 0x5e9530, NewStartPos)
+				1, OldStartPos, NewStartPos)
 
 			mem.u4[0x4ba561 + 2] = NewStartPos + NewMonCount*96
 
@@ -175,6 +178,7 @@ if mmver > 6 then
 		end
 		mem.IgnoreProtection(false)
 		ChangeGameArray("MonstersTxt", NewStartPos, NewMonCount + 1) -- NewMonCount + 1: Game.MonstersTxt[<MaxMonsters>] won't work due to Lua indicies starting from 1
+		NeedPlaceMonRebind = true
 
 	end)
 end
@@ -183,11 +187,12 @@ if mmver > 6 then
 	mem.autohook2(mmv(nil, 0x454f92, 0x452779), function(d)
 
 		NewPlMCount = DataTables.ComputeRowCountInPChar(d.eax, 2, 2) - 1
-		if NewPlMCount <= OldPlMCount and NewMonCount <= OldMonCount then --PlaceMon use MonstersTxt pointers in original .exe code, it can not be left unchanged, if MonstersTxt was.
+		if NewPlMCount <= Game.PlaceMonTxt.count and not NeedPlaceMonRebind then --PlaceMon use MonstersTxt pointers in original .exe code, it can not be left unchanged, if MonstersTxt was.
 			return
 		end
 
 		local NewPlaceMonStart = mem.hookalloc(NewPlMCount*4+32)
+		assert(NewPlaceMonStart and NewPlaceMonStart ~= 0, "failed to allocate extended PlaceMonTxt")
 		for i = NewPlaceMonStart, NewPlaceMonStart + NewPlMCount*4+32 - 1 do
 			mem.u1[i] = 0x0
 		end
@@ -229,6 +234,7 @@ if mmver > 6 then
 		mem.IgnoreProtection(false)
 
 		ChangeGameArray("PlaceMonTxt", NewPlaceMonStart, NewPlMCount)
+		NeedPlaceMonRebind = false
 
 	end)
 end
