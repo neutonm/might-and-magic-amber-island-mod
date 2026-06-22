@@ -59,6 +59,24 @@ local function ReloadMonstersTxt()
     mem.call(0x45504A, 1, Game.MonstersTxt['?ptr'])  -- monsters.txt
 end
 
+local function ReloadNativeTextTables()
+    mem.call(0x452C75, 0)  -- Global
+
+    ReloadMonstersTxt()
+
+    mem.fill(Game.HostileTxt)
+    mem.call(0x454810, 1, Game.HostileTxt['?ptr'])  -- Hostile
+
+    mem.fill(Game.QuestsTxt)
+    mem.call(0x4768AD, 0)  -- quests
+
+    mem.fill(Game.AutonoteTxt)
+    mem.call(0x476754, 0)  -- autonote
+
+    mem.fill(Game.AwardsTxt)
+    mem.call(0x4763E4, 0)  -- awards
+end
+
 -- The actual function
 local function LoadHardcoreStuff()
 
@@ -75,26 +93,13 @@ local function LoadHardcoreStuff()
     end
 
     --! @note commented calls will crash the game
-    mem.call(0x452C75, 0)  -- Global
     --mem.call(0x456DBE, 1, 0x5D2860)  -- monsters, items, 2DEvents, ...
     --mem.call(0x477033, 0)  -- quests, autonote, awards, ...
-
-    ReloadMonstersTxt()
-
-    mem.fill(Game.HostileTxt)
-    mem.call(0x454810, 1, Game.HostileTxt['?ptr'])  -- Hostile
 
     -- mem.fill(Game.Houses)
     -- mem.call(0x456DBE, 1, 0x5D2860)  -- monsters, items, 2devents, ...
 
-    mem.fill(Game.QuestsTxt)
-    mem.call(0x4768AD, 0)  -- quests
-
-    mem.fill(Game.AutonoteTxt)
-    mem.call(0x476754, 0)  -- autonote
-
-    mem.fill(Game.AwardsTxt)
-    mem.call(0x4763E4, 0)  -- awards
+    ReloadNativeTextTables()
 
     -- Custom MAPSTATS.txt
     -- local hdr           = NameHeader({[-1] = 'Map'}, Game.MapStats)
@@ -134,12 +139,12 @@ local function UnloadHardcoreStuff()
         CurLods[p] = nil
     end
 
-    ReloadMonstersTxt()
+    ReloadNativeTextTables()
     ReloadDataTables()
 end
 
 -- Events
-function events.BeforeLoadMap(WasInGame, WasLoaded)
+function events.InternalBeforeLoadMap(WasInGame, WasLoaded)
     if not WasInGame then
         if IsWarrior() then
             LoadHardcoreStuff()
