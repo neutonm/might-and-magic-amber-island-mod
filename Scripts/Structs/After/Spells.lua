@@ -318,10 +318,11 @@ mem.autohook(mmv(0x448026, 0x454924, 0x452087), |d| if events.exists'ReadMonster
 	-- end]]
 	events.cocalls("ReadMonsterSpell", t)
 	if t.Result then
-		d.esi = n
 		if mmver == 6 then
+			d.esi = n
 			u1[u4[ebp - 0x158] + 71*d.ebx + 0x22] = t.Result
 		else
+			i4[d.esi] = i4[d.esi] + n - 1
 			d.eax = t.Result
 		end
 		d:push(mmv(0x448311, 0x454CDC, 0x4524C0))
