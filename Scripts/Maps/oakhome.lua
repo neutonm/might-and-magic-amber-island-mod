@@ -520,7 +520,13 @@ end
 ------------------------------------------------------------------------------
 
 -- Main Hall Fountain
-Fountain(75, 78, "amberOakhomeFountain1")
+Fountain(75,    78,     "amberOakhomeFountain1")
+
+-- Temple, North
+Fountain(102,   103,    "amberOakhomeFountain2")
+
+-- Temple, South
+Fountain(104,   105,    "amberOakhomeFountain3")
 
 ------------------------------------------------------------------------------
 -- MISC

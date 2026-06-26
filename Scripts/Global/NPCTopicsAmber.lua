@@ -1114,7 +1114,7 @@ Quest{
                             evt.MoveNPC{NPC = 491, HouseId = 0}
                             evt.MoveNPC{NPC = 477, HouseId = 250}
                         end,
-    CanShow         =   function(t) return vars.Quests.AmberQuest11 ~= "Done" end
+    CanShow         =   function(t) return vars.Quests.AmberQuest11 and vars.Quests.AmberQuest11 ~= "Done" end
 }
 
 Quest{
@@ -1134,7 +1134,7 @@ Quest{
                             evt.MoveNPC{NPC = 491, HouseId = 0}
                             evt.MoveNPC{NPC = 477, HouseId = 250}
                         end,
-    CanShow         =   function(t) return vars.Quests.AmberQuest11W ~= "Done" end
+    CanShow         =   function(t) return vars.Quests.AmberQuest11W and vars.Quests.AmberQuest11W ~= "Done" end
 }
 
 NPCTopic{
@@ -1675,6 +1675,9 @@ Quest{
                             XYZ(Party, 17333, 10103, 74)
                             Party.Direction = 1273
                             Party.LookAngle = 0
+
+                            mon.FullHP          = 180
+                            mon.HP              = 180
 
                             if IsWarrior() then
                                 mon.FullHP      = 360
@@ -2357,7 +2360,7 @@ Quest{
         Done        =   "Delivery from whom? My Mother? Again? *Sigh*\n\nI'm an annointed knight and a "..
                         "respected leader of our community, and she still treats me like a child. Oh well, "..
                         "let's at least see what she's sent... junk, lots of food and, of course, socks. And "..
-                        "a note. *Sir Green quickly reads the note.*\n\n I'm told to give you this purse of "..
+                        "a note. *Sir Green quickly reads the note.*\n\nI'm told to give you this purse of "..
                         "gold. The path through this swamp is dangerous, so I guess you deserve it.",
         Undone      =   "Hmm?",
         After       =   "One of the most pieces of advice I've received as a soldier is to keep your socks "..
@@ -3170,14 +3173,14 @@ NPCTopic{
 }
 
 ------------------------------------------------------------------------------
--- Tobias Saltybeard (Second ship)
+-- Benjamin Barnacle (Second ship)
 QuestNPC            =   533
 
 Greeting
 {
-    "Ahoy, matey! May I introduce myself, Captain Benjamin Barnacle of the Black Betty. Welcome aboard. "..
+    "Ahoy, matey! May I introduce myself, Captain Benjamin Barnacle of the Saint Barthelemy. Welcome aboard. "..
     "Looking to book passage?",
-    "Welcome back. The Black Betty welcomes you."
+    "Welcome back. The Saint Barthelemy welcomes you."
 }
 
 
@@ -3188,7 +3191,7 @@ NPCTopic{
                         "between the two continents. Most ships on intercontinental voyages make a stop here "..
                         "to resupply.\n\nHowever, the recent mist crisis has made it quite a challenge to reach. "..
                         "Navigating these waters has become a task only the bravest dare tackle.\n\nLucky for "..
-                        "me, the crew of the Black Betty don't lack for courage."
+                        "me, the crew of the Saint Barthelemy don't lack for courage."
 }
 
 ------------------------------------------------------------------------------

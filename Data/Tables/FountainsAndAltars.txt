@@ -8,38 +8,40 @@
 7	amberWell4	amber.odm	12550	-17160	0	Well	0	ElemResBonus	5							$	$	$	$	$	$	$	$	$		$		$	Amber Island: Swamp Island, West from Knight Camp		$				
 8	deadmanisleWell1	deadmanisle.odm	-2016	6656	0	Well	0	LevelBonus	5							$	$	$	$	$	$	$	$	$		$		$	Deadman's Island: Near camp with tent		$				
 9	amberOakhomeFountain1	oakhome.blv	3437	374	1	Fountain	0	ArmorClassBonus	5							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Oak Hill Cottage: Entrance		$				
-10	amberApplecaveWell1	applecave.blv	4556	-292	-1167	Well	8	BaseLuck	2							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: NE, Underground Crossroads, Near the river		$				
-11	amberApplecaveSpring1	applecave.blv	530	2152	320	Spring	0	LuckBonus	20							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Entrance, near the mine cart		$				
-12	amberApplecaveSpring2	applecave.blv	4892	1544	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, NE	Null	$				
-13	amberApplecaveSpring3	applecave.blv	4892	776	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, SE	Null	$				
-14	amberApplecaveSpring4	applecave.blv	4208	776	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, SW	Null	$				
-15	amberApplecaveSpring5	applecave.blv	4208	1544	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, NW	Null	$				
-16	amberApplecaveFountain1	applecave.blv	-360	-6752	-1479	Fountain	10	SP	5							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Near Temple		$				
-17	amberArchmageresFountain1	archmageEX.blv	1	3474	33	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Statue	Null	$				
-18	amberArchmageresFountain2	archmageEX.blv	-8	4731	8	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Apple Tree	Null	$				
-19	amberArchmageresFountain3	archmageEX.blv	-1	5527	251	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Behind the Apple Tree	Null	$				
-20	amberArchmageresFountain4	archmageres.blv	2303	2821	-189	Fountain	20	HP	10	SP	10					$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Main Chamber		$				
-21	amberArchmageresFountain5	archmageres.blv	6268	2762	-103	Fountain	6	ElemRes	1							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Eastern Hall		$				
-22	amberArchmageresFountain6	archmageres.blv	-4213	3780	137	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Western Teleport Room	Null	$				
-23	amberArchmageresFountain7	archmageres.blv	9332	3904	9	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Eastern Teleport Room	Null	$				
-24	amberArchmageresFountain8	archmageres.blv	-2302	616	-479	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Guest Room, Secret Entrance	Null	$				
-25	amberArchmageresSphereFire	archmageEX.blv	2536	5568	465	Sphere	1	FireResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
-26	amberArchmageresSphereAir	archmageEX.blv	3106	5038	465	Sphere	1	AirResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
-27	amberArchmageresSphereWater	archmageEX.blv	3079	5568	465	Sphere	1	WaterResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
-28	amberArchmageresSphereEarth	archmageEX.blv	2526	5038	465	Sphere	1	EarthResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
-29	amberSecret1	secret.blv	5	1062	81	Fountain	20	HP	10	SP	10					$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Entrance		$				
-30	amberSecret2	secret.blv	725	1771	201	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Teleport Room	Null	$				
-31	amberSecret3	secret.blv	8030	10625	161	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Castle Harmondale Hall	Null	$				
-32	amberCastle1	testlevel.blv	-388	-4374	587	Fountain	0	SP	10							$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Upper Corridor Entrance		$				
-33	amberCastle2	testlevel.blv	-1754	-4100	385	Fountain	0	ArmorClassBonus	15							$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Upper Corridor		$				
-34	amberCastle3	testlevel.blv	-1541	-7929	1056	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Pedestal Chamber	Null	$				
-35	amberCastle4	testlevel.blv	2481	-517	-281	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Stairs to Basement	Null	$				
-36	amberCastle5	testlevel.blv	5023	3297	127	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Teleport Room	Null	$				
-37	amberCastle6	testlevel.blv	-2693	1418	127	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Archmage Room	Null	$				
-38	amberCastle7	testlevel.blv	4805	-1218	-1092	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Underground	Null	$				
-39	amberCastle8	testlevel.blv	7620	-1671	-1152	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Apple Tree Chamber	Null	$				
-40	amberCastle9	testlevel.blv	5716	-3345	-1409	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance	Null	$				
-41	amberCastle10	testlevel.blv	4770	-3633	-1571	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Eastern Passage	Null	$				
-42	amberCastle11	testlevel.blv	4534	-1459	-1183	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance Wall	Null	$				
-43	amberCastle12	testlevel.blv	5798	-4811	-1146	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Narrow Tunnels	Null	$				
-44	amberCastle13	testlevel.blv	6245	-4027	-1380	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Western Passage	Null	$				
+10	amberOakhomeFountain2	oakhome.blv	4353	601	321	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Oak Hill Cottage: Temple, North	Null	$				
+11	amberOakhomeFountain3	oakhome.blv	4353	-345	321	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Oak Hill Cottage: Temple, South	Null	$				
+12	amberApplecaveWell1	applecave.blv	4556	-292	-1167	Well	8	BaseLuck	2							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: NE, Underground Crossroads, Near the river		$				
+13	amberApplecaveSpring1	applecave.blv	530	2152	320	Spring	0	LuckBonus	20							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Entrance, near the mine cart		$				
+14	amberApplecaveSpring2	applecave.blv	4892	1544	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, NE	Null	$				
+15	amberApplecaveSpring3	applecave.blv	4892	776	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, SE	Null	$				
+16	amberApplecaveSpring4	applecave.blv	4208	776	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, SW	Null	$				
+17	amberApplecaveSpring5	applecave.blv	4208	1544	-1087	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Throne Room, NW	Null	$				
+18	amberApplecaveFountain1	applecave.blv	-360	-6752	-1479	Fountain	10	SP	5							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Apple Cave: Near Temple		$				
+19	amberArchmageresFountain1	archmageEX.blv	1	3474	33	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Statue	Null	$				
+20	amberArchmageresFountain2	archmageEX.blv	-8	4731	8	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Apple Tree	Null	$				
+21	amberArchmageresFountain3	archmageEX.blv	-1	5527	251	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Entrance, Behind the Apple Tree	Null	$				
+22	amberArchmageresFountain4	archmageres.blv	2303	2821	-189	Fountain	20	HP	10	SP	10					$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Main Chamber		$				
+23	amberArchmageresFountain5	archmageres.blv	6268	2762	-103	Fountain	6	ElemRes	1							$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Eastern Hall		$				
+24	amberArchmageresFountain6	archmageres.blv	-4213	3780	137	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Western Teleport Room	Null	$				
+25	amberArchmageresFountain7	archmageres.blv	9332	3904	9	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Eastern Teleport Room	Null	$				
+26	amberArchmageresFountain8	archmageres.blv	-2302	616	-479	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island, Archmage Residence: Guest Room, Secret Entrance	Null	$				
+27	amberArchmageresSphereFire	archmageEX.blv	2536	5568	465	Sphere	1	FireResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
+28	amberArchmageresSphereAir	archmageEX.blv	3106	5038	465	Sphere	1	AirResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
+29	amberArchmageresSphereWater	archmageEX.blv	3079	5568	465	Sphere	1	WaterResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
+30	amberArchmageresSphereEarth	archmageEX.blv	2526	5038	465	Sphere	1	EarthResistance	2							$	$	$	$	$	$	$	$	$	Everybody	$		$			$				
+31	amberSecret1	secret.blv	5	1062	81	Fountain	20	HP	10	SP	10					$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Entrance		$				
+32	amberSecret2	secret.blv	725	1771	201	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Teleport Room	Null	$				
+33	amberSecret3	secret.blv	8030	10625	161	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Secret Hideout: Castle Harmondale Hall	Null	$				
+34	amberCastle1	testlevel.blv	-388	-4374	587	Fountain	0	SP	10							$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Upper Corridor Entrance		$				
+35	amberCastle2	testlevel.blv	-1754	-4100	385	Fountain	0	ArmorClassBonus	15							$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Upper Corridor		$				
+36	amberCastle3	testlevel.blv	-1541	-7929	1056	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Pedestal Chamber	Null	$				
+37	amberCastle4	testlevel.blv	2481	-517	-281	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Stairs to Basement	Null	$				
+38	amberCastle5	testlevel.blv	5023	3297	127	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Teleport Room	Null	$				
+39	amberCastle6	testlevel.blv	-2693	1418	127	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Archmage Room	Null	$				
+40	amberCastle7	testlevel.blv	4805	-1218	-1092	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Underground	Null	$				
+41	amberCastle8	testlevel.blv	7620	-1671	-1152	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Apple Tree Chamber	Null	$				
+42	amberCastle9	testlevel.blv	5716	-3345	-1409	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance	Null	$				
+43	amberCastle10	testlevel.blv	4770	-3633	-1571	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Eastern Passage	Null	$				
+44	amberCastle11	testlevel.blv	4534	-1459	-1183	Fountain	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels Entrance Wall	Null	$				
+45	amberCastle12	testlevel.blv	5798	-4811	-1146	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Narrow Tunnels	Null	$				
+46	amberCastle13	testlevel.blv	6245	-4027	-1380	Spring	0									$	$	$	$	$	$	$	$	$		$		$	Eastern Amber Island, Castle: Basement Tunnels, Western Passage	Null	$				

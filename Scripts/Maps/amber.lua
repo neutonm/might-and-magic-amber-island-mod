@@ -643,7 +643,7 @@ evt.map[42]         = function()
         monster.FullHitPoints       = IsWarrior() and 640 or 360
         monster.HP                  = IsWarrior() and 640 or 360
         monster.ArmorClass          = IsWarrior() and 20 or 10
-        monster.Attack1.DamageAdd   = IsWarrior() and 12 or 4
+        monster.Attack1.DamageAdd   = IsWarrior() and 15 or 8
         monster.Attack1.Missile     = IsWarrior() and 0 or 3
         monster.Special             = 0
 
