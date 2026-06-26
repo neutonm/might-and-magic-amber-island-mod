@@ -1217,7 +1217,7 @@ NPCTopic{
 
 KillMonstersQuest{
     Name            =   "AmberQuest1",
-    {Map            =   "oakhome.blv", Monster = {268, 269, 270}},
+    {Map            =   "oakhome.blv", Monster = {268, 269, 270, 187, 188, 189, 286, 287, 288}},
     Slot            =   B,
     Texts           =
     {
