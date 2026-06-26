@@ -2677,3 +2677,7 @@ wererat rat Attack	8024	0	-
 wererat rat Death	8025	0	-
 wererat rat Wince	8026	0	-
 wererat rat Aware	8027	0	-
+pirate_mage Attk	8028	0	-
+pirate_mage Death	8029	0	-
+pirate_mage Wince	8030	0	-
+pirate_mage Aware	0	0	-
