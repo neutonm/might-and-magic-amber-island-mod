@@ -2673,3 +2673,7 @@ Coutal attk	8020	0	-
 Coutal death	8021	0	-
 Coutal wince	8022	0	-
 Coutal aware	8023	0	-
+wererat rat Attack	8024	0	-
+wererat rat Death	8025	0	-
+wererat rat Wince	8026	0	-
+wererat rat Aware	8027	0	-
