@@ -35,7 +35,7 @@ local QVarButlerEscapedState =
 -- Maximus (Mayor)
 QuestNPC = 447
 
-local BlackPotionRequiredIngredients = IsWarrior() and 6 or 3
+local BlackPotionRequiredIngredients = IsWarrior() and 12 or 6
 
 Greeting{
     "Greetings adventurers! I wasn't sure you would show up, but here you are.",
