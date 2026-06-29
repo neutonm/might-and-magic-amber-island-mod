@@ -439,16 +439,16 @@ evt.hint[24]        = ModTxt.CDrinkWell
 evt.hint[25]        = ModTxt.CDrinkWell
 
 -- Port Island
-Fountain(22, 200,   "amberWell1")
+Fountain(22, 191,   "amberWell1")
 
 -- Before Amber Town Bridge
-Fountain(23, 201,   "amberWell2")
+Fountain(23, 192,   "amberWell2")
 
 -- Western District, near prison tower
-Fountain(24, 202,   "amberWell3")
+Fountain(24, 193,   "amberWell3")
 
 -- Swamp Island, near Knight Camp
-Fountain(25, 203,   "amberWell4")
+Fountain(25, 194,   "amberWell4")
 
 ------------------------------------------------------------------------------
 -- FOUNTAINS
@@ -458,10 +458,10 @@ Fountain(25, 203,   "amberWell4")
 Fountain(27, 26,    "amberFountain1")
 
 -- Town Center
-Fountain(28, 204,   "amberFountain2")
+Fountain(28, 195,   "amberFountain2")
 
 -- Basin, Rich district
-Fountain(165, 205,  "amberFountain3")
+Fountain(165, 196,  "amberFountain3")
 
 ------------------------------------------------------------------------------
 -- DUNGEONS
