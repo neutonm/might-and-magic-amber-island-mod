@@ -5,6 +5,7 @@ Author:         Henrik Chukhran, 2022 - 2026
 Spell lists:
 
     - Poison Spray
+    - Deadly Swarm
 ]]
 
 function events.MonsterCastSpell(t)
@@ -19,12 +20,16 @@ function events.MonsterCastSpell(t)
         else
             t.CallDefault(const.Spells.FireBolt)
         end
+    elseif t.Spell == const.Spells.DeadlySwarm then
+        t.CallDefault(const.Spells.Blades)
     end
 end
 
 function events.ReadMonsterSpell(t)
     if t.Name == "poison spray" then
 	    t.Result = const.Spells.PoisonSpray
+    elseif t.Name == "deadly swarm" then
+	    t.Result = const.Spells.DeadlySwarm
     end
 end
 
