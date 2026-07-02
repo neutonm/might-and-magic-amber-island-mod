@@ -7,6 +7,7 @@ IndoorLimits = {
 	FacetData = fcount,
 	VisibleFacets = fcount,
 	BSPNodes = fcount,
+	Outlines = IndoorOutlineLimit or 7000,
 }
 
 -- code
@@ -28,6 +29,81 @@ i4[mmv(0x48A80F, 0x498BD9, 0x496029)+1] = IndoorLimits.Vertexes*structs.MapVerte
 i4[mmv(0x48A82A, 0x498BF5, 0x496045)+1] = IndoorLimits.Facets*structs.MapFacet["?size"]
 i4[mmv(0x48A84B, 0x498C12, 0x496062)+1] = IndoorLimits.FacetData*structs.FacetData["?size"]
 i4[mmv(0x48A8D5, 0x498C81, 0x4960D6)+1] = IndoorLimits.BSPNodes*structs.BSPNode["?size"]
+
+-- minimap outlines
+if mmver == 7 and IndoorVisibleOutlinesPtr then
+	local OutlineAllocSize = 4 + IndoorLimits.Outlines*structs.MapOutline["?size"]
+	local OutlineAllocSizePtr = 0x498C9F + 1
+	assert(i4[OutlineAllocSizePtr] == 4 + 7000*structs.MapOutline["?size"])
+	i4[OutlineAllocSizePtr] = OutlineAllocSize
+
+	local StdVisiblePtr = 0x6BE56C
+	local StdVisibleSize = 875
+	local ExtraVisibleSize = IndoorVisibleOutlinesSize - StdVisibleSize
+	local SaveKey = "MMExtExtraVisibleOutlines"
+
+	-- Places where the minimap renderer marks a newly discovered outline.
+	local VisiblePtrRefs = {0x441EB9 + 2, 0x442AD8 + 2}
+	for _, p in ipairs(VisiblePtrRefs) do
+		assert(i4[p] == StdVisiblePtr)
+		i4[p] = IndoorVisibleOutlinesPtr
+	end
+
+	-- Native DLV saving remains format-compatible and stores the first 7000
+	-- bits.  The remaining bits are persisted in MMExtension mapvars below.
+	local SaveVisiblePtrRef = 0x45FB81 + 1
+	assert(i4[SaveVisiblePtrRef] == StdVisiblePtr)
+	i4[SaveVisiblePtrRef] = IndoorVisibleOutlinesPtr
+
+	-- Native DLV loading normally targets the fixed 875-byte field embedded in
+	-- GameMap, then indexes past it when the outline count is above 7000.
+	-- Redirect both load paths and the per-outline visibility test.
+	assert(mem.string(0x49A6A9, 6, true) == string.char(0x8D, 0x86, 0x24, 0x03, 0x00, 0x00))
+	assert(mem.string(0x49A6CE, 6, true) == string.char(0x8D, 0x86, 0x24, 0x03, 0x00, 0x00))
+	assert(mem.string(0x49A6FA, 7, true) == string.char(0x8A, 0x84, 0x30, 0x24, 0x03, 0x00, 0x00))
+	mem.asmpatch(0x49A6A9, "mov eax, "..IndoorVisibleOutlinesPtr, 6)
+	mem.asmpatch(0x49A6CE, "mov eax, "..IndoorVisibleOutlinesPtr, 6)
+	mem.asmpatch(0x49A6FA, "mov al, byte [eax + "..IndoorVisibleOutlinesPtr.."]", 7)
+
+	local function SaveExtraVisibleOutlines()
+		if Map.IsIndoor() and mapvars then
+			mapvars[SaveKey] = Map.Outlines.Count > 7000 and
+				mem.string(IndoorVisibleOutlinesPtr + StdVisibleSize,
+					ExtraVisibleSize, true) or nil
+		end
+	end
+
+	function events.BeforeLoadMap()
+		mem.fill(IndoorVisibleOutlinesPtr, IndoorVisibleOutlinesSize, 0)
+	end
+
+	function events.LeaveMap()
+		SaveExtraVisibleOutlines()
+	end
+
+	function events.BeforeSaveGame()
+		SaveExtraVisibleOutlines()
+	end
+
+	function events.AfterLoadMap()
+		if not Map.IsIndoor() then
+			return
+		end
+
+		local s = mapvars and mapvars[SaveKey]
+		if type(s) == "string" then
+			mem.copy(IndoorVisibleOutlinesPtr + StdVisibleSize, s,
+				min(#s, ExtraVisibleSize))
+		end
+
+		-- Native loading applies the first 7000 bits to MapOutline.Visible.
+		-- Apply the extended part as well so it is shown immediately after load.
+		for i = 7000, Map.Outlines.Count - 1 do
+			local mask = 2^(7 - i%8)
+			Map.Outlines[i].Visible = u1[IndoorVisibleOutlinesPtr + i:div(8)]%(mask*2) >= mask
+		end
+	end
+end
 
 -- visible facets
 

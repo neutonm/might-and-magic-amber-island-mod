@@ -11,7 +11,8 @@ local function mm78(...)
 	return (select(mmver - 5, nil, ...))
 end
 
-local _KNOWNGLOBALS = BinarySearch, Game, Party, Map, Mouse, HelpStructs
+local _KNOWNGLOBALS = BinarySearch, Game, Party, Map, Mouse, HelpStructs,
+	IndoorOutlineLimit, IndoorVisibleOutlinesPtr
 
 local TmpBuf = mem.StaticAlloc(12)
 
@@ -235,7 +236,8 @@ function structs.f.GameMap(define)
 	 .Info "The day of refill plus 1"
 	[base + mmv(716, 748, 748)].struct(structs.MapExtra)  'IndoorExtra'
 	[base + mmv(716, 748, 748)].i8  'IndoorLastVisitTime'
-	[base + mmv(772, 804, 804)].array(7000).abit  'VisibileOutlines'
+	[IndoorVisibleOutlinesPtr or base + mmv(772, 804, 804)]
+		.array(IndoorOutlineLimit or 7000).abit  'VisibileOutlines'
 	if mmver > 6 then
 		define[base + 716].i4  'IndoorReputation'
 		define[base + 720].i4  'IndoorAlertState'
@@ -2327,7 +2329,7 @@ end
 
 function structs.f.MapOutlines(define)
 	define
-	[4].array{7000, lenA = i4, lenP = 0}.struct(structs.MapOutline)  'Items'
+	[4].array{IndoorOutlineLimit or 7000, lenA = i4, lenP = 0}.struct(structs.MapOutline)  'Items'
 	.indexmember  'Items'
 	.newindexmember  'Items'
 end

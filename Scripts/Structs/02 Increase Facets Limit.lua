@@ -8,6 +8,16 @@ end
 
 FacetRefsLimit = 0x8000
 
+-- Indoor minimap outlines use signed 16-bit facet indexes, so 0x8000 is also
+-- their natural upper bound.  The original game only allocates 7000 outlines
+-- and 7000 explored-state bits.
+if mmver == 7 then
+	IndoorOutlineLimit = FacetRefsLimit
+	IndoorVisibleOutlinesSize = math.ceil(IndoorOutlineLimit/8)
+	IndoorVisibleOutlinesPtr = mem.StaticAlloc(IndoorVisibleOutlinesSize)
+	mem.fill(IndoorVisibleOutlinesPtr, IndoorVisibleOutlinesSize, 0)
+end
+
 local _KNOWNGLOBALS = Game
 local abs, floor, ceil, round, max, min = math.abs, math.floor, math.ceil, math.round, math.max, math.min
 local i4, i2, i1, u4, u2, u1, i8, u8 = mem.i4, mem.i2, mem.i1, mem.u4, mem.u2, mem.u1, mem.i8, mem.u8
