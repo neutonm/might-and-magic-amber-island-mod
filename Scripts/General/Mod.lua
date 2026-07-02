@@ -30,16 +30,14 @@ end
 
 function events.NewGameMap()
 
-    local WinMapIndex   = 0
-
     -- Start location
     XYZ(Party,-17116,-21798,449)
+end
 
-    -- Level to load after Victory Screen
-    WinMapIndex = assert(Game.MapStats.Find(Game.WinMapName),
-		('End game map "%s" is missing from MapStats.txt'):format(Game.WinMapName))
+function events.GameInitialized2()
 
-	Game.WinMapIndex    = tostring(WinMapIndex)
+    -- End Game level fix
+    Game.WinMapIndex = tostring(Game.MapStats.Find(Game.WinMapName))
 end
 
 function events.DeathMap(t)
