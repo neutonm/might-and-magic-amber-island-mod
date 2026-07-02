@@ -167,6 +167,8 @@ end
 ------------------------------------------------------------------------------
 function events.AfterLoadMap(WasInGame)
 
+    MakeHostile(43,45) -- Light Elementals
+
     -- Missing minotaurs, find and kill
     -- @todo find through editor and remove
     for _, mon in Map.Monsters do
