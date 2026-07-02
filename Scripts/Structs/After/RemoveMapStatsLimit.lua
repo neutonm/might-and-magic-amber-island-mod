@@ -119,10 +119,7 @@ mem.ExtendGameStructure{'MapStats', Size = mmv(0x38, 0x44, 0x44),
 -- reading MapStats.txt
 mem.autohook(mmv(0x4466F7, 0x453FD1, 0x45173B), function(d)
 	local n = DataTables.ComputeRowCountInPChar(d.eax, mmv(26, 30, 30), 3) - 2
-	if n == Game.MapStats.count then
-		return
-	end
-	
+
 	-- set new read limit
 	mem.prot(true)
 	if mmver == 6 then
@@ -135,6 +132,10 @@ mem.autohook(mmv(0x4466F7, 0x453FD1, 0x45173B), function(d)
 	end
 	mem.prot(false)
 
+	if n == Game.MapStats.count then
+		return
+	end
+	
 	-- extend everything
 	Game.MapStats.Resize(n)
 	Game.MapDoorSound.Resize(n)

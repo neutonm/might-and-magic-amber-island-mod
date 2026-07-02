@@ -59,9 +59,15 @@ local function ReloadMonstersTxt()
     mem.call(0x45504A, 1, Game.MonstersTxt['?ptr'])  -- monsters.txt
 end
 
+local function ReloadMapStatsTxt()
+    mem.fill(Game.MapStats)
+    mem.call(0x453F8E, 1, Game.MapStats['?ptr'])  -- mapstats.txt
+end
+
 local function ReloadNativeTextTables()
     mem.call(0x452C75, 0)  -- Global
 
+    ReloadMapStatsTxt()
     ReloadMonstersTxt()
 
     mem.fill(Game.HostileTxt)
@@ -100,15 +106,6 @@ local function LoadHardcoreStuff()
     -- mem.call(0x456DBE, 1, 0x5D2860)  -- monsters, items, 2devents, ...
 
     ReloadNativeTextTables()
-
-    -- Custom MAPSTATS.txt
-    -- local hdr           = NameHeader({[-1] = 'Map'}, Game.MapStats)
-    -- local f             = StructsArray(Game.MapStats, nil, 
-    -- {
-    --     Resisable       = false,
-    --     RowHeaders      = hdr, 
-    -- })
-    -- ReadWriteDataTable(AppPath..[[Data\Tables\MapstatsHard.txt]], f)
 
     -- WIP:
     -- table.copy({
