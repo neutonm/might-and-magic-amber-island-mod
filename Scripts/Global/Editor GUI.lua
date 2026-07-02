@@ -359,8 +359,16 @@ end
 function Commands.Save(name)
 	name = memstr(name)
 	Editor.FileName = name
+	-- Serialization temporarily needs a second, indexed view of the complete
+	-- editor state.  Release dead undo/UI objects before constructing it; this
+	-- matters for large maps in the game's 32-bit address space.
+	collectgarbage("collect")
+	local data = persist(Editor.State)
+	-- Keep the existing map in place if serialization runs out of memory.
 	backup(name)
-	io.SaveString(name, persist(Editor.State))
+	io.SaveString(name, data)
+	data = nil
+	collectgarbage("collect")
 end
 
 function Commands.New()

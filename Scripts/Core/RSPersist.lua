@@ -283,6 +283,23 @@ local function dopersist(t, perm)
 		char(upsize)                    -- upidxSize
 	}
 	local dataN = #data
+	-- Keep the output buffer bounded.  Large MMEditor maps can produce millions
+	-- of tiny strings here (mostly object indexes).  Keeping all of those as
+	-- separate Lua objects until the final concat can exhaust a 32-bit process
+	-- even though the persisted file itself is only a few megabytes.
+	--
+	-- Flush only between complete objects.  The table writer reserves a byte in
+	-- data and fills it after writing the table body, so flushing in WriteUint or
+	-- WriteType would invalidate that reserved position.
+	local chunks, chunksN = {}, 0
+	local FlushItemCount = 4096
+	local function FlushData(force)
+		if dataN ~= 0 and (force or dataN >= FlushItemCount) then
+			chunksN = chunksN + 1
+			chunks[chunksN] = concat(data)
+			data, dataN = {}, 0
+		end
+	end
 	local isPerm
 
 	local function WriteType(t)
@@ -402,6 +419,7 @@ local function dopersist(t, perm)
 			isPerm = 0
 		end
 		WriteNormalType(v)
+		FlushData()
 	end
 
 	-- write functions
@@ -419,11 +437,13 @@ local function dopersist(t, perm)
 				WriteUint(upvals[upvalueid(f, i)], upsize)
 			end
 		end
+		FlushData()
 	end
 	
 	-- write upvalues
 	for i = 1, uplistN do
 		WriteObjIdx(uplist[i])
+		FlushData()
 	end
 	
 	-- write tables
@@ -469,9 +489,11 @@ local function dopersist(t, perm)
 		end
 		
 		data[tpn] = char(tp)
+		FlushData()
 	end
 
-	return concat(data), firsterror
+	FlushData(true)
+	return concat(chunks), firsterror
 end
 
 persist = dopersist
