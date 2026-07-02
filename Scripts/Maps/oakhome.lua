@@ -181,7 +181,7 @@ evt.hint[21]        = ModTxt.CBookcase
 evt.map[21]         = function()
     if not evt.Cmp("MapVar1", 1) then
         evt.Set("MapVar1", 1)
-        evt.Add("Inventory", 401)    -- "Fire Bolt" book
+        evt.Add("Inventory", 302)    -- "Fire Resistance" scroll
     end
 end
 
@@ -189,7 +189,7 @@ evt.hint[22]        = ModTxt.CBookcase
 evt.map[22]         = function()
     if not evt.Cmp("MapVar2", 1) then
         evt.Set("MapVar2", 1)
-        evt.Add("Inventory", 401)    -- "Fire Bolt" book
+        evt.Add("Inventory", 302)    -- "Fire Resistance" scroll
     end
 end
 
@@ -197,7 +197,7 @@ evt.hint[23]        = ModTxt.CBookcase
 evt.map[23]         = function()
     if not evt.Cmp("MapVar3", 1) then
         evt.Set("MapVar3", 1)
-        evt.Add("Inventory", 373)    -- "Cure Disease" scroll
+        evt.Add("Inventory", 324)    -- "Water Resistance" scroll
     end
 end
 
@@ -207,7 +207,7 @@ evt.hint[24]        = ModTxt.CBookcase
 evt.map[24]         = function()
     if not evt.Cmp("MapVar4", 1) then
         evt.Set("MapVar4", 1)
-        evt.Add("Inventory", 425)    -- "Ice Bolt" book
+        evt.Add("Inventory", 445)    -- "Bless" book
     end
 end
 
@@ -215,7 +215,7 @@ evt.hint[25]        = ModTxt.CBookcase
 evt.map[25]         = function()
     if not evt.Cmp("MapVar5", 1) then
         evt.Set("MapVar5", 1)
-        evt.Add("Inventory", 425)    -- "Ice Bolt" book
+        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
     end
 end
 
@@ -223,7 +223,7 @@ evt.hint[26]        = ModTxt.CBookcase
 evt.map[26]         = function()
     if not evt.Cmp("MapVar6", 1) then
         evt.Set("MapVar6", 1)
-        evt.Add("Inventory", 373)    -- "Cure Disease" scroll
+        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
     end
 end
 
@@ -231,7 +231,7 @@ evt.hint[27]        = ModTxt.CBookcase
 evt.map[27]         = function()
     if not evt.Cmp("MapVar7", 1) then
         evt.Set("MapVar7", 1)
-        evt.Add("Inventory", 305)    -- "Fireball" scroll
+        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
     end
 end
 
@@ -249,7 +249,7 @@ evt.hint[29]        = ModTxt.CBookcase
 evt.map[29]         = function()
     if not evt.Cmp("MapVar9", 1) then
         evt.Set("MapVar9", 1)
-        evt.Add("Inventory", 323)    -- "Poison Spray" scroll
+        evt.Add("Inventory", 335)    -- "Earth Resistance" scroll
     end
 end
 
@@ -315,7 +315,7 @@ evt.hint[37]        = ModTxt.CBookcase
 evt.map[37]         = function()
     if not evt.Cmp("MapVar17", 1) then
         evt.Set("MapVar17", 1)
-        evt.Add("Inventory", 373)    -- "Cure Disease" scroll
+        evt.Add("Inventory", 324)    -- "Water Resistance" scroll
     end
 end
 
@@ -462,31 +462,31 @@ evt.map[62]         = function()
 end
 
 -- Door: Secret 1
-evt.hint[63]        = ModTxt.CDoor
+evt.hint[63]        = ModTxt.CNull
 evt.map[63]         = function()
     evt.SetDoorState{Id = 30, State = 2}
 end
 
 -- Door: Secret 2
-evt.hint[64]        = ModTxt.CDoor
+evt.hint[64]        = ModTxt.CNull
 evt.map[64]         = function()
     evt.SetDoorState{Id = 31, State = 2}
 end
 
 -- Door: Secret 3
-evt.hint[65]        = ModTxt.CDoor
+evt.hint[65]        = ModTxt.CNull
 evt.map[65]         = function()
     evt.SetDoorState{Id = 33, State = 2}
 end
 
 -- Door: Secret 4
-evt.hint[66]        = ModTxt.CDoor
+evt.hint[66]        = ModTxt.CNull
 evt.map[66]         = function()
     evt.SetDoorState{Id = 34, State = 2}
 end
 
 -- Door: Secret 5
-evt.hint[67]        = ModTxt.CDoor
+evt.hint[67]        = ModTxt.CNull
 evt.map[67]         = function()
     evt.SetDoorState{Id = 35, State = 2}
 end
@@ -950,4 +950,9 @@ evt.map[101]         = function()
         ToY     = 1275,
         ToZ     = -414
     }
+end
+
+-- Smithy fires
+evt.map[106]         = function()
+    -- n/a
 end
