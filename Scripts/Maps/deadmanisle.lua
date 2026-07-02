@@ -89,13 +89,13 @@ local function PirateAmbush()
         }
 
         for _, monster in ipairs(MonsterArray) do
-            local mon   = SummonMonster(272, monster.X, monster.Y, 0, true)
+            local mon   = SummonMonster(273, monster.X, monster.Y, 0, true)
             mon.Hostile = true
             mon.Group   = 34
         end
 
         -- Robert Stevenson himself
-        local npcPirate         = SummonMonster(273, 4318, 1068, 0, true)
+        local npcPirate         = SummonMonster(272, 4318, 1068, 0, true)
         npcPirate.Hostile       = true
         npcPirate.Group         = 34
         npcPirate.NPC_ID        = 494

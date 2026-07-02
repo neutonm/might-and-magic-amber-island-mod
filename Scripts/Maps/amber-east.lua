@@ -289,16 +289,16 @@ evt.map[27]         = function()
         }
 
         for _, monster in ipairs(MonsterArray) do
-            local mon   = SummonMonster(272, monster.X, monster.Y, monster.Z, true)
+            local mon   = SummonMonster(273, monster.X, monster.Y, monster.Z, true)
             mon.Hostile = true
             mon.Group   = 34
         end
 
-        local npcPirate         = SummonMonster(273, -2612, -11033, 81, true)
+        local npcPirate         = SummonMonster(272, -2612, -11033, 81, true)
         npcPirate.Hostile       = true
         npcPirate.Group         = 34
         npcPirate.NPC_ID        = 494
-        npcPirate.FullHitPoints = 75
+        npcPirate.FullHitPoints = 125
         npcPirate.Item          = 792
     end
 end
