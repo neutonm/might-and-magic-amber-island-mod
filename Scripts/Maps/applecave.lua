@@ -523,6 +523,7 @@ evt.map[58]         = function()
     -- Just in case: open bottom and top grated door
     local point = { X = -601, Y = -1022, Z = 65}
     local range = GetDistanceBetweenPoints(point, Party)
+
     if range < 225.0 then
         evt.SetDoorState{Id = 2, State = 0}
         evt.SetDoorState{Id = 3, State = 0}
@@ -538,9 +539,10 @@ evt.map[59]         = function()
     -- Just in case: open bottom and top grated door
     local point = { X = -432, Y = -1027, Z = -3007}
     local range = GetDistanceBetweenPoints(point, Party)
+
     if range < 225.0 then
-        evt.SetDoorState{Id = 2, State = 2}
-        evt.SetDoorState{Id = 3, State = 2}
+        evt.SetDoorState{Id = 2, State = 0}
+        evt.SetDoorState{Id = 3, State = 0}
     end
 end
 
