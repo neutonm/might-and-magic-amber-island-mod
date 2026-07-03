@@ -2681,3 +2681,7 @@ pirate_mage Attk	8028	0	-
 pirate_mage Death	8029	0	-
 pirate_mage Wince	8030	0	-
 pirate_mage Aware	0	0	-
+troll warrior Attack	8032	0	-
+troll warrior Death	8033	0	-
+troll warrior Wince	8034	0	-
+troll warrior Aware	8035	0	-
