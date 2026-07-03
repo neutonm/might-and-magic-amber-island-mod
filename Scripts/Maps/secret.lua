@@ -67,8 +67,12 @@ Game.MapEvtLines.Count = 0
 
 function events.AfterLoadMap(WasInGame)
 
-    MakeHostile(64,66) -- Gargoyle
-    MakeHostile(79,81) -- Golems
+    MakeHostile(64,66)      -- Gargoyle
+    MakeHostile(79,81)      -- Golems
+    MakeHostile(61,63)      -- Crusaders
+    MakeHostile(4,6)        -- Bowmen
+    MakeHostile(109,111)    -- Necromancer
+    MakeHostile(217,219)    -- Vampires
 
     if not IsWarrior() then
         -- Remove traps in "Adventurer"
