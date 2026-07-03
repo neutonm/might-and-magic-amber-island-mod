@@ -3,6 +3,11 @@ Map:    Castle Amber
 Author: Henrik Chukhran, 2022 - 2026
 ]]
 
+local TXT = Localize{
+    [1] =   "Something prevents the lever from pulling out.",
+    [2] =   "Mist Machine is disabled."
+}
+table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
 
 ------------------------------------------------------------------------------
@@ -489,7 +494,7 @@ evt.hint[51]        = ModTxt.CKeyhole
 evt.map[51]         = function()
 
     if not evt.Cmp("MapVar21", 1) then
-        if evt.Cmp("Inventory", TrollKeyItemID) then
+        if evt.All.Cmp("Inventory", TrollKeyItemID) then
             evt.SetDoorState{Id = 10, State = 0}
             evt.SetDoorState{Id = 11, State = 0}
             evt.Sub("Inventory", TrollKeyItemID)
@@ -504,30 +509,43 @@ end
 -- Mage Chambers: Device Switch
 evt.hint[52]        = ModTxt.CLever
 evt.map[52]         = function()
-    --if not evt.Cmp("QBits",7) then
+
+    -- Don't allow pulling if Magnus's alive
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID == 448 then
+            if mon.HP > 0 then
+                evt.StatusText(1)
+                return
+            end
+        end
+    end
+
     if not vars.QuestsAmberIsland.QVar1 then
         --evt.Set("QBits",7)
         vars.QuestsAmberIsland.QVar1 = true
         evt.SetDoorState{Id = 46, State = 1}
         evt.ForPlayer("All")
         ShowQuestEffect(false,"Add")
+        evt.StatusText(2)
         --evt.Add("QBits", 245)         -- "Congratulations"
         --evt.Subtract("QBits", 245)    -- "Congratulations"
 
-        SummonMonster(80, 6266, 2279, -32, true)
-        SummonMonster(80, 6266, 2259, -32, true)
-        SummonMonster(80, 6266, 2249, -32, true)
+        if vars.QuestsCore.ArchmageState ~= 2 then
 
-        SummonMonster(81, 5482, 1451, -162, true)
+            SummonMonster(80, 6266, 2279, -32, true)
+            SummonMonster(80, 6266, 2259, -32, true)
+            SummonMonster(80, 6266, 2249, -32, true)
 
-        SummonMonster(81, 3668, -498, -640, true)
-        SummonMonster(81, 3658, -498, -640, true)
-        SummonMonster(81, 3648, -498, -640, true)
-        --evt.FaceAnimation{Player = "Current", Animation = 47}
+            SummonMonster(81, 5482, 1451, -162, true)
 
-        for _, mon in Map.Monsters do
-            if mon.Id >= 79 and mon.Id <= 81 then
-                mon.Hostile = true
+            SummonMonster(81, 3668, -498, -640, true)
+            SummonMonster(81, 3658, -498, -640, true)
+            SummonMonster(81, 3648, -498, -640, true)
+
+            for _, mon in Map.Monsters do
+                if mon.Id >= 79 and mon.Id <= 81 then
+                    mon.Hostile = true
+                end
             end
         end
     end
