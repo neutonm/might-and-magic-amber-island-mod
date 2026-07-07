@@ -30,7 +30,11 @@ local function SafeRoomHealParty()
         for p = 0, Party.Count - 1 do
             if Party[p].Dead == 0 then
                 evt.FaceAnimation(p, const.FaceAnimation.SmileHuge)
-                Party[p].Unconscious = 0
+
+                Party[p].Unconscious    = 0
+                Party[p].Weak           = 0
+                Party[p].Afraid         = 0
+
                 evt[p].Add("HP",9999)
                 evt[p].Add("SP",9999)
             end
