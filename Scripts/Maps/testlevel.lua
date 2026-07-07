@@ -789,7 +789,7 @@ for i = 0, 8, 1 do
         if evt.Cmp(mapVarStr, 1) then
             return
         end
-        gold = math.random(69,420)
+        gold = math.random(50,200)
         AddGoldExp(gold,0)
         evt.Set(mapVarStr, 1)
         evt.SetTexture(75 + i, "Cwb1")
