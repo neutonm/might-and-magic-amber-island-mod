@@ -2752,14 +2752,14 @@ Quest{
     Slot            =   B,
     Texts           =
     {
-        Topic       =   "Fix: Day of the Gods Pedestal (8000g)",
+        Topic       =   "Fix: Day of the Gods Pedestal (9000g)",
         Done        =   PedestalDOTGThankYouStr,
         Undone      =   "Come back when you have enough gold.",
         TopicDone   =   "Thanks: Day of the Gods Pedestal",
         After       =   PedestalDOTGThankYouStr,
     },
     NeverGiven      =   true,
-    QuestGold       =   8000,
+    QuestGold       =   9000,
     Done            =   function(t)
                             for i, a in Map.Sprites do
                                 if a.Id == 1337 then
