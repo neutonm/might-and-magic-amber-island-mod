@@ -159,6 +159,7 @@ function events.BeforeNewGameAutosave()
             ClosedShops             = false,    -- Warrior Mode: Shops are closed until merchant guild fee is payed
             SecretHideoutClosed     = true,     -- Secret Hideout dungeon - closed without key (ID: 667)
             AppleCaveClosed         = true,     -- Warrior Mode: Apple Cave dungeon - closed without key (ID: 668)
+            KnightCampTeleporter    = false,    -- Knight Camp Teleporter platform: activated with butler's medallion (true)
         }
     end
 

@@ -210,6 +210,7 @@ local HouseID_AppleCave         = 583
 local HouseID_AbandonedMines    = 584
 
 local AppleCaveKeyItemID        = 668
+local ButlerMedallionItemID     = 796
 
 local function ShopDoor(evtId, houseId)
     evt.house[evtId]    = houseId
@@ -611,7 +612,7 @@ end
 evt.hint[39]        = ModTxt.CTeleportPlatform
 evt.hint[40]        = ModTxt.CTeleportPlatform
 evt.map[40]         = function()
-    if evt.All.Cmp("Inventory",796) then
+    if vars.MiscAmberIsland.KnightCampTeleporter == true then
         evt.MoveToMap{
             X           = 17708 ,
             Y           = -20470,
@@ -623,6 +624,10 @@ evt.map[40]         = function()
             Icon        = 1,
             Name        = "amber-east.odm"
         }
+    elseif evt.All.Cmp("Inventory",ButlerMedallionItemID) then
+        vars.MiscAmberIsland.KnightCampTeleporter = true
+        evt.Sub("Inventory", ButlerMedallionItemID)
+        evt.map[40]();
     end
 end
 
