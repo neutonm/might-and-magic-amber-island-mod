@@ -173,6 +173,15 @@ end
 
 function events.LoadMap()
 
+    -- Prevent monsters from attacking peasants
+    LocalHostileTxt()
+	for attacker = 1, (#Game.HostileTxt-1) do
+        for target = 53, 64 do
+            Game.HostileTxt[attacker][target] = 0
+            Game.HostileTxt[target][attacker] = 0
+        end
+    end
+
     -- Set gold vein textures to depleted ones after save/load
     for i = 0, 8, 1 do
         local mapVarStr = "MapVar"..tostring(21 + i)
