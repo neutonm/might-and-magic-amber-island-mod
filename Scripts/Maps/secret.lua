@@ -209,8 +209,8 @@ evt.map[32]         = function()
         vars.MiscAmberIsland.ArchmageEscapedHideout = 1
     end
 
-    evt.SetDoorState{Id = 1, State = 2}
-    evt.SetDoorState{Id = 2, State = 2}
+    evt.SetDoorState{Id = 1, State = 0}
+    evt.SetDoorState{Id = 2, State = 0}
     evt.MoveToMap{
         X           = -2290,
         Y           = 1694,
