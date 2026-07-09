@@ -166,6 +166,7 @@ Game.MapEvtLines.Count = 0
 ------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
+
 function events.AfterLoadMap(WasInGame)
 
     MakeHostile(277,279) -- Animalists
@@ -193,6 +194,15 @@ function events.AfterLoadMap(WasInGame)
 end
 
 function events.LoadMap()
+
+    -- Prevent monsters from attacking peasants
+    LocalHostileTxt()
+	for attacker = 1, (#Game.HostileTxt-1) do
+        for target = 41, 64 do
+            Game.HostileTxt[attacker][target] = 0
+            Game.HostileTxt[target][attacker] = 0
+        end
+    end
 
     -- Set gold vein textures to depleted ones after save/load
     for i = 0, 9, 1 do
