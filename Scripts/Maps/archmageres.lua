@@ -591,21 +591,21 @@ evt.map[60]         = function()
 end
 
 -- Bookcase: Rec Room, Pool Table   
-evt.hint[61]        = ModTxt.CBookcase
+evt.hint[61]        = ModTxt.CNull
 evt.map[61]         = function()
-    if not evt.Cmp("MapVar11", 1) then
-        evt.Set("MapVar11", 1)
-        evt.Add("Inventory", 389)    -- "Toxic Cloud" scroll
-    end
+    -- if not evt.Cmp("MapVar11", 1) then
+    --     evt.Set("MapVar11", 1)
+    --     evt.Add("Inventory", 389)    -- "Toxic Cloud" scroll
+    -- end
 end
 
--- Bookcase: Redroom
-evt.hint[62]        = ModTxt.CBookcase
+-- Bookcase: Bedroom
+evt.hint[62]        = ModTxt.CNull
 evt.map[62]         = function()
-    if not evt.Cmp("MapVar12", 1) then
-        evt.Set("MapVar12", 1)
-        evt.Add("Inventory", 385)    -- "Hour of Power" scroll
-    end
+    -- if not evt.Cmp("MapVar12", 1) then
+    --     evt.Set("MapVar12", 1)
+    --     evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    -- end
 end
 
 -- Bookcase: WC
@@ -613,17 +613,17 @@ evt.hint[63]        = ModTxt.CBookcase
 evt.map[63]         = function()
     if not evt.Cmp("MapVar13", 1) then
         evt.Set("MapVar13", 1)
-        evt.Add("Inventory", 407)    -- "Immolation" book
+        evt.Add("Inventory", 441)    -- "Telekinesis" book
     end
 end
 
 -- Bookcase: Summoning Chamber
-evt.hint[64]        = ModTxt.CBookcase
+evt.hint[64]        = ModTxt.CNull
 evt.map[64]         = function()
-    if not evt.Cmp("MapVar14", 1) then
-        evt.Set("MapVar14", 1)
-        evt.Add("Inventory", 376)    -- "Power Cure" scroll
-    end
+    -- if not evt.Cmp("MapVar14", 1) then
+    --     evt.Set("MapVar14", 1)
+    --     evt.Add("Inventory", 376)    -- "Power Cure" scroll
+    -- end
 end
 
 -- Bookcase: Office, West
@@ -636,12 +636,12 @@ evt.map[65]         = function()
 end
 
 -- Bookcase: Office, North
-evt.hint[66]        = ModTxt.CBookcase
+evt.hint[66]        = ModTxt.CNull
 evt.map[66]         = function()
-    if not evt.Cmp("MapVar16", 1) then
-        evt.Set("MapVar16", 1)
-        evt.Add("Inventory", 385)    -- "Hour of Power" scroll
-    end
+    -- if not evt.Cmp("MapVar16", 1) then
+    --     evt.Set("MapVar16", 1)
+    --     evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    -- end
 end
 
 -- Bookcase: Office, Window
@@ -726,30 +726,30 @@ evt.map[75]         = function()
 end
 
 -- Bookcase: Library, Block, NW, N
-evt.hint[76]        = ModTxt.CBookcase
+evt.hint[76]        = ModTxt.CNull
 evt.map[76]         = function()
-    if not evt.Cmp("MapVar26", 1) then
-        evt.Set("MapVar26", 1)
-        evt.Add("Inventory", 385)    -- "Hour of Power" scroll
-    end
+    -- if not evt.Cmp("MapVar26", 1) then
+    --     evt.Set("MapVar26", 1)
+    --     evt.Add("Inventory", 385)    -- "Hour of Power" scroll
+    -- end
 end
 
 -- Bookcase: Library, Block, NE, S
-evt.hint[77]        = ModTxt.CBookcase
+evt.hint[77]        = ModTxt.CNull
 evt.map[77]         = function()
-    if not evt.Cmp("MapVar27", 1) then
-        evt.Set("MapVar27", 1)
-        evt.Add("Inventory", 439)    -- "Preservation" scroll
-    end
+    -- if not evt.Cmp("MapVar27", 1) then
+    --     evt.Set("MapVar27", 1)
+    --     evt.Add("Inventory", 439)    -- "Preservation" scroll
+    -- end
 end
 
 -- Bookcase: Library, Block, NE, N
-evt.hint[78]        = ModTxt.CBookcase
+evt.hint[78]        = ModTxt.CNull
 evt.map[78]         = function()
-    if not evt.Cmp("MapVar28", 1) then
-        evt.Set("MapVar28", 1)
-        evt.Add("Inventory", 374)    -- "Protection from Magic" scroll
-    end
+    -- if not evt.Cmp("MapVar28", 1) then
+    --     evt.Set("MapVar28", 1)
+    --     evt.Add("Inventory", 374)    -- "Protection from Magic" scroll
+    -- end
 end
 
 -- Bookcase: Library, Block, SE, S
@@ -762,12 +762,12 @@ evt.map[79]         = function()
 end
 
 -- Bookcase: Library, Block, SE, N
-evt.hint[80]        = ModTxt.CBookcase
+evt.hint[80]        = ModTxt.CNull
 evt.map[80]         = function()
-    if not evt.Cmp("MapVar30", 1) then
-        evt.Set("MapVar30", 1)
-        evt.Add("Inventory", 304)    -- "Haste" scroll
-    end
+    -- if not evt.Cmp("MapVar30", 1) then
+    --     evt.Set("MapVar30", 1)
+    --     evt.Add("Inventory", 304)    -- "Haste" scroll
+    -- end
 end
 
 -- Bookcase: Workshop
@@ -784,12 +784,12 @@ end
 ------------------------------------------------------------------------------
 
 -- Winerack: Rec Room
-evt.hint[82]        = ModTxt.CWineRack
+evt.hint[82]        = ModTxt.CNull
 evt.map[82]         = function()
-    if not evt.Cmp("MapVar32", 1) then
-        evt.Set("MapVar32", 1)
-        evt.Add("Inventory", 247)    -- "Freezing" potion
-    end
+    -- if not evt.Cmp("MapVar32", 1) then
+    --     evt.Set("MapVar32", 1)
+    --     evt.Add("Inventory", 247)    -- "Freezing" potion
+    -- end
 end
 
 -- Winerack: Diner Room
