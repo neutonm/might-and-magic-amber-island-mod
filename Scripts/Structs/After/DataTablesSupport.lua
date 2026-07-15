@@ -683,7 +683,7 @@ do
 	local hdr = NameHeader({[-1] = "Monster"}, Game.MonListBin)
 	events.GameInitialized1 = || NameHeader(hdr, Game.MonListBin)
 
-	DataTables.MonsterKinds = StructsArray(Game.MonsterKinds, nil, {Resisable = false, RowHeaders = hdr})
+	DataTables.MonsterKinds = StructsArray(Game.MonsterKinds, nil, {RowHeaders = hdr})
 
 
 	local is6 = (mmver == 6) or nil

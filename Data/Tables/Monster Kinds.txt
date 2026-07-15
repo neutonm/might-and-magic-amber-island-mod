@@ -285,3 +285,12 @@ Monster	Undead	Demon	Dragon	Elf	Swimmer	Immobile	Titan	NoArena
 283  Couatl (winged snake) A	-	-	-	-	-	-	-	-
 284  Couatl (winged snake) B	-	-	-	-	-	-	-	-
 285  Couatl (winged snake) C	-	-	-	-	-	-	-	-
+286 Wererat Rat Form Male A	-	-	-	-	-	-	-	-
+287 Wererat Rat Form Male B	-	-	-	-	-	-	-	-
+288 Wererat Rat Form Male A	-	-	-	-	-	-	-	-
+289 Pirate Mage Male A	-	-	-	-	-	-	-	-
+290 Pirate Mage Male B	-	-	-	-	-	-	-	-
+291 Pirate Mage Male C	-	-	-	-	-	-	-	-
+292 Troll Warrior A	-	-	-	-	-	-	-	-
+293 Troll Warrior B	-	-	-	-	-	-	-	-
+294 Troll Warrior C	-	-	-	-	-	-	-	-
