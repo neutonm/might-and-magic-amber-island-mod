@@ -127,6 +127,7 @@ function events.BeforeNewGameAutosave()
     if vars.QuestsCore == nil then
         vars.QuestsCore = {
             ArchmageState           = 0,        -- (0) - n/a, (1) defeated, (2) offer accepted, (3) offer refused/killed, (4) contract shown
+            ArchmageDialogueEnd     = 0,
         }
     end
     if vars.QuestsAmberIsland == nil then

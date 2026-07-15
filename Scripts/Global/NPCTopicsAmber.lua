@@ -471,7 +471,10 @@ NPCTopic{
     Slot            =   A,
     Branch          =   "ArchmageOfferEnd",
     Topic           =   "Continue",
-    Ungive          =   function(t) ExitScreen() end,
+    Ungive          =   function(t)
+                            vars.QuestsCore.ArchmageDialogueEnd = 1
+                            ExitScreen()
+                        end,
 }
 
 ------------------------------------------------------------------------------
@@ -593,8 +596,7 @@ NPCTopic{
     Topic           =   "Story Quest: Legate?",
     Text            =   "Sir Robert? He had more wine than sense last night...\n\n"..
                         "Mumbled something about stepping out to relieve himself and wandered toward the old "..
-                        "ruined tower.\n\n"..
-                        "He never came back.",
+                        "ruined tower.\n\nHe never came back.",
     CanShow         =   function(t) return vars.Quests.StoryQuest1 == "Given" and not vars.QuestsAmberIsland.QVarGreeneRescued and IsWarrior() end
 }
 
@@ -1063,16 +1065,12 @@ Quest{
         TopicDone   =   false,
         Give        =   "\01265523Robert\01200000 must be sitting in that wretched \01265523camp\01200000 all "..
                         "alone, cold, wet, and hungry, with no one to look after him. Would you be kind "..
-                        "enough to deliver this crate to him? Don't worry, I'll pay you in advance for your "..
-                        "trouble.",
+                        "enough to deliver this crate to him?",
         Undone      =   "The food will cool down and spoil if you don't hurry up. My son is waiting for you!",
 
         Quest       =   "\"Worrying Mother\"\nJulia Greene, Amber Island, Port Island\n\nDeliver a stash of "..
                         "goods to Julia's son, Robert, who is stationed at the swamp camp.",
     },
-    Give            =   function(t)
-                            evt.Add("Gold",500)
-                        end,
     GivenItem       =   783,
     CheckDone       =   false,  -- the quest can't be completed here
 }
@@ -1195,7 +1193,7 @@ Quest{
     },
     NeverGiven      =   true,
     QuestItem       =   784,
-    Gold            =   3000,
+    Gold            =   2000,
     Exp             =   1000,
     Done            =   function(t)
                             evt.Add("Awards", 107) -- "Found and returned Family Sword to Thomas Beck"
@@ -1240,7 +1238,7 @@ KillMonstersQuest{
         Quest       =   "\"Rat Problem\"\nUrist Alesworth, Amber Island, Town, Powder Keg Inn\n\nGet rid of "..
                         "the rats from Oak Hill Cottage, situtated under the Powder Keg Inn at Port Island.",
     },
-    Gold            =   2500,
+    Gold            =   2000,
     Exp             =   2500,
     Done            =   function(t) evt.Subtract("Reputation", 5) end,
 }
@@ -1308,7 +1306,7 @@ Quest{
                         "golden coin and bring it to his owner.",
     },
     QuestItem       =   782,
-    Gold            =   1000,
+    Gold            =   500,
     Exp             =   1500,
     Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
@@ -1570,7 +1568,7 @@ Quest{
 
                             if evt.All.Cmp("Inventory", 791) then
                                 evt.Subtract("Inventory", 791)
-                                rewardGold = rewardGold + 2500
+                                rewardGold = rewardGold + 750
                             end
                             evt.Add("Gold", rewardGold)
                             vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.REWARDED
@@ -1782,7 +1780,7 @@ KillMonstersQuest{
                         "can proceed with his archaeological work.",
     },
     CanShow         =   function(t) return not IsWarrior() end,
-    Gold            =   2000,
+    Gold            =   1500,
     Exp             =   1500,
     Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
@@ -1813,7 +1811,7 @@ KillMonstersQuest{
                         "continue his archaeological work.",
     },
     CanShow         =   function(t) return IsWarrior() end,
-    Gold            =   2000,
+    Gold            =   1500,
     Exp             =   1500,
     Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
@@ -1870,7 +1868,7 @@ KillMonstersQuest{
 
                             return vars.QuestsAmberIsland.QVarRitual == true
                         end,
-    Gold            =   2500,
+    Gold            =   1500,
     Exp             =   1500,
     Done            =   function(t) evt.Subtract("Reputation", 5) end,
     CanShow         =   function(t) return not IsWarrior() end
@@ -1923,7 +1921,7 @@ KillMonstersQuest{
 
                             return vars.QuestsAmberIsland.QVarRitual == true
                         end,
-    Gold            =   3000,
+    Gold            =   1500,
     Exp             =   2000,
     Done            =   function(t) evt.Subtract("Reputation", 5) end,
     CanShow         =   function(t) return IsWarrior() end

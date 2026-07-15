@@ -203,7 +203,7 @@ function events.CanExitNPC(t)
 
     if t.NPC == ArchmageNPCID then
 
-        if vars.QuestsCore.ArchmageState == 1 then
+        if vars.QuestsCore.ArchmageDialogueEnd == 0 then
             t.Allow = false
         end
         return
