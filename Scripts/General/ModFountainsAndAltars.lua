@@ -18,17 +18,27 @@ Overview:
         - FountainUses_<ID>     -> usage count
         - FountainExplored_<ID> -> discovery state
     - Autonotes are added on first successful use
+
+    Enums:
     - RequiredCondition supports simple named checks. Check Fountain_ResolveCondition:
     - - Null        -> For empty fountains (Just drop "Refreshing!" wuthout autonote)
     - - Warrior     -> Will workin warrior difficulty only
+
     - Supported flags:
-    - - "Everybody" -> Effect will be applied to all party members
+    - - "Everybody"     -> Effect will be applied to all party members
+    - - "NoAutonote"    -> Autonote will not be registered or added
+    - - "QuestSound"    -> Quest completion sound will be played on successful use
 Todo:
     - Find the way to localize UserStatusMsg
 
 --]]
 
 local INHERIT_MARKER    = "$"
+local FOUNTAIN_FLAGS    = {
+    Everybody           = "Everybody",
+    NoAutonote          = "NoAutonote",
+    QuestSound          = "QuestSound",
+}
 
 ------------------------------------------------------------------------------
 -- GLOBALS
@@ -866,6 +876,10 @@ function Fountain_GetAutonoteText(fountain)
         return ""
     end
 
+    if Fountain_HasFlag(f, FOUNTAIN_FLAGS.NoAutonote) then
+        return ""
+    end
+
     note  = f.Autonote or ""
     stats = Fountain_GetStatusMessage(f) or ""
 
@@ -975,7 +989,7 @@ function Fountain_Use(fountain)
     end
 
     -- Flag: Apply for all or not?
-    local applyAll = Fountain_HasFlag(f, "Everybody")
+    local applyAll = Fountain_HasFlag(f, FOUNTAIN_FLAGS.Everybody)
     local function ApplyEffect(effect, bonus)
         if applyAll then
             evt.All.Add(effect, bonus)
@@ -1020,6 +1034,10 @@ function Fountain_Use(fountain)
         Fountain_RunLuaChunk(onUseLua, f, "FountainOnUseLua:" .. tostring(f.ID))
     end
 
+    if Fountain_HasFlag(f, FOUNTAIN_FLAGS.QuestSound) then
+        evt.Add("Exp", 0)
+    end
+
     statusMsg = Fountain_GetStatusMessage(f)
     if statusMsg ~= nil and statusMsg ~= "" then
         Game.ShowStatusText(statusMsg)
@@ -1030,7 +1048,7 @@ function Fountain_Use(fountain)
     wasExplored = Fountain_IsExplored(f)
     Fountain_SetExplored(f)
 
-    if f.Autonote ~= nil and f.Autonote ~= "" then
+    if not Fountain_HasFlag(f, FOUNTAIN_FLAGS.NoAutonote) and f.Autonote ~= nil and f.Autonote ~= "" then
         local autonoteStr = ":" .. f.ID
         AddAutonote(autonoteStr)
     end

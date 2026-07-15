@@ -1,6 +1,6 @@
 	ID	Map	X	Y	Z	Type	MaxUses	Effect1	Bonus1	Effect2	Bonus2	Effect3	Bonus3	Effect4	Bonus4	MaxUsesW	Effect1W	Bonus1W	Effect2W	Bonus2W	Effect3W	Bonus3W	Effect4W	Bonus4W	Flags	FlagsW	UserStatusMsg	UserStatusMsgW	Autonote	RequiredCondition	RequiredConditionW	OnCheckLua	OnCheckLuaW	OnUseLua	OnUseLuaW
 1	amberFountain1	amber.odm	-16099	-14588	193	Fountain	0	HP	12	SP	12					10	$	$	$	$	$	$	$	$		$		$	Amber Island: Port Island, Fountain		$				
-2	amberFountain2	amber.odm	2544	8654	96	Fountain	1	Gold	121							$	$	3	$	$	$	$	$	$		$		$	Amber Island: Town, Center, Fountain		$				
+2	amberFountain2	amber.odm	2544	8654	96	Fountain	1	Gold	121							$	$	3	$	$	$	$	$	$	NoAutonote	$		$	Amber Island: Town, Center, Fountain		$				
 3	amberFountain3	amber.odm	3068	13519	224	Basin	0									$	$	$	$	$	$	$	$	$		$		$	Amber Island: Town, Rich District, Fountain	Null	$				
 4	amberWell1	amber.odm	-21006	-14302	0	Well	0	ArmorClassBonus	5							$	$	$	$	$	$	$	$	$		$		$	Amber Island: Port Island, Near Oak Hill Cottage dungeon		$				
 5	amberWell2	amber.odm	-11216	5109	0	Well	5	BaseAccuracy	2							$	$	$	$	$	$	$	$	$		$		$	Amber Island: Town outskirts, West Bridge		$				
