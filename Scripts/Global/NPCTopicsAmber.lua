@@ -1307,7 +1307,7 @@ Quest{
     },
     QuestItem       =   782,
     Gold            =   500,
-    Exp             =   1500,
+    Exp             =   1000,
     Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
 
@@ -1519,7 +1519,7 @@ Quest{
                         "Castle Amber.",
     },
     GivenItem       =   791,
-    Exp             =   2500,
+    Exp             =   2000,
     Give            =   function(t)
                             vars.QuestsAmberIsland.QVarRevenge = QVarRevengeState.GIVEN
                         end,
@@ -2788,7 +2788,7 @@ Quest{
     NeverGiven      =   true,
     Gold            =   1208,
     QuestItem       =   792,
-    Exp             =   500,
+    Exp             =   1500,
     Done            =   function(t)
                             ShowQuestEffect(true, t.TakeQuestOperation)
                             evt.MoveNPC{NPC = 522, HouseId = 0}
@@ -2830,7 +2830,7 @@ Quest{
                         "Hoppington's missing talking bunny.",
     },
     Gold            =   1000,
-    Exp             =   1000,
+    Exp             =   2000,
     CheckDone       =   function(t) return evt.Cmp("NPCs", 524) == true end,
     Done            =   function(t)
                             evt.Subtract("Reputation", 5)
