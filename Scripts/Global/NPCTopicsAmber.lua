@@ -1677,6 +1677,13 @@ Quest{
                             mon.FullHP          = 180
                             mon.HP              = 180
 
+                            mon.Attack2Chance           = 25
+                            mon.Attack2.DamageAdd       = 5
+                            mon.Attack2.DamageDiceCount = 2
+                            mon.Attack2.DamageDiceSides = 4
+                            mon.Attack2.Missile         = 1
+                            mon.Attack2.Type            = 4
+
                             if IsWarrior() then
                                 mon.FullHP      = 360
                                 mon.HP          = 360
