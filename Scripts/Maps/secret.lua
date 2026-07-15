@@ -73,10 +73,27 @@ function events.AfterLoadMap(WasInGame)
     MakeHostile(4,6)        -- Bowmen
     MakeHostile(109,111)    -- Necromancer
     MakeHostile(217,219)    -- Vampires
+    MakeHostile(229,231)    -- Zombies
 
     if not IsWarrior() then
         -- Remove traps in "Adventurer"
         evt.SetFacetBit(10,const.FacetBits.IsSecret, false)
+    end
+end
+
+function events.LoadMap()
+
+    -- Prevent 
+    LocalHostileTxt()
+	for attacker = 1, (#Game.HostileTxt-1) do
+        for target = 22, 23 do
+            Game.HostileTxt[attacker][target] = 0
+            Game.HostileTxt[target][attacker] = 0
+        end
+        for target = 53, 64 do
+            Game.HostileTxt[attacker][target] = 0
+            Game.HostileTxt[target][attacker] = 0
+        end
     end
 end
 
