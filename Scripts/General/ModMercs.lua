@@ -238,7 +238,7 @@ function Merc_Upgrade(Merc, MercUpgradeType)
     if Upgrade == nil then
         local NewUpgrade    = {
             Level           = 1,
-            Price           = { 1000,2000,3000 },
+            Price           = { 500,1000,1500 },
             UpgradeType     = MercUpgradeType
         }
 

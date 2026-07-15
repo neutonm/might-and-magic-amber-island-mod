@@ -185,24 +185,23 @@ evt.map[21]         = function()
     end
 end
 
-evt.hint[22]        = ModTxt.CBookcase
+evt.hint[22]        = ModTxt.CNull
 evt.map[22]         = function()
-    if not evt.Cmp("MapVar2", 1) then
-        evt.Set("MapVar2", 1)
-        evt.Add("Inventory", 302)    -- "Fire Resistance" scroll
-    end
+    -- if not evt.Cmp("MapVar2", 1) then
+    --     evt.Set("MapVar2", 1)
+    --     evt.Add("Inventory", 302)    -- "Fire Resistance" scroll
+    -- end
 end
 
-evt.hint[23]        = ModTxt.CBookcase
+evt.hint[23]        = ModTxt.CNull
 evt.map[23]         = function()
-    if not evt.Cmp("MapVar3", 1) then
-        evt.Set("MapVar3", 1)
-        evt.Add("Inventory", 324)    -- "Water Resistance" scroll
-    end
+    -- if not evt.Cmp("MapVar3", 1) then
+    --     evt.Set("MapVar3", 1)
+    --     evt.Add("Inventory", 324)    -- "Water Resistance" scroll
+    -- end
 end
 
 -- Bookcase: Office
-
 evt.hint[24]        = ModTxt.CBookcase
 evt.map[24]         = function()
     if not evt.Cmp("MapVar4", 1) then
@@ -211,12 +210,12 @@ evt.map[24]         = function()
     end
 end
 
-evt.hint[25]        = ModTxt.CBookcase
+evt.hint[25]        = ModTxt.CNull
 evt.map[25]         = function()
-    if not evt.Cmp("MapVar5", 1) then
-        evt.Set("MapVar5", 1)
-        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
-    end
+    -- if not evt.Cmp("MapVar5", 1) then
+    --     evt.Set("MapVar5", 1)
+    --     evt.Add("Inventory", 313)    -- "Air Resistance" scroll
+    -- end
 end
 
 evt.hint[26]        = ModTxt.CBookcase
@@ -227,12 +226,12 @@ evt.map[26]         = function()
     end
 end
 
-evt.hint[27]        = ModTxt.CBookcase
+evt.hint[27]        = ModTxt.CNull
 evt.map[27]         = function()
-    if not evt.Cmp("MapVar7", 1) then
-        evt.Set("MapVar7", 1)
-        evt.Add("Inventory", 313)    -- "Air Resistance" scroll
-    end
+    -- if not evt.Cmp("MapVar7", 1) then
+    --     evt.Set("MapVar7", 1)
+    --     evt.Add("Inventory", 313)    -- "Air Resistance" scroll
+    -- end
 end
 
 -- Bookcase: Office Bedroom
@@ -262,12 +261,12 @@ evt.map[30]         = function()
     end
 end
 
-evt.hint[31]        = ModTxt.CBookcase
+evt.hint[31]        = ModTxt.CNull
 evt.map[31]         = function()
-    if not evt.Cmp("MapVar11", 1) then
-        evt.Set("MapVar11", 1)
-        evt.Add("Inventory", 311)    -- "Wizard Eye" scroll
-    end
+    -- if not evt.Cmp("MapVar11", 1) then
+    --     evt.Set("MapVar11", 1)
+    --     evt.Add("Inventory", 311)    -- "Wizard Eye" scroll
+    -- end
 end
 
 evt.hint[32]        = ModTxt.CBookcase
@@ -278,12 +277,12 @@ evt.map[32]         = function()
     end
 end
 
-evt.hint[33]        = ModTxt.CBookcase
+evt.hint[33]        = ModTxt.CNull
 evt.map[33]         = function()
-    if not evt.Cmp("MapVar13", 1) then
-        evt.Set("MapVar13", 1)
-        evt.Add("Inventory", 311)    -- "Wizard Eye" scroll
-    end
+    -- if not evt.Cmp("MapVar13", 1) then
+    --     evt.Set("MapVar13", 1)
+    --     evt.Add("Inventory", 311)    -- "Wizard Eye" scroll
+    -- end
 end
 
 evt.hint[34]        = ModTxt.CBookcase
@@ -294,12 +293,12 @@ evt.map[34]         = function()
     end
 end
 
-evt.hint[35]        = ModTxt.CBookcase
+evt.hint[35]        = ModTxt.CNull
 evt.map[35]         = function()
-    if not evt.Cmp("MapVar15", 1) then
-        evt.Set("MapVar15", 1)
-        evt.Add("Inventory", 300)    -- "Torch Light" scroll
-    end
+    -- if not evt.Cmp("MapVar15", 1) then
+    --     evt.Set("MapVar15", 1)
+    --     evt.Add("Inventory", 300)    -- "Torch Light" scroll
+    -- end
 end
 
 evt.hint[36]        = ModTxt.CBookcase
@@ -335,12 +334,12 @@ evt.map[41]         = function()
 end
 
 -- Winerack: West
-evt.hint[42]        = ModTxt.CWineRack
+evt.hint[42]        = ModTxt.CNull
 evt.map[42]         = function()
-    if not evt.Cmp("MapVar19", 1) then
-        evt.Set("MapVar19", 1)
-        evt.Add("Inventory", 225)    -- "Cure" disease
-    end
+    -- if not evt.Cmp("MapVar19", 1) then
+    --     evt.Set("MapVar19", 1)
+    --     evt.Add("Inventory", 225)    -- "Cure" disease
+    -- end
 end
 
 -- 43 - 45 spare
