@@ -81,6 +81,9 @@ SMercCredentials    = {
     PriceHire       = 2000,
     PriceReHire     = 500,
     PriceResurrect  = 500,
+    PriceUpgrade1   = SMercUpgrade.Price[1],
+    PriceUpgrade2   = SMercUpgrade.Price[2],
+    PriceUpgrade3   = SMercUpgrade.Price[3],
 
     TextAbout       = MercTxt.MMercDefaultAbout,
     TextHired       = MercTxt.MMercDefaultHired,
@@ -96,6 +99,9 @@ SMercCredentialsSchema = {
     PriceHire       = { type = "number" },
     PriceReHire     = { type = "number" },
     PriceResurrect  = { type = "number" },
+    PriceUpgrade1   = { type = "number" },
+    PriceUpgrade2   = { type = "number" },
+    PriceUpgrade3   = { type = "number" },
 
     TextAbout       = { type = "string", escaped = true },
     TextHired       = { type = "string", escaped = true },
@@ -130,12 +136,12 @@ SMercSchema = {
     MonsterID       = { column = "MON_ID",  type = "number"                     },
     Ability         = { type = "string"                                         },
 
-    FullHP          = { parse = TableLoader.ParseIndexedColumns("FullHP",    "number", 0, 3) },
-    AC              = { parse = TableLoader.ParseIndexedColumns("AC",        "number", 0, 3) },
-    Level           = { parse = TableLoader.ParseIndexedColumns("Level",     "number", 0, 3) },
-    Attack1         = { parse = TableLoader.ParseIndexedColumns("Attack1",   "string", 0, 3) },
-    Attack2         = { parse = TableLoader.ParseIndexedColumns("Attack2",   "string", 0, 3) },
-    FightsMax       = { parse = TableLoader.ParseIndexedColumns("FightsMax", "number", 0, 3) },
+    FullHP          = { column = "FullHP_0",    parse = TableLoader.ParseIndexedColumns("FullHP",    "number", 0, 3) },
+    AC              = { column = "AC_0",        parse = TableLoader.ParseIndexedColumns("AC",        "number", 0, 3) },
+    Level           = { column = "Level_0",     parse = TableLoader.ParseIndexedColumns("Level",     "number", 0, 3) },
+    Attack1         = { column = "Attack1_0",   parse = TableLoader.ParseIndexedColumns("Attack1",   "string", 0, 3) },
+    Attack2         = { column = "Attack2_0",   parse = TableLoader.ParseIndexedColumns("Attack2",   "string", 0, 3) },
+    FightsMax       = { column = "FightsMax_0", parse = TableLoader.ParseIndexedColumns("FightsMax", "number", 0, 3) },
 }
 
 -- Tables
@@ -168,6 +174,12 @@ function Merc_Hire(Merc)
     if Merc_IsHired(Merc) then return end
 
     local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
+
+    if not MercSaveData.HiredOnce then
+        local UpgradeUseLevel = Merc_GetUpgradeLevel(Merc, const.Mercenary.UpgradeType.Charges)
+        MercSaveData.FightsLeft = Merc.FightsMax[UpgradeUseLevel + 1] or Merc.FightsMax[1]
+    end
+
     MercSaveData.HiredOnce = true
 
     table.insert(vars.MercNPCHiredList, Merc.NPC_ID)
@@ -234,9 +246,18 @@ function Merc_GetUpgradePrice(Merc, MercUpgradeType)
 
     local Upgrade = Merc_GetUpgrade(Merc, MercUpgradeType)
     local Level   = Upgrade and Upgrade.Level or 0
-    local Prices  = Upgrade and Upgrade.Price or SMercUpgrade.Price
+    local Prices  = Merc_GetUpgradePrices(Merc)
 
     return Prices[Level + 1]
+end
+
+function Merc_GetUpgradePrices(Merc)
+
+    return {
+        Merc.Credentials.PriceUpgrade1,
+        Merc.Credentials.PriceUpgrade2,
+        Merc.Credentials.PriceUpgrade3
+    }
 end
 
 function Merc_Upgrade(Merc, MercUpgradeType)
@@ -247,7 +268,7 @@ function Merc_Upgrade(Merc, MercUpgradeType)
     if Upgrade == nil then
         local NewUpgrade    = {
             Level           = 0,
-            Price           = table.copy(SMercUpgrade.Price),
+            Price           = Merc_GetUpgradePrices(Merc),
             UpgradeType     = MercUpgradeType
         }
 
@@ -518,6 +539,9 @@ function Merc_ParseCredentials(Table)
                 Table[j].Credentials.PriceHire       = cred.PriceHire       or SMercCredentials.PriceHire
                 Table[j].Credentials.PriceReHire     = cred.PriceReHire     or SMercCredentials.PriceReHire
                 Table[j].Credentials.PriceResurrect  = cred.PriceResurrect  or SMercCredentials.PriceResurrect
+                Table[j].Credentials.PriceUpgrade1   = cred.PriceUpgrade1   or SMercCredentials.PriceUpgrade1
+                Table[j].Credentials.PriceUpgrade2   = cred.PriceUpgrade2   or SMercCredentials.PriceUpgrade2
+                Table[j].Credentials.PriceUpgrade3   = cred.PriceUpgrade3   or SMercCredentials.PriceUpgrade3
 
                 Table[j].Credentials.TextAbout       = cred.TextAbout       or SMercCredentials.TextAbout
                 Table[j].Credentials.TextHired       = cred.TextHired       or SMercCredentials.TextHired
@@ -566,6 +590,7 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
         for _, Merc in pairs(MercsDB) do
             local SaveData = table.copy(SMercSaveData)
             SaveData.NPC_ID = Merc.NPC_ID
+            SaveData.FightsLeft = Merc.FightsMax[1] or SMercSaveData.FightsLeft
             table.insert(vars.MercSaveDataList, SaveData)
         end
 
