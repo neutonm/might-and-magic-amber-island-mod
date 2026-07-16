@@ -60,7 +60,7 @@ const.Mercenary     = {
 -- Structs
 SMercUpgrade        = {
     Level           = 0,
-    Price           = { 1000,2500,4000 },
+    Price           = { 500,1000,1500 },
     UpgradeType     = const.Mercenary.UpgradeType.Null
 }
 
@@ -230,6 +230,15 @@ function Merc_GetUpgradeLevel(Merc, MercUpgradeType)
     return Level
 end
 
+function Merc_GetUpgradePrice(Merc, MercUpgradeType)
+
+    local Upgrade = Merc_GetUpgrade(Merc, MercUpgradeType)
+    local Level   = Upgrade and Upgrade.Level or 0
+    local Prices  = Upgrade and Upgrade.Price or SMercUpgrade.Price
+
+    return Prices[Level + 1]
+end
+
 function Merc_Upgrade(Merc, MercUpgradeType)
 
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
@@ -237,18 +246,18 @@ function Merc_Upgrade(Merc, MercUpgradeType)
 
     if Upgrade == nil then
         local NewUpgrade    = {
-            Level           = 1,
-            Price           = { 500,1000,1500 },
+            Level           = 0,
+            Price           = table.copy(SMercUpgrade.Price),
             UpgradeType     = MercUpgradeType
         }
 
         table.insert(MercSaveData, NewUpgrade)
 
-        Upgrade = table.copy(NewUpgrade)
-    else
-        if Upgrade.Level < const.Mercenary.UpgradeLimit then
-            Upgrade.Level = Upgrade.Level + 1
-        end
+        Upgrade = NewUpgrade
+    end
+
+    if Upgrade.Level < const.Mercenary.UpgradeLimit then
+        Upgrade.Level = Upgrade.Level + 1
     end
 
     -- Exception for Summmons: Reset on upgrade

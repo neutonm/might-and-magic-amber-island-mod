@@ -27,18 +27,14 @@ end
 
 local function Merc_NPCTopicGetUpgrade(Merc, t)
 
-    local Level     = 0
-    local Price     = tostring(t.QuestGold).."g"
     local Upgrade   = Merc_GetUpgrade(Merc, t.UpgradeType)
+    local Level     = Upgrade and Upgrade.Level or 0
+    local Price     = Merc_GetUpgradePrice(Merc, t.UpgradeType)
 
-    if Upgrade then
-        Level = Upgrade.Level
-        if Upgrade.Level >= const.Mercenary.UpgradeLimit then
-            Price = "Maxed"
-        else
-            Price = tostring(Upgrade.Price[Upgrade.Level] + t.QuestGold).."g"
-        end
-        
+    if Level >= const.Mercenary.UpgradeLimit then
+        Price = "Maxed"
+    else
+        Price = tostring(Price).."g"
     end
 
     return string.format("%s (%d/3) \01265523(%s)", t.UpgradeName, Level, Price) 
@@ -46,19 +42,13 @@ end
 
 local function Merc_NPCTopicUpgradeDone(Merc, t)
 
-    local Upgrade       = Merc_GetUpgrade(Merc, t.UpgradeType)
-    local Level         = Upgrade and Upgrade.Level or 1
-    local MercSaveData  = Merc_GetSaveDataByID(Merc.NPC_ID)
+    local Price = Merc_GetUpgradePrice(Merc, t.UpgradeType)
 
-    -- Pay more gold
-    if Upgrade then
-        local Sum = Upgrade.Price[Upgrade.Level]
-        evt.Subtract("Gold", Sum)
-    end
+    -- Pay for the current level transition before incrementing the level.
+    evt.Subtract("Gold", Price)
     
     -- Upgrade
-    Upgrade = Merc_Upgrade(Merc, t.UpgradeType)
-    Level   = Upgrade.Level
+    Merc_Upgrade(Merc, t.UpgradeType)
 
     -- Call User Function
     if (t.UpgradeFunction) then
@@ -73,22 +63,20 @@ end
 local function Merc_NPCTopicUpgradeCheckDone(Merc, t)
 
     local Upgrade   = Merc_GetUpgrade(Merc, t.UpgradeType)
-    local Level     = Upgrade and Upgrade.Level or 1
+    local Level     = Upgrade and Upgrade.Level or 0
+
+    -- Level Cap
+    if Level >= const.Mercenary.UpgradeLimit then
+        return false
+    end
 
     -- Check for money
-    if Upgrade then
-        local Price = Upgrade.Price[Level] + t.QuestGold
-        if not evt.Cmp("Gold", Price) then
-            return false
-        end
-    end
-    
-    -- Level Cap
-    if Level < const.Mercenary.UpgradeLimit then
-        return true
+    local Price = Merc_GetUpgradePrice(Merc, t.UpgradeType)
+    if not evt.Cmp("Gold", Price) then
+        return false
     end
 
-    return false
+    return true
 end
 
 local function NPCMercDeclare(Merc)
@@ -116,7 +104,7 @@ local function NPCMercDeclare(Merc)
         NeverGiven      =   true,
         Done			= 	function(t) Merc_NPCTopicUpgradeDone(Merc, t) end,
         CheckDone       =   function(t) return Merc_NPCTopicUpgradeCheckDone(Merc, t) end,
-        QuestGold       =   1000,
+        QuestGold       =   0,
         UpgradeType     =   const.Mercenary.UpgradeType.Null,
         UpgradeName     =   "Untitled",
         UpgradeFunction =   function(t) end
