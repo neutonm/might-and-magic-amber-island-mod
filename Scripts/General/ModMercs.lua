@@ -558,6 +558,24 @@ function Merc_ParseCredentials(Table)
     end
 end
 
+function Merc_RemoveMonsterCorpses(removeAll)
+
+    for _, mon in Map.Monsters do
+        if mon.IsMercenary and mon.AIState == const.AIState.Dead then
+            local shouldRemove = removeAll == true
+
+            if not shouldRemove and mon.NPC_ID > 0 and evt.Cmp("NPCs", mon.NPC_ID) then
+                local MercSaveData = Merc_GetSaveDataByID(mon.NPC_ID)
+                shouldRemove = MercSaveData ~= nil and MercSaveData.Dead == false
+            end
+
+            if shouldRemove then
+                RemoveMonster(mon)
+            end
+        end
+    end
+end
+
 ------------------------------------------------------------------------------
 -- EVENTS
 ------------------------------------------------------------------------------
@@ -653,6 +671,8 @@ function events.AfterLoadMap(WasInGame)
             mon.IsMercenary = true
         end
     end
+
+    Merc_RemoveMonsterCorpses()
 
     -- Clear lost mercs
     if vars then

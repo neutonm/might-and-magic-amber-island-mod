@@ -182,6 +182,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
             Done            =   function(t)
                                     local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
                                     MercSaveData.Dead = false
+                                    Merc_RemoveMonsterCorpses()
                                 end,
         }
 
