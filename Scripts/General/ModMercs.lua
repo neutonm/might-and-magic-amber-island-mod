@@ -615,6 +615,14 @@ end
 function events.AfterMonsterKilled(mon, monIndex, defaultHandler)
 
     if mon == nil then return end
+
+    local attacker = WhoHitMonster()
+    if attacker and attacker.Monster and attacker.Monster.IsMercenary then
+        if mon.Experience > 0 then
+            Party.AddKillExp(mon.Experience)
+        end
+    end
+
     if mon.NPC_ID == 0 then
         return
     end
