@@ -47,7 +47,8 @@ SMercSaveData       = {
     ReleaseMap      = "",
     Dead            = false,
     HiredOnce       = false,
-    AIBehavior      = const.FollowerMode.DefensiveFollow
+    AIBehavior      = const.FollowerMode.OffensiveFollow,
+    AIBehaviorVersion = 1
 }
 
 -- Required by guildmaster
@@ -265,10 +266,16 @@ end
 
 function Merc_Fight(Merc, t)
 
-    evt.Subtract("NPCs", QuestNPC)
+    evt.Subtract("NPCs", Merc.NPC_ID)
     Merc_ConsumeCharge(Merc)
 
     local MercSaveData = Merc_GetSaveDataByID(Merc.NPC_ID)
+
+    if MercSaveData.AIBehavior ~= const.FollowerMode.OffensiveFollow
+        and MercSaveData.AIBehavior ~= const.FollowerMode.DefensiveFollow
+    then
+        MercSaveData.AIBehavior = const.FollowerMode.OffensiveFollow
+    end
 
     MercSaveData.Released       = true
     MercSaveData.ReleaseMap     = Game.Map.Name
@@ -289,7 +296,7 @@ function Merc_Fight(Merc, t)
 
     -- Default Variables
     mon.IsMercenary             = true
-    mon.NPC_ID                  = QuestNPC
+    mon.NPC_ID                  = Merc.NPC_ID
     mon.Group                   = 35
     mon.Hostile                 = false
     mon.Ally                    = 9999
@@ -316,18 +323,26 @@ end
 
 function Merc_Dismiss(Merc, t)
 
-    evt.Add("NPCs", QuestNPC)
+    evt.Add("NPCs", Merc.NPC_ID)
 
     local MercSaveData      = Merc_GetSaveDataByID(Merc.NPC_ID)
     MercSaveData.Released   = false
     MercSaveData.ReleaseMap = ""
 
-    -- Remove Enhanced AI from database
-    ModAI_Remove(mon)
-
+    -- Preserve the live combat style before removing the Enhanced AI entry.
     for _, mon in Map.Monsters do
-        if mon.NPC_ID == QuestNPC then
+        if mon.NPC_ID == Merc.NPC_ID then
+            local MercModAIEntry = ModAI_Get(mon)
+            if MercModAIEntry
+                and (MercModAIEntry.Mode == const.FollowerMode.OffensiveFollow
+                    or MercModAIEntry.Mode == const.FollowerMode.DefensiveFollow)
+            then
+                MercSaveData.AIBehavior = MercModAIEntry.Mode
+            end
+
+            ModAI_Remove(mon)
             RemoveMonster(mon)
+            break
         end
     end
 
@@ -575,6 +590,18 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
     -- Mercs: stuff that needs to be carried with save files
     if vars.MercSaveDataList == nil then
         vars.MercSaveDataList = {}
+    end
+
+    -- Migrate the former Defensive default to the new Aggressive default once.
+    for _, MercSaveData in ipairs(vars.MercSaveDataList) do
+        if MercSaveData.AIBehaviorVersion ~= SMercSaveData.AIBehaviorVersion then
+            MercSaveData.AIBehavior        = SMercSaveData.AIBehavior
+            MercSaveData.AIBehaviorVersion = SMercSaveData.AIBehaviorVersion
+        elseif MercSaveData.AIBehavior ~= const.FollowerMode.OffensiveFollow
+            and MercSaveData.AIBehavior ~= const.FollowerMode.DefensiveFollow
+        then
+            MercSaveData.AIBehavior = const.FollowerMode.OffensiveFollow
+        end
     end
 
     if not WasInGame and not WasLoaded then
