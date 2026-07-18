@@ -12,32 +12,6 @@ ToDo:
 ]]
 
 -- Const 
-MercTxt             = LocalizeAll{
-    MMercFight              = "Fight",
-    MMercDefaultAbout       = "I'm tough and rough.",
-    MMercDefaultHired       = "Hired!",
-    MMercDefaultGreeting    = "Greetings!",
-    MMercDefaultFightTired  = "Too tired.",
-    MMercDefaultFireAttempt = "Are you sure?",
-    MMercDefaultFireCancel  = "Phew, that was close!",
-
-    MMercTacticsHoldMsg     = "I will \01265523hold this position\01200000 and wait here until you call me back.",
-    MMercTacticsFollowMsg   = "I will \01265523follow your lead\01200000 and stay close to the party.",
-    MMercStyleDefensiveMsg  = "I will use a \01265523defensive style\01200000, fighting nearby threats without straying too far.",
-    MMercStyleAggressiveMsg = "I will use an \01265523aggressive style\01200000 and press the fight until enemies are dealt with.",
-
-    MMercInfoMelee          = "With my trusty weapons, I deliver a formidable melee assault, capable of inflicting \01265523%s\01200000 damage.\n\n",
-    MMercInfoMeleeUpgrade   = "	008* Melee:	160%d/3\n",
-    MMercInfoRanged         = "I can perform a ranged attack, dealing \01265523%s\01200000 damage to your target.\n\n",
-    MMercInfoRangedUpgrade  = "	008* Ranged:	160%d/3\n",
-    MMercInfo               = "Greetings!\n\nI am known as \01265523%s\01200000, a mercenary combatant of Level \01265523%d\01200000.\n\n"..
-                              "My have a robust health pool of \01265523%d\01200000 and an armor class of \01265523%d\01200000.\n\n"..
-                              "%s"..
-                              "%s"..
-                              "You have my allegiance for \01265523%s\01200000 summons each day, ready to stand by your side!\n\n"..
-                              "Upgrades: \n	008* Hit Points:	160%d/3\n	008* Armor Class:	160%d/3\n	008* Level:	160%d/3\n%s%s	008* Summons:	160%d/3"
-}
-
 const.Mercenary     = {
     UpgradeType     = {
         Null        = 0,

@@ -89,13 +89,13 @@ local function Merc_NPCTopicGuildmasterDeclare()
         -- gotta check everywhere for save/load compactibility
         local IsAvailable   =   function(t)
                                     return ContainsNumber(vars.MercNPCAvailableList, Merc.NPC_ID)
-                                end,
+                                end
 
         MercBrowseTopic{
             Slot            =   A,
             Branch          =   CTopic,
             GetTopic        =   function(t)
-                                    return "About: "..Merc.Name
+                                    return MercTxt.MMercGuildAbout..": "..Merc.Name
                                 end,
             CanShow         =   IsAvailable,
             Ungive          =   function(t)
@@ -110,8 +110,9 @@ local function Merc_NPCTopicGuildmasterDeclare()
             GetTopic        =   function(t)
                                     local MercName  = Merc.Name
                                     local MercPrice = Merc.Credentials.PriceHire
-                                    t.QuestGold = MercPrice
-                                    return "Hire: "..MercName.."("..MercPrice.."g)"
+                                    t.QuestGold     = MercPrice
+
+                                    return MercTxt.MMercGuildHire..": "..MercName.."("..MercPrice.."g)"
                                 end,
             Texts           =   {
                 Undone      =   GuildMasterNotEnoughGoldStr,
@@ -138,8 +139,9 @@ local function Merc_NPCTopicGuildmasterDeclare()
             GetTopic        =   function(t)
                                     local MercName  = Merc.Name
                                     local MercPrice = Merc.Credentials.PriceReHire
-                                    t.QuestGold = MercPrice
-                                    return "Rehire: "..MercName.."("..MercPrice.."g)"
+                                    t.QuestGold     = MercPrice
+
+                                    return MercTxt.MMercGuildHire..": "..MercName.."("..MercPrice.."g)"
                                 end,
             Texts           =   {
                 Undone      =   GuildMasterNotEnoughGoldStr,
@@ -166,8 +168,9 @@ local function Merc_NPCTopicGuildmasterDeclare()
             GetTopic        =   function(t)
                                     local MercName  = Merc.Name
                                     local MercPrice = Merc.Credentials.PriceResurrect
-                                    t.QuestGold = MercPrice
-                                    return "Resurrect: "..MercName.."("..MercPrice.."g)"
+                                    t.QuestGold     = MercPrice
+
+                                    return MercTxt.MMercGuildResurrect..": "..MercName.."("..MercPrice.."g)"
                                 end,
             Texts           =   {
                 Done        =   "Lost the mercenary, have you? No matter. With a bit of magic and the right price, I can have him standing, ready for battle once again, right here, right now.",
@@ -190,7 +193,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
             Slot            =   D,
             Branch          =   "MercsBrowse0",
             NewBranch       =   "",
-            GetTopic        =   function(t) return "Back" end,
+            GetTopic        =   function(t) return MercTxt.MMercGuildBack end,
             Ungive          =   SetBranch
         }
 
@@ -198,7 +201,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
             Slot            =   D,
             Branch          =   CTopic,
             NewBranch       =   PTopic,
-            GetTopic        =   function(t) return "Previous" end,
+            GetTopic        =   function(t) return MercTxt.MMercGuildPrevious end,
             Ungive          =   SetBranch,
             CanShow         =   function(t) return Index > 1 end
         }
@@ -207,7 +210,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
             Slot            =   E,
             Branch          =   CTopic,
             NewBranch       =   NTopic,
-            GetTopic        =   function(t) return "Next" end,
+            GetTopic        =   function(t) return MercTxt.MMercGuildNext end,
             Ungive          =   SetBranch,
             CanShow         =   function(t) return Index < #vars.MercNPCAvailableList end
         }
