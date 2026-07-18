@@ -314,6 +314,7 @@ function Merc_Fight(Merc, t)
     mon.Level                   = Merc.Level[UpgradeHPLevel]
 
     -- Default Variables
+    mon.IsMercenary             = true
     mon.NPC_ID                  = QuestNPC
     mon.Group                   = 35
     mon.Hostile                 = false
@@ -612,11 +613,9 @@ function events.AfterMonsterAttacked(t, attacker)
 
     -- Prevent mercs turning hostile if party attacks them
     if t.Attacker.Player ~= nil then
-        if t.Monster.NPC_ID > 0 then
-            if ContainsNumber(MercNPCList, t.Monster.NPC_ID) then
-                t.Monster.Ally      = 9000 + t.Monster.NPC_ID
-                t.Monster.Hostile   = false
-            end
+        if t.Monster.IsMercenary and t.Monster.NPC_ID > 0 then
+            t.Monster.Ally      = 9000 + t.Monster.NPC_ID
+            t.Monster.Hostile   = false
         end
     end
 end
@@ -627,7 +626,7 @@ function events.AfterMonsterKilled(mon, monIndex, defaultHandler)
     if mon.NPC_ID == 0 then
         return
     end
-    if not ContainsNumber(MercNPCList, mon.NPC_ID) then
+    if not mon.IsMercenary then
         return
     end
 
@@ -644,11 +643,16 @@ function events.AfterMonsterKilled(mon, monIndex, defaultHandler)
         MercSaveData.Dead       = true
         MercSaveData.FightsLeft = 0
     end
-
-    mon.NPC_ID = 0
 end
 
 function events.AfterLoadMap(WasInGame)
+
+    -- Backfill the custom bit for old saves and map-placed mercenaries.
+    for _, mon in Map.Monsters do
+        if mon.NPC_ID > 0 and ContainsNumber(MercNPCList, mon.NPC_ID) then
+            mon.IsMercenary = true
+        end
+    end
 
     -- Clear lost mercs
     if vars then

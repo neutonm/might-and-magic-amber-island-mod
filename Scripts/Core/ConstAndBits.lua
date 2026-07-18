@@ -128,6 +128,7 @@ const.MonsterBits = {
 	OnAlertMap = 0x00100000,
 	TreasureGenerated = 0x00800000,  -- treasure is in 'Items'[0] and 'Items'[1], gold is in 'Items'[3]
 	ShowAsHostile = 0x01000000,  -- show as hostile on map
+	IsMercenary = 0x40000000,  -- custom mod flag: monster is a mercenary
 }
 if mmver == 8 then
 	const.MonsterBits.IsObeliskChest = 0x02000000

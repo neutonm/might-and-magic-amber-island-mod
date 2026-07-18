@@ -58,7 +58,7 @@ local function Merc_NPCTopicGuildmasterDeclare()
                                 end
 
                                 for _, mon in Map.Monsters do
-                                    if mon.NPC_ID > 0 and mon.Group == 35 then
+                                    if mon.NPC_ID > 0 and mon.IsMercenary then
                                         if ContainsNumber(vars.MercNPCLostList, mon.NPC_ID) then
                                             TableRemoveByValue(vars.MercNPCLostList, mon.NPC_ID)
                                             RemoveMonster(mon)
