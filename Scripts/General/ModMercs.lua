@@ -621,7 +621,7 @@ function events.AfterMonsterAttacked(t, attacker)
     end
 end
 
-function events.MonsterKilled(mon, monIndex, defaultHandler)
+function events.AfterMonsterKilled(mon, monIndex, defaultHandler)
 
     if mon == nil then return end
     if mon.NPC_ID == 0 then
@@ -639,6 +639,7 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
 
     if (Merc_IsSpecialTag(Merc, const.Mercenary.Special.Undying)) then
         Merc_ConsumeCharge(Merc)
+        mon.AIState             = const.AIState.Removed
     else
         MercSaveData.Dead       = true
         MercSaveData.FightsLeft = 0

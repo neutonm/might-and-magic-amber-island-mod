@@ -2308,6 +2308,9 @@ mem.hookfunction(mmv(0x403050, 0x402D6E, 0x402E78), 1, 0, function(d, def, index
 	--!(mon:structs.MapMonster, monIndex, defaultHandler)
 	events.cocalls("MonsterKilled", Map.Monsters[index], index, callDef)
 	callDef()
+	--!(mon:structs.MapMonster, monIndex)
+	-- Fires after all MonsterKilled handlers and the native kill handler have run.
+	events.cocalls("AfterMonsterKilled", Map.Monsters[index], index)
 end)
 
 --!++(RespectMonsterExp)v()
