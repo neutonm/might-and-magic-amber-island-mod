@@ -24,10 +24,12 @@ Overview:
     - - Null        -> For empty fountains (Just drop "Refreshing!" wuthout autonote)
     - - Warrior     -> Will workin warrior difficulty only
 
-    - Supported flags:
-    - - "Everybody"     -> Effect will be applied to all party members
-    - - "NoAutonote"    -> Autonote will not be registered or added
-    - - "QuestSound"    -> Quest completion sound will be played on successful use
+    Supported flags:
+    - "Everybody"     -> Effect will be applied to all party members
+    - "NoAutonote"    -> Autonote will not be registered or added
+    - "QuestSound"    -> Quest completion sound will be played on successful use
+
+
 Todo:
     - Find the way to localize UserStatusMsg
 
@@ -38,6 +40,7 @@ local FOUNTAIN_FLAGS    = {
     Everybody           = "Everybody",
     NoAutonote          = "NoAutonote",
     QuestSound          = "QuestSound",
+    Refill              = "Refill",
 }
 
 ------------------------------------------------------------------------------
@@ -1060,13 +1063,30 @@ function Fountain_RefillByMap(mapName)
 
     local bits = Fountain_GetMapTempBits(mapName)
 
-    if #bits == 0 then
-        return false
-    end
-
     RefillTimer(function()
-        for i = 1, #bits do
-            evt.All.Subtract("PlayerBits", bits[i])
+
+        for i = 1, #FountainsAndAltarsDB do
+            local f = FountainsAndAltarsDB[i]
+
+            if f ~= nil and f.Map == mapName then
+                if Fountain_HasFlag(f, FOUNTAIN_FLAGS.Refill) then
+                    local usesVarKey    = Fountain_GetUsesVarKey(f)
+
+                    if usesVarKey ~= nil then
+                        mapvars[usesVarKey] = nil
+
+                        if f.Event ~= nil then
+                            evt.hint[f.Event] = Fountain_GetHint(f)
+                        end
+                    end
+                end
+            end
+        end
+
+        if #bits ~= 0 then
+            for i = 1, #bits do
+                evt.All.Subtract("PlayerBits", bits[i])
+            end
         end
     end, const.Day)
 
@@ -1091,6 +1111,7 @@ function Fountain(evID, evMeshID, fountain)
     if f ~= nil then
         local maxUses   = tonumber(ResolveWarriorValue(f.MaxUses, f.MaxUsesW))
         hasLimitedUses  = maxUses ~= nil and maxUses > 0
+        f.Event         = evID
     end
 
     if evMeshID > 0 then
