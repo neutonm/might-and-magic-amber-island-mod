@@ -928,7 +928,8 @@ evt.map[166]         = function()
     }
 
     for i, goblin in ipairs(GoblinArray) do
-        local mon = SummonMonster(73, goblin.X , goblin.Y, goblin.Z, true)
+        local mon = SummonMonster(74, goblin.X , goblin.Y, goblin.Z, true)
+        mon.NoFlee = true
     end
 
     evt.SetFacetBit(123,const.FacetBits.Untouchable,true)

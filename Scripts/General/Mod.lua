@@ -14,6 +14,9 @@ local DEBUG_NEW_GAME_MAP    = "hub.blv"
 Game.TitleTrack             = 22
 Game.WinMapName             = "amber.odm"
 
+-- MMerge Improved Pathfinding module
+Game.ImprovedPathfinding    = true
+
 function events.MenuAction(t)
 
     if t.Action == 54 then
@@ -28,10 +31,12 @@ function events.Action(t)
 	end
 end
 
-function events.NewGameMap()
+function events.NewGameMap(t)
 
     -- Start location
-    XYZ(Party,-17116,-21798,449)
+    if Game.NewGameMap == NEW_GAME_MAP then
+        XYZ(Party,-17116,-21798,449)
+    end
 end
 
 function events.GameInitialized2()
