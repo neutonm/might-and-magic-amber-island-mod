@@ -1982,7 +1982,7 @@ Quest{
     Slot            =   A,
     Texts           =
     {
-        Topic       =   "Buy: Jump Scroll, 250g",
+        Topic       =   "Buy: Jump Scroll (200g)",
         Done        =   "I'm happy to see the scrolls go to someone who can use them. Thank you for buying, "..
                         "and may your adventures be both exciting and profitable.",
         Undone      =   "I get that they're not flying off the shelves, and I have plenty, but they still "..
@@ -1991,7 +1991,7 @@ Quest{
     },
     NeverGiven      =   true,
     NeverDone       =   true,
-    QuestGold       =   250,
+    QuestGold       =   200,
     RewardItem      =   315,
 }
 
