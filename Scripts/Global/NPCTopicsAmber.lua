@@ -1306,7 +1306,7 @@ Quest{
                         "golden coin and bring it to his owner.",
     },
     QuestItem       =   782,
-    Gold            =   500,
+    Gold            =   IsWarrior() and 750 or 500,
     Exp             =   1000,
     Done            =   function(t) evt.Subtract("Reputation", 5) end
 }
@@ -1432,7 +1432,11 @@ Quest{
                         "her, then safely escort her back home to her mother.",
     },
     Give            =   function(t)
-                            evt.Add("Gold",1000)
+                            if IsWarrior() then
+                                evt.Add("Inventory", 190)
+                            else
+                                evt.Add("Gold",1000)
+                            end
                         end,
     Done            =   function(t)
                             if evt.Cmp("NPCs", 516) then
@@ -1794,29 +1798,30 @@ KillMonstersQuest{
 
 KillMonstersQuest{
     Name            =   "AmberQuest8W",
-    {Map            =   "amber.odm", Monster = {88, 89, 90}},
+    {Map            =   "amber.odm", Monster = {28, 29, 30, 88, 89, 90, 265, 266, 267}},
     Slot            =   C,
     Texts           =
     {
-        Topic       =   "Quest: Swamp Hydra",
+        Topic       =   "Quest: Swamp Terror",
         Give        =   "I've got some archaeological work to do in the swampy area on the \01265523southern "..
-                        "island\01200000, but something far worse than lizards has settled there.\n\nA "..
-                        "gigantic \01265523Hydra\01200000 has taken control of the swamp, and the nearby "..
-                        "reptiles have become far more aggressive because of it.\n\nCould you slay the beast "..
-                        "for me? I need that area safe to dig.",
-        Done        =   "Awesome job, folks. With the Hydra gone, my workers can finally return to the "..
-                        "excavation site safely.\n\nIf you ever find yourselves near the swamp, \01265523drop "..
-                        "by and see what we're uncovering\01200000.",
-        Undone      =   "That \01265523Hydra\01200000 is still terrorizing the swamp on the \01265523southern "..
-                        "island\01200000. I can't start my work with that monster around.",
-        TopicDone   =   "Thanks: Swamp Hydra",
+                        "island\01200000, but the place has been completely overrun.\n\nAggressive "..
+                        "\01265523lizards\01200000 and swarms of \01265523dragonflies\01200000 are making the "..
+                        "area dangerous enough, and now a gigantic \01265523Hydra\01200000 has taken control "..
+                        "of the swamp and stirred the creatures into a frenzy.\n\nCould you clear them out and "..
+                        "slay the beast for me? I need that area safe to dig.",
+        Done        =   "Awesome job, folks. With the lizards and dragonflies cleared out and the Hydra gone, "..
+                        "my workers can finally return to the excavation site safely.\n\nIf you ever find "..
+                        "yourselves near the swamp, \01265523drop by and see what we're uncovering\01200000.",
+        Undone      =   "The \01265523lizards\01200000, \01265523dragonflies\01200000, and that gigantic "..
+                        "\01265523Hydra\01200000 are still terrorizing the swamp on the \01265523southern "..
+                        "island\01200000. I can't start my work while those creatures remain.",
+        TopicDone   =   "Thanks: Swamp Menace",
         After       =   "There's some fascinating stuff here in the swamp, but digging through this muck is a "..
                         "challenge. Your help has been invaluable in making it possible.",
-
-        Quest       =   "\"Swamp Hydra\"\nHoward Carter, Amber Island, Town, Western District\n\nSlay the "..
-                        "gigantic Hydra in the swamp on the southern island so Howard Carter can safely "..
-                        "continue his archaeological work.",
-    },
+        Quest       =   "\"Swamp Terror\"\nHoward Carter, Amber Island, Town, Western District\n\nDefeat the "..
+                        "aggressive lizards and dragonflies, then slay the gigantic Hydra in the swamp on the "..
+                        "southern island so Howard Carter can safely continue his archaeological work.",
+        },
     CanShow         =   function(t) return IsWarrior() end,
     Gold            =   1500,
     Exp             =   1500,
