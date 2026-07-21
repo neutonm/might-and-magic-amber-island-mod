@@ -28,6 +28,7 @@ local TXT   = Localize{
                 "\01265523The ring is gone.\01200000\n\n"..
                 "\"Thief!\" Michael shouts. \"After her!\"\n\n"..
                 "She bolts east, toward \01265523East Amber Island\01200000.",
+    [21]    = "Ha! Easy peasy. Come back to the inn whenever you fancy another arse-kicking!"
 }
 table.copy(TXT, evt.str, true)
 Game.MapEvtLines.Count = 0
@@ -240,8 +241,13 @@ local function ConradKilledParty()
 
     -- Conrad Hawk managed to kick your ass?
     if vars.QuestsAmberIsland.QVarConradBrawl == 4 then
+
         evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
         evt.MoveNPC(547,250) -- Conrad goes back to Inn
+
+        -- In case 'last standing' got penetrated
+        ModParty_SetLastStandingTracking(false)
+
         for _, mon in Map.Monsters do
             if mon.NPC_ID  == 547 then
                 RemoveMonster(mon)
@@ -298,8 +304,12 @@ function events.AfterMonsterAttacked(t, attacker)
 
                 evt.MoveNPC(547,250) -- Conrad goes back to Inn
                 RemoveMonster(t.Monster)
+
                 vars.QuestsAmberIsland.QVarConradBrawl      = 3 -- Failure
                 vars.QuestsAmberIsland.QVarConradWarning    = false
+
+                -- Party can die now
+                ModParty_SetLastStandingTracking(false)
 
                 -- Remove arena bounds
                 evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
@@ -328,6 +338,9 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
         -- Remove arena bounds
         evt.SetFacetBit(200,const.FacetBits.Untouchable, true)
 
+        -- Party can die now
+        ModParty_SetLastStandingTracking(false)
+
         -- Guard encounter
         evt.Add("Exp", 0)
         evt.SpeakNPC(549)
@@ -346,7 +359,25 @@ function events.DeathMap(t)
             ConradKilledParty()
         end
     end
+end
 
+function events.LeaveMap()
+    if vars.QuestsAmberIsland.QVarConradBrawl == 1 then
+        vars.QuestsAmberIsland.QVarConradBrawl = 4
+        ConradKilledParty()
+    end
+end
+
+function events.ExitMapAction(t)
+
+    -- Prevent Conrad from killing party
+    if vars.QuestsAmberIsland.QVarConradBrawl == 1 then
+        if ModParty_DenyDeath(t, 1) then
+            vars.QuestsAmberIsland.QVarConradBrawl = 4 -- Death
+            ConradKilledParty()
+            Message(evt.str[21])
+        end
+    end
 end
 
 function events.AfterLoadMap(WasInGame)
@@ -998,6 +1029,9 @@ evt.map[170]         = function()
         end
 
         vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
+
+        -- Party can die now
+        ModParty_SetLastStandingTracking(false)
 
         evt.MoveNPC(547,250) -- Conrad goes back to Inn
         for _, mon in Map.Monsters do

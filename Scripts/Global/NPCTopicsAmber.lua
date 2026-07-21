@@ -3631,18 +3631,25 @@ Quest{
                             -- Make arena bounds trigger-able
                             evt.SetFacetBit(200,const.FacetBits.Untouchable, false)
 
+                            -- Prevent Conrad from killing party
+                            ModParty_SetLastStandingTracking(true)
+
                             -- Spawn Monk monster as Conrad Hawk
                             local mon           = SummonMonster(106, 686 , 17594, 33, true)
                             mon.FullHitPoints   = 200
                             mon.HP              = 200
+                            mon.ArmorClass      = 10
                             mon.Level           = 10
                             mon.NPC_ID          = 547
                             mon.Direction       = 1537
                             mon.Hostile         = true
                             mon.Spell           = 0
                             mon.Spell2          = 0
-                            mon.Attack1Damage   = "3D4+3"
                             mon.NoFlee          = true
+
+                            mon.Attack1.DamageDiceCount = 3
+                            mon.Attack1.DamageDiceSides = 4
+                            mon.Attack1.DamageAdd       = 3
 
                             Sleep(1)
 
@@ -3704,6 +3711,9 @@ NPCTopic{
                                     break
                                 end
                             end
+
+                            -- Party can die again
+                            ModParty_SetLastStandingTracking(false)
 
                             vars.QuestsAmberIsland.QVarConradBrawl = 3 -- Failure
 
