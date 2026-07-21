@@ -855,6 +855,53 @@ QuestNPC            =   478
 
 NPCTeacher(QuestNPC)
 
+Quest{
+    Name            =   "AlfredTeachFireBolt",
+    Slot            =   D,
+    Branch          =   "",
+    Texts           =
+    {
+        Topic       =   "Learn: Fire Bolt (150g)",
+        Give        =   "Every great pyromancer begins with a single spark. I make a point of encouraging "..
+                        "young mages to study Fire Magic, even when their true calling lies elsewhere. If "..
+                        "one of you wishes to learn, I can teach \01265523Fire Bolt for 150 gold\01200000.",
+        Done        =   "There, the spark has taken hold. You have learned \01265523Fire Bolt\01200000!"..
+                        "\n\nPractice often, but remember: a good fire mage commands the flame rather than "..
+                        "letting it command them.",
+        NotEnough   =   "Your enthusiasm does you credit, but proper instruction takes time. Return when "..
+                        "you have \01265523150 gold\01200000, and I will teach you Fire Bolt.",
+        NoFireMagic =   "You have not yet learned the fundamentals of \01265523Fire Magic\01200000. I "..
+                        "cannot teach you Fire Bolt until you possess the skill.",
+        Already     =   "You \01265523already know Fire Bolt\01200000. There is nothing more I can teach "..
+                        "you about that spell, though perhaps one of your companions could benefit from my "..
+                        "instruction."
+    },
+    NeverDone       =   true,
+    QuestGold       =   150,
+    CheckDone       =   function(t)
+                            local player = Party[Game.CurrentPlayer]
+
+                            if player.Spells[const.Spells.FireBolt] then
+                                t.Texts.Undone = t.Texts.Already
+                                return false
+                            end
+
+                            if not PlayerHasSkill(Game.CurrentPlayer, const.Skills.Fire) then
+                                t.Texts.Undone = t.Texts.NoFireMagic
+                                return false
+                            end
+
+                            t.Texts.Undone = t.Texts.NotEnough
+                            return true
+                        end,
+    Done            =   function(t)
+                            Party[Game.CurrentPlayer].Spells[const.Spells.FireBolt] = true
+                            evt.Add("Exp", 0)
+                            evt.FaceAnimation(Game.CurrentPlayer, const.FaceAnimation.SmileHuge)
+                        end,
+    CanShow         =   function(t) return IsWarrior() end
+}
+
 ------------------------------------------------------------------------------
 -- Avira Lightfeather (Air Magic Expert)
 QuestNPC            =   479
@@ -867,11 +914,35 @@ QuestNPC            =   480
 
 NPCTeacher(QuestNPC)
 
+NPCTopic{
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Water Against Water",
+    Text            =   "Some of Amber Island's brigands and monsters attack with Water Magic, and some "..
+                        "cast Water Magic spells of their own. It is seldom a grave threat, but repeated "..
+                        "blasts can still wear down an unwary adventurer. It could not hurt to cast "..
+                        "\01265523Water Resistance\01200000 before facing them.\n\nCuriously, these foes "..
+                        "also possess \01265523lower Water Magic resistances\01200000 than their mainland "..
+                        "counterparts. You can fight fire with fire, or, in this case, water with water."
+}
+
 ------------------------------------------------------------------------------
 -- John Aarden (Earth Magic Expert)
 QuestNPC            =   481
 
 NPCTeacher(QuestNPC)
+
+NPCTopic{
+    Slot            =   D,
+    Branch          =   "",
+    Topic           =   "Monster Resistances",
+    Text            =   "For ages, Amber Island lay isolated from the rest of the world. Its monsters and "..
+                        "other inhabitants never faced enemies who wielded Earth Magic in earnest, so they "..
+                        "had little reason to develop defenses against it. As a result, many of the island's "..
+                        "creatures possess \01265523no Earth Magic resistance at all\01200000.\n\n"..
+                        "When the First Expedition arrived, its dwarves, masters of Earth Magic, quickly exploited "..
+                        "this weakness and dominated the local fauna."
+}
 
 ------------------------------------------------------------------------------
 -- Asgerd Lund (Spirit Magic Expert)
@@ -904,6 +975,64 @@ NPCTopic{
 QuestNPC            =   484
 
 NPCTeacher(QuestNPC)
+
+Quest{
+    Name            =   "AndreasTeachHeal",
+    Slot            =   D,
+    Branch          =   "",
+    Texts           =
+    {
+        Topic       =   "Learn: Heal (150g)",
+        Give        =   "The study of Body Magic begins with understanding how life mends itself. I make a "..
+                        "point of encouraging young healers to master that lesson early.\n\nIf one of you "..
+                        "wishes to learn, I can teach \01265523Heal for 150 gold\01200000.",
+        Done        =   "Excellent. You have learned \01265523Heal\01200000. Use it wisely; even the "..
+                        "simplest healing spell can mean the difference between life and death.",
+        NotEnough   =   "The will to heal is admirable, but proper instruction takes time. Return when you "..
+                        "have \01265523150 gold\01200000, and I will teach you Heal.",
+        NoBodyMagic =   "You have not yet learned the fundamentals of \01265523Body Magic\01200000. I "..
+                        "cannot teach you Heal until you possess the skill.",
+        Already     =   "You \01265523already know Heal\01200000. There is nothing more I can teach you "..
+                        "about that spell, though perhaps one of your companions could benefit from my "..
+                        "instruction."
+    },
+    NeverDone       =   true,
+    QuestGold       =   150,
+    CheckDone       =   function(t)
+                            local player = Party[Game.CurrentPlayer]
+
+                            if player.Spells[const.Spells.Heal] then
+                                t.Texts.Undone = t.Texts.Already
+                                return false
+                            end
+
+                            if not PlayerHasSkill(Game.CurrentPlayer, const.Skills.Body) then
+                                t.Texts.Undone = t.Texts.NoBodyMagic
+                                return false
+                            end
+
+                            t.Texts.Undone = t.Texts.NotEnough
+                            return true
+                        end,
+    Done            =   function(t)
+                            Party[Game.CurrentPlayer].Spells[const.Spells.Heal] = true
+                            evt.Add("Exp", 0)
+                            evt.FaceAnimation(Game.CurrentPlayer, const.FaceAnimation.SmileHuge)
+                        end,
+    CanShow         =   function(t) return IsWarrior() end
+}
+
+NPCTopic{
+    Slot            =   E,
+    Branch          =   "",
+    Topic           =   "Diseases and Poisons",
+    Text            =   "Many of Amber Island's predators carry venom or disease, and its pirates and "..
+                        "brigands can be just as dangerous. An unwary adventurer may find that a bite, filthy blade, "..
+                        "or tainted dart leaves them \01265523poisoned or diseased\01200000.\n\nYou can "..
+                        "reduce the chance of suffering these afflictions by casting the \01265523Body "..
+                        "Resistance\01200000 spell. Keep its protection active whenever you venture into "..
+                        "dangerous territory."
+}
 
 ------------------------------------------------------------------------------
 -- Conrad Hawk (prison)
