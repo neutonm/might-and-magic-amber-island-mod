@@ -2618,8 +2618,14 @@ do
 						t[#t + 1] = i
 					end
 				end
+				if #t == 0 then
+					return
+				end
 				slot = t[Game.Rand() % #t + 1]
 			end
+		end
+		if slot == nil then
+			return
 		end
 		
 		Pl_Who, Pl_Slot, Is_Pl = attacker, slot, true
