@@ -213,7 +213,7 @@ KillMonstersQuest{
                         "their defenders while you enter Castle Amber.",
     TopicDone       =   "Thanks: The Mist",
     After           =   "Thank you once again, my heroes. Amber island will never forget your heroic deeds.",
-    Quest           =   "Story: The Mist\nMayor Maximus, Amber Island, Town Hall\n\nContact boatmaster "..
+    Quest           =   "\"Story: The Mist\"\nMayor Maximus, Amber Island, Town Hall\n\nContact boatmaster "..
                         "Cedrick Boyce to secure passage to Castle Amber's back entrance. Infiltrate the "..
                         "castle, eliminate Archmage Magnus, and destroy his mist machine.",
 }
@@ -363,7 +363,7 @@ Greeting
     "remain as collateral. More than that, I offer a \01265523binding contract\01200000, sealed "..
     "by magic older and harsher than any court. Take it to your mayor as a proof of my word.\n\n"..
     "I ask this not only for myself. A true \01265523calamity comes from above the sky\01200000, "..
-    "and I may yet have a way to save lives when the heavens fall.\n\n"
+    "and I may yet have a way to save lives when the heavens fall."
 }
 
 NPCTopic{
@@ -861,7 +861,7 @@ Quest{
     Branch          =   "",
     Texts           =
     {
-        Topic       =   "Learn: Fire Bolt (150g)",
+        Topic       =   "Learn: Fire Bolt (200g)",
         Give        =   "Every great pyromancer begins with a single spark. I make a point of encouraging "..
                         "young mages to study Fire Magic, even when their true calling lies elsewhere. If "..
                         "one of you wishes to learn, I can teach \01265523Fire Bolt for 150 gold\01200000.",
@@ -877,7 +877,7 @@ Quest{
                         "instruction."
     },
     NeverDone       =   true,
-    QuestGold       =   150,
+    QuestGold       =   200,
     CheckDone       =   function(t)
                             local player = Party[Game.CurrentPlayer]
 
@@ -982,7 +982,7 @@ Quest{
     Branch          =   "",
     Texts           =
     {
-        Topic       =   "Learn: Heal (150g)",
+        Topic       =   "Learn: Heal (200g)",
         Give        =   "The study of Body Magic begins with understanding how life mends itself. I make a "..
                         "point of encouraging young healers to master that lesson early.\n\nIf one of you "..
                         "wishes to learn, I can teach \01265523Heal for 150 gold\01200000.",
@@ -997,7 +997,7 @@ Quest{
                         "instruction."
     },
     NeverDone       =   true,
-    QuestGold       =   150,
+    QuestGold       =   200,
     CheckDone       =   function(t)
                             local player = Party[Game.CurrentPlayer]
 
@@ -2967,7 +2967,7 @@ Quest{
         GreetDone   =   "Ah, my valiant rescuers! Welcome back. Seeing my little companion frolicking once "..
                         "again fills me with immeasurable happiness. How may Sir Hoppington the Brave assist "..
                         "you today?",
-        Quest       =   "Missing Pet\nSir Hoppington the Brave, East Amber Island\n\nFind and return Sir "..
+        Quest       =   "\"Missing Pet\"\nSir Hoppington the Brave, East Amber Island\n\nFind and return Sir "..
                         "Hoppington's missing talking bunny.",
     },
     Gold            =   1000,
