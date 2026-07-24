@@ -28,6 +28,7 @@ Overview:
     - "Everybody"     -> Effect will be applied to all party members
     - "NoAutonote"    -> Autonote will not be registered or added
     - "QuestSound"    -> Quest completion sound will be played on successful use
+    - "ResetOnDeath"  -> Reset charges on death
 
 
 Todo:
@@ -41,6 +42,7 @@ local FOUNTAIN_FLAGS    = {
     NoAutonote          = "NoAutonote",
     QuestSound          = "QuestSound",
     Refill              = "Refill",
+    ResetOnDeath        = "ResetOnDeath",
 }
 
 ------------------------------------------------------------------------------
@@ -188,19 +190,6 @@ function Fountain_ParseTables(Table)
         KeyField        = "ID",
         DetectDuplicates= true,
     }
-end
-
-------------------------------------------------------------------------------
--- EVENTS
-------------------------------------------------------------------------------
-
-function events.GameInitialized2()
-    Fountain_ParseTables(FountainsAndAltarsDB)
-end
-
-function events.AfterLoadMap(WasInGame)
-
-    Fountain_RefillByMap(Game.Map.Name)
 end
 
 ------------------------------------------------------------------------------
@@ -1131,4 +1120,40 @@ function Fountain(evID, evMeshID, fountain)
             evt.hint[evMeshID] = Fountain_GetMeshHint(f)
         end
     end
+end
+
+------------------------------------------------------------------------------
+-- EVENTS
+------------------------------------------------------------------------------
+
+function events.GameInitialized2()
+    Fountain_ParseTables(FountainsAndAltarsDB)
+end
+
+function events.AfterLoadMap(WasInGame)
+
+    Fountain_RefillByMap(Game.Map.Name)
+end
+
+function events.DeathMap(t)
+
+    for i = 1, #FountainsAndAltarsDB do
+
+        local f = FountainsAndAltarsDB[i]
+        if f ~= nil then
+            if Fountain_HasFlag(f, FOUNTAIN_FLAGS.ResetOnDeath) then
+
+                local usesVarKey    = Fountain_GetUsesVarKey(f)
+
+                if usesVarKey ~= nil then
+                    mapvars[usesVarKey] = nil
+
+                    if f.Event ~= nil then
+                        evt.hint[f.Event] = Fountain_GetHint(f)
+                    end
+                end
+            end
+        end
+    end
+
 end
