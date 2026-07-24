@@ -1,6 +1,11 @@
 --[[
 Description:    Global strings datatable for locaization
 Author:         Henrik Chukhran, 2022 - 2026
+
+Variable name suffix meanings:
+    - C: Common
+    - G: Global
+    - M: Mercs
 ]]
 
 ModTxt                  = LocalizeAll{
@@ -64,6 +69,15 @@ ModTxt                  = LocalizeAll{
     CNeedTeleportItem   = "You need teleportation stone.",
 
     CAlreadyPressed     = "Somebody already pressed the button!",
+
+    -- Endgame victory screen and the message box shown after it.
+    GEndgameScreen      = "Splendid work! By sword or pact, you have broken Magnus's hold on Amber Island and "..
+                          "destroyed his infernal mist machine. The fog has lifted, the sea lanes are open, "..
+                          "and ships return to the harbor. At last, the island is free.",
+    GEndgamePopupBody   = "Thank you for playing Amber Island! I hope you enjoyed this mod as much as I enjoyed "..
+                          "creating it. Your victory screen has been saved as MM7_WIN.PCX. Share it on mod's "..
+                          "Discord channel!",
+    GEndgamePopupSign   = "- Henrik Chukhran, Creator of Amber Island.",
 }
 
 MercTxt                     = LocalizeAll{

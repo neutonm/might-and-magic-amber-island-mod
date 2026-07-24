@@ -102,6 +102,11 @@ function events.AfterLoadMap(WasInGame)
 
     local mapName = Game.Map.Name
 
+    -- Endgame text
+    Game.GlobalTxt[675] = ModTxt.GEndgameScreen
+    Game.GlobalTxt[118] = ModTxt.GEndgamePopupBody
+    Game.GlobalTxt[167] = ModTxt.GEndgamePopupSign
+
     -- Enable god mode in dev dungeon
     if mapName == "hub.blv" then
 
