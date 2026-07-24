@@ -138,7 +138,28 @@ function Editor.GUICommand(d, cmd, params)
 	CheckLastError()
 end
 
+local function SetSpriteDefaults(state)
+	if state and state.SpriteUniqueEventVersion ~= 2 then
+		for sprite in pairs(state.Sprites or {}) do
+			if type(sprite) == "table" then
+				if sprite.IsDefaultEvent ~= nil then
+					sprite.IsUniqueEvent = not sprite.IsDefaultEvent
+				elseif state.SpriteUniqueEventVersion == 1 and sprite.IsUniqueEvent ~= nil then
+					sprite.IsUniqueEvent = not sprite.IsUniqueEvent
+				elseif sprite.IsUniqueEvent == nil then
+					sprite.IsUniqueEvent = false
+				end
+				sprite.IsDefaultEvent = nil
+			end
+		end
+		state.SpriteDefaultEventVersion = nil
+		state.SpriteUniqueEventVersion = 2
+	end
+	return state
+end
+
 function Editor.SetState(state)
+	SetSpriteDefaults(state)
 	Editor.State = state
 	Editor.StateSync = false
 	Editor.UpdateSelectionState(true)
@@ -335,7 +356,7 @@ function Commands.Open(name)
 	Editor.ClearSelection()
 	name = memstr(name)
 	Editor.FileName = name
-	Editor.State = unpersist(io.LoadString(name))
+	Editor.State = SetSpriteDefaults(unpersist(io.LoadString(name)))
 	Editor.StateSync = false
 	Editor.ClearUndoStack()
 	Editor.NeedStateSync()

@@ -109,6 +109,7 @@ const.SpriteBits = {
 	IsChest = 0x0010,
 	Invisible = 0x0020,
 	[mmver == 6 and "IsShip" or "IsObeliskChest"] = 0x0040,
+	IsUniqueEvent = 0x0080,
 }
 
 MakeBitsDefiner("ChestBits")

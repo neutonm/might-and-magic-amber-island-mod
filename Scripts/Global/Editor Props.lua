@@ -990,6 +990,7 @@ local SpriteProps = MakeProps{
 	"Index",
 	mm7 "Id",
 	"Event",
+	"IsUniqueEvent",
 	"TriggerRadius",
 	"TriggerByTouch",
 	"TriggerByMonster",
@@ -1900,7 +1901,7 @@ local function UpdateProps(t, sel, props, SetProp)
 end
 
 local capN = internal.DebugConsoleCharsInLine()
-local capStart = ("—"):rep(capN).."\n"
+local capStart = ("-"):rep(capN).."\n"
 local capEnd = "\n"..("-"):rep(capN).."\n"
 
 function Editor.EditProps(SpecialKind, ChestNum)

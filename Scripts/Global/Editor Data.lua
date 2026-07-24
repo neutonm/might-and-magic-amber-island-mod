@@ -890,6 +890,9 @@ local function AddMapSprite(t)
 end
 
 function Editor.CreateSprite(t)
+	if t.IsUniqueEvent == nil then
+		t.IsUniqueEvent = false
+	end
 	local sp = AddMapSprite(t)
 	rawset(sp, "?ptr", nil)
 	sp["?ptr"] = sp["?ptr"]  -- speed up
