@@ -17,6 +17,11 @@ Game.WinMapName             = "amber.odm"
 -- MMerge Improved Pathfinding module
 Game.ImprovedPathfinding    = true
 
+-- Correct left/right placement of local (world-positioned) sounds
+if Game.InvertLocalSoundPanning == nil then
+    Game.InvertLocalSoundPanning = true
+end
+
 function events.MenuAction(t)
 
     if t.Action == 54 then
