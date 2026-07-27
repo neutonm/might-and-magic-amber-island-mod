@@ -3165,6 +3165,36 @@ Quest{
 -- Cedrick Boyce (Town)
 QuestNPC            =   530
 
+local ArenaTravelCooldown = 4 * const.Day
+
+local function GetArenaTravelTimeLeft()
+    return math.max((vars.MiscAmberIsland.ArenaNextVisitTime or 0) - Game.Time, 0)
+end
+
+local function ShowArenaTravelCooldown(t)
+
+    local timeLeft
+    local amount, timeText
+
+    timeLeft = GetArenaTravelTimeLeft()
+
+    if timeLeft < const.Day then
+        amount      = math.max(1, math.ceil(timeLeft / const.Hour))
+        timeText    = string.format(
+            amount == 1 and t.Texts.CooldownHour or t.Texts.CooldownHours,
+            amount
+        )
+    else
+        amount      = math.ceil(timeLeft / const.Day)
+        timeText    = string.format(
+            amount == 1 and t.Texts.CooldownDay or t.Texts.CooldownDays,
+            amount
+        )
+    end
+
+    Message(string.format(t.Texts.Cooldown, timeText))
+end
+
 Greeting{
     "Ahoy there! Looking for a \01265523boat?\01200000 I can't go very far because of the mist nowadays, so "..
     "I'm just waiting for a chance to use my skills again."
@@ -3184,22 +3214,37 @@ NPCTopic{
     Topic           =   "Travel: Arena",
     NeverGiven      =   true,
     NeverDone       =   true,
-    CanShow         =   function(t) return vars.MiscAmberIsland.ArenaCounterStarted == false or evt.Cmp("Counter1", 24 * 5) == true end,
+    CanShow         =   function(t) return GetArenaTravelTimeLeft() == 0 end,
     Done            =   function(t)
-                            vars.MiscAmberIsland.ArenaCounterStarted = true
-                            evt.Set("Counter1", 0)
+                            vars.MiscAmberIsland.ArenaNextVisitTime = Game.Time + ArenaTravelCooldown
                             evt.MoveToMap{
-                                X = 3840, Y = 2880, Z = 192,
-                                Direction = 1536, LookAngle = 0, SpeedZ = 0,
-                                HouseId = 0, Icon = 0, Name = "D05.blv"}
+                                X           = 3840,
+                                Y           = 2880,
+                                Z           = 192,
+                                Direction   = 1536,
+                                LookAngle   = 0,
+                                SpeedZ      = 0,
+                                HouseId     = 0,
+                                Icon        = 0,
+                                Name        = "D05.blv"
+                            }
                         end
 }
 
 NPCTopic{
     Slot            =   B,
-    Topic           =   "Travel: Arena",
-    Text            =   "Sorry, but the arena is currently closed and will reopen in 24 hours. Please come back later.",
-    CanShow         =   function(t) return vars.MiscAmberIsland.ArenaCounterStarted == true and evt.Cmp("Counter1", 24 * 5) == false end,
+    Texts           =
+    {
+        Topic           =   "Travel: Arena",
+        Cooldown        =   "Sorry, but the arena is currently closed. It will reopen in "..
+                            "\01265523%s\01200000. Please come back later.",
+        CooldownDay     =   "%d day",
+        CooldownDays    =   "%d days",
+        CooldownHour    =   "%d hour",
+        CooldownHours   =   "%d hours",
+    },
+    Ungive          =   function(t) ShowArenaTravelCooldown(t) end,
+    CanShow         =   function(t) return GetArenaTravelTimeLeft() ~= 0 end,
 }
 
 NPCTopic{
@@ -3218,9 +3263,16 @@ NPCTopic{
                             end
 
                             evt.MoveToMap{
-                                X = 19868, Y = 22474, Z = 10,
-                                Direction = 1378, LookAngle = 0, SpeedZ = 0,
-                                HouseId = 192, Icon = 1, Name = "amber-east.odm"}
+                                X           = 19868,
+                                Y           = 22474,
+                                Z           = 10,
+                                Direction   = 1378,
+                                LookAngle   = 0,
+                                SpeedZ      = 0,
+                                HouseId     = 192,
+                                Icon        = 1,
+                                Name        = "amber-east.odm"
+                            }
                         end
 }
 

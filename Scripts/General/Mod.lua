@@ -168,7 +168,7 @@ function events.BeforeNewGameAutosave()
         vars.MiscAmberIsland = {
             BulkCurePotionSale      = true,     -- Jane Goodwin, 8x cure potion for 500g
             BulkManaPotionSale      = true,     -- Jane Goodwin, 8x mana potion for 500g
-            ArenaCounterStarted     = false,    -- Arena cooldown (Cedrick Boyce) (0 = ready)
+            ArenaNextVisitTime      = 0,        -- Arena cooldown (Cedrick Boyce), stored as absolute game time
             LuckyCoinSpawn          = false,    -- Workaround fix for spawned coin falling through roof
             ArchmageEscapedHideout  = 0,        -- Story Quest: Secret Hideout. Plot phase.
             AttackOnCastleAmber     = 0,        -- Story Quest: The Mist. Launch knight attack upon goblins.
