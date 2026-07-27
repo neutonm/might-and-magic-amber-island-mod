@@ -61,7 +61,16 @@ local SecretHideoutKeyItemID        = 667
 
 function events.AfterLoadMap(WasInGame)
 
-    evt.SetNPCGroupNews(38, 42)
+    -- Short response from peasants and guards
+    if vars.Quests.StoryQuest3 == "Done" then
+        evt.SetNPCGroupNews(36, 44)
+        evt.SetNPCGroupNews(38, 45)
+        evt.SetNPCGroupNews(39, 45)
+    else
+        evt.SetNPCGroupNews(36, 40)
+        evt.SetNPCGroupNews(38, 42)
+        evt.SetNPCGroupNews(39, 43)
+    end
 
     if vars.MiscAmberIsland.ArchmageEscapedHideout >= 1 then
 
@@ -145,6 +154,8 @@ function events.AfterLoadMap(WasInGame)
             local mon = SummonMonster(206, guard.X , guard.Y, guard.Z, true)
             mon.Group = 39
         end
+
+        evt.SetNPCGroupNews(39, 43)
     end
 end
 

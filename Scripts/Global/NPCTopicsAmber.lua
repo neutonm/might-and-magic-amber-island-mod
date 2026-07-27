@@ -172,6 +172,10 @@ KillMonstersQuest{
                             -- "Saved Amber Island from Magnus the Archmage"
                             evt.Add("Awards", 105)
                             evt.Subtract("Reputation", 10)
+
+                            -- peasants and guards are happy
+                            evt.SetNPCGroupNews(36, 44)
+                            evt.SetNPCGroupNews(38, 45)
                         end,
     CanShow         =   function(t)
                             return vars.Quests.StoryQuest3 == "Done" and vars.QuestsCore.ArchmageState ~= 2
@@ -299,6 +303,10 @@ NPCTopic{
                             -- "Saved Amber Island from Magnus the Archmage"
                             evt.Add("Awards", 105)
                             evt.Subtract("Reputation", 10)
+
+                            -- peasants and guards are happy
+                            evt.SetNPCGroupNews(36, 44)
+                            evt.SetNPCGroupNews(38, 45)
                         end,
 }
 

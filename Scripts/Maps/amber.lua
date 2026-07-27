@@ -382,9 +382,14 @@ end
 
 function events.AfterLoadMap(WasInGame)
 
-    --MakeHostile(265,267) -- Lizards
-    evt.SetNPCGroupNews(36, 40)
-    evt.SetNPCGroupNews(38, 42)
+    -- Short response from peasants and guards
+    if vars.Quests.StoryQuest3 == "Done" then
+        evt.SetNPCGroupNews(36, 44)
+        evt.SetNPCGroupNews(38, 45)
+    else
+        evt.SetNPCGroupNews(36, 40)
+        evt.SetNPCGroupNews(38, 42)
+    end
 
     local X = IsWarrior() and -3935 or -3676
     local Y = IsWarrior() and 4758  or 6053
