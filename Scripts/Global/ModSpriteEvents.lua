@@ -17,6 +17,8 @@ local ChallengePedestal  = {
     dec63 = true,
 }
 
+local FruitPlate        = "dec08"
+
 TrashHeapHint = TrashHeapHint.GameName:gsub("^%l", string.upper)
 
 local function NullEvent(EvtId)
@@ -24,16 +26,10 @@ local function NullEvent(EvtId)
     -- No challenge contest feature
 end
 
-local function InitTrashHeap(i, a)
+local function InitSprite(i, a, funcEvent, hintStr)
     a.Event                     = SpriteEvents + i
-    evt.map[SpriteEvents + i]   = NullEvent
-    evt.hint[SpriteEvents + i]  = TrashHeapHint
-end
-
-local function InitChallengePedestal(i, a)
-    a.Event                     = SpriteEvents + i
-    evt.map[SpriteEvents + i]   = NullEvent
-    evt.hint[SpriteEvents + i]  = ModTxt.CNull
+    evt.map[SpriteEvents + i]   = funcEvent and funcEvent   or NullEvent
+    evt.hint[SpriteEvents + i]  = hintStr   and hintStr     or ModTxt.CNull
 end
 
 ------------------------------------------------------------------------------
@@ -45,9 +41,13 @@ function events.LoadMap()
 
         if not a.IsUniqueEvent then
             if TrashHeapSprites[a.DecName] then
-                InitTrashHeap(i, a)
+                InitSprite(i, a, NullEvent, TrashHeapHint)
             elseif ChallengePedestal[a.DecName] then
-                InitChallengePedestal(i, a)
+                InitSprite(i, a)
+            elseif a.DecName == FruitPlate then
+                if IsWarrior() then
+                    InitSprite(i, a)
+                end
             end
         end
     end
