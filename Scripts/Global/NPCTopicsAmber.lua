@@ -2159,14 +2159,14 @@ Quest{
 QuestNPC            =   506
 
 Greeting{
-    "I'm an amateur glassworker. I can sell you \01265523empty flasks\01200000 for your alchemical needs for 25g.",
+    "I'm an amateur glassworker. I can sell you \01265523empty flasks\01200000 for your alchemical needs for 5g.",
 }
 
 Quest{
     Slot            =   A,
     Texts           =
     {
-        Topic       =   "Buy: Empty Flask for 25g",
+        Topic       =   "Buy: Empty Flask (5g)",
         Done        =   "Though I'm still mastering my craft, this flask is made to withstand the rigors of "..
                         "alchemy. Thank you for your purchase.",
         Undone      =   "I'm sorry, but even though it's quite affordable, I must ask for the full price. "..
@@ -2174,7 +2174,7 @@ Quest{
     },
     NeverGiven      =   true,
     NeverDone       =   true,
-    QuestGold       =   25,
+    QuestGold       =   5,
     RewardItem      =   220,
 }
 ------------------------------------------------------------------------------
