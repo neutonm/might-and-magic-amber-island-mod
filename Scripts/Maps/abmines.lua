@@ -58,6 +58,15 @@ function events.LoadMap()
             evt.SetTexture(21 + i, "Cwb1")
         end
     end
+
+    -- Prevent monster infighting
+    LocalHostileTxt()
+	for attacker = 1, (#Game.HostileTxt-1) do
+        for target = 16, 19 do
+            Game.HostileTxt[attacker][target] = 0
+            Game.HostileTxt[target][attacker] = 0
+        end
+    end
 end
 
 function events.AfterLoadMap(WasInGame)
