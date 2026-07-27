@@ -687,6 +687,7 @@ evt.map[42]         = function()
         monster.Attack1.DamageAdd   = IsWarrior() and 15 or 8
         monster.Attack1.Missile     = IsWarrior() and 0 or 3
         monster.Special             = 0
+        monster.EarthResistance     = 0
 
         if IsWarrior() then
             for _, pl in Party do
