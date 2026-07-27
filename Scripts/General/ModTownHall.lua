@@ -465,10 +465,21 @@ function events.MonsterKilled(mon, monIndex, defaultHandler)
             if TownHall_IsBountyOutdated(v) then
                 TownHall_FailBounty(v)
             else
+                local scaleBonus
+
                 vars.TownHallAccumulatedBounty  = vars.TownHallAccumulatedBounty + state.Bounty 
 
                 state.BountyStatus              = const.TownHall.BountyStatus.Success
                 state.BountyTimeCompleted       = Game.Time
+
+                scaleBonus = TownHall_ResolveWarriorValue(v.BountyScaleBonus, v.BountyScaleBonusW)
+                --Party.AddKillExp(math.floor(mon.Experience * scaleBonus))
+                evt.All.Add("Exp", math.floor(mon.Experience * scaleBonus))
+
+                mon:ShowSpellEffect()
+                evt.PlaySound(201,Party.X,Party.Y)      -- sfx: tip
+                Sleep(5)
+                evt.PlaySound(12080,Party.X,Party.Y)    -- sfx: town portal
 
                 break
             end
