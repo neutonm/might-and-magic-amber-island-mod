@@ -58,3 +58,16 @@ NPCTopic{
 	GetTopic    =   function(t) return string.format("Heal party (%d food)", GetSafeRoomHealFoodPrice()) end,
 	Ungive      =   function(t) SafeRoomHealParty() end
 }
+
+QuestNPC        =   551
+
+Greeting{
+	"Though weather-beaten and patched in places, this abandoned tent still offers welcome shelter. Inside, dry bedrolls and the remains of a small fire make it a suitable place to share provisions, tend wounds, and recover your strength.",
+}
+
+NPCTopic{
+    Slot        =   A,
+    Branch      =   "",
+	GetTopic    =   function(t) return string.format("Heal party (%d food)", GetSafeRoomHealFoodPrice()) end,
+	Ungive      =   function(t) SafeRoomHealParty() end
+}

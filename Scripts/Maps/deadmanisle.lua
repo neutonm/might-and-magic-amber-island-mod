@@ -147,7 +147,7 @@ end
 -- Tent (Safe Room)
 evt.hint[22]        = ModTxt.CTent
 evt.map[22]         = function()
-    evt.EnterHouse(581)
+    evt.EnterHouse(585)
 end
 
 -- Boat
