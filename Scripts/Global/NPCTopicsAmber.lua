@@ -128,7 +128,9 @@ Quest{
                         "concentrated around Castle Amber, but now it just seems obvious. We must prepare for "..
                         "the next move.",
         Undone      =   "Time is of the essence. With the information we have on Magnus's location, we must "..
-                        "act swiftly and \01265523capture him\01200000 before he slips away again.",
+                        "act swiftly and \01265523capture him\01200000 before he slips away again.\n\n"..
+                        "\01265523Interrogate Barnaby Whitfield\01200000, Archmage's butler. He may reveal the information we need to advance our pursuit. You can "..
+                        "find him in the town \01265523jail\01200000.",
         Quest       =   "\"Story: Secret Hideout\"\nMayor Maximus, Amber Island, Town Hall\n\nHunt down "..
                         "Magnus in his secret hideout. Use the teleportation platform near the knight's camp "..
                         "in the swamp to get there.",
