@@ -478,6 +478,24 @@ function Merc_GetSaveDataByID(mercID)
     return nil
 end
 
+function Merc_InitSaveData()
+
+    for _, Merc in pairs(MercsDB) do
+        local SaveData = table.copy(SMercSaveData)
+        SaveData.NPC_ID = Merc.NPC_ID
+        SaveData.FightsLeft = Merc.FightsMax[1] or SMercSaveData.FightsLeft
+        table.insert(vars.MercSaveDataList, SaveData)
+    end
+
+    if Game.Debug == true then
+        for _, Merc in pairs(MercsDB) do
+            Merc_MakeAvailableForHire(Merc.NPC_ID)
+        end
+    else
+        Merc_MakeAvailableForHire(525) -- Warder
+    end
+end
+
 -- For timer callback
 function Merc_ResetChargesForAllMercs()
 
@@ -571,7 +589,6 @@ end
 
 function events.BeforeLoadMap(WasInGame, WasLoaded)
 
-    -- Note: Such way of declaring stuff fixes newgame/autosave bug
     -- Mercs: Available for Hire (Discovered mercs)
     if vars.MercNPCAvailableList == nil then
         vars.MercNPCAvailableList = {}
@@ -604,25 +621,20 @@ function events.BeforeLoadMap(WasInGame, WasLoaded)
         end
     end
 
-    if not WasInGame and not WasLoaded then
-
-        -- Fill Savedata list
-        for _, Merc in pairs(MercsDB) do
-            local SaveData = table.copy(SMercSaveData)
-            SaveData.NPC_ID = Merc.NPC_ID
-            SaveData.FightsLeft = Merc.FightsMax[1] or SMercSaveData.FightsLeft
-            table.insert(vars.MercSaveDataList, SaveData)
-        end
-
-        -- Default available mercs
-        if Game.Debug == true then
-            for _, v in pairs(MercsDB) do
-                Merc_MakeAvailableForHire(v.NPC_ID) -- all of them
-            end
-        else
-            Merc_MakeAvailableForHire(525) -- Warder
-        end
+    -- Compatibility with initial autosaves made before this fix.
+    if #vars.MercSaveDataList == 0 then
+        Merc_InitSaveData()
     end
+end
+
+function events.BeforeNewGameAutosave()
+
+    vars.MercNPCAvailableList = {}
+    vars.MercNPCHiredList     = {}
+    vars.MercNPCLostList      = {}
+    vars.MercSaveDataList     = {}
+
+    Merc_InitSaveData()
 end
 
 function events.AfterMonsterAttacked(t, attacker)
