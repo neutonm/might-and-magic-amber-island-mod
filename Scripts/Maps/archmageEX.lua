@@ -358,9 +358,9 @@ end
 
 -- Floor outside entrance to the "Archmage Residence"
 -- Open door in case player managed to get to archmageres first
-evt.hint[58]        = ModTxt.СNull
+evt.hint[58]        = ModTxt.CNull
 evt.map[58]         = function()
-    evt.SetDoorState{Id = 10, State = 2}
+    evt.SetDoorState{Id = 10, State = 0}
     evt.SetFacetBit(1, const.FacetBits.Untouchable, true)
 end
 
