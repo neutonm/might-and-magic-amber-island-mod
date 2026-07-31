@@ -8,6 +8,7 @@ Game.MapEvtLines.Count = 0
 -- Double Door
 evt.hint[1]         = ModTxt.CDoor
 evt.map[1]          = function()
+
     evt.MoveToMap{
         X           = -15484,
         Y           = -21868,
@@ -131,4 +132,39 @@ evt.map[8]          = function()
         Icon        = 1,
         Name        = "amber-east.odm"
     }
+end
+
+-- Skull
+evt.hint[9]         = ModTxt.CTrigger
+evt.map[9]          = function()
+    Party.QBits[99] = true
+    SuppressSound(true)
+    while Game.CurrentScreen ~= 0 do
+        Game.Actions.Add(113, 1)
+        Game.Actions.Process()
+    end
+    SuppressSound(false)
+    evt.EnterHouse(600)
+end
+
+-- Cage
+evt.hint[10]        = ModTxt.CTrigger
+evt.map[10]         = function()
+    evt.MoveToMap{
+        X           = 0,
+        Y           = 0,
+        Z           = 1,
+        Direction   = 512,
+        LookAngle   = 0,
+        SpeedZ      = 0,
+        HouseId     = 0,
+        Icon        = 0,
+        Name        = "dev.odm"
+    }
+end
+
+-- Statuette
+evt.hint[11]        = ModTxt.CChest
+evt.map[11]         = function()
+    evt.OpenChest(0)
 end
