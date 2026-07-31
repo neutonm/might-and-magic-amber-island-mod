@@ -11,6 +11,21 @@ local function mm78(...)
 	return (select(mmver - 5, nil, ...))
 end
 
+local function MapEntityDifficultyType(int, bits)
+	return function(o, obj, _, val)
+		local p = obj["?ptr"] + o
+		if val == nil then
+			local ret = int[p]:And(bits.Mask)/bits.Step
+			return ret <= const.MapEntityDifficulty.Adventurer and ret or const.MapEntityDifficulty.Both
+		end
+		val = tonumber(val) or const.MapEntityDifficulty.Both
+		assert(val == floor(val) and val >= const.MapEntityDifficulty.Both and
+			val <= const.MapEntityDifficulty.Adventurer,
+			"Difficulty must be const.MapEntityDifficulty.Both, Warrior or Adventurer")
+		int[p] = int[p]:AndNot(bits.Mask) + val*bits.Step
+	end
+end
+
 local _KNOWNGLOBALS = BinarySearch, Game, Party, Map, Mouse, HelpStructs,
 	IndoorOutlineLimit, IndoorVisibleOutlinesPtr
 
@@ -1391,6 +1406,12 @@ function structs.f.MapMonster(define)
 	.goto(0x24)  internal.MonsterBits(define)
 	[0x24].u4  'Bits'
 	 .Info{Type = "const.MonsterBits"}
+	if mmver == 7 then
+		define[0x24].CustomType('Difficulty', 0,
+			MapEntityDifficultyType(u4, const.MapEntityDifficultyBits.Monster))
+		 .Info{Type = "const.MapEntityDifficulty"}
+	end
+	define
 	[0x28].alt.i2  'HP'
 	[0x28].i2  'HitPoints'
 	.goto(0x2C)  CommonMonsterProps(define)
@@ -1903,6 +1924,12 @@ function structs.f.MapObject(define)
 	[0x1a].bit('Missile', 0x0100)  -- item field contains the launching weapon
 	[0x1a].bit('Removed', 0x0200)  -- item was removed
 	[0x1a].u2  'Bits'
+	if mmver == 7 then
+		define[0x1a].CustomType('Difficulty', 0,
+			MapEntityDifficultyType(u2, const.MapEntityDifficultyBits.Object))
+		 .Info{Type = "const.MapEntityDifficulty"}
+	end
+	define
 	[0x1c].i2  'Room'
 	[0x1e].i2  'Age'
 	[0x20].i2  'MaxAge'
@@ -1976,6 +2003,12 @@ function structs.f.MapSprite(define)
 	.goto(0x2) internal.SpriteBits(define)
 	[0x2].u2  'Bits'  -- attributes
 	 .Info{Type = "const.SpriteBits"}
+	if mmver == 7 then
+		define[0x2].CustomType('Difficulty', 0,
+			MapEntityDifficultyType(u2, const.MapEntityDifficultyBits.Sprite))
+		 .Info{Type = "const.MapEntityDifficulty"}
+	end
+	define
 	[0x4].array(3).i4  'Pos'
 	[0x4].i4  'X'
 	[0x8].i4  'Y'
@@ -2358,6 +2391,11 @@ function structs.f.SpawnPoint(define)
 	 .Info "Index: monster (1-3: M1-M3,  4-6: M1a-M3a,  7-9: M1b-M3b,  10-12: M1c-M3c) or item (1-6 for regular items, 7 for artifact)"
 	[0x12].bit('OnAlertMap', 1)
 	[0x12].u2  'Bits'  -- Attributes
+	if mmver == 7 then
+		define[0x12].CustomType('Difficulty', 0,
+			MapEntityDifficultyType(u2, const.MapEntityDifficultyBits.Spawn))
+		 .Info{Type = "const.MapEntityDifficulty"}
+	end
 	if mmver > 6 then
 		define
 		[0x14].i4  'Group'  -- Group

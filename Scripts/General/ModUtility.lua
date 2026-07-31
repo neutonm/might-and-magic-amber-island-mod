@@ -4,8 +4,13 @@ Author:         Henrik Chukhran, 2022 - 2026
 ]]
 
 function GetDifficulty()
-    if vars.Difficulty == nil then
+    if internal.PendingNewGameDifficulty ~= nil then
+        return internal.PendingNewGameDifficulty
+    end
+
+    if vars == nil or vars.Difficulty == nil then
         debug.Message("Shouldn't be null")
+        return Game.SelectedDifficulty or 0
     end
 
     return vars.Difficulty

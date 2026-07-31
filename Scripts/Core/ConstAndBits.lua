@@ -112,6 +112,24 @@ const.SpriteBits = {
 	IsUniqueEvent = 0x0080,
 }
 
+-- Controls whether an editor-authored map entity is available on a difficulty.
+-- The values are stored in otherwise unused bits of the corresponding MM7 map
+-- structures.  Zero is deliberately "Both" so existing maps remain compatible.
+const.MapEntityDifficulty = {
+	Both = 0,
+	Warrior = 1,     -- Warrior only
+	Adventurer = 2,  -- Adventurer only
+}
+
+-- MM7-only storage.  The monster range sits immediately below the custom
+-- IsMercenary bit; the sprite, object and spawn ranges are above native flags.
+const.MapEntityDifficultyBits = {
+	Sprite = {Mask = 0x00000300, Step = 0x00000100},
+	Monster = {Mask = 0x30000000, Step = 0x10000000},
+	Object = {Mask = 0x00000C00, Step = 0x00000400},
+	Spawn = {Mask = 0x00000006, Step = 0x00000002},
+}
+
 MakeBitsDefiner("ChestBits")
 const.ChestBits = {
 	Trapped = 1,

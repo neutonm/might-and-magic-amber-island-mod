@@ -63,6 +63,11 @@ local function FindConst(name, v)
 	return a and "const."..name.."."..a
 end
 
+local function IsMapEntityDifficulty(v)
+	return v == nil or type(v) == "number" and v == floor(v) and
+		v >= const.MapEntityDifficulty.Both and v <= const.MapEntityDifficulty.Adventurer
+end
+
 local function GetFromArray(arr, n, name)
 	if n >= arr.low and n <= arr.high then
 		return (name and arr[n][name] or arr[n])
@@ -999,6 +1004,7 @@ local SpriteProps = MakeProps{
 	"IsChest",
 	"Invisible",
 	mmver == 6 and "IsShip" or "IsObeliskChest",
+	mm7 "Difficulty",
 
 	IndexList = "Sprites",
 	
@@ -1013,10 +1019,13 @@ local SpriteProps = MakeProps{
 		if ret == nil and prop ~= "DecName" then
 			ret = not const.SpriteBits[prop] and 0
 		end
-		return ret
+		return ret, prop == "Difficulty" and FindConst("MapEntityDifficulty", ret)
 	end,
 
 	set = function(id, prop, val)
+		if prop == "Difficulty" and not IsMapEntityDifficulty(val) then
+			return
+		end
 		local a, t = Map.Sprites[id], Editor.Sprites[id + 1]
 		AddUndoProp(id, prop, t[prop])
 		t[prop] = val
@@ -1136,6 +1145,7 @@ local SpawnProps = MakeProps{
 	"Radius",
 	mm7 "Group",
 	mm7 "OnAlertMap",
+	mm7 "Difficulty",
 	
 	get = function(id, prop, dispVal)
 		local a = Editor.Spawns[id + 1]
@@ -1150,10 +1160,14 @@ local SpawnProps = MakeProps{
 		end
 		local ret = a[prop] or prop ~= "OnAlertMap" and 0
 		local comment = (prop == "Group" and ret > 0 and ReadLodTextTable("npcgroup.txt", ret + 2, 4))
-		return ret, comment and ("%s%s (%s)"):format(ret, COMMENT, comment) or nil
+		local retVal = prop == "Difficulty" and FindConst("MapEntityDifficulty", ret)
+		return ret, retVal or comment and ("%s%s (%s)"):format(ret, COMMENT, comment) or nil
 	end,
 
 	set = function(id, prop, val)
+		if prop == "Difficulty" and not IsMapEntityDifficulty(val) then
+			return
+		end
 		local t = Editor.Spawns[id + 1]
 		if prop == "Kind" then
 			AddUndoProp(id, prop, CurrentProps.get(id, prop))
@@ -1202,6 +1216,7 @@ local IsObjectSelfProp = {
 	X = true,
 	Y = true,
 	Z = true,
+	Difficulty = mmver == 7 or nil,
 	-- Visible = true,
 }
 
@@ -1216,6 +1231,7 @@ local ObjectProps = MakeProps{
 	"X",
 	"Y",
 	"Z",
+	mm7 "Difficulty",
 	"Bonus",
 	"BonusStrength",
 	"Bonus2",
@@ -1244,10 +1260,14 @@ local ObjectProps = MakeProps{
 		elseif prop == "Number" and ret > 0 then
 			comment = GetFromArray(Game.ItemsTxt, ret, 'Name')
 		end
-		return ret, comment and ("%s%s (%s)"):format(ret, COMMENT, comment)
+		local retVal = prop == "Difficulty" and FindConst("MapEntityDifficulty", ret)
+		return ret, retVal or comment and ("%s%s (%s)"):format(ret, COMMENT, comment)
 	end,
 
 	set = function(id, prop, val)
+		if prop == "Difficulty" and not IsMapEntityDifficulty(val) then
+			return
+		end
 		local a, t = Map.Objects[id], Editor.Objects[id + 1]
 		if IsObjectSelfProp[prop] then
 			AddUndoProp(id, prop, t[prop])
@@ -1411,6 +1431,7 @@ local MonsterProps = MakeProps{
 	"Invisible",
 	mm7 "OnAlertMap",
 	"ShowOnMap",
+	mm7 "Difficulty",
 	"Fly",
 	"MoveType",
 	"MoveSpeed",
@@ -1529,6 +1550,8 @@ local MonsterProps = MakeProps{
 				comment = GetFromArray(Game.NPCDataTxt, ret, 'Name')
 			elseif prop == "NameId" and ret > 0 then
 				comment = GetFromArray(Game.PlaceMonTxt, ret)
+			elseif prop == "Difficulty" then
+				retVal = FindConst("MapEntityDifficulty", ret)
 			elseif prop == "TreasureItemType" then
 				retVal = FindConst("ItemType", ret)
 			elseif prop == "Spell" or prop == "Spell2" then
@@ -1546,6 +1569,9 @@ local MonsterProps = MakeProps{
 
 	set = function(id, prop, val)
 		local a, t = Map.Monsters[id], Editor.Monsters[id + 1]
+		if prop == "Difficulty" and not IsMapEntityDifficulty(val) then
+			return
+		end
 
 		local function IsDef(vals, def)  -- checks that given values make it inactive or invalid
 			for k, v in pairs(def or {}) do

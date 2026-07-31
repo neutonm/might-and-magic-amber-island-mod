@@ -54,6 +54,7 @@ function CallDifficultySelector()
                                 o.State = not o.State and "Oops" or nil
                                 ClickedOnExit = 0
                                 Game.SelectedDifficulty = 0
+                                internal.PendingNewGameDifficulty = 0
                             end,
             Action      =   const.Actions.Exit,
             Key         =   const.Keys.LEFT
@@ -74,6 +75,7 @@ function CallDifficultySelector()
                                 o.State = not o.State and "Oops" or nil
                                 ClickedOnExit = 0
                                 Game.SelectedDifficulty = 1
+                                internal.PendingNewGameDifficulty = 1
                             end,
             Action      =   const.Actions.Exit,
             Key         =   const.Keys.RIGHT
@@ -126,9 +128,10 @@ function events.MenuAction(t)
     -- Difficulty selection screen reaction for 'ESC'
     if t.Action == 113 then
         if ClickedOnExit > 0 then
+            internal.PendingNewGameDifficulty = nil
             DoGameAction(const.Actions.Exit,0,0,false)
-            ClickedOnExit = ClickedOnExit - 1
-            ClickedOnNewGame = 0
+            ClickedOnExit       = ClickedOnExit - 1
+            ClickedOnNewGame    = 0
         end
     end
 end

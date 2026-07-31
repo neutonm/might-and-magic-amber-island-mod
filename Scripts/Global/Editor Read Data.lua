@@ -502,6 +502,7 @@ local SpriteProps = table.copy(const.SpriteBits, {
 	Id = true,
 	Event = true,
 	TriggerRadius = true,
+	Difficulty = mmver == 7 or nil,
 })
 
 local function ReadSprite(a, t)
@@ -556,6 +557,7 @@ local SpawnProps = {
 	Index = true,
 	-- Bits
 	OnAlertMap = true,
+	Difficulty = mmver == 7 or nil,
 	-- MM7
 	Group = true,
 }
@@ -888,6 +890,7 @@ local ObjectProps = {
 	X = true,
 	Y = true,
 	Z = true,
+	Difficulty = mmver == 7 or nil,
 	-- Visible = true,
 }
 
@@ -948,6 +951,7 @@ local MonsterProps = {
 	ShowOnMap = true,
 	Invisible = true,
 	NoFlee = true,
+	Difficulty = mmver == 7 or nil,
 	
 	Attack1 = MonsterAttackProps,
 	Attack2 = MonsterAttackProps,

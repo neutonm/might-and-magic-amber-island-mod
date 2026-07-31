@@ -136,7 +136,8 @@ end
 function events.BeforeNewGameAutosave()
 
     -- Difficulty
-    vars.Difficulty = Game.SelectedDifficulty
+    vars.Difficulty = internal.PendingNewGameDifficulty or Game.SelectedDifficulty
+    internal.PendingNewGameDifficulty = nil
 
     -- Amber Island Variables
     if vars.QuestsCore == nil then

@@ -1594,6 +1594,7 @@ local ObjectProps = {
 	X = true,
 	Y = true,
 	Z = true,
+	Difficulty = mmver == 7 or nil,
 	-- Visible = true,
 }
 
@@ -1666,6 +1667,9 @@ local function WriteMonster(a, t, CompileFile)
 	rawset(a, "?ptr", nil)
 	a["?ptr"] = a["?ptr"]  -- speed up
 	WriteMonProps(a, t, Editor.MonsterProps, "")
+	if mmver == 7 then
+		a.Difficulty = t.Difficulty or const.MapEntityDifficulty.Both
+	end
 	a.HP = a.FullHitPoints
 	a.Velocity = a.MoveSpeed
 	a.AIState = t.Invisible and const.AIState.Invisible or nil
