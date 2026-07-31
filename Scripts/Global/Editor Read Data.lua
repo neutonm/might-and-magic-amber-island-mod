@@ -869,15 +869,44 @@ local ChestProps = {
 	Identified = true,
 }
 
+local ChestWarriorBits = const.ChestWarriorItemsBits
+local ChestWarriorTrappedBits = const.ChestWarriorTrappedBits
+
 local function ReadChest(a, t)
 	for k in pairs(ChestProps) do
 		t[k] = a[k]
 	end
 	t.Items = {}
-	for _, it in a.Items do
+
+	local hasWarriorItems = a.Bits:And(ChestWarriorBits.Flag) ~= 0
+	local warriorCount = hasWarriorItems and
+		a.Bits:And(ChestWarriorBits.CountMask)/ChestWarriorBits.CountStep or 0
+	if warriorCount > 140 then
+		warriorCount = 0
+		hasWarriorItems = false
+	end
+	local defaultLast = 140 - warriorCount
+	local di = a.Items.low - 1
+	for i = 1, defaultLast do
+		local it = a.Items[i + di]
 		if it.Number ~= 0 then
 			t.Items[#t.Items + 1] = ReadChestItem(it, {})
 		end
+	end
+
+	if hasWarriorItems then
+		t.ItemsWarrior = {}
+		local first = 141 - warriorCount
+		for i = first, 140 do
+			local it = a.Items[i + di]
+			if it.Number ~= 0 then
+				t.ItemsWarrior[#t.ItemsWarrior + 1] = ReadChestItem(it, {})
+			end
+		end
+	end
+
+	if a.Bits:And(ChestWarriorTrappedBits.Flag) ~= 0 then
+		t.TrappedWarrior = a.Bits:And(ChestWarriorTrappedBits.Value) ~= 0
 	end
 	return t
 end

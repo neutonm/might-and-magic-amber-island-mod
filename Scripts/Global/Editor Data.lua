@@ -1551,6 +1551,17 @@ local ChestProps = {
 	Identified = true,
 }
 
+local ChestWarriorBits = const.ChestWarriorItemsBits
+local ChestWarriorTrappedBits = const.ChestWarriorTrappedBits
+
+local function WriteChestItem(a, it)
+	if type(it) == "number" then
+		a.Number = it
+	else
+		table.copy(it, a, true)
+	end
+end
+
 local function WriteChest(a, t)
 	rawset(a, "?ptr", nil)
 	a["?ptr"] = a["?ptr"]  -- speed up
@@ -1559,17 +1570,42 @@ local function WriteChest(a, t)
 		a[k] = t[k]
 	end
 	t.Items = t.Items or {}
+	local warriorItems = t.ItemsWarrior
+	assert(type(t.Items) == "table", "Chest Items must be a table")
+	assert(warriorItems == nil or type(warriorItems) == "table",
+		"Chest ItemsWarrior must be a table or nil")
+
+	local defaultCount = #t.Items
+	local warriorCount = warriorItems and #warriorItems or 0
+	assert(defaultCount <= 140, "A chest can contain at most 140 default items")
+	assert(defaultCount + warriorCount <= 140,
+		("Chest has %d default and %d Warrior items; their combined maximum is 140")
+		:format(defaultCount, warriorCount))
+
 	local di = a.Items.low - 1  -- 0 since MMExt 2.2, -1 before
-	for i = 1, #t.Items do
-		if i <= 140 then
-			local it = t.Items[i]
-			if type(it) == "number" then
-				a.Items[i + di].Number = it
-			else
-				table.copy(it, a.Items[i + di], true)
-			end
-		else
-			t.Items[i] = nil
+	for i = 1, defaultCount do
+		WriteChestItem(a.Items[i + di], t.Items[i])
+	end
+
+	if warriorItems then
+		-- Pack the alternate table against the end of the native array.  It is
+		-- selected and moved to the front before the executable randomizes and
+		-- lays out chest contents.
+		local first = 141 - warriorCount
+		for i = 1, warriorCount do
+			WriteChestItem(a.Items[first + i - 1 + di], warriorItems[i])
+		end
+		a.Bits = a.Bits:Or(ChestWarriorBits.Flag)
+		a.Bits = a.Bits:AndNot(ChestWarriorBits.CountMask) +
+			warriorCount*ChestWarriorBits.CountStep
+	end
+
+	if t.TrappedWarrior ~= nil then
+		assert(type(t.TrappedWarrior) == "boolean",
+			"Chest TrappedWarrior must be true, false or nil")
+		a.Bits = a.Bits:Or(ChestWarriorTrappedBits.Flag)
+		if t.TrappedWarrior then
+			a.Bits = a.Bits:Or(ChestWarriorTrappedBits.Value)
 		end
 	end
 	a["?ptr"] = nil

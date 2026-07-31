@@ -1685,22 +1685,34 @@ local MonsterProps = MakeProps{
 local ChestProps = MakeProps{
 	"ChestPicture",
 	"Trapped",
+	"TrappedWarrior",
 	"Identified",
 	"Items",
+	"ItemsWarrior",
 	
 	get = function(id, prop)
 		local a = Editor.State.Chests[id + 1] or {}
-		if prop == "Items" then
+		if prop == "Items" or prop == "ItemsWarrior" then
+			local items = a[prop]
 			local t = {
-				dump(a.Items or {}),
+				dump(items or (prop == "Items" and {} or nil)),
 				'-- "{Number = -1}" or short form "-1" means level 1 item. Level 7 is artifact.',
 				"-- Properties: Number, Bonus, BonusStrength, Bonus2, Charges, MaxCharges",
 				"-- Bits: Identified, Broken",
 			}
-			if mmver >= 7 then
-				t[#t] = t[#t]..", Hardened, Stolen"
+			if prop == "Items" then
+				t[#t + 1] = "-- Default loot; also used in Warrior mode when ItemsWarrior is nil."
+			else
+				t[#t + 1] = "-- nil inherits Items; {} is an explicitly empty Warrior chest."
 			end
-			return a.Items, table.concat(t, "\n")
+			if mmver >= 7 then
+				t[4] = t[4]..", Hardened, Stolen"
+			end
+			return items, table.concat(t, "\n")
+		end
+		if prop == "TrappedWarrior" then
+			return a[prop], tostring2(a[prop])..
+				COMMENT.." nil inherits Trapped; true/false overrides it in Warrior mode"
 		end
 		return a[prop] or prop == "ChestPicture" and 0
 	end,

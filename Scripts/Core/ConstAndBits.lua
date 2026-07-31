@@ -135,6 +135,26 @@ const.ChestBits = {
 	Trapped = 1,
 	ItemsPlaced = 2,
 	Identified = 4,
+	-- Editor-authored chest contains an explicit Warrior loot table.  The
+	-- table itself is packed into the end of MapChest.Items until map load.
+	WarriorItems = 0x0008,
+	WarriorTrappedOverride = 0x1000,
+	WarriorTrapped = 0x2000,
+}
+
+-- Eight otherwise unused MapChest.Bits bits store the number of packed
+-- Warrior items.  A separate flag is required so an explicit empty Warrior
+-- table can be distinguished from inheriting the default Items table.
+const.ChestWarriorItemsBits = {
+	Flag = const.ChestBits.WarriorItems,
+	CountMask = 0x0FF0,
+	CountStep = 0x0010,
+}
+
+-- The override flag distinguishes an explicit false from inheriting Trapped.
+const.ChestWarriorTrappedBits = {
+	Flag = const.ChestBits.WarriorTrappedOverride,
+	Value = const.ChestBits.WarriorTrapped,
 }
 
 MakeBitsDefiner("MonsterBits")

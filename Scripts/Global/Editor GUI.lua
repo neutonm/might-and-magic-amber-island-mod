@@ -1536,20 +1536,25 @@ end
 
 function Commands.GetChestsList()
 	NeedFocus = false
+	local function CountItems(items)
+		local count = {0, 0, 0, 0, 0, 0; 0, 0}
+		for _, it in pairs(items or {}) do
+			it = type(it) == "number" and it or tonumber(it.Number) or 0
+			if it < 0 and it >= -7 then
+				count[-it] = count[-it] + 1
+			else
+				count[8] = count[8] + 1
+			end
+		end
+		return ("%s/%s/%s/%s/%s/%s A%s C%s"):format(unpack(count))
+	end
+
 	local all = {}
 	for i = 1, math.min(20, table.maxn(Editor.State.Chests) + 1) do
 		local a = Editor.State.Chests[i]
 		if a then
-			local count = {0, 0, 0, 0, 0, 0; 0, 0}
-			for i, it in pairs(a.Items or {}) do
-				it = type(it) == "number" and it or tonumber(it.Number) or 0
-				if it < 0 and it >= -7 then
-					count[-it] = count[-it] + 1
-				else
-					count[8] = count[8] + 1
-				end
-			end
-			all[#all + 1] = ("%s:\t%s/%s/%s/%s/%s/%s A%s C%s"):format(i - 1, unpack(count))
+			local warrior = a.ItemsWarrior == nil and "inherit" or CountItems(a.ItemsWarrior)
+			all[#all + 1] = ("%s:\tD %s | W %s"):format(i - 1, CountItems(a.Items), warrior)
 		else
 			all[#all + 1] = ("%s:\tNew Chest"):format(i - 1)
 		end
@@ -1571,10 +1576,18 @@ function Commands.EditChest(n)
 	Editor.EditProps("Chest", n)
 end
 
-function Commands.TestChest(n)
+function Commands.TestChest(n, warrior)
 	if Game.CurrentScreen == 0 and Editor.State.Chests[n + 1] then
+		-- Plain Test/T previews the default (Adventurer) table.  Holding Shift
+		-- while clicking Test or pressing T previews the Warrior table.
+		if warrior == nil then
+			warrior = Keys.IsPressed(const.Keys.SHIFT)
+		end
 		Map.Chests.Count = 1
 		Editor.WriteChest(Map.Chests[0], Editor.State.Chests[n + 1])
+		if internal.SelectDifficultyChestItems then
+			internal.SelectDifficultyChestItems(Map.Chests[0], warrior)
+		end
 		Map.Chests[0].Trapped = false
 		mem.call(mmv(0x456300, 0x450244, 0x44D96C), 0)
 		evt.OpenChest{Id = 0}
