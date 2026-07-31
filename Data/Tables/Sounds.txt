@@ -2685,3 +2685,7 @@ troll warrior Attack	8032	0	x
 troll warrior Death	8033	0	x
 troll warrior Wince	8034	0	x
 troll warrior Aware	8035	0	x
+juggeraut attk	8036	0	x
+juggeraut death	8037	0	x
+juggeraut wince	8038	0	x
+juggeraut aware	8039	0	x
