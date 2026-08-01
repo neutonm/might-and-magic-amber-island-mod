@@ -2693,3 +2693,7 @@ Cannibal_Attack	8040	0	x
 Cannibal_Die	8041	0	x
 Cannibal_Wince	8042	0	x
 Cannibal_Aware	0	0	x
+efreet attk	8044	0	x
+efreet death	8045	0	x
+efreet wince	8046	0	x
+efreet aware	8047	0	x
