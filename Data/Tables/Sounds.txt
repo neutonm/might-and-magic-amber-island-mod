@@ -2689,3 +2689,7 @@ juggeraut attk	8036	0	x
 juggeraut death	8037	0	x
 juggeraut wince	8038	0	x
 juggeraut aware	8039	0	x
+Cannibal_Attack	8040	0	x
+Cannibal_Die	8041	0	x
+Cannibal_Wince	8042	0	x
+Cannibal_Aware	0	0	x
