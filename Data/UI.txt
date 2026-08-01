@@ -1,6 +1,6 @@
 Command	X	Y	Width	Height	NewX	NewY	Click	Draw	Condition	Format	NewWidth	NewHeight	Canvas	NewCanvas	Comment
-default Options.Scale	1
-var Options.Scale	1								Options.Scale<=0	
+default Options.Scale	0
+var Options.Scale	0								Options.Scale<=0	
 default Options.PartyScale	1.11
 default Options.StatusbarScale	0
 default Options.StatusbarPlace	0
