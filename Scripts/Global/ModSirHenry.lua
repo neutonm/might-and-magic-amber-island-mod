@@ -36,6 +36,6 @@ NPCTopic{
     Slot    = D,
     Topic   = "Special Thanks!",
     Text    = "Big thanks to Sergey Rozhenko aka GrayFace for making wonderful tools such as MMEditor and MMExtension which made it possible to make this mod.\n\nI'd like to thank my first patreon supporterers - without you this wouldn't be possible at all: "..
-            "BVB, Alkapivo, Dr. Matt Barton, DakiMana, Rapscallion, FarOffNebula, Simply Be, Luc Nunya, Simon Poirot, Elric D, Outbox, Rabid_Wolverine, Mathias.\n\nSpecial thanks to Alkapivo for his long-time support, inspiring and motivational strong belief, and dedication to the project.\n\nExtra credits:\neksekk - for technical help\nBademus Octavian Juvenal - for concept and fan art\nDMStaley - for text reviews and contributions\n\nAlkapivo, Cayhen_, DMStaley, Eevee Chan, Malekith, Nak, Angstschweiss, Bunny, Loki, Singatias - for beta test participation."
+            "BVB, Alkapivo, Dr. Matt Barton, DakiMana, Rapscallion, FarOffNebula, Simply Be, Luc Nunya, Simon Poirot, Elric D, Outbox, Rabid_Wolverine, Mathias.\n\nSpecial thanks to Alkapivo for her long-time support, inspiring and motivational strong belief, and dedication to the project.\n\nExtra credits:\neksekk - for technical help\nBademus Octavian Juvenal - for concept and fan art\nDMStaley - for text reviews and contributions\n\nAlkapivo, Cayhen_, DMStaley, Eevee Chan, Malekith, Nak, Angstschweiss, Bunny, Loki, Singatias - for beta test participation."
 }
 

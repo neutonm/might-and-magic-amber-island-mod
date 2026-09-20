@@ -4,8 +4,8 @@
 return {
     name    = "Amber Island",
     game    = "mm7",
-    version = "v1.1.0",
+    version = "v1.1.1",
     author  = "Henrik Chukhran",
     website = "https://mightandmagicmod.com",
-    updated = "10.09.2025"
+    updated = "2026.08.01"
 }
